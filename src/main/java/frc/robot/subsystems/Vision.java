@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    * @author Madison J. and Zayd A.
    */
 public class Vision extends SubsystemBase {
-  
+
    public Vision() {
 
   }
