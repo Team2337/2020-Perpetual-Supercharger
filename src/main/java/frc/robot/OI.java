@@ -11,10 +11,14 @@ import frc.robot.nerdyfiles.controller.*;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.Vision.*;
 
-public class OI {
   /**
-   * Creates a new ExampleSubsystem.
+   * Binds the controls on the operator interface with the commands to control the limelight
    */
+public class OI {
+
+  /*
+	 * Controllers
+	 */
   public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
   public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
   public NerdyOperatorStation operatorControls = new NerdyOperatorStation(2);
@@ -24,10 +28,8 @@ public class OI {
     driverJoystick.greenA.whenPressed(new limeLightLEDOn());
     driverJoystick.redB.whenPressed(new limeLightLEDBlink());
     driverJoystick.yellowY.whenPressed(new limelightPipeline());
-
-
-
   }
+
   public Joystick getDriverJoystick() {
 		return driverJoystick;
 	}

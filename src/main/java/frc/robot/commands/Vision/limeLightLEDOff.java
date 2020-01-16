@@ -8,16 +8,15 @@
 package frc.robot.commands.Vision;
 
 import frc.robot.Robot;
-
-
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
-public class limeLightLEDOff extends InstantCommand {
-
   /**
-   * Limelight LED will turn off.
+   * Limelight LED will turn off
+   * <p><br/>Mode 1 turns off the LEDs</p>
    * @author Zayd A. & Madison J.
    */
+public class limeLightLEDOff extends InstantCommand {
+
   // CONSTRUCTOR
   public limeLightLEDOff() {
     addRequirements(Robot.Vision);

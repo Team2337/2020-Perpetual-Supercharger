@@ -8,16 +8,15 @@
 package frc.robot.commands.Vision;
 
 import frc.robot.Robot;
-
-
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
-public class limeLightLEDOn extends InstantCommand {
-
   /**
-   * Limelight LED will turn on
+   * Limelight LEDs will turn on
+   * <p><br/>Mode 3 is to turn on the LED</p> 
    * @author Zayd A. & Madison J.
    */
+public class limeLightLEDOn extends InstantCommand {
+
   // CONSTRUCTOR
   public limeLightLEDOn() {
     addRequirements(Robot.Vision);

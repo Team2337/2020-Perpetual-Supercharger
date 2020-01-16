@@ -8,22 +8,19 @@
 package frc.robot.commands.Vision;
 
 import frc.robot.Robot;
-
-
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-
-public class limelightPipeline extends InstantCommand {
 
   /**
    * Pipeline will switch
    * @author Zayd A. & Madison J.
    */
+public class limelightPipeline extends InstantCommand {
+
   int pipe;
   // CONSTRUCTOR
   public limelightPipeline() {
     addRequirements(Robot.Vision);
     this.pipe = pipe;
-
   }
 
   // Called just before this Command runs the first time

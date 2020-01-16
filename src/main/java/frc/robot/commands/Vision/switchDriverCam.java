@@ -8,28 +8,22 @@
 package frc.robot.commands.Vision;
 
 import frc.robot.Robot;
-
-
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-
-public class switchDriverCam extends InstantCommand {
 
   /**
    * Drivecam will be turned on
    * @author Zayd A. & Madison J.
    */
+public class switchDriverCam extends InstantCommand {
   
   // CONSTRUCTOR
   public switchDriverCam() {
     addRequirements(Robot.Vision);
-  
-
   }
 
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-  
-  }
 
+  }
 }
