@@ -58,6 +58,7 @@ public class Intake extends SubsystemBase {
 
   /**
    * A method that stops the intake motors. (both)
+   * @author Michael Francis
    */
   public void stopIntake(){
     intakeMotor1.set(ControlMode.PercentOutput, 0);
@@ -79,10 +80,14 @@ public class Intake extends SubsystemBase {
   public double getIntakeTemperature(int mtr){
     /**
      * The if statement is determined by the integer received.
+     * The number received determines what intake motor it checks.
+     * If it is any other number, it will return 0.
      */
     if(mtr == 1){
+      //If the given variable is 1, return intakeMotor1's temperature.
       return intakeMotor1.getTemperature();
     }else if(mtr == 2){
+      //If the given variable is 2, return intakeMotor2's temperature.
       /**
        * NOTE: IF there is a second motor, uncomment the first return and
        * remove the second.
@@ -90,6 +95,7 @@ public class Intake extends SubsystemBase {
       //return intakeMotor2.getTemperature();
       return 0;
     }else{
+      //If the given variable is anything but 1 or 2, return 0.
       return 0;
     }
   }
