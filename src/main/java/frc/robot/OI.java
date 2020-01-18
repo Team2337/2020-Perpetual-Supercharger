@@ -1,8 +1,6 @@
 package frc.robot;
 
-import frc.robot.subsystems.*;
 import frc.robot.nerdyfiles.controller.*;
-import edu.wpi.first.wpilibj.Joystick;
 
 public class OI {
 
