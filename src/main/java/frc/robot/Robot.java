@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
   public static Climber Climber;
   public static ClimberExtender ClimberExtender;
   public static ControlPanelSpinner ControlPanelSpinner;
-  public static Elevator Elevator;
+  public static Serializer Serializer;
   public static Intake Intake;
   public static LEDs LEDs;
   public static Shooter Shooter;
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
     Climber = new Climber();
     ClimberExtender = new ClimberExtender();
     ControlPanelSpinner = new ControlPanelSpinner();
-    Elevator = new Elevator();
+    Serializer = new Serializer();
     Intake = new Intake();
     LEDs = new LEDs();
     Shooter = new Shooter();
