@@ -20,6 +20,7 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  public static Constants Constants;
   public static Intake Intake;
   public static OI OI;
   /**
@@ -30,7 +31,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-
+    Constants = new Constants();
     Intake = new Intake();
     OI = new OI();
   }
