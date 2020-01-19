@@ -1,27 +1,13 @@
 package frc.robot;
 
 import frc.robot.nerdyfiles.controller.*;
+import frc.robot.commands.Shooter.shootBall;
 
 public class OI {
-
-    public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
-	public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
-	public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2);
+    public NerdyXbox joystick = new NerdyXbox(0);
     public OI(){
+        joystick.triggerRight .whileHeld(new shootBall(Robot.Shooter, 0.95));//19600
         
-        // --- DRIVER JOYSTICK --- //
-
-        //insert code here
-
-        // --- OPERATOR JOYSTICK --- //
-
-        //insert code here
-
-        // --- DRIVER STATION CONTROLS --- //
-
-        //insert code here
-
-        /////////////////////////////////////
     }
 
 }
