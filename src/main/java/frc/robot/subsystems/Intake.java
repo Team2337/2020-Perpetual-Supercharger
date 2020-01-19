@@ -78,31 +78,9 @@ public class Intake extends SubsystemBase {
   }
 
   /**
-   * Method that returns the temperature of the intake motor requested.
-   * @param mtr
-   * An integer value that determines what temperature the method returns.
-   * <ul><li>1 = leftIntakeMotor</li>
-   * <li>2 = rightIntakeMotor</li>
-   * <li>If any other value is entered it will return a 0</li></ul>
-   * @return
-   * Returns a double value equal to the temperature of the motor determined 
-   * in the parameter <em>mtr</em>.
+   * Method that returns the highest intake motor temperature
    */
-  public double getIntakeTemperature(int mtr){
-    /**
-     * The if statement is determined by the integer received.
-     * The number received determines what intake motor it checks.
-     * If it is any other number, it will return 0.
-     */
-    if(mtr == 1){
-      //If the given variable is 1, return leftIntakeMotor's temperature.
-      return leftIntakeMotor.getTemperature();
-    }else if(mtr == 2){
-      //If the given variable is 2, return rightIntakeMotor's temperature.
-      return rightIntakeMotor.getTemperature();
-    }else{
-      //If the given variable is anything but 1 or 2, return 0.
-      return 0;
-    }
+  public double getIntakeTemperature(){
+    return Math.max(leftIntakeMotor.getTemperature(), rightIntakeMotor.getTemperature());
   }
 }
