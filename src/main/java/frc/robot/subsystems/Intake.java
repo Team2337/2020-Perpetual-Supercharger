@@ -9,8 +9,7 @@ package frc.robot.subsystems;
 
 //Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
-// import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,8 +21,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase {
 
   //Motors
-  TalonSRX leftIntakeMotor;
-  TalonSRX rightIntakeMotor;
+  TalonFX leftIntakeMotor;
+  TalonFX rightIntakeMotor;
 
   /**
    * Creates a new Intake subsystem and sets up the motors to their corresponding ports.
@@ -34,8 +33,10 @@ public class Intake extends SubsystemBase {
      *   • leftIntakeMotor (9)
      *   • rightIntakeMotor (10)
      */
-    leftIntakeMotor = new TalonSRX(9);
-    rightIntakeMotor = new TalonSRX(10);
+    leftIntakeMotor = new TalonFX(9);
+    rightIntakeMotor = new TalonFX(10);
+    leftIntakeMotor.setInverted(false);
+    rightIntakeMotor.setInverted(true);
   }
 
   @Override
@@ -57,20 +58,11 @@ public class Intake extends SubsystemBase {
 
   int x = 0;
   public double getIntakeSpeed(){
-    /**if(x > 4){
-      
-      System.out.println("left: "+leftIntakeMotor.getMotorOutputPercent());
-      System.out.println("right: "+rightIntakeMotor.getMotorOutputPercent());
-      System.out.println("----------------");
-      x = 0;
-    }
-    x++;*/
     return rightIntakeMotor.getMotorOutputPercent();
   }
 
   /**
    * A method that stops the intake motors. (both)
-   * @author Michael Francis
    */
   public void stopIntake(){
     leftIntakeMotor.set(ControlMode.PercentOutput, 0);

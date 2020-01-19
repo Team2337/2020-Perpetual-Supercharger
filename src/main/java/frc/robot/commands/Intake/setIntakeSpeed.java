@@ -11,22 +11,22 @@ import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Adjusts the intake speed
+ * Sets the intake speed
  * @author Michael Francis
  */
-public class adjustIntakeSpeed extends CommandBase {
+public class setIntakeSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_subsystem;
-  private double m_modifier;
+  private double m_speed;
 
   /**
-   * Increases the intake speed by a given amount
+   * Sets the intake speed to a given percent
    * @param subsystem The subsystem used by this command. (Intake)
-   * @param modifier A double number that sets what speed the motors move at
+   * @param speed A double number that sets what speed the motors move at
    */
-  public adjustIntakeSpeed(Intake subsystem, double modifier) {
+  public setIntakeSpeed(Intake subsystem, double speed) {
     m_subsystem = subsystem;
-    m_modifier = modifier;
+    m_speed = speed;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -35,8 +35,8 @@ public class adjustIntakeSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will set the intake to run at a certain speed
-    m_subsystem.setIntakeSpeed(m_subsystem.getIntakeSpeed()+m_modifier);
+    // This will set the intake to run at a set speed
+    m_subsystem.setIntakeSpeed(m_speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,12 +49,12 @@ public class adjustIntakeSpeed extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     // Stops the intake
-    // m_subsystem.setIntakeSpeed(0);
+    m_subsystem.stopIntake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
