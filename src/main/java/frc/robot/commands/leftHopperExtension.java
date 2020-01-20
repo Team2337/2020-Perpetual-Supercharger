@@ -22,24 +22,24 @@ public class leftHopperExtension extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public leftHopperExtension(final Hopper subsystem) {
-        m_subsystem = subsystem;
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
-    }
+  public leftHopperExtension(Hopper subsystem) {
+    m_subsystem = subsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
+  }
 
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
 
-     //Extends left Panel
-     m_subsystem.extendLeftFlipper();
-    }
+    // Extends left Panel
+    m_subsystem.extendLeftFlipper();
+  }
 
-    // Called once the command ends or is interrupted.
-    @Override
-    public void end(boolean interrupted) {
-      m_subsystem.retractLeftFlipper();
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+    m_subsystem.retractLeftFlipper();
   }
 
   // Returns true when the command should end.

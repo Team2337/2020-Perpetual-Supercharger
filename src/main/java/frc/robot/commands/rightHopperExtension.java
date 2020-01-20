@@ -22,25 +22,27 @@ public class rightHopperExtension extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public rightHopperExtension(final Hopper subsystem) {
-        m_subsystem = subsystem;
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
-    }
+  public rightHopperExtension(Hopper subsystem) {
+    m_subsystem = subsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
+  }
 
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
 
-     //Extends left Panel
-     m_subsystem.extendRightFlipper();
-    }
+    // Extends left Panel
+    m_subsystem.extendRightFlipper();
+  }
 
-    /* Called once the command ends or is interrupted.
-       When interupted, retract right hopper */
-    @Override
-    public void end(boolean interrupted) {
-      m_subsystem.retractRightFlipper();
+  /*
+   * Called once the command ends or is interrupted. When interupted, retract
+   * right hopper
+   */
+  @Override
+  public void end(boolean interrupted) {
+    m_subsystem.retractRightFlipper();
   }
 
   // Returns true when the command should end.

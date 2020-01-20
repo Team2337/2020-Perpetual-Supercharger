@@ -4,30 +4,32 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Hopper extends SubsystemBase {
-  
-  //Solenoids being defined
+
+  // Solenoids being defined
   Solenoid leftFlipper;
   Solenoid rightFlipper;
-  
-  //Sets port the Solenoids work from
-  public Hopper(){
-    leftFlipper  = new Solenoid(0);
-    rightFlipper = new Solenoid(1);
+
+  // Sets port the Solenoids work from
+  public Hopper() {
+    leftFlipper = new Solenoid(3);
+    rightFlipper = new Solenoid(2);
   }
 
-  //Defines the act of extending and retracting the left flipper
-  public void extendLeftFlipper(){
+  // Defines the act of extending and retracting the left flipper
+  public void extendLeftFlipper() {
     leftFlipper.set(true);
   }
-  public void retractLeftFlipper(){
+
+  public void retractLeftFlipper() {
     leftFlipper.set(false);
   }
 
-  //Defines the act of extending and retracting the right flipper
-  public void extendRightFlipper(){
+  // Defines the act of extending and retracting the right flipper
+  public void extendRightFlipper() {
     rightFlipper.set(true);
   }
-  public void retractRightFlipper(){
+
+  public void retractRightFlipper() {
     rightFlipper.set(false);
   }
 }
