@@ -1,17 +1,27 @@
 package frc.robot;
 
-import frc.robot.Robot;
-import frc.robot.commands.leftHopperExtension;
-import frc.robot.commands.rightHopperExtension;
-import frc.robot.nerdyfiles.controller.NerdyXbox;
+import frc.robot.nerdyfiles.controller.*;
 
 public class OI {
 
-    public NerdyXbox joystick = new NerdyXbox(0);
+    public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
+	public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
+	public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2);
+    public OI(){
+        
+        // --- DRIVER JOYSTICK --- //
 
-    public OI() {
+        //insert code here
 
-        joystick.triggerLeft.whileHeld(new leftHopperExtension(Robot.Hopper));
-        joystick.triggerRight.whileHeld(new rightHopperExtension(Robot.Hopper));
+        // --- OPERATOR JOYSTICK --- //
+
+        //insert code here
+
+        // --- DRIVER STATION CONTROLS --- //
+
+        //insert code here
+
+        /////////////////////////////////////
     }
+
 }

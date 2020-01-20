@@ -1,7 +1,7 @@
 package frc.robot.nerdyfiles.controller;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.*;
 
 /**
  * Trigger commands from an analog input on a joystick (such as the triggers - Axis 2 and/or 3). 
