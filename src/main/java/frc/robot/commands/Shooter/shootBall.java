@@ -27,8 +27,8 @@ public class shootBall extends CommandBase {
    */
   public shootBall(Shooter subsystem, double modifier) {
     m_subsystem = subsystem;
-    // m_modifier = modifier;
-    SmartDashboard.putNumber("Shooter Speed", 0.9);
+    m_modifier = modifier;
+    // SmartDashboard.putNumber("Shooter Speed", 17000);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -36,19 +36,25 @@ public class shootBall extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_modifier = SmartDashboard.getNumber("Shooter Speed", 0.9);
+    m_subsystem.shootMotor1.configClosedloopRamp(0.5);
+    m_subsystem.shootMotor2.configClosedloopRamp(0.5);
+    // m_modifier = SmartDashboard.getNumber("Shooter Speed", 17000);
     m_subsystem.setShooterSpeed(m_modifier);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(m_subsystem.shootMotor1.getSelectedSensorVelocity() > 5000){
+      m_subsystem.shootMotor1.configClosedloopRamp(0);
+      m_subsystem.shootMotor2.configClosedloopRamp(0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-      m_subsystem.stopShooter();
+    // m_subsystem.stopShooter();
   }
 
   // Returns true when the command should end.

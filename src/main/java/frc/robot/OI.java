@@ -6,8 +6,6 @@ import frc.robot.commands.Shooter.shootBall;
 public class OI {
     public NerdyXbox joystick = new NerdyXbox(0);
     public OI(){
-        joystick.triggerRight .whileHeld(new shootBall(Robot.Shooter, 0.95));//19600
-        
+        joystick.triggerRight .whileHeld(new shootBall(Robot.Shooter, 21000));//19600   
     }
-
 }
