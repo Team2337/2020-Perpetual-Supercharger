@@ -3,10 +3,29 @@ package frc.robot;
 import frc.robot.commands.Intake.*;
 import frc.robot.nerdyfiles.controller.NerdyXbox;
 import frc.robot.Robot;
+import frc.robot.nerdyfiles.controller.*;
 
 public class OI {
-    NerdyXbox joystick = new NerdyXbox(0);
+    public NerdyXbox joystick = new NerdyXbox(0);
+    public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
+	public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
+	public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2);
     public OI(){
+        
+        // --- DRIVER JOYSTICK --- //
+
+        //insert code here
+
+        // --- OPERATOR JOYSTICK --- //
+
+        //insert code here
+
+        // --- DRIVER STATION CONTROLS --- //
+
+        //insert code here
+
+        /////////////////////////////////////
+
         // === TESTING PURPOSES === //
         //The right bumper moves the intake motors one way
         joystick.bumperRight .whenPressed(new adjustIntakeSpeed(Robot.Intake, 0.1));
@@ -21,4 +40,5 @@ public class OI {
         //Sets the intake motors to outtake balls (reverse mode)
         joystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4));
     }
+
 }

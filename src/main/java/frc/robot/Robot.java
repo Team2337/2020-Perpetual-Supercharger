@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -20,19 +21,39 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+
   public static Constants Constants;
+
+  public static Chassis Chassis;
+  public static Climber Climber;
+  public static ClimberExtender ClimberExtender;
+  public static ControlPanelSpinner ControlPanelSpinner;
+  public static Serializer Serializer;
   public static Intake Intake;
+  public static LEDs LEDs;
+  public static Shooter Shooter;
+  public static ShooterHood ShooterHood;
+  public static Vision Vision;
+  public static PowerDistributionPanel PDP;
   public static OI OI;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
     Constants = new Constants();
+    Chassis = new Chassis();
+    Climber = new Climber();
+    ClimberExtender = new ClimberExtender();
+    ControlPanelSpinner = new ControlPanelSpinner();
+    Serializer = new Serializer();
     Intake = new Intake();
+    LEDs = new LEDs();
+    Shooter = new Shooter();
+    ShooterHood = new ShooterHood();
+    Vision = new Vision();
     OI = new OI();
   }
 
