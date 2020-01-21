@@ -22,15 +22,18 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  public static Chassis Chassis;
+  public static Utilities Utilities;
+
   public static Climber Climber;
   public static ClimberExtender ClimberExtender;
   public static ControlPanelSpinner ControlPanelSpinner;
   public static Serializer Serializer;
   public static Intake Intake;
   public static LEDs LEDs;
+  public static Pigeon Pigeon;
   public static Shooter Shooter;
   public static ShooterHood ShooterHood;
+  public static SwerveDrivetrain SwerveDrivetrain;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static OI OI;
@@ -41,15 +44,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    Chassis = new Chassis();
+    // must go before subssytems
+    Utilities = new Utilities();
+    /* --- Subsystems --- */
     Climber = new Climber();
     ClimberExtender = new ClimberExtender();
     ControlPanelSpinner = new ControlPanelSpinner();
     Serializer = new Serializer();
     Intake = new Intake();
     LEDs = new LEDs();
+    Pigeon = new Pigeon();
     Shooter = new Shooter();
     ShooterHood = new ShooterHood();
+    SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
     OI = new OI();
   }

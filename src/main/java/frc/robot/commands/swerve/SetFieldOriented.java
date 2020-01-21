@@ -1,0 +1,46 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package frc.robot.commands.swerve;
+
+import frc.robot.Robot;
+import frc.robot.subsystems.SwerveDrivetrain;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+
+/**
+ * Sets the field orientation mode 
+ * @see SwerveDrivetrain
+ * @author Bryce G.
+ */
+public class SetFieldOriented extends InstantCommand {
+
+  private boolean isFieldOriented;
+ 
+  /**
+   * Sets the field orientation mode
+   * @see SwerveDrivetrain
+   * @param isFieldOriented - boolean value to set the field orientation mode
+   */
+  public SetFieldOriented(boolean isFieldOriented) {
+    this.isFieldOriented = isFieldOriented;
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+      Robot.SwerveDrivetrain.setFieldOriented(this.isFieldOriented);
+      SmartDashboard.putBoolean("command field oriented", this.isFieldOriented);
+  }
+
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+  }
+}
