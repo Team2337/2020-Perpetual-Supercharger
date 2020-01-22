@@ -104,7 +104,7 @@ public class Pigeon extends SubsystemBase {
 	}
 	
 	/**
-	 * Resets the pigeon 
+	 * Resets the yaw on the pigeon to 0
 	 */
 	public void resetPidgey() {
 		pidgey.setYaw(0, timeoutMs);
