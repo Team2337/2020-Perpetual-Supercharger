@@ -24,7 +24,7 @@ public class FXSwerveModule {
     private double modTargetAngle;
     private double lastError = 0;
     private double allowableErrorDegree = 3;
-    private double kP = 0.63;
+    private double kP = 0.63; //0.63
     private double kD = 0.02;
 
     /* --- Booleans --- */
@@ -145,8 +145,6 @@ public class FXSwerveModule {
         boolean isInverted = driveMotor.getInverted();
 
         SmartDashboard.putNumber("CurrentAngle " + moduleNumber, getNormalizedAnalogVoltageRadians());
-
-        kP = SmartDashboard.getNumber("kP", kP);
 
         targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
 

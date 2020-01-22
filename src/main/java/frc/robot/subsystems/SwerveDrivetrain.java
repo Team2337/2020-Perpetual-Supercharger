@@ -78,8 +78,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     angleOffsets = new double[] {
       4.57,
       1.3,
-      -0.64,
-      -5.83
+      -0.60, //64
+      -5.95
     };
 
     analogAngleSensors = new AnalogInput[] {

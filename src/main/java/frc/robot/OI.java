@@ -22,6 +22,9 @@ public class OI {
         driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(false));
         driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(true));
 
+        /* --- Testing Purposes --- */
+        // driverJoystick.greenA.whileHeld(new SwerveDriveSetForwards(Robot.SwerveDrivetrain, 0.5));
+
         /* --- OPERATOR JOYSTICK --- */
 
         //insert code here
