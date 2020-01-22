@@ -23,6 +23,10 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
+  private double iteration = 0;
+  private double averageModuleOffset = 0;
+  private double total = 0;
+
   public static Utilities Utilities;
 
   public static Climber Climber;
@@ -80,6 +84,15 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("getAbsoluteCompassHeading", Pigeon.getAbsoluteCompassHeading());
+
+    iteration++;
+    if(iteration < 200) {
+      total += SwerveDrivetrain.getModule(2).getNormalizedAnalogVoltageRadians();
+    } else {
+      averageModuleOffset = total/200;
+    }
+    // System.out.println(averageModuleOffset);
+    SmartDashboard.putNumber("averageModuleOffset", averageModuleOffset);
   }
 
   /**

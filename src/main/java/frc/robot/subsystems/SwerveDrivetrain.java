@@ -76,10 +76,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     setDefaultCommand(new SwerveDriveCommand(this));
 
     angleOffsets = new double[] {
-      4.57,
-      1.3,
-      -0.60, //64
-      -5.95
+      4.57,//4.545340340063484, //
+      1.3,//4.404662560456182, //
+      -0.60,//2.563754246210597, //
+      -5.95//0.38066487263385307 //
     };
 
     analogAngleSensors = new AnalogInput[] {
