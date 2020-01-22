@@ -67,7 +67,7 @@ public class Pigeon extends SubsystemBase {
 	 * and "yawing" was no longer confined to the sea. Nowadays, 
 	 * people who love boats still use "yaw" much as did the sailing-men of old, 
 	 * but pilots and rocket scientists also refer to the "yawing" of their crafts.
-	 * @return yaw
+	 * @return yaw - double angle value of the robot's Z axis
 	 */
 	public double getYaw() {
 		double yaw = 0;

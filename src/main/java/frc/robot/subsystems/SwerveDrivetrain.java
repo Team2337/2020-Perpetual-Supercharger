@@ -146,7 +146,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     };
 
     /*
-     * Calculations to decide the speed value to set to each module
+     * Calculations to decide the drive motor speed value to set to each module
      */
     double[] speeds = new double[]{
       Math.sqrt(b * b + c * c),
