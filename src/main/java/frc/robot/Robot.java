@@ -18,7 +18,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+public static Object CellHolder;
+public static Object cellHolderClose;
+private Command m_autonomousCommand;
 
   /**
    * This function is run when the robot is first started up and should be used for any
