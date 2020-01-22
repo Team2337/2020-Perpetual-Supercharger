@@ -54,9 +54,9 @@ public class shootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //Once the velocity reaches a speed of 5000, the closed-loop ramp is turned off.
+    //Once the velocity reaches a certain speed, the closed-loop ramp is turned off.
     //This is to ensure that the motors when turned off will coast their way down.
-    if(m_subsystem.shootMotor1.getSelectedSensorVelocity() > 5000){
+    if(m_subsystem.shootMotor1.getSelectedSensorVelocity() > 12000){
       m_subsystem.shootMotor1.configClosedloopRamp(0);
       m_subsystem.shootMotor2.configClosedloopRamp(0);
     }
@@ -68,7 +68,7 @@ public class shootBall extends CommandBase {
     //Code that when the command ends, stop the shooter.
     //Comment the code out if the ramp rate code in execute does not work or
     //if you need to test.
-    m_subsystem.stopShooter();
+    // m_subsystem.stopShooter();
   }
 
   // Returns true when the command should end.
