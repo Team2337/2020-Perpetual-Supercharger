@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // must go before subssytems
+    // Must go before subsystems
     Utilities = new Utilities();
     /* --- Subsystems --- */
     Climber = new Climber();
@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     Vision = new Vision();
     OI = new OI();
 
-    
+    // Resets the pigeon to 0    
     Pigeon.resetPidgey();
   }
 
