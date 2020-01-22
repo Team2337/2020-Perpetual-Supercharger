@@ -105,7 +105,7 @@ public class FXSwerveModule {
 
         driveMotor.setNeutralMode(NeutralMode.Coast);
 
-        /* --- Setup Drive Current Limits --- */
+        /* --- Setup Angle Current Limits --- */
         currentLimitConfigurationAngle.currentLimit = 50;
         currentLimitConfigurationAngle.enable = true;
         currentLimitConfigurationAngle.triggerThresholdCurrent = 40;
