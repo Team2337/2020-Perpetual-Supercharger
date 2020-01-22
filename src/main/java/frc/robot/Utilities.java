@@ -48,11 +48,12 @@ public class Utilities {
         }
     }
 
-  /**
-   * 
-   * @return
-   */
-  public double getYaw(String gyroType) {
+    /**
+     * Gets the yaw of the gyro device being used
+     * @param gyroType - String value for the gyro being used (pigeon: "pigeon" | navx: "navx")
+     * @return - yaw from the gyro
+     */
+    public double getYaw(String gyroType) {
       switch(gyroType) {
           case "pigeon":
             return Robot.Pigeon.getYaw();

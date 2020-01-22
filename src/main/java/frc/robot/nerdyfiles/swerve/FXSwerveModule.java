@@ -11,6 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
+ * Swerve Module Object used to run the calculations for the swerve drive
+ * The swerve module uses joystick values from the command to change the 
+ * angle and drive positions
+ * This Object uses the TalonFX's for both the angle motor and drive motor
+ * Both will need to be passed in when the object is created
+ * @see SwerveDriveCommand
  * @author Bryce G.
  */
 public class FXSwerveModule {
@@ -20,11 +26,9 @@ public class FXSwerveModule {
 
     /* --- Doubles --- */
     private double angleMotorOffset;
-    private double lastTargetAngle;
-    private double modTargetAngle;
     private double lastError = 0;
     private double allowableErrorDegree = 3;
-    private double kP = 0.63; //0.63
+    private double kP = 0.63;
     private double kD = 0.02;
 
     /* --- Booleans --- */
@@ -42,12 +46,17 @@ public class FXSwerveModule {
     private StatorCurrentLimitConfiguration currentLimitConfigurationDrive = new StatorCurrentLimitConfiguration();
 
     /**
-     * 
-     * @param moduleNumber
-     * @param driveMotor
-     * @param angleMotor
-     * @param angleMotorOffset
-     * @param analogAngleSensor
+     * Swerve Module Object used to run the calculations for the swerve drive
+     * The swerve module uses joystick values from the command to change the 
+     * angle and drive positions
+     * This Object uses the TalonFX's for both the angle motor and drive motor
+     * Both will need to be passed in when the object is created
+     * @see SwerveDriveCommand
+     * @param moduleNumber - int Module ID to call each module (not CAN IDs)
+     * @param driveMotor - TalonFX motor Object with CAN ID of the module's drive motor
+     * @param angleMotor - TalonFX motor Object with CAN ID of the module's angle motor
+     * @param angleMotorOffset - angle offset for the current module
+     * @param analogAngleSensor - AnalogInput sensor Object with the Analog Port of the current module
      */
     public FXSwerveModule(int moduleNumber, TalonFX driveMotor, TalonFX angleMotor, double angleMotorOffset, AnalogInput analogAngleSensor) {
         this.moduleNumber = moduleNumber;
@@ -108,9 +117,8 @@ public class FXSwerveModule {
         currentLimitConfigurationDrive.triggerThresholdCurrent = 40;
         currentLimitConfigurationDrive.triggerThresholdTime = 3;
         
-        // Set amperage limits
+        /* --- Set Amperage Limits --- */
         angleMotor.configStatorCurrentLimit(currentLimitConfigurationAngle, 0);
-
         driveMotor.configStatorCurrentLimit(currentLimitConfigurationDrive, 0);        
     }
 
@@ -138,41 +146,39 @@ public class FXSwerveModule {
      * @param targetAngle - double value in radians
      */
     public void setModuleAngle(double targetAngle) {
-        /* --- Local doubles --- */
+        /* --- Local Variables --- */
         double errorRad;
         double currentAngle = getNormalizedAnalogVoltageRadians();
 
-        boolean isInverted = driveMotor.getInverted();
-
         SmartDashboard.putNumber("CurrentAngle " + moduleNumber, getNormalizedAnalogVoltageRadians());
 
+        // Adds angle offset to target angle
         targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
 
+        // Calculates error
         errorRad = (currentAngle - targetAngle + (2*Math.PI)) % (2*Math.PI);
+        // Sets error to error deadband
         errorRad = Math.abs(errorRad) < Math.toRadians(allowableErrorDegree) ? 0 : errorRad;
 
-        if (Math.abs(errorRad) < Math.toRadians(3)) {
-            errorRad = 0;
-        }
         if (errorRad > Math.PI) {
             errorRad -= (Math.PI*2);
-            targetAngle -= (Math.PI*2);
         } 
         
+        // Makes decsion on whether or not to invert drive motors
         if (errorRad > Math.PI/2 || errorRad < -Math.PI/2) {
             driveMotor.setInverted(true);
         } else {
             driveMotor.setInverted(false);
         }
 
+        // Converts the error to be in terms of quadrents and removes edge cases
         if(errorRad > Math.PI/2 && errorRad < Math.PI) {
             errorRad -= Math.PI;
-            targetAngle -= Math.PI;
         } else if(errorRad < -Math.PI/2 && errorRad > -Math.PI) {
             errorRad += Math.PI;
-            targetAngle += Math.PI;
         }
 
+        // Calculates the speed of the angle motor using a derivative
         double d = Robot.Utilities.calculateDerivative(errorRad, lastError, 0.02);
         lastError = errorRad;
         double speed = (errorRad * kP) + (d * kD);

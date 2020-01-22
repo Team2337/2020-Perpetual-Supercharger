@@ -76,10 +76,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     setDefaultCommand(new SwerveDriveCommand(this));
 
     angleOffsets = new double[] {
-      4.57,
-      1.3,
-      -0.60, //64
-      -5.95
+      4.57,  // Module 0 
+      1.3,   // Module 1 
+      -0.60, // Module 2 
+      -5.95  // Module 3
     };
 
     analogAngleSensors = new AnalogInput[] {
@@ -135,6 +135,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     /*
      * Calculations to decide the angle value of each module in RADIANS
+     * Takes the arctangent of the values to find the angle to set the 
+     * angle modules to
      */
     double[] angles = new double[]{
       Math.atan2(b, c),
@@ -153,17 +155,16 @@ public class SwerveDrivetrain extends SubsystemBase {
       Math.sqrt(a * a + c * c)
     };
 
+    /**
+     * Max speed of the drive motor
+     */
     double max = speeds[0];
-
+    // sets the max speed
     for (double speed : speeds) {
         if (speed > max) {
             max = speed;
         }
         
-    }
-
-    for(int i=0; i<4; i++) {
-      SmartDashboard.putNumber("Speed" + i, speeds[i]);
     }
 
     // Goes through and sets the desired angle and drive speed of each module

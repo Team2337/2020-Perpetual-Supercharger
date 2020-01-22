@@ -6,21 +6,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Command runnign the swerve calculations with the joystick
+ * Sets the forwards value to a set a mock joystick value
  * @see SwerveDrivetrain
  * @author Bryce G.
  */
 public class SwerveDriveSetForwards extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-
   private final SwerveDrivetrain swerveDrivetrain;
 
   private double forward = 0;
-  private double strafe = 0;
-  private double rotation = 0;
 
   /**
-   * Command runnign the swerve calculations with the joystick
+   * Sets the forwards value to a set a mock joystick value
+   * @param subsystem - SwerveDrivetrain Subsystem object 
+   * @param forward - mock forward joystick value
    */
   public SwerveDriveSetForwards(SwerveDrivetrain subsystem, double forward) {
     this.swerveDrivetrain = subsystem;
@@ -38,21 +37,15 @@ public class SwerveDriveSetForwards extends CommandBase {
 
    // Square Joystick Inputs
    Robot.Utilities.squareValues(forward);
-   Robot.Utilities.squareValues(strafe);
-   Robot.Utilities.squareValues(rotation);
 
    // Set Deadband
    Robot.Utilities.deadband(forward, 0.1);
-   Robot.Utilities.deadband(strafe, 0.1);
-   Robot.Utilities.deadband(rotation, 0.1);
 
    // Smartdashboard prints
    SmartDashboard.putNumber("Forward", forward);
-   SmartDashboard.putNumber("Strafe", strafe);
-   SmartDashboard.putNumber("Rotation", rotation);
    
    // Pass on joystick values to be calculated into angles and speeds
-   Robot.SwerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
+   Robot.SwerveDrivetrain.calculateJoystickInput(forward, 0, 0);
   }
 
   @Override
