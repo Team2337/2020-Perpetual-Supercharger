@@ -22,6 +22,7 @@ import frc.robot.nerdyfiles.swerve.*;
  * Field orientation is set here as well
  * 
  * @author Bryce G.
+ * @category SWERVE
  */
 public class SwerveDrivetrain extends SubsystemBase {
 

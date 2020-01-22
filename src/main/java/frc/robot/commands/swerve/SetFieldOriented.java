@@ -10,13 +10,13 @@ package frc.robot.commands.swerve;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveDrivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the field orientation mode 
  * @see SwerveDrivetrain
  * @author Bryce G.
+ * @category SWERVE
  */
 public class SetFieldOriented extends InstantCommand {
 

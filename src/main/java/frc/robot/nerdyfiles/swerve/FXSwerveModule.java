@@ -18,6 +18,7 @@ import frc.robot.Robot;
  * Both will need to be passed in when the object is created
  * @see SwerveDriveCommand
  * @author Bryce G.
+ * @category SWERVE
  */
 public class FXSwerveModule {
 

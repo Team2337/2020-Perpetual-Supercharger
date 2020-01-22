@@ -6,9 +6,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Command runnign the swerve calculations with the joystick
+ * Command running the swerve calculations with the joystick
  * @see SwerveDrivetrain
  * @author Bryce G.
+ * @category SWERVE
  */
 public class SwerveDriveCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -21,7 +22,7 @@ public class SwerveDriveCommand extends CommandBase {
 
 
   /**
-   * Command runnign the swerve calculations with the joystick
+   * Command running the swerve calculations with the joystick
    */
   public SwerveDriveCommand(SwerveDrivetrain subsystem) {
     this.swerveDrivetrain = subsystem;

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Sets the forwards value to a set a mock joystick value
  * @see SwerveDrivetrain
  * @author Bryce G.
+ * @category SWERVE
  */
 public class SwerveDriveSetForwards extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
