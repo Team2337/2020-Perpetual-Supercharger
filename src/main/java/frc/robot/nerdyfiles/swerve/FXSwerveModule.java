@@ -203,7 +203,7 @@ public class FXSwerveModule {
         return this.angleMotorOffset;
     }
 
-    /* DRIVE METHODS */
+    /* --- DRIVE METHODS --- */
 
     /**
      * Sets the drive to be inverted 
