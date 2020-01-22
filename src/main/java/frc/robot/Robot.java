@@ -20,9 +20,7 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-public static Object CellHolder;
-public static Object cellHolderClose;
-private Command m_autonomousCommand;
+  private Command m_autonomousCommand;
 
   public static Chassis Chassis;
   public static Climber Climber;
