@@ -142,36 +142,39 @@ public class FXSwerveModule {
         double errorRad;
         double currentAngle = getNormalizedAnalogVoltageRadians();
 
+        boolean isInverted = driveMotor.getInverted();
+
         SmartDashboard.putNumber("CurrentAngle " + moduleNumber, getNormalizedAnalogVoltageRadians());
 
-        // Adds the offset angle to the target angle and gets in terms of (-2PI -> 2PI)
+        kP = SmartDashboard.getNumber("kP", kP);
+
         targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
 
-        // Calculates the error
         errorRad = (currentAngle - targetAngle + (2*Math.PI)) % (2*Math.PI);
-        // Error deadband (3 degress || 0.052 RAD)
         errorRad = Math.abs(errorRad) < Math.toRadians(allowableErrorDegree) ? 0 : errorRad;
 
-        // Puts the target in the negative direction
+        if (Math.abs(errorRad) < Math.toRadians(3)) {
+            errorRad = 0;
+        }
         if (errorRad > Math.PI) {
             errorRad -= (Math.PI*2);
+            targetAngle -= (Math.PI*2);
         } 
         
-        // Makes the decision to invert the motors rather than turn the module
         if (errorRad > Math.PI/2 || errorRad < -Math.PI/2) {
             driveMotor.setInverted(true);
         } else {
             driveMotor.setInverted(false);
         }
 
-        // Gets error in terms of quadrents and removes odd edge cases
         if(errorRad > Math.PI/2 && errorRad < Math.PI) {
             errorRad -= Math.PI;
+            targetAngle -= Math.PI;
         } else if(errorRad < -Math.PI/2 && errorRad > -Math.PI) {
             errorRad += Math.PI;
+            targetAngle += Math.PI;
         }
 
-        // Calculates D value 
         double d = Robot.Utilities.calculateDerivative(errorRad, lastError, 0.02);
         lastError = errorRad;
         double speed = (errorRad * kP) + (d * kD);
@@ -189,8 +192,8 @@ public class FXSwerveModule {
     }
 
     /**
-     * 
-     * @return
+     * Gets the angle offset on the module (-2PI -> 2PI)
+     * @return - double value of the angle offset of the current module (-2PI -> 2PI)
      */
     public double getAngleOffset() {
         return this.angleMotorOffset;
@@ -199,29 +202,20 @@ public class FXSwerveModule {
     /* DRIVE METHODS */
 
     /**
-     * 
-     * @param isDriveInverted
+     * Sets the drive to be inverted 
+     * @param isDriveInverted - boolean value stating the drive inversion mode
      */
     public void setDriveInverted(boolean isDriveInverted) {
         this.isDriveInverted = isDriveInverted;
     }
 
     /**
-     * 
-     * @param speed
+     * Sets the speed of the drive motors
+     * @param speed - double value in percent of the motors (-1 -> 1)
      */
     public void setDriveSpeed(double speed) {
         if(isDriveInverted) speed = -speed; 
 
         driveMotor.set(ControlMode.PercentOutput, speed);
-    }
-
-    /* WHOLE MODULE METHODS */
-
-    /**
-     * 
-     */
-    public int getModuleNumber() {
-        return this.moduleNumber;
     }
 }
