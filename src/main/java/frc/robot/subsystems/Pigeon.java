@@ -71,9 +71,7 @@ public class Pigeon extends SubsystemBase {
 	}
 
 	/**
-	 * Gets the yaw from the gyro
-	 * The yaw is the angle of the robot in the Z axis, 
-	 * it has some historical connotations from where this value's name comes from:
+	 * Gets the angle of the robot on the Z axis (yaw) from the gyro
 	 * @return yaw - double angle value of the robot's Z axis
 	 */
 	public double getYaw() {
