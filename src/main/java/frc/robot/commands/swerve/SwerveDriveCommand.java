@@ -16,13 +16,25 @@ public class SwerveDriveCommand extends CommandBase {
 
   private final SwerveDrivetrain swerveDrivetrain;
 
+  /**
+   * Value from the Y axis on the left joystick, on the driver controller  
+   */
 	private double forward = 0;
+
+  /**
+   * Value from the X axis on the left joystick, on the driver controller  
+   */
 	private double strafe = 0;
+
+  /**
+   * Value from the X axis on the right joystick, on the driver controller  
+   */
 	private double rotation = 0;
 
 
   /**
    * Command running the swerve calculations with the joystick
+   * @param subsystem - SwerveDrivetrain subsystem object
    */
   public SwerveDriveCommand(SwerveDrivetrain subsystem) {
     this.swerveDrivetrain = subsystem;
@@ -52,7 +64,7 @@ public class SwerveDriveCommand extends CommandBase {
    SmartDashboard.putNumber("Rotation", rotation);
    
    // Pass on joystick values to be calculated into angles and speeds
-   Robot.SwerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
+   swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
   }
 
   @Override

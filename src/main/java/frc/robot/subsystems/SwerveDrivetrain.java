@@ -99,6 +99,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     };
     
     // Setup for drive motor inversion (They may not need to be inverted)
+    // (True: invered | False: not inverted)
     swerveModules[0].setDriveInverted(false);
     swerveModules[1].setDriveInverted(false);
     swerveModules[2].setDriveInverted(false);
