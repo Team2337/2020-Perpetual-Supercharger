@@ -22,17 +22,12 @@ public class FXSwerveModule {
 
     /* --- Ints --- */
 
-    /**
-     * The current module's ID number (0 -> 3)
-     */
+    /** The current module's ID number (0 -> 3)*/
     private int moduleNumber;
 
     /* --- Doubles --- */
 
-    /**
-     * The angle offset from the zero position
-     * on the angle motor in RADIANS
-     */
+    /** The angle offset from the zero position on the angle motor in RADIANS */
     private double angleMotorOffset;
     
     /**
@@ -91,21 +86,15 @@ public class FXSwerveModule {
 
     /* --- Booleans --- */
 
-    /**
-     * Sets the inversion mode on the drive motors (True: invered | False: not inverted)
-     */
+    /** Sets the inversion mode on the drive motors (True: invered | False: not inverted) */
     private boolean isDriveInverted = false;
 
     /* --- Motor Controllers --- */
 
-    /**
-     * TalonFX motor controller, used as an angle motor in the swerve module
-     */
+    /** TalonFX motor controller, used as an angle motor in the swerve module */
     private TalonFX driveMotor;
 
-    /**
-     * TalonFX motor controller, used as a drive motor in the swerve module
-     */
+    /** TalonFX motor controller, used as a drive motor in the swerve module */
     private TalonFX angleMotor;
 
     /* --- Sensors --- */
@@ -167,17 +156,7 @@ public class FXSwerveModule {
         /* ------------------------- */
         /*****************************/
 
-        /*
-         * Selects the sensor in which to read from for PID calculations, setting set points,
-         * and other sensor related setups
-         * For TalonFX this configuration should always be the Integrated Sensor, as 
-         * no other sensor can be connected to the device
-         */
         angleMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
-
-        /*
-         * 
-         */
         angleMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
                 
         angleMotor.setNeutralMode(NeutralMode.Coast);
@@ -191,52 +170,20 @@ public class FXSwerveModule {
         /* ------------------------- */
         /*****************************/
 
-        /*
-         * Selects the sensor in which to read from for PID calculations, setting set points,
-         * and other sensor related setups
-         * For TalonFX this configuration should always be the Integrated Sensor, as 
-         * no other sensor can be connected to the device
-         */
         driveMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
-
-        /*
-         * This sets the ramp rate on the motor using the Integrated Sensor
-         * A Closed Loop Ramp Rate uses the feedback sensor in order to 
-         * change the ramp up and down of the motor. As opposed to the 
-         * Open Loop Ramp Rate which does not use the feedback sensor value
-         */
         driveMotor.configClosedloopRamp(0.1);
-
-        /*
-         * Sets the period of the given status frame.   
-         * User ensure CAN Bus utilization is not high.
-         * This setting is not persistent and is lost when device is reset. 
-         * If this is a concern, calling application can use hasResetOccurred() 
-         * to determine if the status frame needs to be reconfigured.
-         */
         driveMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
-
-        /*
-         * Sets the period of the given status frame.   
-         * User ensure CAN Bus utilization is not high.
-         * This setting is not persistent and is lost when device is reset. 
-         * If this is a concern, calling application can use hasResetOccurred() 
-         * to determine if the status frame needs to be reconfigured.
-         */
         driveMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 
         /* --- Drive PID --- */
-        driveMotor.config_kP(0, 15, 0);
-        driveMotor.config_kI(0, 0.01, 0);
-        driveMotor.config_kD(0, 0.1, 0);
-        driveMotor.config_kF(0, 0.2, 0);
+        driveMotor.config_kP(0, driveP, 0);
+        driveMotor.config_kI(0, driveI, 0);
+        driveMotor.config_kD(0, driveD, 0);
+        driveMotor.config_kF(0, driveF, 0);
 
         /* --- Motion Magic --- */
-        // Sets the velocity for the motion magic mode 
-        // This velocity is in sensorUnitsPer100ms (How many ticks per 100ms)
+        // Sets the velocity & accelaration for the motion magic mode 
         driveMotor.configMotionCruiseVelocity(640, 0);
-        // Sets the acceleration for the motion magic mode 
-        // This accelaration is in sensorUnitsPer100msPerSec (How many ticks per 100ms/s)
         driveMotor.configMotionAcceleration(200, 0);
 
         // Sets how the motor will react when there is no power applied to the motor
@@ -317,6 +264,7 @@ public class FXSwerveModule {
         // Sets error to error deadband
         errorRad = Math.abs(errorRad) < Math.toRadians(allowableErrorDegree) ? 0 : errorRad;
 
+        // Puts error behind current position if greater than PI
         if (errorRad > Math.PI) {
             errorRad -= (Math.PI*2);
         } 
@@ -346,7 +294,7 @@ public class FXSwerveModule {
 
     /**
      * Sets the speed of the module angle motor
-     * @param speed
+     * @param speed - double value to set the speed to the angle motor (-1 -> 1)
      */
     public void setAngleMotorSpeed(double speed) {
         angleMotor.set(ControlMode.PercentOutput, speed);

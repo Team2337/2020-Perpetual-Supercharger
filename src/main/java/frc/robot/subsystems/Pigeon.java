@@ -15,11 +15,29 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class Pigeon extends SubsystemBase {
 
+	/**
+	 * Pigeon IMU object
+	 */
 	public static PigeonIMU pidgey;
+	/**
+	 * Data object for holding fusion information.
+	 */
 	public static PigeonIMU.FusionStatus gyrofusionStatus;
+	/**
+	 * Used to set the calibration of the gyro
+	 */
 	public static PigeonIMU.GeneralStatus gyroGenStatus;
+	/**
+	 * Array for Yaw Pitch and Roll values in degrees
+	 */
 	public double[] ypr_deg;
+	/**
+	 * Array for raw gyro values (x: roll | y: pitch | z: yaw)
+	 */
 	public double[] xyz_dps;
+	/**
+	 * Timeout to set the yaw 
+	 */
 	private int timeoutMs = 20;
 	
 	/**
@@ -56,17 +74,6 @@ public class Pigeon extends SubsystemBase {
 	 * Gets the yaw from the gyro
 	 * The yaw is the angle of the robot in the Z axis, 
 	 * it has some historical connotations from where this value's name comes from:
-	 *  --- History ---
-	 * In the heyday of large sailing ships, numerous nautical words appeared on the horizon, 
-	 * many of which have origins that have never been traced. "Yaw" is one such word. 
-	 * It began showing up in print in the 16th century, first as a noun 
-	 * (meaning "movement off course" or "side to side movement") and then as a verb. 
-	 * For more than 350 years it remained a sailing word, with occasional side trips 
-	 * to the figurative sense "to alternate." 
-	 * Then dawned the era of airplane flight in the early 20th century, 
-	 * and "yawing" was no longer confined to the sea. Nowadays, 
-	 * people who love boats still use "yaw" much as did the sailing-men of old, 
-	 * but pilots and rocket scientists also refer to the "yawing" of their crafts.
 	 * @return yaw - double angle value of the robot's Z axis
 	 */
 	public double getYaw() {
