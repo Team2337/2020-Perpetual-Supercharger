@@ -115,10 +115,6 @@ public class SwerveDrivetrain extends SubsystemBase {
    * @param rotation - double joystick value from the X axis on the right hand stick
    */
   public void calculateJoystickInput(double forward, double strafe, double rotation) {
-
-    // Set deadband from joysticks, regardless of the deadband in the command
-    rotation = Math.abs(rotation) < 0.1 ? 0 : rotation;
-    strafe = Math.abs(strafe) < 0.1 ? 0 : strafe;
     
     // Adjusts forward and strafe based on the gyro if set in field oriented mode
     if (getFieldOriented()) {
@@ -128,7 +124,9 @@ public class SwerveDrivetrain extends SubsystemBase {
       forward = temp;
   } 
 
-    // Calculated Values 
+    /*
+     * a -> d adds the rotational value to the robot, then adjusts for the dimensions of the robot
+     */
     double a = strafe - rotation * (WHEELBASE / TRACKWIDTH);
     double b = strafe + rotation * (WHEELBASE / TRACKWIDTH);
     double c = forward - rotation * (TRACKWIDTH / WHEELBASE);
@@ -136,8 +134,9 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     /*
      * Calculations to decide the angle value of each module in RADIANS
-     * Takes the arctangent of the values to find the angle to set the 
-     * angle modules to
+     * Takes the arctangent of the values to find the angle that the joystick is
+     * currently facing, compensating for the dimensions of the robot and rotation 
+     * as given in the previous step
      */
     double[] angles = new double[]{
       Math.atan2(b, c),

@@ -41,15 +41,10 @@ public class SwerveDriveCommand extends CommandBase {
    strafe = Robot.OI.driverJoystick.getRawAxis(0); 
    rotation = -Robot.OI.driverJoystick.getRawAxis(4); 
 
-   // Square Joystick Inputs
-   Robot.Utilities.squareValues(forward);
-   Robot.Utilities.squareValues(strafe);
-   Robot.Utilities.squareValues(rotation);
-
    // Set Deadband
-   Robot.Utilities.deadband(forward, 0.1);
-   Robot.Utilities.deadband(strafe, 0.1);
-   Robot.Utilities.deadband(rotation, 0.1);
+   forward = Robot.Utilities.deadband(forward, 0.05);
+   strafe = Robot.Utilities.deadband(strafe, 0.05);
+   rotation = Robot.Utilities.deadband(rotation, 0.05);
 
    // Smartdashboard prints
    SmartDashboard.putNumber("Forward", forward);

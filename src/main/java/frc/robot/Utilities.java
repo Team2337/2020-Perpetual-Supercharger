@@ -30,7 +30,8 @@ public class Utilities {
      * @return - squared input double value
      */
     public double squareValues(double value) {
-        return Math.pow(value, 2);
+        double direction = value < 0 ? -1 : 1;
+        return direction * Math.pow(value, 2);
     }
 
     /**
