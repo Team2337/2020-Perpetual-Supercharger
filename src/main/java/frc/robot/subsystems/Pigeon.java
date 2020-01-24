@@ -127,7 +127,7 @@ public class Pigeon extends SubsystemBase {
 	
 	/**
 	 * Use to manually set the yaw in degrees
-	 * 
+	 * @param yaw - double value to manually set the yaw (-360 -> 360)
 	 */
 	public void manualSetYaw(double yaw) {
 		yaw *= 64;
