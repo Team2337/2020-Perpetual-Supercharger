@@ -16,16 +16,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class shooterWait extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private Shooter m_subsystem;
-  private int m_ms;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public shooterWait(Shooter subsystem, int ms) {
+  public shooterWait(Shooter subsystem) {
     m_subsystem = subsystem;
-    m_ms = ms;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
