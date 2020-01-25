@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.Feeder.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.nerdyfiles.controller.NerdyXbox;
 import frc.robot.Robot;
@@ -39,6 +40,9 @@ public class OI {
         joystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
         joystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4));
+        
+        //Sets the feeder motor to intake balls into the serializer
+        joystick.greenA. whileHeld(new setFeederSpeed(Robot.Feeder, 0.4));
     }
 
 }

@@ -35,7 +35,9 @@ public class Robot extends TimedRobot {
   public static ShooterHood ShooterHood;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
+  public static Feeder Feeder;
   public static OI OI;
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -54,6 +56,7 @@ public class Robot extends TimedRobot {
     Shooter = new Shooter();
     ShooterHood = new ShooterHood();
     Vision = new Vision();
+    Feeder = new Feeder();
     OI = new OI();
   }
 
