@@ -66,10 +66,10 @@ public class Shooter extends SubsystemBase {
 
     /** --- CONFIGURE PIDS --- **/
     //Set variables
-    final double kP = 1.9;
+    final double kP = 1.15;
     final double kI = 0;
     final double kD = 0.0002;
-    final double kF = 0.04;
+    final double kF = 0;
     //Implement variables into the PIDs
     shootMotor1.config_kP(0, kP);
     shootMotor1.config_kI(0, kI);
@@ -103,6 +103,7 @@ public class Shooter extends SubsystemBase {
    */
   public boolean shooterTemp;
   public boolean shootInRange;
+  public double shooterMaxSpeed = 0;
   @Override
   public void periodic() {
     //This code here puts things on the Smart Dashboard so that they may be read as we drive the robot.
@@ -113,11 +114,16 @@ public class Shooter extends SubsystemBase {
 
     //Variable that returns true when the one of the motors of the shooter are over 70 degrees Celsius
     shooterTemp = shootMotor1.getTemperature() > 70 || shootMotor2.getTemperature() > 70;
+
     //Variable that returns true when the velocity of the motor reaches a set range
     shootInRange = 16100 < shootMotor1.getSelectedSensorVelocity() && shootMotor1.getSelectedSensorVelocity() < 16300;
+
+    shooterMaxSpeed = Math.max(shooterMaxSpeed, shootMotor1.getSelectedSensorVelocity());
+
     //This sets up a rectangle on the Smart Dashboard that turns green when shooterTemp returns true (see above)
     SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterTemp);
     SmartDashboard.putBoolean("Shooter In Range?", shootInRange);
+    SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
   }
 
   /**

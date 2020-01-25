@@ -56,7 +56,7 @@ public class shootBall extends CommandBase {
   public void execute() {
     //Once the velocity reaches a certain speed, the closed-loop ramp is turned off.
     //This is to ensure that the motors when turned off will coast their way down.
-    if(m_subsystem.shootMotor1.getSelectedSensorVelocity() > 12000){
+    if(m_subsystem.shootMotor1.getSelectedSensorVelocity() > 5000){
       m_subsystem.shootMotor1.configClosedloopRamp(0);
       m_subsystem.shootMotor2.configClosedloopRamp(0);
     }
