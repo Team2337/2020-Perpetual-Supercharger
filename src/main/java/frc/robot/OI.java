@@ -14,13 +14,13 @@ public class OI {
         
         // --- DRIVER JOYSTICK --- //
 
-        driverJoystick.greenA  .whileHeld(new serializerUp());
-        driverJoystick.redB  .whileHeld (new cellHolderClose());
-        driverJoystick.redB  .whenReleased(new cellHolderOpen());
+
 
         // --- OPERATOR JOYSTICK --- //
         //insert code here
-
+        operatorJoystick.greenA  .whileHeld(new serializerUp());
+        operatorJoystick.redB  .whileHeld (new cellHolderClose());
+        operatorJoystick.redB  .whenReleased(new cellHolderOpen());
         // --- DRIVER STATION CONTROLS --- //
 
         //insert code here
