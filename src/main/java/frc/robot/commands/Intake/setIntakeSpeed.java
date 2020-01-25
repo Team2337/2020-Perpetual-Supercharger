@@ -17,16 +17,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class setIntakeSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_subsystem;
-  private double m_speed;
+  private double m_lspeed;
+  private double m_rspeed;
 
   /**
    * Sets the intake speed to a given percent
    * @param subsystem The subsystem used by this command. (Intake)
    * @param speed A double number that sets what speed the motors move at
    */
-  public setIntakeSpeed(Intake subsystem, double speed) {
+  public setIntakeSpeed(Intake subsystem, double leftSpeed, double rightSpeed) {
     m_subsystem = subsystem;
-    m_speed = speed;
+    m_lspeed = leftSpeed;
+    m_rspeed = rightSpeed;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -36,7 +38,7 @@ public class setIntakeSpeed extends CommandBase {
   @Override
   public void initialize() {
     // This will set the intake to run at a set speed
-    m_subsystem.setIntakeSpeed(m_speed);
+    m_subsystem.setIntakeSpeed(m_lspeed, m_rspeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

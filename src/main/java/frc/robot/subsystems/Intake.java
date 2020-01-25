@@ -21,6 +21,8 @@ import frc.robot.Constants;
  * @author Michael Francis
  */
 public class Intake extends SubsystemBase {
+  //Debug: if true, will return the intake speed to Shuffleboard/SmartDashboard
+  private final boolean debug = false;
 
   //Motors
   TalonFX leftIntakeMotor;
@@ -42,21 +44,33 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Intake Motor Speed", getIntakeSpeed());
+    if(debug){
+      SmartDashboard.putNumberArray("Intake Motor Speed", getIntakeSpeed());
+    }
   }
 
   /**
    * A method that sets the speed of the intake motor(s)
-   * @param speed Sets the speed of the motors as a value -1 through 1
+   * @param lspeed Sets the speed of the left motor as a value -1 through 1
+   * @param rspeed Sets the speed of the right motor as a value -1 through 1
    */
-  public void setIntakeSpeed(double speed){
+  public void setIntakeSpeed(double lspeed, double rspeed){
     //Sets the speed of the intake motors
-    leftIntakeMotor.set(ControlMode.PercentOutput, speed);
-    rightIntakeMotor.set(ControlMode.PercentOutput, speed);
+    leftIntakeMotor.set(ControlMode.PercentOutput, lspeed);
+    rightIntakeMotor.set(ControlMode.PercentOutput, rspeed);
   }
 
-  public double getIntakeSpeed(){
-    return rightIntakeMotor.getMotorOutputPercent();
+  /**
+   * Gets the intake speed of the two intake motors.
+   * @return The intake speed of both the left and right motors in an array, put in the respective order.
+   */
+  public double[] getIntakeSpeed(){
+    double[] spd;
+    spd = new double[2];
+    
+    spd[0] = leftIntakeMotor.getMotorOutputPercent();
+    spd[1] = rightIntakeMotor.getMotorOutputPercent();
+    return spd;
   }
 
   /**
@@ -69,8 +83,14 @@ public class Intake extends SubsystemBase {
 
   /**
    * Method that returns the highest intake motor temperature
+   * @return An array of the temperature (in Celsius) of the left and right motors in the respective order.
    */
-  public double getIntakeTemperature(){
-    return Math.max(leftIntakeMotor.getTemperature(), rightIntakeMotor.getTemperature());
+  public double[] getIntakeTemperature(){
+    double[] temp;
+    temp = new double[2];
+
+    temp[0] = leftIntakeMotor.getTemperature();
+    temp[1] = rightIntakeMotor.getTemperature();
+    return temp;
   }
 }
