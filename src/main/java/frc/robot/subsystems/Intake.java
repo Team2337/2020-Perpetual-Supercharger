@@ -14,6 +14,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.Constants;
+
 /**
  * Simple system for the intake
  * @author Michael Francis
@@ -33,8 +35,8 @@ public class Intake extends SubsystemBase {
      *   • leftIntakeMotor (9)
      *   • rightIntakeMotor (10)
      */
-    leftIntakeMotor = new TalonFX(9);
-    rightIntakeMotor = new TalonFX(10);
+    leftIntakeMotor = new TalonFX(Constants.canID9);
+    rightIntakeMotor = new TalonFX(Constants.canID10);
     leftIntakeMotor.setInverted(false);
     rightIntakeMotor.setInverted(true);
   }
@@ -56,7 +58,6 @@ public class Intake extends SubsystemBase {
     rightIntakeMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  int x = 0;
   public double getIntakeSpeed(){
     return rightIntakeMotor.getMotorOutputPercent();
   }

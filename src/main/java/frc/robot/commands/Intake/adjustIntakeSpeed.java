@@ -20,9 +20,9 @@ public class adjustIntakeSpeed extends CommandBase {
   private double m_modifier;
 
   /**
-   * Increases the intake speed by a given amount
+   * Increases the intake speed by a given amount. The motors do not stop after.
    * @param subsystem The subsystem used by this command. (Intake)
-   * @param modifier A double number that sets what speed the motors move at
+   * @param modifier A double that the robot changes the speed of the motors by.
    */
   public adjustIntakeSpeed(Intake subsystem, double modifier) {
     m_subsystem = subsystem;
@@ -35,21 +35,18 @@ public class adjustIntakeSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will set the intake to run at a certain speed
+    // This will change the intake speed by a set amount
     m_subsystem.setIntakeSpeed(m_subsystem.getIntakeSpeed()+m_modifier);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_subsystem.setIntakeSpeed(intakeSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops the intake
-    // m_subsystem.setIntakeSpeed(0);
   }
 
   // Returns true when the command should end.
