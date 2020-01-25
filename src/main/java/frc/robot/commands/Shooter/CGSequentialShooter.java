@@ -14,7 +14,7 @@ public class CGSequentialShooter extends SequentialCommandGroup {
           
         addCommands(
         new shootSingleBall(shooter, 21000),   
-        new shooterWait(shooter).withTimeout(2),
+        new shooterDoNothing(shooter).withTimeout(2),
         new shootContinuously(shooter, 21000)
 
         );
