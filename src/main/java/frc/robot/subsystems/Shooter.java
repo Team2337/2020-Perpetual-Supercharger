@@ -18,6 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 // import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 // import com.ctre.phoenix.motorcontrol.can.TalonFXPIDSetConfiguration;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -30,6 +31,7 @@ public class Shooter extends SubsystemBase {
   //Creates motors
   public TalonFX shootMotor1;
   public TalonFX shootMotor2;
+  public DigitalInput shooterSensor;
   //Configures sensors
   public TalonFXConfiguration FXConfig;
   //Configures code for putting limits onto motors
@@ -42,8 +44,10 @@ public class Shooter extends SubsystemBase {
    */
   public Shooter() {
     //Also creates motors
+    
     shootMotor1 = new TalonFX(0);
     shootMotor2 = new TalonFX(1);
+    shooterSensor = new DigitalInput(0);
     //Also configures sensors
     FXConfig = new TalonFXConfiguration();
 
