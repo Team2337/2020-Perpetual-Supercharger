@@ -39,7 +39,8 @@ public class SwerveDrivetrain extends SubsystemBase {
   private double lastAngle;
 
   /**
-   * Array for module angle offsets
+   * Array for module angle offsets refering to the offset 
+   * from the sensor's zero point on each module
    * 0 is Front Right,
    * 1 is Front Left, 
    * 2 is Back Left, 
@@ -92,10 +93,10 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     /* --- Array for modules --- */
     swerveModules = new FXSwerveModule[] {
-      new FXSwerveModule(0, new TalonFX(1), new TalonFX(2), angleOffsets[0], analogAngleSensors[0]), // Module 0
-      new FXSwerveModule(1, new TalonFX(3), new TalonFX(4), angleOffsets[1], analogAngleSensors[1]), // Module 1
-      new FXSwerveModule(2, new TalonFX(5), new TalonFX(6), angleOffsets[2], analogAngleSensors[2]), // Module 2
-      new FXSwerveModule(3, new TalonFX(7), new TalonFX(8), angleOffsets[3], analogAngleSensors[3])  // Module 3
+      new FXSwerveModule(0, new TalonFX(Robot.Constants.module0DriveMotorID), new TalonFX(Robot.Constants.module0AngleMotorID), angleOffsets[0], analogAngleSensors[0]), // Module 0
+      new FXSwerveModule(1, new TalonFX(Robot.Constants.module1DriveMotorID), new TalonFX(Robot.Constants.module1AngleMotorID), angleOffsets[1], analogAngleSensors[1]), // Module 1
+      new FXSwerveModule(2, new TalonFX(Robot.Constants.module2DriveMotorID), new TalonFX(Robot.Constants.module2AngleMotorID), angleOffsets[2], analogAngleSensors[2]), // Module 2
+      new FXSwerveModule(3, new TalonFX(Robot.Constants.module3DriveMotorID), new TalonFX(Robot.Constants.module3AngleMotorID), angleOffsets[3], analogAngleSensors[3])  // Module 3
     };
     
     // Setup for drive motor inversion (They may not need to be inverted)

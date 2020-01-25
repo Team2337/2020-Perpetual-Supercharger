@@ -15,5 +15,13 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
+public class Constants {
+    public final int module0DriveMotorID = 1;
+    public final int module0AngleMotorID = 2;
+    public final int module1DriveMotorID = 3;
+    public final int module1AngleMotorID = 4;
+    public final int module2DriveMotorID = 5;
+    public final int module2AngleMotorID = 6;
+    public final int module3DriveMotorID = 7;
+    public final int module3AngleMotorID = 8;
 }

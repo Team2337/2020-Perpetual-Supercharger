@@ -106,21 +106,7 @@ public class FXSwerveModule {
     public AnalogInput analogAngleSensor;
     
     /* --- Current Limit Stator --- */
-
-    /**
-     * This is the configuration object to set current limits on the angle motor
-     * This is used to apply the same configurations to different motors
-     * It can be passed to the motor using the configStatorCurrentLimit() method
-     * in the TalonFX class
-     */
     private StatorCurrentLimitConfiguration currentLimitConfigurationAngle = new StatorCurrentLimitConfiguration();
-
-    /**
-     * This is the configuration object to set current limits on the drive motor
-     * This is used to apply the same configurations to different motors
-     * It can be passed to the motor using the configStatorCurrentLimit() method
-     * in the TalonFX class
-     */
     private StatorCurrentLimitConfiguration currentLimitConfigurationDrive = new StatorCurrentLimitConfiguration();
     
     /**

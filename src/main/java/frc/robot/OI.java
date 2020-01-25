@@ -29,8 +29,8 @@ public class OI {
         /* --- DRIVER JOYSTICK --- */
 
         // Sets the field orientation
-        driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(false));
-        driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(true));
+        driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
+        driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
 
         /* --- OPERATOR JOYSTICK --- */
 
