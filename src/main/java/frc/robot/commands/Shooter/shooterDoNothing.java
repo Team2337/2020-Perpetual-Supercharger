@@ -11,19 +11,23 @@ import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * A timeout command
+ * @author Nicholas Stokes
+ * Shooter does nothing, simple as that
  */
-public class shooterWait extends CommandBase {
+
+/**
+ * An example command that uses an example subsystem.
+ */
+public class shooterDoNothing extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private Shooter m_subsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public shooterWait(Shooter subsystem) {
-    m_subsystem = subsystem;
+  public shooterDoNothing(Shooter subsystem) {
+    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }

@@ -1,17 +1,22 @@
 package frc.robot.commands.Shooter;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Shooter;
 
+/**
+* @author Nicholas Stokes
+* This is a command group to run these commands in order.
+* For what the commands do, go to their code
+*/
 
 public class CGSequentialShooter extends SequentialCommandGroup {
-    public Shooter m_subsystem;
-    public CGSequentialShooter(Shooter shooter, double sec) {
-        m_subsystem = shooter;
+
+    public CGSequentialShooter(Shooter shooter) {
+          
         addCommands(
-            new shootSingleBall(m_subsystem, 21000), 
-             new shooterWait(m_subsystem).withTimeout(sec),
-             new shootContinuously(m_subsystem, 21000)
+        new shootSingleBall(shooter, 21000),   
+        new shooterWait(shooter).withTimeout(2),
+        new shootContinuously(shooter, 21000)
+
         );
     }
 }
