@@ -7,11 +7,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.SerializerElevator;
+import frc.robot.subsystems.CellHolder;
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,20 +22,11 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+public static SerializerElevator SerializerElevator;
+public static CellHolder CellHolder;
+public static OI oi;
 
-  public static Chassis Chassis;
-  public static Climber Climber;
-  public static ClimberExtender ClimberExtender;
-  public static ControlPanelSpinner ControlPanelSpinner;
-  public static Serializer Serializer;
-  public static Intake Intake;
-  public static LEDs LEDs;
-  public static Shooter Shooter;
-  public static ShooterHood ShooterHood;
-  public static Vision Vision;
-  public static PowerDistributionPanel PDP;
-  public static OI OI;
+private Command m_autonomousCommand;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -41,17 +34,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    Chassis = new Chassis();
-    Climber = new Climber();
-    ClimberExtender = new ClimberExtender();
-    ControlPanelSpinner = new ControlPanelSpinner();
-    Serializer = new Serializer();
-    Intake = new Intake();
-    LEDs = new LEDs();
-    Shooter = new Shooter();
-    ShooterHood = new ShooterHood();
-    Vision = new Vision();
-    OI = new OI();
+    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // autonomous chooser on the dashboard.
+   CellHolder = new CellHolder();
+   SerializerElevator =new SerializerElevator();
+   oi = new OI ();
   }
 
   /**

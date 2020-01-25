@@ -7,16 +7,31 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Serializer extends SubsystemBase {
-  /**
-   * Creates a new ExampleSubsystem.
-   */
-  public Serializer() {
+public class CellHolder extends SubsystemBase {
+
+  //solenoid
+  public Solenoid cellHolderSolenoid;
+   /**
+   *  @author Hunter B. & John R. 
+   **/
+  public CellHolder() {
+   
+   //this is the port of the solenoid for the cellholder
+    cellHolderSolenoid = new Solenoid(0);
+
 
   }
-
+  //turns on the cellholder solenoid that holds the cells
+public void cellHolderClose(){
+  cellHolderSolenoid.set(true);
+}
+//turns off the cellholder solenoid that holds the cells
+public void cellHolderOpen(){
+  cellHolderSolenoid.set(false);
+}
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

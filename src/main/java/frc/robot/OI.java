@@ -1,5 +1,8 @@
 package frc.robot;
 
+import frc.robot.commands.Serializer.cellHolderClose;
+import frc.robot.commands.Serializer.cellHolderOpen;
+import frc.robot.commands.Serializer.serializerUp;
 import frc.robot.nerdyfiles.controller.*;
 
 public class OI {
@@ -11,10 +14,11 @@ public class OI {
         
         // --- DRIVER JOYSTICK --- //
 
-        //insert code here
+        driverJoystick.greenA  .whileHeld(new serializerUp());
+        driverJoystick.redB  .whileHeld (new cellHolderClose());
+        driverJoystick.redB  .whenReleased(new cellHolderOpen());
 
         // --- OPERATOR JOYSTICK --- //
-
         //insert code here
 
         // --- DRIVER STATION CONTROLS --- //
