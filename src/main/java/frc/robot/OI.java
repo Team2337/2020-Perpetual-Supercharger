@@ -10,24 +10,24 @@ public class OI {
 	public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2);
     public OI(){
         
-        /** --- DRIVER JOYSTICK --- */
+        /* --- DRIVER JOYSTICK --- */
 
         //insert code here
 
-        /** --- OPERATOR JOYSTICK --- */
+        /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
         operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4));
 
-        /** --- DRIVER STATION CONTROLS --- */
+        /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here
 
         /////////////////////////////////////
 
-        /** --- TESTING PURPOSES --- */
+        /* --- TESTING PURPOSES --- */
         //The right bumper moves the intake motors one way
         operatorJoystick.bumperRight .whenPressed(new adjustIntakeSpeed(Robot.Intake, 0.1));
         //The left bumper moves the intake motors the other way
