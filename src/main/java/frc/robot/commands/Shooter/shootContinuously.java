@@ -12,10 +12,10 @@ import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Shoots the ball
+ * Shoots up to 5 balls as accurate and quickly as possible.
  * @author Michael Francis
  */
-public class shootBall extends CommandBase {
+public class shootContinuously extends CommandBase {
   //These variables are used to take a parameter through the rest of the command in methods
   private final Shooter m_subsystem;
   private double m_modifier;
@@ -31,7 +31,7 @@ public class shootBall extends CommandBase {
    * <li>There is commented out code for this being controlled on SmartDashboard instead.</li>
    * </ul>
    */
-  public shootBall(Shooter subsystem, double modifier) {
+  public shootContinuously(Shooter subsystem, double modifier) {
     //Puts the parameters in the command's variables to be used around as a shortcut.
     m_subsystem = subsystem;
     m_modifier = modifier;

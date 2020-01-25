@@ -34,6 +34,8 @@ public class Shooter extends SubsystemBase {
   public TalonFXConfiguration FXConfig;
   //Configures code for putting limits onto motors
   private StatorCurrentLimitConfiguration currentLimitConfigurationMotor = new StatorCurrentLimitConfiguration();
+  //Creates a variable for shooting
+  public int ballCount = 0;
 
   /**
    * Shoots the ball with a certain strength
@@ -144,5 +146,31 @@ public class Shooter extends SubsystemBase {
   public void stopShooter() {
     shootMotor1.set(TalonFXControlMode.Velocity, 0);
     shootMotor2.set(TalonFXControlMode.Velocity, 0);
+  }
+
+  /**
+   * Shoots a single ball
+   */
+  public void shootSingle(){
+
+  }
+
+  /**
+   * Shoots balls continuously up to 5
+   */
+  public void shootContinuously(){
+
+  }
+
+  /**
+   * Waits a specified amount of time
+   * @param sec The time (in <em>seconds</em>) specifying how long the shooter should wait for
+   */
+  public void waitTime(final long sec){
+    
+  }
+
+  public void countUp(){
+    ballCount++;
   }
 }
