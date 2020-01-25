@@ -4,7 +4,7 @@ import frc.robot.commands.swerve.*;
 import frc.robot.nerdyfiles.controller.*;
 
 /**
- * OI Class where all controllers and button presses are placed 
+ * OI Class where all controllers and button presses are placed
  */
 public class OI {
 
@@ -19,26 +19,30 @@ public class OI {
     /**
      * Driver Joystick Object (NerdyUltimateXboxDriver object)
      */
-    public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2 /* Joystick Slot ID */);
-    
+    public NerdyOperatorStation operatorControls = new NerdyOperatorStation(2 /* Joystick Slot ID */);
+
     /**
-     * OI Class where all controllers and button presses are placed 
+     * OI Class where all controllers and button presses are placed
      */
-    public OI(){
-        
+    public OI() {
+
         /* --- DRIVER JOYSTICK --- */
 
         // Sets the field orientation
-        driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(false));
-        driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(true));
+        // driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(false));
+        // driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(true));
+        driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment));
 
         /* --- OPERATOR JOYSTICK --- */
 
-        //insert code here
+        operatorJoystick.blueX.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
+        operatorJoystick.redB.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "nearShot"));
+        operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
+        operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
 
         /* --- DRIVER STATION CONTROLS --- */
 
-        //insert code here
+        // insert code here
 
         /////////////////////////////////////
     }

@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
   public static Serializer Serializer;
   public static Intake Intake;
   public static LEDs LEDs;
+  public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Shooter Shooter;
   public static ShooterHood ShooterHood;
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static OI OI;
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -54,6 +56,7 @@ public class Robot extends TimedRobot {
     Serializer = new Serializer();
     Intake = new Intake();
     LEDs = new LEDs();
+    OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Pigeon = new Pigeon();
     Shooter = new Shooter();
     ShooterHood = new ShooterHood();

@@ -37,6 +37,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   /* --- Private Double Values --- */
   private double deadband = 0.1;
   private double lastAngle;
+  private double gyroOffset = 0;
 
   /**
    * Array for module angle offsets
@@ -119,7 +120,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     
     // Adjusts forward and strafe based on the gyro if set in field oriented mode
     if (getFieldOriented()) {
-      double angleRad = Math.toRadians(-Robot.Pigeon.getYaw()) % (2*Math.PI);
+      double angleRad = Math.toRadians(-Robot.Pigeon.getYaw() + gyroOffset) % (2*Math.PI);
       double temp = forward * Math.cos(angleRad) + strafe * Math.sin(angleRad);
       strafe = -forward * Math.sin(angleRad) + strafe * Math.cos(angleRad);
       forward = temp;
@@ -234,6 +235,10 @@ public class SwerveDrivetrain extends SubsystemBase {
    */
   public void setFieldOriented(boolean isFieldOriented) {
     this.isFieldOriented = isFieldOriented;
+  }
+
+  public void setGyroOffsetAngle(double angle) {
+    this.gyroOffset = angle;
   }
 
   /**
