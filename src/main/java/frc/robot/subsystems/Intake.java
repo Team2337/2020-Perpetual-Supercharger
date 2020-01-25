@@ -65,11 +65,7 @@ public class Intake extends SubsystemBase {
    * @return The intake speed of both the left and right motors in an array, put in the respective order.
    */
   public double[] getIntakeSpeed(){
-    double[] spd;
-    spd = new double[2];
-    
-    spd[0] = leftIntakeMotor.getMotorOutputPercent();
-    spd[1] = rightIntakeMotor.getMotorOutputPercent();
+    double[] spd = {leftIntakeMotor.getMotorOutputPercent(), rightIntakeMotor.getMotorOutputPercent()};
     return spd;
   }
 
@@ -86,11 +82,7 @@ public class Intake extends SubsystemBase {
    * @return An array of the temperature (in Celsius) of the left and right motors in the respective order.
    */
   public double[] getIntakeTemperature(){
-    double[] temp;
-    temp = new double[2];
-
-    temp[0] = leftIntakeMotor.getTemperature();
-    temp[1] = rightIntakeMotor.getTemperature();
+    double[] temp = {leftIntakeMotor.getTemperature(), rightIntakeMotor.getTemperature()};
     return temp;
   }
 }
