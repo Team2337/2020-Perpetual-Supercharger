@@ -16,29 +16,32 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class setIntakeSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Intake m_subsystem;
-  private double m_lspeed;
-  private double m_rspeed;
+  private final Intake subsystem;
+  /** Left intake motor speed */
+  private double lspeed;
+  /** Right intake motor speed */
+  private double rspeed;
 
   /**
    * Sets the intake speed to a given percent
-   * @param subsystem The subsystem used by this command. (Intake)
-   * @param speed A double number that sets what speed the motors move at
+   * @param m_subsystem The subsystem used by this command. (Intake)
+   * @param leftSpeed A double number that sets the speed of the left intake motor
+   * @param rightSpeed A double number that sets the speed of the right intake motor
    */
-  public setIntakeSpeed(Intake subsystem, double leftSpeed, double rightSpeed) {
-    m_subsystem = subsystem;
-    m_lspeed = leftSpeed;
-    m_rspeed = rightSpeed;
+  public setIntakeSpeed(Intake m_subsystem, double leftSpeed, double rightSpeed) {
+    subsystem = m_subsystem;
+    lspeed = leftSpeed;
+    rspeed = rightSpeed;
     
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     // This will set the intake to run at a set speed
-    m_subsystem.setIntakeSpeed(m_lspeed, m_rspeed);
+    subsystem.setIntakeSpeed(lspeed, rspeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,7 +53,7 @@ public class setIntakeSpeed extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     // Stops the intake
-    m_subsystem.stopIntake();
+    subsystem.stopIntake();
   }
 
   // Returns true when the command should end.

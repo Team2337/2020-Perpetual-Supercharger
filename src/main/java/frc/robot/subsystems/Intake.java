@@ -17,12 +17,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 /**
- * Simple system for the intake
+ * Simple subsystem for the intake
  * @author Michael Francis
  */
 public class Intake extends SubsystemBase {
-  //Debug: if true, will return the intake speed to Shuffleboard/SmartDashboard
-  private final boolean debug = false;
+  /**
+   * Specifies whether or not the Intake will be in debug mode.
+   * @see #periodic()
+   */
+  private final boolean intakeDebug = true;
 
   //Motors
   TalonFX leftIntakeMotor;
@@ -44,20 +47,38 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if(debug){
+    if(intakeDebug){
+      //If in debug mode, put the intake speed and temperature on SmartDashboard/Shuffleboard
       SmartDashboard.putNumberArray("Intake Motor Speed", getIntakeSpeed());
+      SmartDashboard.putNumberArray("Intake Motor Temperature", getIntakeTemperature());
     }
   }
 
   /**
    * A method that sets the speed of the intake motor(s)
-   * @param lspeed Sets the speed of the left motor as a value -1 through 1
-   * @param rspeed Sets the speed of the right motor as a value -1 through 1
+   * @param leftSpeed Sets the speed of the left motor as a value -1 through 1
+   * @param rightSpeed Sets the speed of the right motor as a value -1 through 1
    */
-  public void setIntakeSpeed(double lspeed, double rspeed){
+  public void setIntakeSpeed(double leftSpeed, double rightSpeed){
     //Sets the speed of the intake motors
-    leftIntakeMotor.set(ControlMode.PercentOutput, lspeed);
-    rightIntakeMotor.set(ControlMode.PercentOutput, rspeed);
+    leftIntakeMotor.set(ControlMode.PercentOutput, leftSpeed);
+    rightIntakeMotor.set(ControlMode.PercentOutput, rightSpeed);
+  }
+
+  /**
+   * Sets the speed of the left intake motor
+   * @param speed Sets the speed of the left intake motor in percent output
+   */
+  public void setLeftIntakeSpeed(double speed){
+    leftIntakeMotor.set(ControlMode.PercentOutput, speed);
+  }
+  
+  /**
+   * Sets the speed of the right intake motor
+   * @param speed Sets the speed of the right intake motor in percent output
+   */
+  public void setRightIntakeSpeed(double speed){
+    rightIntakeMotor.set(ControlMode.PercentOutput, speed);
   }
 
   /**
@@ -65,6 +86,7 @@ public class Intake extends SubsystemBase {
    * @return The intake speed of both the left and right motors in an array, put in the respective order.
    */
   public double[] getIntakeSpeed(){
+    //Returns an array containing the percent output of the left and right intake motors in that order.
     double[] spd = {leftIntakeMotor.getMotorOutputPercent(), rightIntakeMotor.getMotorOutputPercent()};
     return spd;
   }
@@ -82,6 +104,7 @@ public class Intake extends SubsystemBase {
    * @return An array of the temperature (in Celsius) of the left and right motors in the respective order.
    */
   public double[] getIntakeTemperature(){
+    //Returns an array containing the temperature of the left and right intake motors in that order.
     double[] temp = {leftIntakeMotor.getTemperature(), rightIntakeMotor.getTemperature()};
     return temp;
   }

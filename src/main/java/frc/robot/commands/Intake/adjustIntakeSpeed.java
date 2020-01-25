@@ -16,17 +16,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class adjustIntakeSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Intake m_subsystem;
-  private double m_modifier;
+  private final Intake subsystem;
+  private double modifier;
 
   /**
    * Increases the intake speed by a given amount. The motors do not stop after.
-   * @param subsystem The subsystem used by this command. (Intake)
-   * @param modifier A double that the robot changes the speed of the motors by.
+   * @param m_subsystem The subsystem used by this command. (Intake)
+   * @param m_modifier A double that the robot changes the speed of the motors by.
    */
-  public adjustIntakeSpeed(Intake subsystem, double modifier) {
-    m_subsystem = subsystem;
-    m_modifier = modifier;
+  public adjustIntakeSpeed(Intake m_subsystem, double m_modifier) {
+    subsystem = m_subsystem;
+    modifier = m_modifier;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -36,7 +36,8 @@ public class adjustIntakeSpeed extends CommandBase {
   @Override
   public void initialize() {
     // This will change the intake speed by a set amount
-    m_subsystem.setIntakeSpeed(m_subsystem.getIntakeSpeed()+m_modifier);
+    subsystem.setIntakeSpeed(subsystem.getIntakeSpeed()[0] + modifier, 
+     subsystem.getIntakeSpeed()[1] + modifier);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,6 +48,7 @@ public class adjustIntakeSpeed extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    //Because this command is for testing purposes, the motors do not stop. Use stopIntakeMotors to stop.
   }
 
   // Returns true when the command should end.
