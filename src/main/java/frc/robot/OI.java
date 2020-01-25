@@ -13,12 +13,12 @@ public class OI {
         
         // --- DRIVER JOYSTICK --- //
 
-        driverJoystick.triggerLeft   .whileHeld(new leftHopperExtension(Robot.Hopper));
-        driverJoystick.triggerRight  .whileHeld(new rightHopperExtension(Robot.Hopper));
+        //insert code here
 
         // --- OPERATOR JOYSTICK --- //
 
-        //insert code here
+        operatorJoystick.triggerLeft   .whileHeld(new leftHopperExtension(Robot.Hopper));
+        operatorJoystick.triggerRight  .whileHeld(new rightHopperExtension(Robot.Hopper));
 
         // --- DRIVER STATION CONTROLS --- //
 
