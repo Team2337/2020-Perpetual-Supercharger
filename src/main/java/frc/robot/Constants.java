@@ -26,8 +26,8 @@ public final class Constants {
     public static int canID6 = 6;
     public static int canID7 = 7;
     public static int canID8 = 8;
-    public static int canID9 = 9;
-    public static int canID10 = 10;
+    public static int leftIntake = 9;
+    public static int rightIntake = 10;
     public static int canID11 = 11;
     public static int canID12 = 12;
     public static int canID13 = 13;

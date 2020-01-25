@@ -31,12 +31,10 @@ public class Intake extends SubsystemBase {
    */
   public Intake() {
     /**
-     * Currently, this sets the motors up. We have:
-     *   • leftIntakeMotor (9)
-     *   • rightIntakeMotor (10)
+     * This sets the motors up. We have two motors: one on the left side and one on the right side.
      */
-    leftIntakeMotor = new TalonFX(Constants.canID9);
-    rightIntakeMotor = new TalonFX(Constants.canID10);
+    leftIntakeMotor = new TalonFX(Constants.leftIntake);
+    rightIntakeMotor = new TalonFX(Constants.rightIntake);
     leftIntakeMotor.setInverted(false);
     rightIntakeMotor.setInverted(true);
   }
@@ -49,8 +47,7 @@ public class Intake extends SubsystemBase {
 
   /**
    * A method that sets the speed of the intake motor(s)
-   * @param speed
-   * Sets the speed of the motors as a value -1 through 1
+   * @param speed Sets the speed of the motors as a value -1 through 1
    */
   public void setIntakeSpeed(double speed){
     //Sets the speed of the intake motors
