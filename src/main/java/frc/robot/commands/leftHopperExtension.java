@@ -17,11 +17,7 @@ public class leftHopperExtension extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Hopper m_subsystem;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+  // Makes a requirement to extend the hopper's left pannel
   public leftHopperExtension(Hopper subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -33,13 +29,13 @@ public class leftHopperExtension extends CommandBase {
   public void initialize() {
 
     // Extends left Panel
-    m_subsystem.extendLeftFlipper();
+    m_subsystem.extendLeftFlipper(true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.retractLeftFlipper();
+    m_subsystem.extendLeftFlipper(false);
   }
 
   // Returns true when the command should end.

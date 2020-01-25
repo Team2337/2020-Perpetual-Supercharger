@@ -44,12 +44,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // and put our
-    // autonomous chooser on the dashboard.
 
     Hopper = new Hopper();
     Chassis = new Chassis();
     ClimberExtender = new ClimberExtender();
+    Climber = new Climber();
     ControlPanelSpinner = new ControlPanelSpinner();
     Serializer = new Serializer();
     Intake = new Intake();

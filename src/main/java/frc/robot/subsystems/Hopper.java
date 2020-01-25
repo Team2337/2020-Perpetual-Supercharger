@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 /**
  * @author John R.
@@ -16,25 +17,21 @@ public class Hopper extends SubsystemBase {
 
   // Sets port the Solenoids work from
   public Hopper() {
-    leftFlipper = new Solenoid(3);
-    rightFlipper = new Solenoid(2);
+    leftFlipper = new Solenoid(Constants.leftFlipperSolenoid);
+    rightFlipper = new Solenoid(Constants.rightFlipperSolenoid);
   }
 
-  // Defines the act of extending and retracting the left flipper
-  public void extendLeftFlipper() {
-    leftFlipper.set(true);
+  // Defines the act of extending and retracting the left flipper through a boolean state
+  public void extendLeftFlipper(boolean state) {
+    leftFlipper.set(state);
   }
 
-  public void retractLeftFlipper() {
-    leftFlipper.set(false);
+  // Defines the act of extending and retracting the right flipper through a boolean state
+  public void extendRightFlipper(boolean state) {
+    rightFlipper.set(state);
   }
 
-  // Defines the act of extending and retracting the right flipper
-  public void extendRightFlipper() {
-    rightFlipper.set(true);
-  }
+public void retractLeftFlipper() {
+}
 
-  public void retractRightFlipper() {
-    rightFlipper.set(false);
-  }
 }

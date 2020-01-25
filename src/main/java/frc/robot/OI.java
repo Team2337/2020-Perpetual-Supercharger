@@ -1,5 +1,7 @@
 package frc.robot;
 
+import frc.robot.commands.leftHopperExtension;
+import frc.robot.commands.rightHopperExtension;
 import frc.robot.nerdyfiles.controller.*;
 
 public class OI {
@@ -11,7 +13,8 @@ public class OI {
         
         // --- DRIVER JOYSTICK --- //
 
-        //insert code here
+        driverJoystick.triggerLeft   .whileHeld(new leftHopperExtension(Robot.Hopper));
+        driverJoystick.triggerRight  .whileHeld(new rightHopperExtension(Robot.Hopper));
 
         // --- OPERATOR JOYSTICK --- //
 
