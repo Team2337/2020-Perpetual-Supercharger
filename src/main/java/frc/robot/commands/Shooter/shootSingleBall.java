@@ -20,6 +20,8 @@ public class shootSingleBall extends CommandBase {
   private final Shooter m_subsystem;
   private double m_modifier;
 
+
+
   /**
    * Shoots a single ball at a specified speed so that we can see what the trajectory will be.
    * @param subsystem The subsystem that the command uses (Shooter)
@@ -29,7 +31,6 @@ public class shootSingleBall extends CommandBase {
     //Puts the parameters in the command's variables to be used around as a shortcut.
     m_subsystem = subsystem;
     m_modifier = modifier;
-    // SmartDashboard.putNumber("Shooter Speed", 17000);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -41,8 +42,7 @@ public class shootSingleBall extends CommandBase {
     //The code in execute allows the shooter to coast after turning off.
     m_subsystem.shootMotor1.configClosedloopRamp(0.5);
     m_subsystem.shootMotor2.configClosedloopRamp(0.5);
-    // m_modifier = SmartDashboard.getNumber("Shooter Speed", 17000);
-    m_subsystem.setShooterSpeed(m_modifier);
+    m_subsystem.shootBall(m_modifier, 1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -60,9 +60,7 @@ public class shootSingleBall extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     //Code that when the command ends, stop the shooter.
-    //Comment the code out if the ramp rate code in execute does not work or
-    //if you need to test.
-    // m_subsystem.stopShooter();
+    m_subsystem.stopShooter();
   }
 
   // Returns true when the command should end.

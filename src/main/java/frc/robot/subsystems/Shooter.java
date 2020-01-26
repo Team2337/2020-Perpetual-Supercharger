@@ -155,28 +155,9 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
-   * Shoots a single ball
+   * Shoots a specified number of balls
    */
-  public void shootSingle(){
+  public void shootBall(double velo, int balls){
 
-  }
-
-  /**
-   * Shoots balls continuously up to 5
-   */
-  public void shootContinuously(){
-
-  }
-
-  /**
-   * Waits a specified amount of time
-   * @param sec The time (in <em>seconds</em>) specifying how long the shooter should wait for
-   */
-  public void waitTime(final long sec){
-    
-  }
-
-  public void countUp(){
-    ballCount++;
   }
 }
