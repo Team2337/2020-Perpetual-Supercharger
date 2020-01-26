@@ -34,7 +34,7 @@ public class driveToPosition extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public driveToPosition(SwerveDrivetrain subsystem, int position, double moduleAngle, double rotation, double timeout) {
+  public driveToPosition(SwerveDrivetrain subsystem, int position, double moduleAngle, double timeout) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -48,38 +48,19 @@ public class driveToPosition extends CommandBase {
   @Override
   public void initialize() {
     for(int i = 0; i < 4; i++) {
-      if (Math.abs(rotation) > 0) {
-        if (i > 0 && i < 3) {
-          m_subsystem.getModule(i).setSetpoint(-position);
-        } else {
-          m_subsystem.getModule(i).setSetpoint(position);
-        }
-      } else {
-        m_subsystem.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
-      }
+      m_subsystem.getModule(i).setSetpoint(position);
+      m_subsystem.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
     }
-m_subsystem.zeroAllDriveEncoders();
+    m_subsystem.zeroAllDriveEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     for(int i = 0; i < 4; i++) {
-      if (Math.abs(rotation) > 0) {
-        if (i % 2 == 0) {
-          m_subsystem.getModule(i).setModuleAngle(Math.toRadians(-rotation));
-        } else {
-          m_subsystem.getModule(i).setModuleAngle(Math.toRadians(rotation));
-        }
-      } else {
-      //  m_subsystem.getModule(i).setModuleAngle(Math.toRadians(moduleAngle));
+       m_subsystem.getModule(i).setModuleAngle(Math.toRadians(moduleAngle));
     }
-    }
-    if (m_subsystem.getModule(0).getDriveEncoder() > 195000 && m_subsystem.getModule(0).getDriveEncoder() < 505000) {
-      withinTolerance = false;
-    } else {
-      withinTolerance = false;
-    }
+
     if (timer > timeout * 50) {
       withinTolerance = true;
     }

@@ -28,7 +28,7 @@ public class swerveCircle extends SequentialCommandGroup {
    */
   public swerveCircle() {
     addCommands(
-      new driveToPosition(Robot.SwerveDrivetrain, 0, 0, 45, 1),
+      new driveToPosition(Robot.SwerveDrivetrain, 0, 0, 1),
       new rotateToAngle(Robot.SwerveDrivetrain, 49, 45, 0.5).withTimeout(254)
 
     );
