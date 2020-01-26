@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 //Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,13 +19,13 @@ import frc.robot.Constants;
 
 /**
  * Simple system for the feeder
- * @author Nicholas Stokes
+ * @author Nicholas Stokes, Michael Francis, Jack Engleter
  */
 public class Feeder extends SubsystemBase {
 
   // Motors
-  TalonFX leftFeederMotor;
-  TalonFX rightFeederMotor;
+  VictorSPX leftFeederMotor;
+  TalonSRX rightFeederMotor;
 
   /**
    * Creates a new Feeder subsystem and sets up the motors to their corresponding
@@ -33,8 +35,8 @@ public class Feeder extends SubsystemBase {
     /**
      
      */
-    leftFeederMotor = new TalonFX(Constants.leftFeeder);
-    rightFeederMotor = new TalonFX(Constants.rightFeeder);
+    leftFeederMotor = new VictorSPX(Constants.testMotors);
+    rightFeederMotor = new TalonSRX(Constants.testyMotors);
     leftFeederMotor.setInverted(false);
     rightFeederMotor.setInverted(true);
 
@@ -82,7 +84,10 @@ public class Feeder extends SubsystemBase {
   /**
    * Method that returns the feeder motor temperature
    */
-  public double getFeederTemperature() {
-    return leftFeederMotor.getTemperature();
+  public double [] getFeederTemperature() {
+    //Returns an array containing the temperature of the left and right feeder motors in that order.
+    double[] temp = {leftFeederMotor.getTemperature(), rightFeederMotor.getTemperature()};
+    return temp;
   }
+    
 }

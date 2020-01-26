@@ -28,13 +28,12 @@ public class OI {
 
         /////////////////////////////////////
 
-        // === TESTING PURPOSES === //
+        /* --- TESTING PURPOSES --- */
         //The right bumper moves the intake motors one way
         operatorJoystick.bumperRight .whenPressed(new adjustIntakeSpeed(Robot.Intake, 0.1));
         //The left bumper moves the intake motors the other way
         operatorJoystick.bumperLeft .whenPressed(new adjustIntakeSpeed(Robot.Intake, -0.1));
 
-        // === DRIVING PURPOSES === //
         //Stops intake motors
         operatorJoystick.redB .whenPressed(new stopIntakeMotors(Robot.Intake));
         //Sets the intake motors to intake balls
