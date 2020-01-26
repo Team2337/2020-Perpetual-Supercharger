@@ -30,7 +30,8 @@ public class SwerveDriveCommand extends CommandBase {
    * Value from the X axis on the right joystick, on the driver controller  
    */
 	private double rotation = 0;
-
+  private double error;
+  private double kP = 0.01;
 
   /**
    * Command running the swerve calculations with the joystick
@@ -56,15 +57,27 @@ public class SwerveDriveCommand extends CommandBase {
    // Set Deadband
    forward = Robot.Utilities.deadband(forward, 0.05);
    strafe = Robot.Utilities.deadband(strafe, 0.05);
-   rotation = Robot.Utilities.deadband(rotation, 0.05);
+   rotation = Robot.Utilities.deadband(rotation, 0.1);
 
    // Smartdashboard prints
    SmartDashboard.putNumber("Forward", forward);
    SmartDashboard.putNumber("Strafe", strafe);
    SmartDashboard.putNumber("Rotation", rotation);
    
+   if (Robot.OperatorAngleAdjustment.getIsChangingGyroAngle()) {
+     error = Robot.SwerveDrivetrain.getGyroOffsetAngle() + Robot.Utilities.getYawMod();
+     error %= 360;
+     if (error > 180) {
+       error -= 360;
+     } else if (error < -180){
+       error += 360;
+     }
+     rotation = error * kP;
+     SmartDashboard.putNumber("Rotational Error", error);
+     rotation = (Math.abs(rotation) > 0.6) ? Math.copySign(0.6, rotation) : rotation;
+   }
    // Pass on joystick values to be calculated into angles and speeds
-   swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
+   swerveDrivetrain.calculateJoystickInput(0, 0, 0);
   }
 
   @Override

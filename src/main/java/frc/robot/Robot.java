@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +25,7 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
+  public static Constants Constants;
   public static Utilities Utilities;
 
   public static Climber Climber;
@@ -48,6 +51,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Must go before subsystems
+    Constants = new Constants();
     Utilities = new Utilities();
     /* --- Subsystems --- */
     Climber = new Climber();
@@ -63,6 +67,8 @@ public class Robot extends TimedRobot {
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
     OI = new OI();
+    SwerveDrivetrain.zeroAllDriveEncoders();
+    SwerveDrivetrain.getModule(0).zeroDriveEncoder();
 
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
@@ -83,6 +89,13 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("getAbsoluteCompassHeading", Pigeon.getAbsoluteCompassHeading());
+    SmartDashboard.putNumber("getAverageEncoderDistance", SwerveDrivetrain.getAverageDriveEncoderDistance());
+    SmartDashboard.putNumber("getModuleDriveEncoder0", SwerveDrivetrain.getModule(0).getDriveEncoder());
+    SmartDashboard.putNumber("getModuleDriveEncoder1", SwerveDrivetrain.getModule(1).getDriveEncoder());
+    SmartDashboard.putNumber("getModuleDriveEncoder2", SwerveDrivetrain.getModule(2).getDriveEncoder());
+    SmartDashboard.putNumber("getModuleDriveEncoder3", SwerveDrivetrain.getModule(3).getDriveEncoder());
+
+
   }
 
   /**
@@ -90,6 +103,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    for(int i = 0; i < 4; i++)
+    SwerveDrivetrain.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   @Override
@@ -106,6 +121,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    SwerveDrivetrain.zeroAllDriveEncoders();
   }
 
   /**
@@ -124,7 +140,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    
+    for(int i = 0; i < 4; i++)
+    SwerveDrivetrain.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
     Pigeon.resetPidgey();
   }
 

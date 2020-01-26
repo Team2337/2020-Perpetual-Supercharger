@@ -5,30 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.swerve;
+package frc.robot.commands.auto;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.OperatorAngleAdjustment;
+import frc.robot.subsystems.SwerveDrivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class ChangeGyroAngleOffset extends InstantCommand {
+public class resetDriveEncoders extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final OperatorAngleAdjustment m_subsystem;
-  private boolean isRotating;
+  private final SwerveDrivetrain m_subsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ChangeGyroAngleOffset(OperatorAngleAdjustment subsystem, boolean isRotating) {
+  public resetDriveEncoders(SwerveDrivetrain subsystem) {
     m_subsystem = subsystem;
-    this.isRotating = isRotating;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -36,9 +34,9 @@ public class ChangeGyroAngleOffset extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.SwerveDrivetrain.setGyroOffsetAngle(Robot.OperatorAngleAdjustment.getGyroAngleOffset());
-    Robot.OperatorAngleAdjustment.setIsChangingGyroAngle(isRotating);
+    Robot.SwerveDrivetrain.zeroAllDriveEncoders();
   }
+  
 
   // Called once the command ends or is interrupted.
   @Override

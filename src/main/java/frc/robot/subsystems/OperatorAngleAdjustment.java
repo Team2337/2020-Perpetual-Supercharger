@@ -20,12 +20,13 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    public double nearShot;
    public double climbing;
    public boolean isFieldOrientend;
+   public boolean isChangingGyroAngle;
 
   public OperatorAngleAdjustment() {
     gyroOffset = 0;
-    farShot = 0;
-    nearShot = 0;
-    climbing = 0;
+    farShot = 33;
+    nearShot = 90;
+    climbing = 180;
     isFieldOrientend = true;
   }
 
@@ -47,6 +48,14 @@ public class OperatorAngleAdjustment extends SubsystemBase {
 
     public double getGyroAngleOffset() {
    return gyroOffset;
+  }
+
+  public void setIsChangingGyroAngle(boolean isChangingGyroAngle) {
+    this.isChangingGyroAngle = isChangingGyroAngle;
+  }
+
+  public boolean getIsChangingGyroAngle() {
+    return isChangingGyroAngle;
   }
   @Override
   public void periodic() {

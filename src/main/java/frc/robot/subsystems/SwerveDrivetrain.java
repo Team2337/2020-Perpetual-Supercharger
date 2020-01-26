@@ -38,6 +38,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   private double deadband = 0.1;
   private double lastAngle;
   private double gyroOffset = 0;
+  private double averageDriveEncoderDistanceValue = 0;
 
   /**
    * Array for module angle offsets
@@ -106,6 +107,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     swerveModules[2].setDriveInverted(false);
     swerveModules[3].setDriveInverted(false);
 
+    swerveModules[1].setDriveSensorPhaseInverted(true);
+    swerveModules[2].setDriveSensorPhaseInverted(true);
+
   }
 
   /**
@@ -120,7 +124,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     
     // Adjusts forward and strafe based on the gyro if set in field oriented mode
     if (getFieldOriented()) {
-      double angleRad = Math.toRadians(-Robot.Pigeon.getYaw() + gyroOffset) % (2*Math.PI);
+      double angleRad = Math.toRadians(-Robot.Pigeon.getYaw()) % (2*Math.PI);
       double temp = forward * Math.cos(angleRad) + strafe * Math.sin(angleRad);
       strafe = -forward * Math.sin(angleRad) + strafe * Math.cos(angleRad);
       forward = temp;
@@ -183,7 +187,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {
-        getModule(i).setModuleAngle(lastAngle);
+        //getModule(i).setModuleAngle(lastAngle);
         getModule(i).setDriveSpeed(0);
       }
       //Sets the drive speed for each drive motor
@@ -241,6 +245,36 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.gyroOffset = angle;
   }
 
+  public double getGyroOffsetAngle() {
+    return gyroOffset;
+  }
+
+  public double getAverageDriveEncoderDistance() {
+    averageDriveEncoderDistanceValue = 0;
+    for(int i = 0; i < 4; i++) {
+    averageDriveEncoderDistanceValue += Math.abs(getModule(i).getDriveEncoder());
+        }
+
+    return (averageDriveEncoderDistanceValue / 4);
+
+  }
+
+  public void setAllModuleDriveEncoders(int position) {
+    for(int i = 0; i < 4; i++) {
+      getModule(i).setDriveEncoder(position);
+    }
+  }
+
+  public void zeroAllDriveEncoders() {
+    setAllModuleDriveEncoders(0);
+  }
+
+  public void setAllModuleDriveSetpoint(int setpoint) {
+    for(int i = 0; i < 4; i++) {
+      getModule(i).setSetpoint(setpoint);
+  }
+}
+
   /**
    * Gets the current field orientation mode
    * (True: robot is field oriented | False: robot is robot oriented)
@@ -250,4 +284,9 @@ public class SwerveDrivetrain extends SubsystemBase {
       return this.isFieldOriented;
   }
 
+  @Override
+  public void periodic() {
+    for(int i = 0; i < 4; i++)
+    getModule(i).periodic();
+  }
 }

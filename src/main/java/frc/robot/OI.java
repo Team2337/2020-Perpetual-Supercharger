@@ -1,5 +1,10 @@
 package frc.robot;
 
+import frc.robot.commands.auto.driveToPosition;
+import frc.robot.commands.auto.commandgroups.swerveCircle;
+import frc.robot.commands.auto.commandgroups.swerveDiamond;
+import frc.robot.commands.auto.commandgroups.swerveSquare;
+import frc.robot.commands.auto.commandgroups.swerveTriangle;
 import frc.robot.commands.swerve.*;
 import frc.robot.nerdyfiles.controller.*;
 
@@ -31,7 +36,8 @@ public class OI {
         // Sets the field orientation
         // driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(false));
         // driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(true));
-        driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment));
+        driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, true));
+        driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
         /* --- OPERATOR JOYSTICK --- */
 
@@ -39,6 +45,7 @@ public class OI {
         operatorJoystick.redB.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "nearShot"));
         operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
         operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
+        operatorJoystick.triggerLeft.whenPressed(new swerveCircle());
 
         /* --- DRIVER STATION CONTROLS --- */
 
