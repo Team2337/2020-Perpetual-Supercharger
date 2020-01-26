@@ -22,6 +22,8 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
+  public static Constants Constants;
+
   public static Chassis Chassis;
   public static Climber Climber;
   public static ClimberExtender ClimberExtender;
@@ -41,6 +43,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    Constants = new Constants();
     Chassis = new Chassis();
     Climber = new Climber();
     ClimberExtender = new ClimberExtender();
