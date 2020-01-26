@@ -28,7 +28,7 @@ public class leftHopperExtension extends CommandBase {
   @Override
   public void initialize() {
 
-    // Extends left Panel
+    // Extends left flipper
     m_subsystem.extendLeftFlipper(true);
   }
 
