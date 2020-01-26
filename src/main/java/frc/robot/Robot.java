@@ -24,6 +24,8 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
 
+  public static Constants Constants;
+
   public static Chassis Chassis;
   public static Climber Climber;
   public static ClimberExtender ClimberExtender;
@@ -45,14 +47,15 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-    Hopper = new Hopper();
     Chassis = new Chassis();
-    ClimberExtender = new ClimberExtender();
     Climber = new Climber();
+    ClimberExtender = new ClimberExtender();
+    Constants = new Constants();
     ControlPanelSpinner = new ControlPanelSpinner();
-    Serializer = new Serializer();
+    Hopper = new Hopper();
     Intake = new Intake();
     LEDs = new LEDs();
+    Serializer = new Serializer();
     Shooter = new Shooter();
     ShooterHood = new ShooterHood();
     Vision = new Vision();
