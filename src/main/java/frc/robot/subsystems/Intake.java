@@ -25,7 +25,7 @@ public class Intake extends SubsystemBase {
    * Specifies whether or not the Intake will be in debug mode.
    * @see #periodic()
    */
-  private final boolean intakeDebug = true;
+  private final boolean intakeDebug = false;
 
   //Motors
   TalonFX leftIntakeMotor;
