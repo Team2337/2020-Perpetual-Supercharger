@@ -26,14 +26,12 @@ public class Feeder extends SubsystemBase {
   
 
   /**
-   * Creates a new Intake subsystem and sets up the motors to their corresponding
+   * Creates a new Feeder subsystem and sets up the motors to their corresponding
    * ports.
    */
   public Feeder() {
     /**
-     * Currently, this sets the motors up. We have:
-     *   • leftIntakeMotor (9)
-     *   • rightIntakeMotor (10)
+     
      */
     feederMotor = new TalonFX(11);
 

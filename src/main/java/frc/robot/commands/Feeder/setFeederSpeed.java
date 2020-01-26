@@ -21,7 +21,7 @@ public class setFeederSpeed extends CommandBase {
   private double m_speed;
 
   /**
-   * Sets the intake speed to a given percent
+   * Sets the feeder speed to a given percent
    * @param subsystem The subsystem used by this command. (Feeder)
    * @param speed A double number that sets what speed the motors move at
    */
