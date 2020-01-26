@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LEDs extends SubsystemBase {
   /**
-   * Creates a new ExampleSubsystem.
+   * Creates a new LED subsystem.
    */
   public LEDs() {
 
