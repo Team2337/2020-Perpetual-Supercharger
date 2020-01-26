@@ -1,45 +1,26 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
+import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
-import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.Vision.*;
 
-  /**
-   * Binds the controls on the operator interface with the commands to control the limelight
-   */
+/**
+ * OI Class where all controllers and button presses are placed 
+ */
 public class OI {
+    
+    public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
+	public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
+    public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2);
+    
+    public OI(){
+        
+        /* --- DRIVER JOYSTICK --- */
 
-  /*
-	 * Controllers
-	 */
-  public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
-  public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
-  public NerdyOperatorStation operatorControls = new NerdyOperatorStation(2);
 
-  public OI() {
-    driverJoystick.blueX.whenPressed(new limeLightLEDOff());
-    driverJoystick.greenA.whenPressed(new limeLightLEDOn());
-    driverJoystick.redB.whenPressed(new limeLightLEDBlink());
-    driverJoystick.yellowY.whenPressed(new limelightPipeline());
-  }
+        /* --- DRIVER STATION CONTROLS --- */
 
-  public Joystick getDriverJoystick() {
-		return driverJoystick;
-	}
+        //insert code here
+        
+    }
 
-	public Joystick getOperatorJoystick() {
-		return operatorJoystick;
-	}
-
-	public Joystick getOperatorControls() {
-		return operatorControls;
-	}
-  
 }

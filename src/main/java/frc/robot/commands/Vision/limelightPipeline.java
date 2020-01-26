@@ -7,26 +7,33 @@
 
 package frc.robot.commands.Vision;
 
-import frc.robot.Robot;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
   /**
-   * Pipeline will switch
+   * Switches to the different conigurations of the limelight
    * @author Zayd A. & Madison J.
+   * @category VISION
    */
 public class limelightPipeline extends InstantCommand {
-
-  int pipe;
-  // CONSTRUCTOR
-  public limelightPipeline() {
-    addRequirements(Robot.Vision);
+  private Vision subsystem;
+  /* --- Integers --- */
+  private int pipe;
+/**
+ * Switches to the different conigurations of the limelight
+ * @param subsystem - Vision subsystem object
+ * @param pipe - Chamnges to the different configurations 
+ */
+  public limelightPipeline(Vision subsystem, int pipe) {
+    this.subsystem = subsystem;
+    addRequirements(subsystem);
+    /* --- Local variable being set to a global variable --- */
     this.pipe = pipe;
   }
 
-  // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    Robot.Vision.switchPipeLine(pipe);
+    subsystem.switchPipeLine(pipe);
     System.out.println("Pipeline Switched");
   }
 

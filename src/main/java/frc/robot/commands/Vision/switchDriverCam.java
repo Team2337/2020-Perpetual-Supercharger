@@ -7,23 +7,26 @@
 
 package frc.robot.commands.Vision;
 
-import frc.robot.Robot;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
+/**
+ * Drivecam will be turned on
+ * @author Zayd A. & Madison J.
+ * @category VISION
+ */
+public class switchDriverCam extends InstantCommand {
+  private Vision subsystem;
   /**
    * Drivecam will be turned on
-   * @author Zayd A. & Madison J.
    */
-public class switchDriverCam extends InstantCommand {
-  
-  // CONSTRUCTOR
-  public switchDriverCam() {
-    addRequirements(Robot.Vision);
+  public switchDriverCam(Vision subsystem) {
+    this.subsystem = subsystem;
+    addRequirements(subsystem);
   }
 
-  // Called just before this Command runs the first time
   @Override
   public void initialize() {
-
+    subsystem.switchPipeLine(9);
   }
 }
