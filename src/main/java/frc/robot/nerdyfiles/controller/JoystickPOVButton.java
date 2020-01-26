@@ -1,8 +1,7 @@
 package frc.robot.nerdyfiles.controller;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj2.command.button.Button;
-
+import edu.wpi.first.wpilibj2.command.button.*;
 
 /**
  * Trigger commands from an POV button on a joystick. POV button angles range

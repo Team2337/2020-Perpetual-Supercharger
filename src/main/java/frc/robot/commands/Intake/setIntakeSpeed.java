@@ -5,32 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Intake;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * An example command that uses an example subsystem.
+ * Sets the intake speed
+ * @author Michael Francis
  */
-public class ExampleCommand extends CommandBase {
+public class setIntakeSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  private final Intake subsystem;
+  /** Left intake motor speed */
+  private double lspeed;
+  /** Right intake motor speed */
+  private double rspeed;
 
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
+   * Sets the intake speed to a given percent
+   * @param m_subsystem The subsystem used by this command. (Intake)
+   * @param leftSpeed A double number that sets the speed of the left intake motor
+   * @param rightSpeed A double number that sets the speed of the right intake motor
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public setIntakeSpeed(Intake m_subsystem, double leftSpeed, double rightSpeed) {
+    subsystem = m_subsystem;
+    lspeed = leftSpeed;
+    rspeed = rightSpeed;
+    
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // This will set the intake to run at a set speed
+    subsystem.setIntakeSpeed(lspeed, rspeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,6 +52,8 @@ public class ExampleCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // Stops the intake
+    subsystem.stopIntake();
   }
 
   // Returns true when the command should end.
