@@ -31,8 +31,9 @@ public class OI {
 
         /* --- TEST CODE --- */
 
-        operatorJoystick.greenA. whileHeld(new CGSequentialShooter(Robot.Shooter, 15265, 3));
-        operatorJoystick.redB. whileHeld(new sensorTest(Robot.Shooter));
+        operatorJoystick.greenA .whileHeld(new CGSequentialShooter(Robot.Shooter, 15265, 3));
+        operatorJoystick.greenA .whenReleased(new stopShooter(Robot.Shooter));
+        operatorJoystick.redB .whileHeld(new sensorTest(Robot.Shooter));
         operatorJoystick.bumperRight .whileHeld(new shootContinuously(Robot.Shooter, 15295));
         operatorJoystick.bumperLeft .whenPressed(new shootSingleBall(Robot.Shooter, 15295));
     }

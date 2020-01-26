@@ -45,10 +45,10 @@ public class shootContinuously extends CommandBase {
   public void initialize() {
     //Configures a closed-loop ramp of 0.5. This is necessary because of code in execute.
     //The code in execute allows the shooter to coast after turning off.
-    m_subsystem.shootMotor1.configClosedloopRamp(0.5);
-    m_subsystem.shootMotor2.configClosedloopRamp(0.5);
+    m_subsystem.leftShootMotor.configClosedloopRamp(0.5);
+    m_subsystem.rightShootMotor.configClosedloopRamp(0.5);
     // m_modifier = SmartDashboard.getNumber("Shooter Speed", 17000);
-    m_subsystem.setShooterSpeed(m_modifier);
+    m_subsystem.shootBall(m_modifier, 5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -56,10 +56,11 @@ public class shootContinuously extends CommandBase {
   public void execute() {
     //Once the velocity reaches a certain speed, the closed-loop ramp is turned off.
     //This is to ensure that the motors when turned off will coast their way down.
-    if(m_subsystem.shootMotor1.getSelectedSensorVelocity() > 5000){
-      m_subsystem.shootMotor1.configClosedloopRamp(0);
-      m_subsystem.shootMotor2.configClosedloopRamp(0);
+    if(m_subsystem.leftShootMotor.getSelectedSensorVelocity() > 5000){
+      m_subsystem.leftShootMotor.configClosedloopRamp(0);
+      m_subsystem.rightShootMotor.configClosedloopRamp(0);
     }
+    m_subsystem.shootBall(m_modifier, 5);
   }
 
   // Called once the command ends or is interrupted.
@@ -74,6 +75,10 @@ public class shootContinuously extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(Shooter.allBallsFired){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

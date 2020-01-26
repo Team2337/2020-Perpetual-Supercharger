@@ -8,26 +8,22 @@
 package frc.robot.commands.Shooter;
 
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sensor test stuff!
- * @author Nicholas Stokes
+ * An example command that uses an example subsystem.
  */
-public class sensorTest extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  public int counter;
-  public boolean previousSensorValue;
-  public boolean sensorValue;
+public class stopShooter extends CommandBase {
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_subsystem;
+  private int iterations;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public sensorTest(Shooter subsystem) {
+  public stopShooter(Shooter subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -36,37 +32,16 @@ public class sensorTest extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    previousSensorValue = false;
-    counter = 0;
+    iterations = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-
-  /**
-   * @param sensorValue
-   * This value is a boolean value that represents what the sensor value is at the moment of triggering
-   * @param previousSensorValue
-   * This value is pretty simple, what the sensor was 20 milaseconds ago
-   * @param counter
-   * This is the counter, it counts the values up from zero
-   */
-
   @Override
   public void execute() {
-    sensorValue = m_subsystem.shooterSensor.get();
-    if (counter < 6){
-      if (!sensorValue && previousSensorValue) {
-        counter++;
-        Shooter.ballsFired++;
-      }
+    if(iterations == 0){
+        m_subsystem.slowShooter();
     }
-    else {
-     counter = 0;
-    }
-    previousSensorValue = sensorValue;
-    
-    SmartDashboard.putNumber("Counter Value", counter);
-    SmartDashboard.putBoolean("Sensor Value", sensorValue);
+    iterations = (iterations+1) % 5;
   }
 
   // Called once the command ends or is interrupted.
@@ -77,6 +52,7 @@ public class sensorTest extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    
     return false;
   }
 }
