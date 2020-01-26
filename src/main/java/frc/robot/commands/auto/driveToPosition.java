@@ -7,46 +7,47 @@
 
 package frc.robot.commands.auto;
 
-import frc.robot.Robot;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.SwerveDrivetrain;
-
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Swerve;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * An example command that uses an example subsystem.
+ * Drives to a set distance in inches and sets each module angle to be the same
+ * @author Madison J.
+ * @category AUTON
  */
 public class driveToPosition extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SwerveDrivetrain m_subsystem;
-  public int position;
-  public boolean withinTolerance;
-  public double moduleAngle;
-  public int timer;
-  public double timeout;
-  public double rotation;
+  /* --- Intergers --- */
+  private int position;
+  private int timer;
+  /* --- Booleans --- */
+  private boolean withinTolerance;
+  /* --- Doubles --- */
+  private double moduleAngle;
+  private double timeout;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+/**
+ * Drives to a set distance in inches and sets each module angle to be the same
+ * @param subsystem - SwerveDrivetrain subsystem object
+ * @param position - The desired drive distance of the robot in inches
+ * @param moduleAngle - The desired angle of the modules in degrees
+ * @param timeout - Ends the command after the amount of seconds given
+ */
   public driveToPosition(SwerveDrivetrain subsystem, int position, double moduleAngle, double timeout) {
     m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
+    /* --- Parameters Being Set to Global Variables --- */
     this.position = (int) (position* Swerve.TICKSPERINCH);
     this.moduleAngle = moduleAngle + m_subsystem.getYaw();
     this.timeout = timeout;
-    this.rotation = rotation;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // Goes through 4 times to set the position and neutral mode to coast mode on each module
     for(int i = 0; i < 4; i++) {
       m_subsystem.getModule(i).setSetpoint(position);
       m_subsystem.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
@@ -54,25 +55,23 @@ public class driveToPosition extends CommandBase {
     m_subsystem.zeroAllDriveEncoders();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Goes through 4 times and sets the target angle on each module
     for(int i = 0; i < 4; i++) {
        m_subsystem.getModule(i).setModuleAngle(Math.toRadians(moduleAngle));
     }
-
+    // Ends the command if the timer is greater than the timeout
     if (timer > timeout * 50) {
       withinTolerance = true;
     }
     timer++;
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return withinTolerance;

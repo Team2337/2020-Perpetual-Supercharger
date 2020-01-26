@@ -88,7 +88,8 @@ public class FXSwerveModule {
 
     /** Sets the inversion mode on the drive motors (True: invered | False: not inverted) */
     private boolean isDriveInverted = false;
-    private boolean isDriveSensorPhaseInverted = false;
+    /** Sets the drive sensor to be inverted */
+    private boolean isDriveSensorPhaseInverted = false; 
 
     /* --- Motor Controllers --- */
 
@@ -123,7 +124,9 @@ public class FXSwerveModule {
      * in the TalonFX class
      */
     private StatorCurrentLimitConfiguration currentLimitConfigurationDrive = new StatorCurrentLimitConfiguration();
-    public TalonFXConfiguration _fx;
+
+    /** The configuration object for the Talons */
+    public TalonFXConfiguration TalonFXConfiguration;
 
     /**
      * Swerve Module Object used to run the calculations for the swerve drive
@@ -144,7 +147,7 @@ public class FXSwerveModule {
         this.angleMotor = angleMotor;
         this.angleMotorOffset = angleMotorOffset;
         this.analogAngleSensor = analogAngleSensor;
-        _fx = new TalonFXConfiguration();
+        TalonFXConfiguration = new TalonFXConfiguration();
         /* --- Set Factory Default --- */
 
         // Resets the angle motor to its factory default
@@ -178,10 +181,6 @@ public class FXSwerveModule {
         driveMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 
         /* --- Drive PID --- */
-       // driveMotor.config_kP(0, driveP, 30);
-        // driveMotor.config_kI(0, driveI, 30);
-        // driveMotor.config_kD(0, driveD, 30);
-        // driveMotor.config_kF(0, driveF, 30);
         driveMotor.setSensorPhase(isDriveSensorPhaseInverted);
         driveMotor.setInverted(isDriveSensorPhaseInverted);
         driveMotor.configClosedLoopPeakOutput(0, 1, 30);
@@ -193,15 +192,16 @@ public class FXSwerveModule {
         driveMotor.configPeakOutputReverse(-0.25, 30);
         driveMotor.configAllowableClosedloopError(0, 100, 30);
         
-        _fx.slot0.kP = driveP;
-        _fx.slot0.kI = driveI;
-        _fx.slot0.kD = driveD;
-        _fx.slot0.kF = driveF;
-        _fx.peakOutputForward = 0.5;
-        _fx.peakOutputReverse = -0.5;
-        _fx.slot0.allowableClosedloopError = 100;
+        /* --- FX Configurations for the Drive Motors --- */
+        TalonFXConfiguration.slot0.kP = driveP;
+        TalonFXConfiguration.slot0.kI = driveI;
+        TalonFXConfiguration.slot0.kD = driveD;
+        TalonFXConfiguration.slot0.kF = driveF;
+        TalonFXConfiguration.peakOutputForward = 0.5;
+        TalonFXConfiguration.peakOutputReverse = -0.5;
+        TalonFXConfiguration.slot0.allowableClosedloopError = 100;
 
-        driveMotor.configAllSettings(_fx);
+        driveMotor.configAllSettings(TalonFXConfiguration);
 
 
 
@@ -346,22 +346,56 @@ public class FXSwerveModule {
         this.isDriveInverted = isDriveInverted;
     }
 
+    /**
+     * Sets the drive sensors to be inverted 
+     * @param isDriveSensorPhaseInverted - The drive sensors are inverted
+     */
     public void setDriveSensorPhaseInverted(boolean isDriveSensorPhaseInverted) {
         this.isDriveSensorPhaseInverted = isDriveSensorPhaseInverted;
         driveMotor.setInverted(isDriveSensorPhaseInverted);
     }
+
+    /**
+     * Gets the drive encoder position in ticks
+     * @return - The selected sensor position
+     */
     public int getDriveEncoder() {
         return driveMotor.getSelectedSensorPosition(0);
     }
 
+    /**
+     * Sets the encoder drive position
+     * @param position - Sets the selected sensor position
+     */
     public void setDriveEncoder(int position) {
         driveMotor.setSelectedSensorPosition(position, 0, 0);
     }
 
+    /**
+     * Zeros all drive encoders
+     */
     public void zeroDriveEncoder() {
         setDriveEncoder(0);
     }
 
+    /**
+     * Sets break mode
+     */
+    public void setBreakMode() {
+        driveMotor.setNeutralMode(NeutralMode.Brake);
+    }
+
+    /**
+     * Sets coast mode
+     */
+    public void setCoastMode() {
+        driveMotor.setNeutralMode(NeutralMode.Coast);
+    }
+
+    /**
+     * Sets the setpoints for the Talons
+     * @param setpoint - The desired position
+     */
     public void setSetpoint(int setpoint) {
         driveMotor.set(TalonFXControlMode.Position, setpoint);
     }

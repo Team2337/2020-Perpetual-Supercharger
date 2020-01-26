@@ -7,38 +7,38 @@
 
 package frc.robot.commands.swerve;
 
-import frc.robot.Robot;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.OperatorAngleAdjustment;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * An example command that uses an example subsystem.
+ * Sets the mode of the robot
+ * @author Madison J.
+ * @category AUTON
  */
 public class SetGyroAngleOffset extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final OperatorAngleAdjustment m_subsystem;
-private String mode;
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+  /* --- Strings --- */
+  private String mode;
+
+/**
+ * Sets the mode of the robot
+ * @param subsystem - OperatorAngleAdjustment subsystem object
+ * @param mode - Changes the angle of the robot depending on the mode selected (modes may do more than change robot angles)
+ * @see OperatorAngleAdjustment 
+ */
   public SetGyroAngleOffset(OperatorAngleAdjustment subsystem, String mode) {
     m_subsystem = subsystem;
+    /* --- Parameters Being Set to Global Variables --- */
     this.mode = mode;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.OperatorAngleAdjustment.setOffsetAngle(mode);
+    m_subsystem.setOffsetAngle(mode);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }

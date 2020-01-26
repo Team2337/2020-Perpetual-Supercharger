@@ -8,39 +8,39 @@
 package frc.robot.commands.swerve;
 
 import frc.robot.Robot;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.OperatorAngleAdjustment;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * An example command that uses an example subsystem.
+ * Takes the preset angle offset and the robot goes to that angle
+ * @author Madison J.
+ * @category AUTON
  */
 public class ChangeGyroAngleOffset extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final OperatorAngleAdjustment m_subsystem;
+  /* --- Booleans --- */
   private boolean isRotating;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+/**
+ * Takes the preset angle offset and the robot goes to that angle
+ * @param subsystem - SwerveDrivetrain subsystem object
+ * @param isRotating - Tells whether or not the robot is rotating
+ */
   public ChangeGyroAngleOffset(OperatorAngleAdjustment subsystem, boolean isRotating) {
     m_subsystem = subsystem;
+    /* --- Parameters Being Set to Global Variables --- */
     this.isRotating = isRotating;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // Sets the angle offset to the robot
     Robot.SwerveDrivetrain.setGyroOffsetAngle(Robot.OperatorAngleAdjustment.getGyroAngleOffset());
-    Robot.OperatorAngleAdjustment.setIsChangingGyroAngle(isRotating);
+    m_subsystem.setIsChangingGyroAngle(isRotating);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }

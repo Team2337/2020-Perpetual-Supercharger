@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,8 +36,13 @@ public class SwerveDrivetrain extends SubsystemBase {
   /* --- Private Double Values --- */
   private double deadband = 0.1;
   private double lastAngle;
-  private double gyroOffset = 0;
   private double averageDriveEncoderDistanceValue = 0;
+
+  /**
+   * Offsets the current gyro position to allow for 
+   * rotational adjustments during the match
+   */
+  private double gyroOffset = 0; 
 
   /**
    * Array for module angle offsets
@@ -187,7 +191,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {
-        //getModule(i).setModuleAngle(lastAngle);
+        getModule(i).setModuleAngle(lastAngle);
         getModule(i).setDriveSpeed(0);
       }
       //Sets the drive speed for each drive motor
@@ -241,39 +245,85 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.isFieldOriented = isFieldOriented;
   }
 
+  /**
+   * Sets the offset angle for each of the modules
+   * @param angle - The angle we want to offset in radians
+   */
   public void setGyroOffsetAngle(double angle) {
     this.gyroOffset = angle;
   }
 
+  /**
+   * Gets the offset angle for each of the modules
+   * @return - Gyro angle offset in radians
+   */
   public double getGyroOffsetAngle() {
     return gyroOffset;
   }
 
+  /**
+   * Gets the average drive encoder distance for each module
+   * @return - Average drive encoder distance in ticks divided by 4
+   */
   public double getAverageDriveEncoderDistance() {
     averageDriveEncoderDistanceValue = 0;
+    // Goes through 4 times and averages the drive encoders
     for(int i = 0; i < 4; i++) {
-    averageDriveEncoderDistanceValue += Math.abs(getModule(i).getDriveEncoder());
-        }
+      averageDriveEncoderDistanceValue += Math.abs(getModule(i).getDriveEncoder());
+    }
 
     return (averageDriveEncoderDistanceValue / 4);
 
   }
 
+  /**
+   * Sets the drive encoders for each module
+   */
   public void setAllModuleDriveEncoders(int position) {
+    // Goes through 4 times and sets the drive encoders 
     for(int i = 0; i < 4; i++) {
       getModule(i).setDriveEncoder(position);
     }
   }
 
+  /**
+   * Zeros all of the drive encoders
+   */
   public void zeroAllDriveEncoders() {
     setAllModuleDriveEncoders(0);
   }
 
+  /**
+   * Sets the module setpoints
+   * @param setpoint - The desired position in ticks
+   */
   public void setAllModuleDriveSetpoint(int setpoint) {
+    // Goes through 4 times and sets the setpoint for the modules
     for(int i = 0; i < 4; i++) {
       getModule(i).setSetpoint(setpoint);
   }
 }
+
+/**
+ * Sets break mode on drive modules
+ */
+  public void setAllModuleBreakMode() {
+    // Goes through 4 times and sets break mode for each module
+    for(int i = 0; i < 4; i++) {
+      getModule(i).setBreakMode();
+    }
+  }
+
+  /**
+   * Sets coast mode on drive modules
+   */
+  public void setAllModuleCoastMode() {
+    // Goes through 4 times and sets coast mode for each module
+    for(int i =0; i < 4; i++) {
+      getModule(i).setCoastMode();
+    }
+  }
+
 
   /**
    * Gets the current field orientation mode

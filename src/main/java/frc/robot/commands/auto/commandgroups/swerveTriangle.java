@@ -9,22 +9,19 @@ package frc.robot.commands.auto.commandgroups;
 
 import frc.robot.Robot;
 import frc.robot.commands.auto.driveToPosition;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.SwerveDrivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
- * An example command that uses an example subsystem.
+ * The chassis goes in a triangle command group
+ * @author Madison J.
+ * @category AUTON
  */
 public class swerveTriangle extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+/**
+ * The chassis goes in a trianlge command group
+ */
   public swerveTriangle() {
     addCommands(
       new driveToPosition(Robot.SwerveDrivetrain, 0, 0, 1),
