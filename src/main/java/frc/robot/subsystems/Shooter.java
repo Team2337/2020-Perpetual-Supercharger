@@ -1,11 +1,5 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
+
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -15,8 +9,6 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-// import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-// import com.ctre.phoenix.motorcontrol.can.TalonFXPIDSetConfiguration;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -220,6 +212,15 @@ public class Shooter extends SubsystemBase {
     }else{
       allBallsFired = true;
     }
+  }
+
+  /**
+   * Gets the velocity of both the shooters in the form of an array of integers.
+   * @return An array with the velocity of both motors in the order left, right
+   */
+  public int[] getShooterSpeed(){
+    int[] speed = {leftShootMotor.getSelectedSensorVelocity(), rightShootMotor.getSelectedSensorVelocity()};
+    return speed;
   }
 
 

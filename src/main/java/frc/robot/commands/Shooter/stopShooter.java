@@ -1,17 +1,11 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.Shooter;
 
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * An example command that uses an example subsystem.
+ * Stops the shooter by slowing it down until it can be stopped without destroying itself.
+ * @author Michael Francis
  */
 public class stopShooter extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -19,9 +13,8 @@ public class stopShooter extends CommandBase {
   private int iterations;
 
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
+   * Stops the shooter
+   * @param subsystem The subsystem used by this command (Shooter)
    */
   public stopShooter(Shooter subsystem) {
     m_subsystem = subsystem;
@@ -38,10 +31,15 @@ public class stopShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(iterations == 0){
+    if((m_subsystem.getShooterSpeed()[0]+m_subsystem.getShooterSpeed()[1])/2 > 5000){
+      if(iterations == 0){
         m_subsystem.slowShooter();
+      }
+      iterations = (iterations+1) % 5;
+    }else{
+      m_subsystem.stopShooter();
     }
-    iterations = (iterations+1) % 5;
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -52,7 +50,10 @@ public class stopShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
-    return false;
+    if((m_subsystem.getShooterSpeed()[0]+m_subsystem.getShooterSpeed()[1])/2 < 2000){
+      return true;
+    }else{
+      return false;
+    } 
   }
 }
