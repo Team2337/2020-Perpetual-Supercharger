@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.SerializerElevator;
+import frc.robot.subsystems.AirCompressor;
 import frc.robot.subsystems.CellHolder;
 
 
@@ -24,7 +25,10 @@ import frc.robot.subsystems.CellHolder;
 public class Robot extends TimedRobot {
 public static SerializerElevator SerializerElevator;
 public static CellHolder CellHolder;
+public static Constants Constants;
+public static AirCompressor AirCompressor;
 public static OI oi;
+
 
 private Command m_autonomousCommand;
 
@@ -39,6 +43,8 @@ private Command m_autonomousCommand;
    CellHolder = new CellHolder();
    SerializerElevator =new SerializerElevator();
    oi = new OI ();
+   Constants = new Constants();
+   AirCompressor = new AirCompressor();
   }
 
   /**
