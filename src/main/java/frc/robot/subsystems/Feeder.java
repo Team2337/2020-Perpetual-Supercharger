@@ -10,9 +10,6 @@ package frc.robot.subsystems;
 //Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -24,8 +21,8 @@ import frc.robot.Constants;
 public class Feeder extends SubsystemBase {
 
   // Motors
-  VictorSPX leftFeederMotor;
-  TalonSRX rightFeederMotor;
+  TalonFX leftFeederMotor;
+  TalonFX rightFeederMotor;
 
   /**
    * Creates a new Feeder subsystem and sets up the motors to their corresponding
@@ -35,8 +32,8 @@ public class Feeder extends SubsystemBase {
     /**
      
      */
-    leftFeederMotor = new VictorSPX(Constants.testMotors);
-    rightFeederMotor = new TalonSRX(Constants.testyMotors);
+    leftFeederMotor = new TalonFX(Constants.leftFeeder);
+    rightFeederMotor = new TalonFX(Constants.rightFeeder);
     leftFeederMotor.setInverted(false);
     rightFeederMotor.setInverted(true);
 

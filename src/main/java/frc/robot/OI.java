@@ -29,17 +29,13 @@ public class OI {
         /////////////////////////////////////
 
         /* --- TESTING PURPOSES --- */
+        //This part of the code will be deleted before the code is merged into master
+        
         //The right bumper moves the intake motors one way
         operatorJoystick.bumperRight .whenPressed(new adjustIntakeSpeed(Robot.Intake, 0.1));
         //The left bumper moves the intake motors the other way
         operatorJoystick.bumperLeft .whenPressed(new adjustIntakeSpeed(Robot.Intake, -0.1));
 
-        //Stops intake motors
-        operatorJoystick.redB .whenPressed(new stopIntakeMotors(Robot.Intake));
-        //Sets the intake motors to intake balls
-        operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
-        //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
         
         //Sets the feeder motor to intake balls into the serializer
         operatorJoystick.greenA. whileHeld(new setFeederSpeed(Robot.Feeder, 0.4, 0.4));

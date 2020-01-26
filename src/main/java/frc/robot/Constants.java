@@ -31,8 +31,8 @@ public final class Constants {
     public static int leftFeeder = 11;
     public static int rightFeeder = 12;
     public static int canID13 = 13;
-    public static int testMotors = 14;
-    public static int testyMotors = 15;
+    public static int canID14 = 14;
+    public static int canID15 = 15;
 
     /** --- PCMs --- */
     public static int PCM0 = 0;
