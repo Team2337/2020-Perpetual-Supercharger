@@ -28,6 +28,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @author Michael Francis
  */
 public class Shooter extends SubsystemBase {
+
+  //Put true for debug mode
+  public final boolean shooterDebug = true;
+
   //Creates motors
   public TalonFX shootMotor1;
   public TalonFX shootMotor2;
@@ -103,20 +107,30 @@ public class Shooter extends SubsystemBase {
     // shootMotor.configSelectedFeedbackSensor(feedbackDevice, pidIdx, timeoutMs)
   }
 
-  /**
-   * Boolean that returns true when the shooter temperature is over 70 degrees Celsius.
-   * <p>Used in the periodic of Shooter.java for SmartDashboard</p>
-   */
+  /** Boolean that returns true when the shooter temperature is over 70 degrees Celsius. */
   public boolean shooterTemp;
+  /** Boolean that returns true when the shooter speed is within a certain range. */
   public boolean shootInRange;
+  /** A number that returns the highest number the speed of the shooter has reached. */
   public double shooterMaxSpeed = 0;
+  /**
+   * The periodic in the Shooter subsystem is mainly for putting useful information on the dashboard to be read.
+   */
   @Override
   public void periodic() {
-    //This code here puts things on the Smart Dashboard so that they may be read as we drive the robot.
+
+    /* --- SMARTDASHBOARD/SHUFFLEBOARD NUMBERS --- */
+
+    //Puts the velocity of the motors on the dashboard
     SmartDashboard.putNumber("Shooter Motor 1 Velocity", shootMotor1.getSelectedSensorVelocity());
     SmartDashboard.putNumber("Shooter Motor 2 Velocity", shootMotor2.getSelectedSensorVelocity());
+
+    //Puts the temperature of the motors on the dashboard
     SmartDashboard.putNumber("Shooter Motor 1 Temperature", shootMotor1.getTemperature());
     SmartDashboard.putNumber("Shooter Motor 2 Temperature", shootMotor2.getTemperature());
+
+
+    /* --- CHANGING BOOLEAN VARIABLES --- */
 
     //Variable that returns true when the one of the motors of the shooter are over 70 degrees Celsius
     shooterTemp = shootMotor1.getTemperature() > 70 || shootMotor2.getTemperature() > 70;
@@ -124,14 +138,29 @@ public class Shooter extends SubsystemBase {
     //Variable that returns true when the velocity of the motor reaches a set range
     shootInRange = 16100 < shootMotor1.getSelectedSensorVelocity() && shootMotor1.getSelectedSensorVelocity() < 16300;
 
-    shooterMaxSpeed = Math.max(shooterMaxSpeed, shootMotor1.getSelectedSensorVelocity());
+
+    /* --- SMARTDASHBOARD/SHUFFLEBOARD BOOLEANS --- */
 
     //This sets up a rectangle on the Smart Dashboard that turns green when shooterTemp returns true (see above)
     SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterTemp);
     SmartDashboard.putBoolean("Shooter In Range?", shootInRange);
-    SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
     
     SmartDashboard.putBoolean("Shooter Sensor Value", shooterSensor.get());
+
+
+    /* --- DEBUG MODE CODE --- */
+
+    //Code that runs if debug mode is on
+    if(shooterDebug){
+      //Increases the variable if the velocity of the shooter is higher than it has been. For testing
+      shooterMaxSpeed = Math.max(shooterMaxSpeed, shootMotor1.getSelectedSensorVelocity());
+
+      if(Math.round(shootMotor1.getSelectedSensorVelocity()) == 0){
+        shooterMaxSpeed = 0;
+      }
+      
+      SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
+    }
   }
 
   /**
