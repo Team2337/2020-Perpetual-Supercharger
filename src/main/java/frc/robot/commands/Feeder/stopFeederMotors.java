@@ -8,28 +8,22 @@
 package frc.robot.commands.Feeder;
 
 import frc.robot.subsystems.Feeder;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the feeder speed
+ * Stops the feeder motors.
  * @author Nicholas Stokes
  */
-public class setFeederSpeed extends CommandBase {
+public class stopFeederMotors extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Feeder m_subsystem;
-  private double rightFeederSpeed ;
-  private double leftFeederSpeed;
 
   /**
-   * Sets the feeder speed to a given percent
+   * Stops the feeder motors.
    * @param subsystem The subsystem used by this command. (Feeder)
-   * @param speed A double number that sets what speed the motors move at
    */
-  public setFeederSpeed(Feeder subsystem, double lSpeed, double rSpeed) {
+  public stopFeederMotors(Feeder subsystem) {
     m_subsystem = subsystem;
-    rightFeederSpeed = rSpeed;
-    leftFeederSpeed = lSpeed;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -38,8 +32,8 @@ public class setFeederSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will set the feeder to run at a set speed
-    m_subsystem.setFeederSpeed(leftFeederSpeed, rightFeederSpeed);
+    // This will stop the feeder
+    m_subsystem.stopFeeder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,13 +44,11 @@ public class setFeederSpeed extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops the feeder
-    m_subsystem.stopFeeder();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

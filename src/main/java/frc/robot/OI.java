@@ -43,7 +43,11 @@ public class OI {
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
         
         //Sets the feeder motor to intake balls into the serializer
-        operatorJoystick.greenA. whileHeld(new setFeederSpeed(Robot.Feeder, 0.4));
+        operatorJoystick.greenA. whileHeld(new setFeederSpeed(Robot.Feeder, 0.4, 0.4));
+        operatorJoystick.yellowY. whenPressed(new stopFeederMotors(Robot.Feeder));
+        operatorJoystick.start. whenPressed(new adjustFeederSpeed(Robot.Feeder,0.1));
+        operatorJoystick.back. whenPressed(new adjustFeederSpeed(Robot.Feeder,-0.1));
+
         
     }
 

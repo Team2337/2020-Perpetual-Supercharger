@@ -12,24 +12,22 @@ import frc.robot.subsystems.Feeder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the feeder speed
+ * Adjusts the intake speed
  * @author Nicholas Stokes
  */
-public class setFeederSpeed extends CommandBase {
+public class adjustFeederSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Feeder m_subsystem;
-  private double rightFeederSpeed ;
-  private double leftFeederSpeed;
+  private final Feeder subsystem;
+  private double modifier;
 
   /**
-   * Sets the feeder speed to a given percent
-   * @param subsystem The subsystem used by this command. (Feeder)
-   * @param speed A double number that sets what speed the motors move at
+   * Increases the feeder speed by a given amount. The motors do not stop after.
+   * @param feeder The subsystem used by this command. (Feeder)
+   * @param m_modifier A double that the robot changes the speed of the motors by.
    */
-  public setFeederSpeed(Feeder subsystem, double lSpeed, double rSpeed) {
-    m_subsystem = subsystem;
-    rightFeederSpeed = rSpeed;
-    leftFeederSpeed = lSpeed;
+  public adjustFeederSpeed(Feeder feeder, double m_modifier) {
+    subsystem = feeder;
+    modifier = m_modifier;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -38,8 +36,9 @@ public class setFeederSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will set the feeder to run at a set speed
-    m_subsystem.setFeederSpeed(leftFeederSpeed, rightFeederSpeed);
+    // This will change the feeder speed by a set amount
+    subsystem.setFeederSpeed(subsystem.getFeederSpeed()[0] + modifier, 
+     subsystem.getFeederSpeed()[1] + modifier);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,13 +49,12 @@ public class setFeederSpeed extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops the feeder
-    m_subsystem.stopFeeder();
+    //Because this command is for testing purposes, the motors do not stop. Use stopIntakeMotors to stop.
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -22,8 +22,8 @@ import frc.robot.Constants;
 public class Feeder extends SubsystemBase {
 
   // Motors
-  TalonFX feederMotor;
-  
+  TalonFX leftFeederMotor;
+  TalonFX rightFeederMotor;
 
   /**
    * Creates a new Feeder subsystem and sets up the motors to their corresponding
@@ -33,16 +33,17 @@ public class Feeder extends SubsystemBase {
     /**
      
      */
-    feederMotor = new TalonFX(11);
-
-    feederMotor.setInverted(false);
+    leftFeederMotor = new TalonFX(Constants.leftFeeder);
+    rightFeederMotor = new TalonFX(Constants.rightFeeder);
+    leftFeederMotor.setInverted(false);
+    rightFeederMotor.setInverted(true);
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Feeder Motor Speed", getFeederSpeed());
+    SmartDashboard.putNumberArray("Feeder Motor Speed", getFeederSpeed());
   }
 
   /**
@@ -50,9 +51,10 @@ public class Feeder extends SubsystemBase {
    * 
    * @param speed Sets the speed of the motors as a value -1 through 1
    */
-  public void setFeederSpeed(double speed) {
+  public void setFeederSpeed(double lSpeed, double rSpeed) {
     // Sets the speed of the feeder motors
-    feederMotor.set(ControlMode.PercentOutput, speed);
+    leftFeederMotor.set(ControlMode.PercentOutput, lSpeed);
+    rightFeederMotor.set(ControlMode.PercentOutput, rSpeed);
     
   }
 
@@ -63,15 +65,17 @@ public class Feeder extends SubsystemBase {
 
 
 
-  public double getFeederSpeed() {
-    return feederMotor.getMotorOutputPercent();
+  public double[] getFeederSpeed() {
+    double[] speed = {leftFeederMotor.getMotorOutputPercent(), rightFeederMotor.getMotorOutputPercent()};
+    return speed;
   }
 
   /**
    * A method that stops the feeder motor.
    */
   public void stopFeeder() {
-    feederMotor.set(ControlMode.PercentOutput, 0);
+    leftFeederMotor.set(ControlMode.PercentOutput, 0);
+    rightFeederMotor.set(ControlMode.PercentOutput, 0);
     
   }
 
@@ -79,6 +83,6 @@ public class Feeder extends SubsystemBase {
    * Method that returns the feeder motor temperature
    */
   public double getFeederTemperature() {
-    return feederMotor.getTemperature();
+    return leftFeederMotor.getTemperature();
   }
 }
