@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class SwerveDriveCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-  private final SwerveDrivetrain swerveDrivetrain;
+  private final SwerveDrivetrain subsystem;
 
   /**
    * Value from the Y axis on the left joystick, on the driver controller  
@@ -37,7 +37,7 @@ public class SwerveDriveCommand extends CommandBase {
    * @param subsystem - SwerveDrivetrain subsystem object
    */
   public SwerveDriveCommand(SwerveDrivetrain subsystem) {
-    this.swerveDrivetrain = subsystem;
+    this.subsystem = subsystem;
     addRequirements(subsystem);
   }
   
@@ -64,14 +64,14 @@ public class SwerveDriveCommand extends CommandBase {
    SmartDashboard.putNumber("Rotation", rotation);
    
    // Pass on joystick values to be calculated into angles and speeds
-   swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
+   subsystem.calculateJoystickInput(forward, strafe, rotation);
   }
 
   @Override
   public void end(boolean interrupted) {
     // In the event this command stops, we don't want the motors to move
-    swerveDrivetrain.stopAngleMotors();
-    swerveDrivetrain.stopDriveMotors();
+    subsystem.stopAngleMotors();
+    subsystem.stopDriveMotors();
   }
 
   @Override

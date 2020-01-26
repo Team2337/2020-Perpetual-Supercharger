@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+//Used for calibration
 import com.ctre.phoenix.sensors.PigeonIMUConfiguration;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 
