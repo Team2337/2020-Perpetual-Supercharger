@@ -10,12 +10,12 @@ import frc.robot.subsystems.Shooter;
 
 public class CGSequentialShooter extends SequentialCommandGroup {
 
-    public CGSequentialShooter(Shooter shooter) {
+    public CGSequentialShooter(Shooter shooter, double speed) {
           
         addCommands(
-        new shootSingleBall(shooter, 21000),   
+        new shootSingleBall(shooter, speed),   
         new shooterDoNothing(shooter).withTimeout(2),
-        new shootContinuously(shooter, 21000)
+        new shootContinuously(shooter, speed)
 
         );
     }

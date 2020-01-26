@@ -130,6 +130,8 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterTemp);
     SmartDashboard.putBoolean("Shooter In Range?", shootInRange);
     SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
+    
+    SmartDashboard.putBoolean("Shooter Sensor Value", shooterSensor.get());
   }
 
   /**

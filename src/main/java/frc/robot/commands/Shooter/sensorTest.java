@@ -9,6 +9,7 @@ package frc.robot.commands.Shooter;
 
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -63,7 +64,9 @@ public class sensorTest extends CommandBase {
      counter = 0;
     }
     previousSensorValue = sensorValue;
-
+    
+    SmartDashboard.putNumber("Counter Value", counter);
+    SmartDashboard.putBoolean("Sensor Value", sensorValue);
   }
 
   // Called once the command ends or is interrupted.
