@@ -46,9 +46,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    
     // Must go before subsystems
     Constants = new Constants();
     Utilities = new Utilities();
+
     /* --- Subsystems --- */
     Climber = new Climber();
     ClimberExtender = new ClimberExtender();
