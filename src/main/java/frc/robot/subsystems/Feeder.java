@@ -16,7 +16,9 @@ import frc.robot.Constants;
 
 /**
  * Simple system for the feeder
- * @author Nicholas Stokes, Michael Francis, Jack Engleter
+ * @author Nicholas Stokes, Michael Francis
+ * The Feeder is a mechanism to feed balls from the intake/hopper to the serializer then to the shooter
+ * For more information, see the wiki
  */
 public class Feeder extends SubsystemBase {
 

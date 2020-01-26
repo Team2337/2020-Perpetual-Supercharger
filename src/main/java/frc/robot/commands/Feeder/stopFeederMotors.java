@@ -4,17 +4,14 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.Feeder;
-
 import frc.robot.subsystems.Feeder;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 /**
  * Stops the feeder motors.
  * @author Nicholas Stokes
  */
-public class stopFeederMotors extends CommandBase {
+public class stopFeederMotors extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Feeder subsystem;
 
@@ -46,9 +43,5 @@ public class stopFeederMotors extends CommandBase {
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
+
 }

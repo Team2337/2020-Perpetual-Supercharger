@@ -4,18 +4,14 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.Feeder;
-
 import frc.robot.subsystems.Feeder;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 /**
  * Sets the feeder speed
  * @author Nicholas Stokes
  */
-public class setFeederSpeed extends CommandBase {
+public class setFeederSpeed extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Feeder subsystem;
   private double rightFeederSpeed ;
@@ -54,9 +50,5 @@ public class setFeederSpeed extends CommandBase {
     subsystem.stopFeeder();
   }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
   }
-}
+
