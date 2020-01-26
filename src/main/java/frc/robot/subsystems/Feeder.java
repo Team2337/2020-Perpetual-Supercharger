@@ -59,11 +59,8 @@ public class Feeder extends SubsystemBase {
 
 /**
  * @return feederMotor.getMotorOutputPercent();
- * This gets the motor output, speed, in a percent
+ * This gets the motor output speed as a percent
  */
-
-
-
   public double[] getFeederSpeed() {
     double[] speed = {leftFeederMotor.getMotorOutputPercent(), rightFeederMotor.getMotorOutputPercent()};
     return speed;
