@@ -22,11 +22,26 @@ import frc.robot.subsystems.CellHolder;
  * project.
  */
 public class Robot extends TimedRobot {
-public static SerializerElevator SerializerElevator;
-public static CellHolder CellHolder;
-public static OI oi;
 
-private Command m_autonomousCommand;
+  private Command m_autonomousCommand;
+  private Command m_autonomousCommand;
+
+  public static Constants Constants;
+
+  public static CellHolder CellHolder;
+  public static Chassis Chassis;
+  public static Climber Climber;
+  public static ClimberExtender ClimberExtender;
+  public static ControlPanelSpinner ControlPanelSpinner;
+  public static Serializer Serializer;
+  public static SerializerElevator SerializerElevator;
+  public static Intake Intake;
+  public static LEDs LEDs;
+  public static Shooter Shooter;
+  public static ShooterHood ShooterHood;
+  public static Vision Vision;
+  public static PowerDistributionPanel PDP;
+  public static OI OI;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -36,9 +51,21 @@ private Command m_autonomousCommand;
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-   CellHolder = new CellHolder();
-   SerializerElevator =new SerializerElevator();
-   oi = new OI ();
+    Constants = new Constants();
+
+    CellHolder = new CellHolder();
+    SerializerElevator =new SerializerElevator();
+    Chassis = new Chassis();
+    Climber = new Climber();
+    ClimberExtender = new ClimberExtender();
+    ControlPanelSpinner = new ControlPanelSpinner();
+    Serializer = new Serializer();
+    Intake = new Intake();
+    LEDs = new LEDs();
+    Shooter = new Shooter();
+    ShooterHood = new ShooterHood();
+    Vision = new Vision();
+    OI = new OI();
   }
 
   /**
