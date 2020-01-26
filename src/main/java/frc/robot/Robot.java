@@ -47,10 +47,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
+    Constants = new Constants();
+    
     Chassis = new Chassis();
     Climber = new Climber();
     ClimberExtender = new ClimberExtender();
-    Constants = new Constants();
     ControlPanelSpinner = new ControlPanelSpinner();
     Hopper = new Hopper();
     Intake = new Intake();

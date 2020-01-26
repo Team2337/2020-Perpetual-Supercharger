@@ -5,40 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Hopper;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hopper;
 
-/**
- * An example command that uses an example subsystem.
- */
-public class rightHopperExtension extends CommandBase {
+//A command that uses the hopper subsystem to move the left flipper
+public class leftHopperExtension extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final Hopper m_subsystem;
+  private final Hopper subsystem;
 
-    // Makes a requirement to extend the hopper's right pannel
-  public rightHopperExtension(Hopper subsystem) {
-    m_subsystem = subsystem;
+  //A command that uses the hopper subsystem to move the left flipper
+  public leftHopperExtension(Hopper m_subsystem) {
+    subsystem = m_subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
-    // Extends right flipper
-    m_subsystem.extendRightFlipper(true);
+    // Extends left flipper
+    subsystem.extendLeftFlipper(true);
   }
 
-  /*
-   * Called once the command ends or is interrupted. When interupted, retract
-   * right hopper
-   */
+  // Called once the command ends or is interrupted.
   @Override
+  // Retracts left flipper
   public void end(boolean interrupted) {
-    m_subsystem.extendRightFlipper(false);
+    subsystem.extendLeftFlipper(false);
   }
 
   // Returns true when the command should end.

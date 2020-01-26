@@ -1,8 +1,7 @@
 package frc.robot;
 
-import frc.robot.commands.leftHopperExtension;
-import frc.robot.commands.rightHopperExtension;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.Hopper.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 

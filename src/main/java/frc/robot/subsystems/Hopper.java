@@ -40,8 +40,4 @@ public class Hopper extends SubsystemBase {
   public void extendRightFlipper(boolean state) {
     rightFlipper.set(state);
   }
-
-  public void retractLeftFlipper() {
-  }
-
 }
