@@ -30,7 +30,7 @@ public class Feeder extends SubsystemBase {
    */
   public Feeder() {
     /**
-     
+     * These are the motors that are part of the feeder system
      */
     leftFeederMotor = new TalonFX(Constants.leftFeeder);
     rightFeederMotor = new TalonFX(Constants.rightFeeder);

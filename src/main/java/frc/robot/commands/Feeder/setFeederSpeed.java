@@ -17,17 +17,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class setFeederSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Feeder m_subsystem;
+  private final Feeder subsystem;
   private double rightFeederSpeed ;
   private double leftFeederSpeed;
 
   /**
    * Sets the feeder speed to a given percent
-   * @param subsystem The subsystem used by this command. (Feeder)
+   * @param feeder The subsystem used by this command. (Feeder)
    * @param speed A double number that sets what speed the motors move at
    */
-  public setFeederSpeed(Feeder subsystem, double lSpeed, double rSpeed) {
-    m_subsystem = subsystem;
+  public setFeederSpeed(Feeder feeder, double lSpeed, double rSpeed) {
+    subsystem = feeder;
     rightFeederSpeed = rSpeed;
     leftFeederSpeed = lSpeed;
     
@@ -39,7 +39,7 @@ public class setFeederSpeed extends CommandBase {
   @Override
   public void initialize() {
     // This will set the feeder to run at a set speed
-    m_subsystem.setFeederSpeed(leftFeederSpeed, rightFeederSpeed);
+    subsystem.setFeederSpeed(leftFeederSpeed, rightFeederSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,7 +51,7 @@ public class setFeederSpeed extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     // Stops the feeder
-    m_subsystem.stopFeeder();
+    subsystem.stopFeeder();
   }
 
   // Returns true when the command should end.

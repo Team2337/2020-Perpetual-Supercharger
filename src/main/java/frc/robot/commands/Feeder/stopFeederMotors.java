@@ -16,14 +16,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class stopFeederMotors extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Feeder m_subsystem;
+  private final Feeder subsystem;
 
   /**
    * Stops the feeder motors.
    * @param subsystem The subsystem used by this command. (Feeder)
    */
-  public stopFeederMotors(Feeder subsystem) {
-    m_subsystem = subsystem;
+  public stopFeederMotors(Feeder feeder) {
+    subsystem = feeder;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -33,7 +33,7 @@ public class stopFeederMotors extends CommandBase {
   @Override
   public void initialize() {
     // This will stop the feeder
-    m_subsystem.stopFeeder();
+    subsystem.stopFeeder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
