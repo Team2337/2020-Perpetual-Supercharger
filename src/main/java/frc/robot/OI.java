@@ -1,8 +1,6 @@
 package frc.robot;
 
-import frc.robot.commands.Serializer.cellHolderClose;
-import frc.robot.commands.Serializer.cellHolderOpen;
-import frc.robot.commands.Serializer.serializerUp;
+import frc.robot.commands.Serializer.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
