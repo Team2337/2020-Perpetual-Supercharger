@@ -1,15 +1,7 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
-
-//Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,7 +10,7 @@ import frc.robot.Constants;
  * Simple system for the feeder
  * @author Nicholas Stokes, Michael Francis
  * The Feeder is a mechanism to feed balls from the intake/hopper to the serializer then to the shooter
- * For more information, see the wiki
+ * For more information, see the wiki 
  */
 public class Feeder extends SubsystemBase {
 
@@ -26,19 +18,34 @@ public class Feeder extends SubsystemBase {
   TalonFX leftFeederMotor;
   TalonFX rightFeederMotor;
 
+  //Current limit configuration
+  private StatorCurrentLimitConfiguration currentLimitConfigurationFeederMotors = new StatorCurrentLimitConfiguration();
+
   /**
    * Creates a new Feeder subsystem and sets up the motors to their corresponding
    * ports.
    */
   public Feeder() {
     /**
-     * These are the motors that are part of the feeder system
+     * These are the motors, Falcons, and they are set up here
      */
     leftFeederMotor = new TalonFX(Constants.leftFeeder);
-    rightFeederMotor = new TalonFX(Constants.rightFeeder);
     leftFeederMotor.setInverted(false);
+    leftFeederMotor.configOpenloopRamp(0.2);
+    rightFeederMotor = new TalonFX(Constants.rightFeeder);
     rightFeederMotor.setInverted(true);
+    rightFeederMotor.configOpenloopRamp(0.2);
 
+    //Set up the current configuration
+    currentLimitConfigurationFeederMotors .currentLimit = 50;
+    currentLimitConfigurationFeederMotors .enable = true;
+    currentLimitConfigurationFeederMotors .triggerThresholdCurrent = 40;
+    currentLimitConfigurationFeederMotors .triggerThresholdTime = 3;
+    
+    // Set amperage limits
+    rightFeederMotor.configStatorCurrentLimit(currentLimitConfigurationFeederMotors , 0);
+    leftFeederMotor.configStatorCurrentLimit(currentLimitConfigurationFeederMotors , 0);
+    
   }
 
   @Override
