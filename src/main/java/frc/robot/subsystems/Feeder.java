@@ -7,13 +7,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 /**
- * Simple system for the feeder
- * @author Nicholas Stokes, Michael Francis
- * The Feeder is a mechanism to feed balls from the intake/hopper to the serializer then to the shooter
+ * Subsystem for the Feeder 
+ * The Feeder is a mechanism to feed balls from the intake/hopper to the serializer
  * For more information, see the wiki 
+ * @author Nicholas Stokes
  */
 public class Feeder extends SubsystemBase {
-
+  /**
+   * Specifies whether or not the Feeder will be in debug mode.
+   * @see #periodic()
+   */
+  public final boolean feederDebug = false;
+  
   // Motors
   TalonFX leftFeederMotor;
   TalonFX rightFeederMotor;
@@ -26,9 +31,7 @@ public class Feeder extends SubsystemBase {
    * ports.
    */
   public Feeder() {
-    /**
-     * These are the motors, Falcons, and they are set up here
-     */
+     // These are the motors, Falcons, and they are set up here
     leftFeederMotor = new TalonFX(Constants.leftFeeder);
     leftFeederMotor.setInverted(false);
     leftFeederMotor.configOpenloopRamp(0.2);
@@ -45,13 +48,15 @@ public class Feeder extends SubsystemBase {
     // Set amperage limits
     rightFeederMotor.configStatorCurrentLimit(currentLimitConfigurationFeederMotors , 0);
     leftFeederMotor.configStatorCurrentLimit(currentLimitConfigurationFeederMotors , 0);
-    
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumberArray("Feeder Motor Speed", getFeederSpeed());
+    if(feederDebug){
+      SmartDashboard.putNumberArray("Feeder Motor Speed", getFeederSpeed());   
+      SmartDashboard.putNumberArray("Feeder Motor Temperature", getFeederTemperature());  
+    }
   }
 
   /**
