@@ -409,6 +409,23 @@ public class FXSwerveModule {
         driveMotor.set(ControlMode.PercentOutput, speed);
     }
 
+    /**
+     * Gets drive motor temperature
+     * @return - Drive motor temperature in F
+     */
+    public double getDriveMotorTemperature() {
+        return driveMotor.getTemperature() * (5/9);
+    }
+
+  /**
+   * Gets angle motor temperature
+   * @return - Angle motor temperature in F
+   */
+    public double getAngleMotorTemperature() {
+        return angleMotor.getTemperature() * (5/9);
+
+    }
+
     public void periodic() {
         SmartDashboard.putNumber("driveMotorpercent"+moduleNumber, driveMotor.getMotorOutputPercent());
 

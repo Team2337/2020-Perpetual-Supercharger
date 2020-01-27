@@ -10,10 +10,13 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.*;
 
 /**
@@ -23,7 +26,7 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  private Command autonomousCommand;
 
   public static Constants Constants;
   public static Utilities Utilities;
@@ -42,6 +45,8 @@ public class Robot extends TimedRobot {
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static OI OI;
+
+  SendableChooser<String> autonChooser = new SendableChooser<>();
 
 
   /**
@@ -72,6 +77,7 @@ public class Robot extends TimedRobot {
 
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
+    autonChooser.setDefaultOption("Default", "Default");
   }
 
   /**
@@ -88,14 +94,35 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("getAbsoluteCompassHeading", Pigeon.getAbsoluteCompassHeading());
+    SmartDashboard.putData("Auto mode", autonChooser);
+    SmartDashboard.putNumber("Yaw", SwerveDrivetrain.getYaw());
     SmartDashboard.putNumber("getAverageEncoderDistance", SwerveDrivetrain.getAverageDriveEncoderDistance());
-    SmartDashboard.putNumber("getModuleDriveEncoder0", SwerveDrivetrain.getModule(0).getDriveEncoder());
-    SmartDashboard.putNumber("getModuleDriveEncoder1", SwerveDrivetrain.getModule(1).getDriveEncoder());
-    SmartDashboard.putNumber("getModuleDriveEncoder2", SwerveDrivetrain.getModule(2).getDriveEncoder());
-    SmartDashboard.putNumber("getModuleDriveEncoder3", SwerveDrivetrain.getModule(3).getDriveEncoder());
-
-
+    SmartDashboard.putNumber("Robot Angle Offset", OperatorAngleAdjustment.getGyroAngleOffset());
+    for(int i = 0; i < 4; i++) {
+      SmartDashboard.putNumber("Drive Encoder/" + i, SwerveDrivetrain.getModule(i).getDriveEncoder());
+      SmartDashboard.putNumber("Drive Motor Temperature " + i, SwerveDrivetrain.getModule(i).getDriveMotorTemperature());
+      SmartDashboard.putNumber("Module Angle/" + i, SwerveDrivetrain.getModule(i).getNormalizedAnalogVoltageRadians());
+    }
+    /* --- COMING SOON --- */
+    SmartDashboard.putBoolean("Vision on Target", false);
+    SmartDashboard.putBoolean("Shooter at RPM", false);
+    SmartDashboard.putNumber("Shooter Left Temperature", 0);
+    SmartDashboard.putNumber("Shooter Right Temperature", 0);
+    SmartDashboard.putNumber("Ball Count", 0);
+    SmartDashboard.putBoolean("Ball Sensor 1", false);
+    SmartDashboard.putBoolean("Ball Sensor 2", false);
+    SmartDashboard.putBoolean("Ball Sensor 3", false);
+    SmartDashboard.putBoolean("Ball Sensor 4", false);
+    SmartDashboard.putBoolean("Ball Sensor 5", false);
+    SmartDashboard.putBoolean("Compressor On", false);
+    SmartDashboard.putNumber("Air Pressure", 0);
+    SmartDashboard.putNumber("Subsystems Currently Active/" + "Subsystem 1", 0);
+    SmartDashboard.putNumber("Robot Total Current", 0);
+    SmartDashboard.putNumber("Serializer Temperature", 0);
+    SmartDashboard.putNumber("Climber Temperature", 0);
+    SmartDashboard.putNumber("Control Panel Temperature", 0);
+    SmartDashboard.putNumber("Intake Right Temperature", 0);
+    SmartDashboard.putNumber("Intake Left Temperature", 0);
   }
 
   /**
@@ -116,10 +143,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    
+    switch(autonChooser.getSelected()) {
+      case "Default":
+      autonomousCommand = new ExampleCommand(new ExampleSubsystem());
+      break;
+    }
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (autonomousCommand != null) {
+      autonomousCommand.schedule();
     }
     SwerveDrivetrain.zeroAllDriveEncoders();
   }
@@ -137,8 +168,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
     for(int i = 0; i < 4; i++)
     SwerveDrivetrain.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
