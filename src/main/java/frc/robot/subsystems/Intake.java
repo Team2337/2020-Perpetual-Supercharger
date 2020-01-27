@@ -36,6 +36,7 @@ public class Intake extends SubsystemBase {
      * This sets the motors up. We have two motors: one on the left side and one on the right side.
      * We reverse one of the motors.
      * Then, we configure the current limits on the motors.
+     * After that, we set up a closed loop ramp rate.
      */
     leftIntakeMotor = new TalonFX(Constants.leftIntake);
     rightIntakeMotor = new TalonFX(Constants.rightIntake);
@@ -50,6 +51,9 @@ public class Intake extends SubsystemBase {
     //Pushes current limits to motors
     leftIntakeMotor.configStatorCurrentLimit(currentLimitConfigIntake, 0);
     rightIntakeMotor.configStatorCurrentLimit(currentLimitConfigIntake, 0);
+    //Set up ramp rate
+    leftIntakeMotor.configClosedloopRamp(0.5);
+    rightIntakeMotor.configClosedloopRamp(0.5);
   }
 
   @Override
