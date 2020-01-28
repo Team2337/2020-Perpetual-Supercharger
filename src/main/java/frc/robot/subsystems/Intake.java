@@ -31,8 +31,8 @@ public class Intake extends SubsystemBase {
     /**
      * This sets the motors up. We have two motors: one on the left side and one on the right side.
      */
-    leftIntakeMotor = new TalonFX(Constants.leftIntake);
-    rightIntakeMotor = new TalonFX(Constants.rightIntake);
+    leftIntakeMotor = new TalonFX(Constants.LEFTINTAKE);
+    rightIntakeMotor = new TalonFX(Constants.RIGHTINTAKE);
     leftIntakeMotor.setInverted(false);
     rightIntakeMotor.setInverted(true);
   }
