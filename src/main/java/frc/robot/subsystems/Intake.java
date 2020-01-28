@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 //Imports
@@ -25,7 +18,7 @@ public class Intake extends SubsystemBase {
    * Specifies whether or not the Intake will be in debug mode.
    * @see #periodic()
    */
-  private final boolean intakeDebug = true;
+  private final boolean intakeDebug = false;
 
   //Motors
   TalonFX leftIntakeMotor;
@@ -38,8 +31,8 @@ public class Intake extends SubsystemBase {
     /**
      * This sets the motors up. We have two motors: one on the left side and one on the right side.
      */
-    leftIntakeMotor = new TalonFX(Constants.leftIntake);
-    rightIntakeMotor = new TalonFX(Constants.rightIntake);
+    leftIntakeMotor = new TalonFX(Constants.LEFTINTAKE);
+    rightIntakeMotor = new TalonFX(Constants.RIGHTINTAKE);
     leftIntakeMotor.setInverted(false);
     rightIntakeMotor.setInverted(true);
   }
