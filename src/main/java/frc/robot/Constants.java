@@ -21,8 +21,8 @@ public final class Constants {
     public static int CANID8 = 8;
     public static int LEFTINTAKE = 9;
     public static int RIGHTINTAKE = 10;
-    public static int CANID11 = 11;
-    public static int CANID12 = 12;
+    public static int LEFTFEEDER = 11;
+    public static int RIGHTFEEDER = 12;
     public static int CANID13 = 13;
     public static int CANID14 = 14;
     public static int CANID15 = 15;
