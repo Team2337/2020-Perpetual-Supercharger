@@ -11,14 +11,14 @@ package frc.robot;
 public final class Constants {
     /** --- CAN IDs --- */
     public static int CANID0 = 0;
-    public static int module0DriveMotorID = 1;
-    public static int module0AngleMotorID = 2;
-    public static int module1DriveMotorID = 3;
-    public static int module1AngleMotorID = 4;
-    public static int module2DriveMotorID = 5;
-    public static int module2AngleMotorID = 6;
-    public static int module3DriveMotorID = 7;
-    public static int module3AngleMotorID = 8;
+    public static int MODULE0DRIVEMOTORID = 1;
+    public static int MODULE0ANGLEMOTORID = 2;
+    public static int MODULE1DRIVEMOTORID = 3;
+    public static int MODULE1ANGLEMOTORID = 4;
+    public static int MODULE2DRIVEMOTORID = 5;
+    public static int MODULE2ANGLEMOTORID = 6;
+    public static int MODULE3DRIVEMOTORID = 7;
+    public static int MODULE3ANGLEMOTORID = 8;
     public static int LEFTINTAKE = 9;
     public static int RIGHTINTAKE = 10;
     public static int LEFTFEEDER = 11;
