@@ -1,6 +1,5 @@
 package frc.robot;
 
-import frc.robot.commands.Feeder.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
@@ -21,9 +20,11 @@ public class OI {
         operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
+
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here
+        
     }
 
 }

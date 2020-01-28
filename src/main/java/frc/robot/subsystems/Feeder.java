@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
@@ -31,7 +32,7 @@ public class Feeder extends SubsystemBase {
    * ports.
    */
   public Feeder() {
-     // These are the motors, Falcons, and they are set up here
+     // These are the motors, Falcons, and they are set up here. Ports are referenced in the Constants file
     leftFeederMotor = new TalonFX(Constants.leftFeeder);
     leftFeederMotor.setInverted(false);
     leftFeederMotor.configOpenloopRamp(0.2);
@@ -53,6 +54,8 @@ public class Feeder extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    //If in debug mode, put the feeder speed and temperature on Shuffleboard
     if(feederDebug){
       SmartDashboard.putNumberArray("Feeder Motor Speed", getFeederSpeed());   
       SmartDashboard.putNumberArray("Feeder Motor Temperature", getFeederTemperature());  
@@ -62,7 +65,8 @@ public class Feeder extends SubsystemBase {
   /**
    * A method that sets the speed of the feeder motor
    * 
-   * @param speed Sets the speed of the motors as a value -1 through 1
+   * @param lSpeed Sets the speed of the left motor as a value -1 through 1
+   * @param rSpeed Sets the speed of the right motor as a value -1 through 1
    */
   public void setFeederSpeed(double lSpeed, double rSpeed) {
     // Sets the speed of the feeder motors
@@ -72,7 +76,7 @@ public class Feeder extends SubsystemBase {
 
   /**
    * @return feederMotor.getMotorOutputPercent();
-   * This gets the motor output speed as a percent
+   * This gets the motor output speed as a percent/array
    */
   public double[] getFeederSpeed() {
     double[] speed = {leftFeederMotor.getMotorOutputPercent(), rightFeederMotor.getMotorOutputPercent()};
@@ -80,7 +84,7 @@ public class Feeder extends SubsystemBase {
   }
 
   /**
-   * A method that stops the feeder motor.
+   * A method that stops the feeder motors.
    */
   public void stopFeeder() {
     leftFeederMotor.set(ControlMode.PercentOutput, 0);
@@ -88,7 +92,7 @@ public class Feeder extends SubsystemBase {
   }
 
   /**
-   * Method that returns the feeder motor temperature
+   * Method that returns the feeder motors temperature
    */
   public double [] getFeederTemperature() {
     //Returns an array containing the temperature of the left and right feeder motors in that order.
