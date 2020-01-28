@@ -18,7 +18,7 @@ public class Feeder extends SubsystemBase {
    * @see #periodic()
    */
   public final boolean feederDebug = false;
-  
+
   // Motors
   TalonFX leftFeederMotor;
   TalonFX rightFeederMotor;
@@ -67,14 +67,13 @@ public class Feeder extends SubsystemBase {
   public void setFeederSpeed(double lSpeed, double rSpeed) {
     // Sets the speed of the feeder motors
     leftFeederMotor.set(ControlMode.PercentOutput, lSpeed);
-    rightFeederMotor.set(ControlMode.PercentOutput, rSpeed);
-    
+    rightFeederMotor.set(ControlMode.PercentOutput, rSpeed); 
   }
 
-/**
- * @return feederMotor.getMotorOutputPercent();
- * This gets the motor output speed as a percent
- */
+  /**
+   * @return feederMotor.getMotorOutputPercent();
+   * This gets the motor output speed as a percent
+   */
   public double[] getFeederSpeed() {
     double[] speed = {leftFeederMotor.getMotorOutputPercent(), rightFeederMotor.getMotorOutputPercent()};
     return speed;
@@ -85,8 +84,7 @@ public class Feeder extends SubsystemBase {
    */
   public void stopFeeder() {
     leftFeederMotor.set(ControlMode.PercentOutput, 0);
-    rightFeederMotor.set(ControlMode.PercentOutput, 0);
-    
+    rightFeederMotor.set(ControlMode.PercentOutput, 0); 
   }
 
   /**
