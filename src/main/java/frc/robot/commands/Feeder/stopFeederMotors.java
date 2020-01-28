@@ -20,7 +20,6 @@ public class stopFeederMotors extends InstantCommand {
    */
   public stopFeederMotors(Feeder feeder) {
     subsystem = feeder;
-
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
