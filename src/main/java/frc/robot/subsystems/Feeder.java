@@ -33,10 +33,10 @@ public class Feeder extends SubsystemBase {
    */
   public Feeder() {
      // These are the motors, Falcons, and they are set up here. Ports are referenced in the Constants file
-    leftFeederMotor = new TalonFX(Constants.leftFeeder);
+    leftFeederMotor = new TalonFX(Constants.LEFTFEEDER);
     leftFeederMotor.setInverted(false);
     leftFeederMotor.configOpenloopRamp(0.2);
-    rightFeederMotor = new TalonFX(Constants.rightFeeder);
+    rightFeederMotor = new TalonFX(Constants.RIGHTFEEDER);
     rightFeederMotor.setInverted(true);
     rightFeederMotor.configOpenloopRamp(0.2);
 
