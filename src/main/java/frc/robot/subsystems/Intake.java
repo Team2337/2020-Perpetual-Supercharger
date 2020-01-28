@@ -7,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.Constants;
+import frc.robot.Constants.CANIDS;
 
 /**
  * Simple subsystem for the intake
@@ -31,8 +31,8 @@ public class Intake extends SubsystemBase {
     /**
      * This sets the motors up. We have two motors: one on the left side and one on the right side.
      */
-    leftIntakeMotor = new TalonFX(Constants.LEFTINTAKE);
-    rightIntakeMotor = new TalonFX(Constants.RIGHTINTAKE);
+    leftIntakeMotor = new TalonFX(CANIDS.LEFTINTAKE);
+    rightIntakeMotor = new TalonFX(CANIDS.RIGHTINTAKE);
     leftIntakeMotor.setInverted(false);
     rightIntakeMotor.setInverted(true);
   }

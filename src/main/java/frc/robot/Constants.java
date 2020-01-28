@@ -4,11 +4,21 @@ package frc.robot;
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
  * declared globally (i.e. public static final).  Do not put anything functional in this class.
+ * 
+ * Within this class, there a many sub classes that can be used to organize constants
+ * In order to import and use the subclasses treat Constants as a directory when importing
+ * and call the subclass directly to get the constant values.
+ * 
+ * When using any port (CAN, PCM, SENSOR, etc) make sure to change the name to fit what the
+ * port is being used for
  *
  * <p>It is advised to static finalally import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    /**
+     * Constant values for the SwerveDrivetrain Subsystem
+     */
     public final class SWERVE {
         // Sets the distances from module to module 
         public static final double WHEELBASE = 22.5; 
@@ -18,6 +28,9 @@ public final class Constants {
         public static final double LENGTH = 30; 
     }
 
+    /**
+     * CAN ID Constant Values
+     */
     public final class CANIDS {
         /* --- CAN IDs --- */
         public static final int MODULE0DRIVEMOTORID = 1;
@@ -37,57 +50,64 @@ public final class Constants {
         public static final int CANID15 = 15;
     }
 
+    /**
+     * PCM Port Constant Values
+     */
     public final class PNEUMATICPORTS {
         /* --- PCMs --- */
         public static final int PCM0 = 0;
         public static final int PCM1 = 1;
 
         /* --- PCM Ports --- */
-        public static int PCM0PORT0 = 0;
-        public static int PCM0PORT1 = 1;
-        public static int PCM0PORT2 = 2;
-        public static int PCM0PORT3 = 3;
-        public static int PCM0PORT4 = 4;
-        public static int PCM0PORT5 = 5;
-        public static int PCM0PORT6 = 6;
-        public static int PCM0PORT7 = 7;
+        public static final int PCM0PORT0 = 0;
+        public static final int PCM0PORT1 = 1;
+        public static final int PCM0PORT2 = 2;
+        public static final int PCM0PORT3 = 3;
+        public static final int PCM0PORT4 = 4;
+        public static final int PCM0PORT5 = 5;
+        public static final int PCM0PORT6 = 6;
+        public static final int PCM0PORT7 = 7;
     }
 
+    /**
+     * Sensor Port Constant Values 
+     * Consists of Analog, Relay, and PWM Ports
+     */
     public final class SENSORPORTS {
         /* --- DIO Ports --- */
-        public static int DIOPORT0 = 0;
-        public static int DIOPORT1 = 1;
-        public static int DIOPORT2 = 2;
-        public static int DIOPORT3 = 3;
-        public static int DIOPORT4 = 4;
-        public static int DIOPORT5 = 5;
-        public static int DIOPORT6 = 6;
-        public static int DIOPORT7 = 7;
-        public static int DIOPORT8 = 8;
-        public static int DIOPORT9 = 9;
+        public static final int DIOPORT0 = 0;
+        public static final int DIOPORT1 = 1;
+        public static final int DIOPORT2 = 2;
+        public static final int DIOPORT3 = 3;
+        public static final int DIOPORT4 = 4;
+        public static final int DIOPORT5 = 5;
+        public static final int DIOPORT6 = 6;
+        public static final int DIOPORT7 = 7;
+        public static final int DIOPORT8 = 8;
+        public static final int DIOPORT9 = 9;
 
         /* --- Analog Ports --- */
-        public static int MODULE0ANALOGSENSOR = 0;
-        public static int MODULE1ANALOGSENSOR = 1;
-        public static int MODULE2ANALOGSENSOR = 2;
-        public static int MODULE3ANALOGSENSOR = 3;
+        public static final int MODULE0ANALOGSENSOR = 0;
+        public static final int MODULE1ANALOGSENSOR = 1;
+        public static final int MODULE2ANALOGSENSOR = 2;
+        public static final int MODULE3ANALOGSENSOR = 3;
 
         /* --- Relay Ports --- */
-        public static int RELAYPORT0 = 0;
-        public static int RELAYPORT1 = 1;
-        public static int RELAYPORT2 = 2;
-        public static int RELAYPORT3 = 3;
+        public static final int RELAYPORT0 = 0;
+        public static final int RELAYPORT1 = 1;
+        public static final int RELAYPORT2 = 2;
+        public static final int RELAYPORT3 = 3;
 
         /* --- PWM Ports --- */
-        public static int PWMPORT0 = 0;
-        public static int PWMPORT1 = 1;
-        public static int PWMPORT2 = 2;
-        public static int PWMPORT3 = 3;
-        public static int PWMPORT4 = 4;
-        public static int PWMPORT5 = 5;
-        public static int PWMPORT6 = 6;
-        public static int PWMPORT7 = 7;
-        public static int PWMPORT8 = 8;
-        public static int PWMPORT9 = 9;
+        public static final int PWMPORT0 = 0;
+        public static final int PWMPORT1 = 1;
+        public static final int PWMPORT2 = 2;
+        public static final int PWMPORT3 = 3;
+        public static final int PWMPORT4 = 4;
+        public static final int PWMPORT5 = 5;
+        public static final int PWMPORT6 = 6;
+        public static final int PWMPORT7 = 7;
+        public static final int PWMPORT8 = 8;
+        public static final int PWMPORT9 = 9;
     }
 }

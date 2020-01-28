@@ -12,7 +12,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.CANIDS;
+import frc.robot.Constants.SENSORPORTS;
+import frc.robot.Constants.SWERVE;
 import frc.robot.Robot;
 import frc.robot.commands.swerve.*;
 import frc.robot.nerdyfiles.swerve.*;
@@ -26,15 +28,7 @@ import frc.robot.nerdyfiles.swerve.*;
  * @category SWERVE
  */
 public class SwerveDrivetrain extends SubsystemBase {
-
-  // Sets the distances from module to module 
-  public static final double WHEELBASE = 22.5;  
-  public static final double TRACKWIDTH = 23.5; 
-
-  // Length and width of the robot
-  public static final double WIDTH = 29;  
-  public static final double LENGTH = 30; 
-
+  
   /* --- Private Double Values --- */
   private double deadband = 0.1;
   private double lastAngle;
@@ -86,27 +80,27 @@ public class SwerveDrivetrain extends SubsystemBase {
     };
 
     analogAngleSensors = new AnalogInput[] {
-      new AnalogInput(0), // Module 0 
-      new AnalogInput(1), // Module 1 
-      new AnalogInput(2), // Module 2 
-      new AnalogInput(3)  // Module 3
+      new AnalogInput(SENSORPORTS.MODULE0ANALOGSENSOR), // Module 0 
+      new AnalogInput(SENSORPORTS.MODULE1ANALOGSENSOR), // Module 1 
+      new AnalogInput(SENSORPORTS.MODULE2ANALOGSENSOR), // Module 2 
+      new AnalogInput(SENSORPORTS.MODULE3ANALOGSENSOR)  // Module 3
     };
 
     /* --- Array for modules --- */
     swerveModules = new FXSwerveModule[] {
-      new FXSwerveModule(0, new TalonFX(Constants.module0DriveMotorID), new TalonFX(Constants.module0AngleMotorID), angleOffsets[0], analogAngleSensors[0]), // Module 0
-      new FXSwerveModule(1, new TalonFX(Constants.module1DriveMotorID), new TalonFX(Constants.module1AngleMotorID), angleOffsets[1], analogAngleSensors[1]), // Module 1
-      new FXSwerveModule(2, new TalonFX(Constants.module2DriveMotorID), new TalonFX(Constants.module2AngleMotorID), angleOffsets[2], analogAngleSensors[2]), // Module 2
-      new FXSwerveModule(3, new TalonFX(Constants.module3DriveMotorID), new TalonFX(Constants.module3AngleMotorID), angleOffsets[3], analogAngleSensors[3])  // Module 3
+      new FXSwerveModule(0, new TalonFX(CANIDS.MODULE0DRIVEMOTORID), new TalonFX(CANIDS.MODULE0ANGLEMOTORID), angleOffsets[0], analogAngleSensors[0]), // Module 0
+      new FXSwerveModule(1, new TalonFX(CANIDS.MODULE1DRIVEMOTORID), new TalonFX(CANIDS.MODULE1ANGLEMOTORID), angleOffsets[1], analogAngleSensors[1]), // Module 1
+      new FXSwerveModule(2, new TalonFX(CANIDS.MODULE2DRIVEMOTORID), new TalonFX(CANIDS.MODULE2ANGLEMOTORID), angleOffsets[2], analogAngleSensors[2]), // Module 2
+      new FXSwerveModule(3, new TalonFX(CANIDS.MODULE3DRIVEMOTORID), new TalonFX(CANIDS.MODULE3ANGLEMOTORID), angleOffsets[3], analogAngleSensors[3])  // Module 3
     };
     
     // Setup for drive motor inversion (They may not need to be inverted)
     // (True: invered | False: not inverted)
-    swerveModules[0].setDriveInverted(false);
-    swerveModules[1].setDriveInverted(false);
-    swerveModules[2].setDriveInverted(false);
-    swerveModules[3].setDriveInverted(false);
-
+    swerveModules[0].setDriveInverted(false); // Module 0
+    swerveModules[1].setDriveInverted(false); // Module 1
+    swerveModules[2].setDriveInverted(false); // Module 2
+    swerveModules[3].setDriveInverted(false); // Module 3
+ 
   }
 
   /**
@@ -130,10 +124,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     /*
      * a -> d adds the rotational value to the robot, then adjusts for the dimensions of the robot
      */
-    double a = strafe - rotation * (WHEELBASE / TRACKWIDTH);
-    double b = strafe + rotation * (WHEELBASE / TRACKWIDTH);
-    double c = forward - rotation * (TRACKWIDTH / WHEELBASE);
-    double d = forward + rotation * (TRACKWIDTH / WHEELBASE);
+    double a = strafe - rotation * (SWERVE.WHEELBASE / SWERVE.TRACKWIDTH);
+    double b = strafe + rotation * (SWERVE.WHEELBASE / SWERVE.TRACKWIDTH);
+    double c = forward - rotation * (SWERVE.TRACKWIDTH / SWERVE.WHEELBASE);
+    double d = forward + rotation * (SWERVE.TRACKWIDTH / SWERVE.WHEELBASE);
 
     /*
      * Calculations to decide the angle value of each module in RADIANS

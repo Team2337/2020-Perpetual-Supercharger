@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.CANIDS;
 
 /**
  * Subsystem for the Feeder 
@@ -33,10 +33,10 @@ public class Feeder extends SubsystemBase {
    */
   public Feeder() {
      // These are the motors, Falcons, and they are set up here. Ports are referenced in the Constants file
-    leftFeederMotor = new TalonFX(Constants.LEFTFEEDER);
+    leftFeederMotor = new TalonFX(CANIDS.LEFTFEEDER);
     leftFeederMotor.setInverted(false);
     leftFeederMotor.configOpenloopRamp(0.2);
-    rightFeederMotor = new TalonFX(Constants.RIGHTFEEDER);
+    rightFeederMotor = new TalonFX(CANIDS.RIGHTFEEDER);
     rightFeederMotor.setInverted(true);
     rightFeederMotor.configOpenloopRamp(0.2);
 
