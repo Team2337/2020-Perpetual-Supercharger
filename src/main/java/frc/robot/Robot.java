@@ -23,6 +23,7 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
+  public static Constants Constants;
   public static Utilities Utilities;
 
   public static Climber Climber;
@@ -39,13 +40,10 @@ public class Robot extends TimedRobot {
   public static PowerDistributionPanel PDP;
   public static OI OI;
 
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
   @Override
   public void robotInit() {
     // Must go before subsystems
+    Constants = new Constants();
     Utilities = new Utilities();
     /* --- Subsystems --- */
     Climber = new Climber();
