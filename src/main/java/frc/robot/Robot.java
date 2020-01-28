@@ -31,8 +31,8 @@ public class Robot extends TimedRobot {
   public static SwerveDrivetrain SwerveDrivetrain;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
+  public static Feeder Feeder;
   public static OI OI;
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -56,6 +56,7 @@ public class Robot extends TimedRobot {
     ShooterHood = new ShooterHood();
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
+    Feeder = new Feeder();
     OI = new OI();
 
     // Resets the pigeon to 0    
