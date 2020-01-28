@@ -10,24 +10,6 @@ package frc.robot;
  */
 public final class Constants {
     /** --- CAN IDs --- */
-<<<<<<< HEAD
-    public static int canID0 = 0;
-    public static int canID1 = 1;
-    public static int canID2 = 2;
-    public static int canID3 = 3;
-    public static int canID4 = 4;
-    public static int canID5 = 5;
-    public static int canID6 = 6;
-    public static int canID7 = 7;
-    public static int canID8 = 8;
-    public static int LEFTINTAKE = 9;
-    public static int RIGHTINTAKE = 10;
-    public static int LEFTFEEDER = 11;
-    public static int RIGHTFEEDER = 12;
-    public static int canID13 = 13;
-    public static int canID14 = 14;
-    public static int canID15 = 15;
-=======
     public static int CANID0 = 0;
     public static int CANID1 = 1;
     public static int CANID2 = 2;
@@ -39,12 +21,11 @@ public final class Constants {
     public static int CANID8 = 8;
     public static int LEFTINTAKE = 9;
     public static int RIGHTINTAKE = 10;
-    public static int CANID11 = 11;
-    public static int CANID12 = 12;
+    public static int LEFTFEEDER = 11;
+    public static int RIGHTFEEDER = 12;
     public static int CANID13 = 13;
     public static int CANID14 = 14;
     public static int CANID15 = 15;
->>>>>>> master
 
     /** --- PCMs --- */
     public static int PCM0 = 0;
