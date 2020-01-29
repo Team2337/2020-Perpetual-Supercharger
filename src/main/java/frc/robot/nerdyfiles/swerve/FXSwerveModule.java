@@ -48,20 +48,20 @@ public class FXSwerveModule {
      * Proportional value for the drive motor speed
      * This is used to scale the error to a funcitonal speed for the motors
      */
-    private double driveP = 15;
+    private double driveP = 0.05;
 
     /**
      * Integral value for the drive motor speed
      * This value is used to reduce oscillation when sending the motor to a setpoint 
      */
-    private double driveI = 0.01;
+    private double driveI = 0; //0.01
 
     /**
      * Derivative value for the drive motor speed
      * This is added to the speed of the motors to increase power at 
      * smaller errors
      */
-    private double driveD = 0.1;
+    private double driveD = 0; //0.1
 
     /**
      * Feet Forward value for the drive motor speed
@@ -69,7 +69,7 @@ public class FXSwerveModule {
      * causing the motor to increase the power output to 
      * be able to reach its setpoint
      */
-    private double driveF = 0.2;
+    private double driveF = 0; //0.2
 
     /**
      * Proportional value for the angle motor speed
@@ -88,11 +88,12 @@ public class FXSwerveModule {
 
     /** Sets the inversion mode on the drive motors (True: invered | False: not inverted) */
     private boolean isDriveInverted = false;
+    private boolean isDriveSensorPhaseInverted = false;
 
     /* --- Motor Controllers --- */
 
     /** TalonFX motor controller, used as an angle motor in the swerve module */
-    private TalonFX driveMotor;
+    public TalonFX driveMotor;
 
     /** TalonFX motor controller, used as a drive motor in the swerve module */
     private TalonFX angleMotor;
@@ -106,9 +107,24 @@ public class FXSwerveModule {
     public AnalogInput analogAngleSensor;
     
     /* --- Current Limit Stator --- */
+
+    /**
+     * This is the configuration object to set current limits on the angle motor
+     * This is used to apply the same configurations to different motors
+     * It can be passed to the motor using the configStatorCurrentLimit() method
+     * in the TalonFX class
+     */
     private StatorCurrentLimitConfiguration currentLimitConfigurationAngle = new StatorCurrentLimitConfiguration();
+
+    /**
+     * This is the configuration object to set current limits on the drive motor
+     * This is used to apply the same configurations to different motors
+     * It can be passed to the motor using the configStatorCurrentLimit() method
+     * in the TalonFX class
+     */
     private StatorCurrentLimitConfiguration currentLimitConfigurationDrive = new StatorCurrentLimitConfiguration();
-    
+    public TalonFXConfiguration _fx;
+
     /**
      * Swerve Module Object used to run the calculations for the swerve drive
      * The swerve module uses joystick values from the command to change the 
@@ -128,7 +144,7 @@ public class FXSwerveModule {
         this.angleMotor = angleMotor;
         this.angleMotorOffset = angleMotorOffset;
         this.analogAngleSensor = analogAngleSensor;
-        
+        _fx = new TalonFXConfiguration();
         /* --- Set Factory Default --- */
 
         // Resets the angle motor to its factory default
@@ -162,10 +178,32 @@ public class FXSwerveModule {
         driveMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 
         /* --- Drive PID --- */
-        driveMotor.config_kP(0, driveP, 0);
-        driveMotor.config_kI(0, driveI, 0);
-        driveMotor.config_kD(0, driveD, 0);
-        driveMotor.config_kF(0, driveF, 0);
+       // driveMotor.config_kP(0, driveP, 30);
+        // driveMotor.config_kI(0, driveI, 30);
+        // driveMotor.config_kD(0, driveD, 30);
+        // driveMotor.config_kF(0, driveF, 30);
+        driveMotor.setSensorPhase(isDriveSensorPhaseInverted);
+        driveMotor.setInverted(isDriveSensorPhaseInverted);
+        driveMotor.configClosedLoopPeakOutput(0, 1, 30);
+
+        /* Config the peak and nominal outputs, 12V means full */
+		driveMotor.configNominalOutputForward(0.05, 30);
+		driveMotor.configNominalOutputReverse(-0.05, 30);
+		driveMotor.configPeakOutputForward(0.25, 30);
+        driveMotor.configPeakOutputReverse(-0.25, 30);
+        driveMotor.configAllowableClosedloopError(0, 100, 30);
+        
+        _fx.slot0.kP = driveP;
+        _fx.slot0.kI = driveI;
+        _fx.slot0.kD = driveD;
+        _fx.slot0.kF = driveF;
+        _fx.peakOutputForward = 0.9;
+        _fx.peakOutputReverse = -0.9;
+        _fx.slot0.allowableClosedloopError = 100;
+
+        driveMotor.configAllSettings(_fx);
+
+
 
         /* --- Motion Magic --- */
         // Sets the velocity & accelaration for the motion magic mode 
@@ -308,6 +346,25 @@ public class FXSwerveModule {
         this.isDriveInverted = isDriveInverted;
     }
 
+    public void setDriveSensorPhaseInverted(boolean isDriveSensorPhaseInverted) {
+        this.isDriveSensorPhaseInverted = isDriveSensorPhaseInverted;
+        driveMotor.setInverted(isDriveSensorPhaseInverted);
+    }
+    public int getDriveEncoder() {
+        return driveMotor.getSelectedSensorPosition(0);
+    }
+
+    public void setDriveEncoder(int position) {
+        driveMotor.setSelectedSensorPosition(position, 0, 0);
+    }
+
+    public void zeroDriveEncoder() {
+        setDriveEncoder(0);
+    }
+
+    public void setSetpoint(int setpoint) {
+        driveMotor.set(TalonFXControlMode.Position, setpoint);
+    }
     /**
      * Sets the speed of the drive motors
      * @param speed - double value in percent of the motors (-1 -> 1)
@@ -316,5 +373,10 @@ public class FXSwerveModule {
         if(isDriveInverted) speed = -speed; 
 
         driveMotor.set(ControlMode.PercentOutput, speed);
+    }
+
+    public void periodic() {
+        SmartDashboard.putNumber("driveMotorpercent"+moduleNumber, driveMotor.getMotorOutputPercent());
+
     }
 }

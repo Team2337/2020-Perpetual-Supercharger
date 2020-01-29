@@ -57,11 +57,15 @@ public class Utilities {
     public double getYaw(String gyroType) {
       switch(gyroType) {
           case "pigeon":
-            return Robot.Pigeon.getYaw();
+            return -Robot.Pigeon.getYaw();
           case "navx":
             // return Robot.navx.getYaw();
           default:
           return 0;
       }
+  }
+
+  public double getYawMod() {
+    return getYaw("pigeon") % 360;
   }
 }

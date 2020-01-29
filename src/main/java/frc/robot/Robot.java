@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   public static Intake Intake;
   public static LEDs LEDs;
   public static Pigeon Pigeon;
+  public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Shooter Shooter;
   public static ShooterHood ShooterHood;
   public static SwerveDrivetrain SwerveDrivetrain;
@@ -52,6 +53,7 @@ public class Robot extends TimedRobot {
     Intake = new Intake();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
+    OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Shooter = new Shooter();
     ShooterHood = new ShooterHood();
     SwerveDrivetrain = new SwerveDrivetrain();
