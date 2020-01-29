@@ -19,6 +19,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    public double farShot;
    public double nearShot;
    public double climbing;
+   public double futureOffsetAngle;
    public boolean isFieldOrientend;
    public boolean isChangingGyroAngle;
 
@@ -30,22 +31,29 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     isFieldOrientend = true;
   }
 
-  public void setOffsetAngle(String mode) {
+  public void setFutureOffsetAngle(String mode) {
     switch(mode) {
       case "farShot": 
-      gyroOffset = farShot;
+      futureOffsetAngle = farShot;
       break;
       case "nearShot":
-      gyroOffset = nearShot;
+      futureOffsetAngle = nearShot;
       break;
       case "climbing":
-      gyroOffset = climbing;
+      futureOffsetAngle = climbing;
       break;
       default:
-     gyroOffset = 0;
+      futureOffsetAngle = 0;
     }
   }
 
+  public double getFutureOffsetAngle() {
+    return futureOffsetAngle;
+  }
+
+  public void setOffsetAngle(double offsetAngle) {
+    this.gyroOffset = offsetAngle;
+  }
     public double getGyroAngleOffset() {
    return gyroOffset;
   }
@@ -57,6 +65,18 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   public boolean getIsChangingGyroAngle() {
     return isChangingGyroAngle;
   }
+
+  public double calculateGyroOffset( double error, double rotation, double kP) {
+    error %= 360;
+    if (error > 180) {
+      error -= 360;
+    } else if (error < -180) {
+      error += 360;
+    }
+    rotation = error * kP;
+    return (Math.abs(rotation) > 0.6) ? Math.copySign(0.6, rotation) : rotation;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

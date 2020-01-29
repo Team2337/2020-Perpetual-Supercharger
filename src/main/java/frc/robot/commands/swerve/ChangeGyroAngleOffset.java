@@ -36,7 +36,7 @@ public class ChangeGyroAngleOffset extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.SwerveDrivetrain.setGyroOffsetAngle(Robot.OperatorAngleAdjustment.getGyroAngleOffset());
+    Robot.OperatorAngleAdjustment.setOffsetAngle(Robot.OperatorAngleAdjustment.getGyroAngleOffset());
     Robot.OperatorAngleAdjustment.setIsChangingGyroAngle(isRotating);
   }
 

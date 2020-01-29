@@ -35,7 +35,7 @@ private String mode;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.OperatorAngleAdjustment.setOffsetAngle(mode);
+    Robot.OperatorAngleAdjustment.setFutureOffsetAngle(mode);
   }
 
   // Called once the command ends or is interrupted.

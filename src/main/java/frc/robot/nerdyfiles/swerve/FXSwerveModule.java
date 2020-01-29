@@ -197,8 +197,8 @@ public class FXSwerveModule {
         _fx.slot0.kI = driveI;
         _fx.slot0.kD = driveD;
         _fx.slot0.kF = driveF;
-        _fx.peakOutputForward = 0.5;
-        _fx.peakOutputReverse = -0.5;
+        _fx.peakOutputForward = 0.9;
+        _fx.peakOutputReverse = -0.9;
         _fx.slot0.allowableClosedloopError = 100;
 
         driveMotor.configAllSettings(_fx);

@@ -130,17 +130,17 @@ public class SwerveDrivetrain extends SubsystemBase {
     // Adjusts forward and strafe based on the gyro if set in field oriented mode
     if (getFieldOriented()) {
       double angleRad = Math.toRadians(-Robot.Pigeon.getYaw()) % (2*Math.PI);
-      if(rotation < deadband) {
+     /*  if(rotation < deadband) {
         if(lastRotation > deadband && rotation < deadband) {
           fieldOrientedAngle = Math.toRadians(-Robot.Pigeon.getYaw());
         }
         angleRad += (Math.toRadians(-Robot.Pigeon.getYaw()) - Math.toRadians(fieldOrientedAngle)) * kP;
-      }
+      } */
       double temp = forward * Math.cos(angleRad) + strafe * Math.sin(angleRad);
       strafe = -forward * Math.sin(angleRad) + strafe * Math.cos(angleRad);
       forward = temp;
     } 
-    lastRotation = rotation;
+    // lastRotation = rotation;
 
     /*
      * a -> d adds the rotational value to the robot, then adjusts for the dimensions of the robot
@@ -199,8 +199,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {
-        //getModule(i).setModuleAngle(lastAngle);
-        getModule(i).setDriveSpeed(0);
+        getModule(i).setModuleAngle(lastAngle);
+        // getModule(i).setDriveSpeed(0);
       }
       //Sets the drive speed for each drive motor
       SmartDashboard.putNumberArray("Drive Speeds", speeds);
