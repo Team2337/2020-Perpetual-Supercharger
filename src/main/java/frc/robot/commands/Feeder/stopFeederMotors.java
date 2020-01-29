@@ -1,3 +1,4 @@
+/*
 package frc.robot.commands.Feeder;
 
 import frc.robot.subsystems.Feeder;
@@ -7,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * Stops the feeder motors (Test Only).
  * 
  * @author Nicholas Stokes
- */
+ 
 public class stopFeederMotors extends InstantCommand {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Feeder subsystem;
@@ -16,7 +17,7 @@ public class stopFeederMotors extends InstantCommand {
    * Stops the feeder motors.
    * 
    * @param subsystem The subsystem used by this command. (Feeder)
-   */
+   
   public stopFeederMotors(Feeder feeder) {
     subsystem = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -35,3 +36,4 @@ public class stopFeederMotors extends InstantCommand {
   }
 
 }
+*/

@@ -1,18 +1,17 @@
-package frc.robot.commands.Feeder;
+package frc.robot.commands.SerializerFeeder;
 
-import frc.robot.subsystems.Feeder;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.SerializerFeeder;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the feeder speed
+ * Sets the serializer speed
  * 
  * @author Nicholas Stokes
  */
-public class setFeederSpeed extends InstantCommand {
+public class setSerializerFeederSpeed extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final Feeder subsystem;
-  private double rightFeederSpeed;
-  private double leftFeederSpeed;
+  private final SerializerFeeder subsystem;
+  private double serializerFeederSpeed;
 
   /**
    * Sets the feeder speed to a given percent
@@ -20,10 +19,9 @@ public class setFeederSpeed extends InstantCommand {
    * @param feeder The subsystem used by this command. (Feeder)
    * @param speed  A double number that sets what speed the motors move at
    */
-  public setFeederSpeed(Feeder feeder, double lSpeed, double rSpeed) {
-    subsystem = feeder;
-    rightFeederSpeed = rSpeed;
-    leftFeederSpeed = lSpeed;
+  public setSerializerFeederSpeed(SerializerFeeder serializer, double speed) {
+    subsystem = serializer;
+    serializerFeederSpeed = speed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -33,7 +31,7 @@ public class setFeederSpeed extends InstantCommand {
   @Override
   public void initialize() {
     // This will set the feeder to run at a set speed
-    subsystem.setFeederSpeed(leftFeederSpeed, rightFeederSpeed);
+    subsystem.setFeederSpeed(serializerFeederSpeed);
   }
 
   // Called once the command ends or is interrupted.
