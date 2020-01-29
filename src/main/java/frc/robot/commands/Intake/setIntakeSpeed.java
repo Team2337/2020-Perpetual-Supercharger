@@ -1,13 +1,13 @@
 package frc.robot.commands.Intake;
 
 import frc.robot.subsystems.Intake;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * Sets the intake speed
  * @author Michael Francis
  */
-public class setIntakeSpeed extends InstantCommand {
+public class setIntakeSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake subsystem;
   /** Left intake motor speed */
@@ -37,10 +37,19 @@ public class setIntakeSpeed extends InstantCommand {
     subsystem.setIntakeSpeed(lspeed, rspeed);
   }
 
+  @Override
+  public void execute(){
+  }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     // Stops the intake
     subsystem.stopIntake();
+  }
+
+  @Override
+  public boolean isFinished(){
+    return false;
   }
 }
