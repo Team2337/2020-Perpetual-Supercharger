@@ -150,6 +150,5 @@ public class Pigeon extends SubsystemBase {
 	*/
    public double getTemp() {
 	   return pidgey.getTemp();
-
    }
 }
