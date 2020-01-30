@@ -36,6 +36,12 @@ public class SwerveDriveCommand extends CommandBase {
   private double lastAngle;
   private double lastRotation;
   private double rotationDeadband = 0.1;
+  private double lastError;
+  private double rotationVelocity;
+  private double velocityDeadband;
+  private double lastVelocity;
+  private double velocity;
+
 
   /**
    * Command running the swerve calculations with the joystick
@@ -70,18 +76,16 @@ public class SwerveDriveCommand extends CommandBase {
     SmartDashboard.putNumber("Rotation", rotation);
 
     if (Math.abs(rotation) > rotationDeadband) {
-      // stoppedRotating = false;
       //lastAngle = Robot.Utilities.getYawMod();
       lastRotation = rotation;
     } else {
       if (Math.abs(lastRotation) > rotationDeadband && Math.abs(rotation) <= rotationDeadband) {
-        // stoppedRotating = true;
         System.out.println("fdijkfdisjiffdsjkhnserdtcyuvbiokoiuuies" + -Robot.Utilities.getYawMod());
         Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod());
         rotation = 0;
         lastRotation = rotation;
       }
-      /* Robot.Utilities.calculateDerivative(error, lastError, dt)
+      velocity = Robot.Utilities.calculateDerivative(error, lastError, 0.002);
       if (Math.abs(rotationVelocity) > velocityDeadband) {
         lastVelocity  = rotationVelocity;
       } else {
@@ -90,7 +94,7 @@ public class SwerveDriveCommand extends CommandBase {
           velocity = 0;
           lastVelocity = 0;
         }
-      } */
+      }
       if (Robot.OperatorAngleAdjustment.getIsChangingGyroAngle()) {
         Robot.OperatorAngleAdjustment.setOffsetAngle(Robot.OperatorAngleAdjustment.getFutureOffsetAngle());
       }
