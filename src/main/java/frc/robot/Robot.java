@@ -15,6 +15,9 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private double average = 0;
+  private double total = 0;
+  private double iteration = 0;
 
   public static Constants Constants;
   public static Utilities Utilities;
@@ -40,6 +43,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    iteration = 0;
     
     // Must go before subsystems
     Constants = new Constants();
@@ -79,7 +83,13 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("getAbsoluteCompassHeading", Pigeon.getAbsoluteCompassHeading());
+
+    /* if(iteration < 200) {
+      total += SwerveDrivetrain.getModule(2).getNormalizedAnalogVoltageRadians();
+      iteration++;
+    } 
+    average = total / iteration;
+    System.out.println("iteration: " + iteration + " average: " + average); */
   }
 
   /**

@@ -29,6 +29,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   // Sets the distances from module to module 
   public static final double WHEELBASE = 22.5;  
   public static final double TRACKWIDTH = 23.5; 
+  public static final double RADIUS = Math.sqrt(Math.pow(WHEELBASE, 2) + Math.pow(TRACKWIDTH, 2));
 
   // Length and width of the robot
   public static final double WIDTH = 29;  
@@ -84,10 +85,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     setDefaultCommand(new SwerveDriveCommand(this));
 
     angleOffsets = new double[] {
-      4.57,  // Module 0 
-      1.3,   // Module 1 
-      -0.60, // Module 2 
-      -5.95  // Module 3
+      4.5611,  // Module 0 //4.57
+      1.278353,   // Module 1 //1.3
+      -0.678327, // Module 2 //-0.6
+      -5.90436  // Module 3 -5.95
     };
 
     analogAngleSensors = new AnalogInput[] {
@@ -199,7 +200,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {
-        getModule(i).setModuleAngle(lastAngle);
+        getModule(i).setModuleAngle(angles[i]);
+        getModule(i).setDriveSpeed(speeds[i]);
+        // getModule(i).setModuleAngle(lastAngle);
         // getModule(i).setDriveSpeed(0);
       }
       //Sets the drive speed for each drive motor
