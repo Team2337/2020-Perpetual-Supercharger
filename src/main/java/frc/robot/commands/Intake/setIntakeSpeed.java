@@ -37,9 +37,8 @@ public class setIntakeSpeed extends CommandBase {
     subsystem.setIntakeSpeed(lspeed, rspeed);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute(){
   }
 
   // Called once the command ends or is interrupted.
@@ -49,9 +48,8 @@ public class setIntakeSpeed extends CommandBase {
     subsystem.stopIntake();
   }
 
-  // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished(){
     return false;
   }
 }
