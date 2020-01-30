@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -35,8 +28,8 @@ public class Robot extends TimedRobot {
   public static ShooterHood ShooterHood;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
+  public static Feeder Feeder;
   public static OI OI;
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -54,6 +47,7 @@ public class Robot extends TimedRobot {
     Shooter = new Shooter();
     ShooterHood = new ShooterHood();
     Vision = new Vision();
+    Feeder = new Feeder();
     OI = new OI();
   }
 
