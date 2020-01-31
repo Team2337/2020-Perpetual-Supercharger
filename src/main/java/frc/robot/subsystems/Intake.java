@@ -1,15 +1,9 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 //Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -31,17 +25,35 @@ public class Intake extends SubsystemBase {
   TalonFX leftIntakeMotor;
   TalonFX rightIntakeMotor;
 
+  //Sets up current limit config variable
+  private StatorCurrentLimitConfiguration currentLimitConfigIntake = new StatorCurrentLimitConfiguration();
+
   /**
    * Creates a new Intake subsystem and sets up the motors to their corresponding ports.
    */
   public Intake() {
     /**
      * This sets the motors up. We have two motors: one on the left side and one on the right side.
+     * We reverse one of the motors.
+     * Then, we configure the current limits on the motors.
+     * After that, we set up a closed loop ramp rate.
      */
-    leftIntakeMotor = new TalonFX(Constants.leftIntake);
-    rightIntakeMotor = new TalonFX(Constants.rightIntake);
+    leftIntakeMotor = new TalonFX(Constants.LEFTINTAKE);
+    rightIntakeMotor = new TalonFX(Constants.RIGHTINTAKE);
     leftIntakeMotor.setInverted(false);
     rightIntakeMotor.setInverted(true);
+
+    //Sets up current limits on variables
+    currentLimitConfigIntake .currentLimit = 50;
+    currentLimitConfigIntake .enable = true;
+    currentLimitConfigIntake .triggerThresholdCurrent = 40;
+    currentLimitConfigIntake .triggerThresholdTime = 3;
+    //Pushes current limits to motors
+    leftIntakeMotor.configStatorCurrentLimit(currentLimitConfigIntake, 0);
+    rightIntakeMotor.configStatorCurrentLimit(currentLimitConfigIntake, 0);
+    //Set up ramp rate
+    leftIntakeMotor.configClosedloopRamp(0.5);
+    rightIntakeMotor.configClosedloopRamp(0.5);
   }
 
   @Override

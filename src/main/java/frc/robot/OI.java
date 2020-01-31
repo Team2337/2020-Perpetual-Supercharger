@@ -1,18 +1,26 @@
 package frc.robot;
 
+import frc.robot.commands.swerve.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 
+/**
+ * OI Class where all controllers and button presses are placed 
+ */
 public class OI {
+    
     public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
 	public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
-	public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2);
+    public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2);
+    
     public OI(){
         
         /* --- DRIVER JOYSTICK --- */
 
-        //insert code here
+        // Sets the field orientation
+        driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
+        driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
 
         /* --- OPERATOR JOYSTICK --- */
         
