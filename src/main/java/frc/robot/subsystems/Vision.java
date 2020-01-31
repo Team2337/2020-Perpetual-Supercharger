@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    * The vision code for the limelight and camera
    * @author Madison J. and Zayd A.
    */
+
 public class Vision extends SubsystemBase {
 
    public Vision() {
@@ -22,6 +23,7 @@ public class Vision extends SubsystemBase {
    * 2: Blink mode on LEDs
    * 3: Turns on the LEDs
    */
+
    public void setLEDMode(int mode) {
      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
    }
@@ -30,6 +32,7 @@ public class Vision extends SubsystemBase {
  * Gets the Limelight mode number from the NetworkTable
  * @return - returns the mode number from the NetworkTable 
  */
+
    public int getLEDMode() {
      return (int)NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getValue().getDouble();
    }
@@ -42,6 +45,7 @@ public class Vision extends SubsystemBase {
  * 2 - FarVision (21-26 ft)
  * 9 - Drivecam
  */
+
    public void switchPipeLine(int pipeline) {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
    }
@@ -51,6 +55,7 @@ public class Vision extends SubsystemBase {
      * @param output - string double value
      * @return - returns the double value from the string for example from ta, tx, etc.
      */
+    
 public double getDoubleValue(String output) {
   return NetworkTableInstance.getDefault().getTable("limelight").getEntry(output).getDouble(0);
 }
