@@ -9,6 +9,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final class Swerve {
+        public static final double GEARRATIO = 8.31;
+        public static final double WHEELDIAMETER = 4;
+        public static final double TICKSPERREVOLUTION = GEARRATIO * 4096;
+        public static final double INCHESPERREVOLUTION = WHEELDIAMETER * Math.PI;
+        public static final double TICKSPERINCH = 1550;
+    }
     /** --- CAN IDs --- */
     public static int CANID0 = 0;
     public static int MODULE0DRIVEMOTORID = 1;

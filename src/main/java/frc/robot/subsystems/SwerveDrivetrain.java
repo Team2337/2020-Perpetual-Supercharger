@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -53,6 +55,16 @@ public class SwerveDrivetrain extends SubsystemBase {
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
+
+  public boolean fineRotateOn = false;
+  public BooleanSupplier fineRotation = new BooleanSupplier(){
+  
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return fineRotateOn;
+    }
+  };
 
   /**
    * Array for swerve module Analog sensors, sorted by AnalogInput ports
