@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Intake.*;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 
@@ -25,6 +26,16 @@ public class OI {
         */
         driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, true));
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
+        //driverJoystick.blueX.whenPressed(new AdjustRotationAngle(Robot.SwerveDrivetrain, "left").withTimeout(0.5));
+       // driverJoystick.redB.whileHeld(new ConditionalCommand(new AdjustRotationAngle(Robot.SwerveDrivetrain, "right").withTimeout(0.5),
+        //new RotateAtSpeed(Robot.SwerveDrivetrain, "right", 0.07), Robot.SwerveDrivetrain.fineRotation));
+        //driverJoystick.blueX.whileHeld(new ConditionalCommand(new AdjustRotationAngle(Robot.SwerveDrivetrain, "left").withTimeout(0.5),
+         //new RotateAtSpeed(Robot.SwerveDrivetrain, "left", -0.07), Robot.SwerveDrivetrain.fineRotation));
+         //driverJoystick.blueX.whenReleased(new RotateAtSpeed(Robot.SwerveDrivetrain, "left", 0).withTimeout(0.01));
+         //driverJoystick.redB.whenReleased(new RotateAtSpeed(Robot.SwerveDrivetrain, "right", 0).withTimeout(0.01));
+        driverJoystick.blueX.whileHeld(new RotateAtSpeed(Robot.SwerveDrivetrain, "left", -0.07));
+        driverJoystick.redB.whileHeld(new RotateAtSpeed(Robot.SwerveDrivetrain, "right", 0.07));
+
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
