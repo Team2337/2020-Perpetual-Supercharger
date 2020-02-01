@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -14,6 +15,25 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  //Time of Flight Sensor Code
+  private double a;
+  private int b;
+
+  public static int distanceSensorLoad = 0;
+  public static double loadSensorSerial;
+  public static double loadSensorPart;
+  public static double loadSensorFirmware;
+  public static byte[] hwdataLoad = new byte[8];
+
+  public static int distanceSensorRocket = 23;
+  public static double rocketSensorSerial;
+  public static double rocketSensorPart;
+  public static double rocketSensorFirmware;
+  public static byte[] hwdataRocket = new byte[8];
+  //End TOF Code
+
+
   private Command m_autonomousCommand;
 
   public static Constants Constants;
@@ -39,6 +59,22 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    //Time Of Flight sensor code
+    hwdataLoad = CanbusDistanceSensor.readHeartbeat(distanceSensorLoad);
+    int[] temp = CanbusDistanceSensor.getSensorInfo(hwdataLoad);
+    loadSensorSerial = temp[0];
+    loadSensorPart = temp[1];
+    loadSensorFirmware = temp[2];
+    SmartDashboard.putNumber("LoadSerial", loadSensorSerial);
+    SmartDashboard.putNumber("LoadPart", loadSensorPart);
+    SmartDashboard.putNumber("LoadFirmware", loadSensorFirmware);
+    int temp1[] = CanbusDistanceSensor.readCalibrationState(distanceSensorLoad);
+    SmartDashboard.putNumber("X", temp1[0]);
+    SmartDashboard.putNumber("Y", temp1[1]);
+    SmartDashboard.putNumber("Offset", temp1[2]);
+    //End TOF Code
+
     
     // Must go before subsystems
     Constants = new Constants();
@@ -127,6 +163,40 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    //Time of Flight Code
+    CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("TTT", Timer.getFPGATimestamp() - a);
+    a = Timer.getFPGATimestamp();
+    b++;
+    int[] temp = { 0, 0 };
+    if (b >= 10) {
+
+      temp = CanbusDistanceSensor.getDistanceMM(distanceSensorLoad);
+      if (temp[0] < 0) {
+        SmartDashboard.putNumber("Read Error", temp[0]);
+        // temp[0] = 0;
+      }
+      SmartDashboard.putNumber("SigRate", Math.round(temp[1]));
+
+      SmartDashboard.putNumber("DistMM", Math.round(temp[0]));
+      SmartDashboard.putNumber("DistFt", Math.round((temp[0] / 304.8)*100)/100);
+      temp = CanbusDistanceSensor.readQuality(distanceSensorLoad);
+      SmartDashboard.putNumber("AmbLight", Math.round(temp[0]));
+      SmartDashboard.putNumber("StdDev", Math.round(temp[1]));
+      // double distR = CanbusDistanceSensor.getDistanceMM(distanceSensorRocket);
+      // if (distR < 0) {
+      // SmartDashboard.putNumber("Read Error", distR);
+      // distR = 0;
+      // }
+      // SD.putN0("DistMM23", distR);
+      // SD.putN2("DistFt23", distR / 304.8);
+      // double tempR[] = CanbusDistanceSensor.readQuality(distanceSensorRocket);
+      // SD.putN0("AmbLight23", tempR[0]);
+      // SD.putN0("StdDev23", tempR[1]);
+
+      b = 0;
+    }
+      //End TOF Code
   }
 
   @Override
