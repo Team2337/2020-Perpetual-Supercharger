@@ -32,8 +32,10 @@ P=1.90, F=0.04, D=0.0002, Set=16200, Actual=16100, good, flat
 P=1.90, F=0.04, D=0.0002, Set=16000, Actual=15900, good, wavy
 P=1.85, F=0.04, D=0.0002, Set=16200, Actual=15800, good, wavy
 P=1.90, F=0.03, D=0.0002, Set=16200, Actual=16050, good, flat [best]
+
 16 ft Lexan 14 degrees
 P=1.00, F=0.00, D=0.0000, Set=13500, Actual=12870, good, flat [best]
+
 34 ft Lexan 14 degrees
 P=1.90, F=0.03, D=0.0002, Set=16200, Actual=16050, high, flat
 P=1.00, F=0.00, D=0.0000, Set=15500, Actual=14770, high, flat
@@ -41,28 +43,35 @@ P=1.00, F=0.00, D=0.0000, Set=15000, Actual=14290,  low, flat
 P=1.00, F=0.00, D=0.0000, Set=15250, Actual=14530, good, flat [best]
 P=1.00, F=0.00, D=0.0000, Set=15150, Actual=14430, good, flat
 
-ok
+Other testing 1/22/2020
+Pvalue, Fvalue,  D value, Set value, Actual value, Rate
+------|-------|---------|----------|-------------|------
 P=0.90, F=0.00, D=0.0002, Set=15275, Actual=14429, 3/5
 P=0.90, F=0.00, D=0.0002, Set=15285, Actual=14476, 4/5
 
 1/23/2020
 34 ft Lexan 14 degrees
 P=0.90, F=0.00, D=0.0002, Set=15285, Actual=14480, 4/5
+
 34 ft Gum Rubber 14 degrees
 NOTE: It's more accurate if you bring the P up instead of bringing the units (Unicorns) up
 P=0.90, F=0.00, D=0.0002, Set=15285, Actual=nodat, 4/5
 P=1.00, F=0.00, D=0.0002, Set=15285, Actual=14570, 4/5
 P=1.00, F=0.00, D=0.0002, Set=15300, Actual=14580, 4/5
 P=1.10, F=0.00, D=0.0002, Set=15285, Actual=14630, 5/5 [best]
+
 16 ft Gum Rubber 14 degrees
 P=1.00, F=0.00, D=0.0000, Set=13500, Actual=12870, 4/5
 P=1.00, F=0.00, D=0.0000, Set=13650, Actual=nodat, 5/5 [best]
+
 16 ft Teflon (PTFE) 14 degrees
 P=1.00, F=0.00, D=0.0002, Set=14450, Actual=13770, 5/5 [best]
+
 34 ft Teflon (PTFE) 14 degrees
 P=1.10, F=0.00, D=0.0002, Set=15285, Actual=14620, 4/5
 P=1.20, F=0.00, D=0.0002, Set=15285, Actual=nodat, 4/5
 P=1.20, F=0.00, D=0.0002, Set=15485, Actual=14870, 4/5 [best]
+
 34 ft ?? 14 degrees
 P=1.10, F=0.00, D=0.0002, Set=15285, Actual=nodat, 4/5
 P=1.15, F=0.00, D=0.0002, Set=15295, Actual=nodat, 4/5 [best]

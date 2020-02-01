@@ -37,6 +37,6 @@ public class OI {
 
         /* --- TEST CODE --- */
 
-        operatorJoystick.triggerRight .whileHeld(new shootBall(Robot.Shooter, 15295));//16120
+        operatorJoystick.triggerRight .whileHeld(new shootBall(Robot.Shooter, 15295));//14450 close - 15295 far
     }
 }
