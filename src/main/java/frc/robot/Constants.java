@@ -21,9 +21,9 @@ public final class Constants {
     public static int MODULE3ANGLEMOTORID = 8;
     public static int LEFTINTAKE = 9;
     public static int RIGHTINTAKE = 10;
-    public static int SERIALIZING = 11;
+    public static int SERIALIZIN = 0;
     public static int RIGHTFEEDER = 12;
-    public static int CANID13 = 13;
+    public static int SERIALIZING = 13;
     public static int CANID14 = 14;
     public static int CANID15 = 15;
 

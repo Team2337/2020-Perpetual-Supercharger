@@ -24,7 +24,7 @@ public class readyShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.positionShift(-1000);
+    m_subsystem.positionShift(512);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

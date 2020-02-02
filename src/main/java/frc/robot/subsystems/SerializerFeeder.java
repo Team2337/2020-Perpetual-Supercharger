@@ -1,15 +1,18 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
-/**
- * Subsystem for the Feeder+Serializer 
- * The Feeder is a mechanism to feed balls from the intake/hopper to the serializer which moves balls
+ /** 
+ *  Subsystem for the Feeder+Serializer 
+ * The Feeder is a mechanism to feed 
  * up to the shooter
  * For more information, see the wiki 
  * @author Nicholas Stokes
@@ -20,10 +23,11 @@ public class SerializerFeeder extends SubsystemBase {
    * 
    * @see #periodic()
    */
-  public final boolean feederDebug = false;
+  public final boolean feederDebug = true;
 
   // Motors
   TalonFX serializerMotor;
+  public TalonFXConfiguration FXConfig;
 
   // Current limit configuration
   private StatorCurrentLimitConfiguration currentLimitConfigurationFeederMotors = new StatorCurrentLimitConfiguration();
@@ -37,12 +41,26 @@ public class SerializerFeeder extends SubsystemBase {
     serializerMotor = new TalonFX(Constants.SERIALIZING);
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
+    FXConfig = new TalonFXConfiguration();
+    serializerMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+    FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
 
     // Set up the current configuration
     currentLimitConfigurationFeederMotors.currentLimit = 50;
     currentLimitConfigurationFeederMotors.enable = true;
     currentLimitConfigurationFeederMotors.triggerThresholdCurrent = 40;
     currentLimitConfigurationFeederMotors.triggerThresholdTime = 3;
+
+     //Set variables
+     final double kP = 0.1;
+     final double kI = 0;
+     final double kD = 0;
+     final double kF = 0;
+     //Implement variables into the PIDs
+     serializerMotor.config_kP(0, kP);
+     serializerMotor.config_kI(0, kI);
+     serializerMotor.config_kD(0, kD);
+     serializerMotor.config_kF(0, kF);
 
     // Set amperage limits
     serializerMotor.configStatorCurrentLimit(currentLimitConfigurationFeederMotors, 0);
@@ -51,9 +69,11 @@ public class SerializerFeeder extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
     // If in debug mode, put the feeder speed and temperature on Shuffleboard
     if (feederDebug) {
+      SmartDashboard.putNumber("CurrentPosisition", getFeederPosition());
+      SmartDashboard.putNumber("TargetPosition", 512);
+      SmartDashboard.putNumber("Error", getFeederPosition() - 512);
       SmartDashboard.putNumber("Feeder Motor Speed", getFeederSpeed());
       SmartDashboard.putNumber("Feeder Motor Temperature", getFeederTemperature());
     }
@@ -77,6 +97,11 @@ public class SerializerFeeder extends SubsystemBase {
   public double getFeederSpeed() {
     double speed = serializerMotor.getMotorOutputPercent();
     return speed;
+  }
+
+  public int getFeederPosition() {
+    int position = serializerMotor.getSelectedSensorPosition();
+    return position;
   }
 
   /**

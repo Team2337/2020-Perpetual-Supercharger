@@ -2,6 +2,8 @@ package frc.robot;
 
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.SerializerFeeder.readyShooter;
+import frc.robot.commands.SerializerFeeder.setSerializerFeederSpeed;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 
@@ -28,6 +30,9 @@ public class OI {
         operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
+
+        operatorJoystick.start .whileHeld(new setSerializerFeederSpeed(Robot.Feeder, 0.4));
+        operatorJoystick.back .whenPressed(new readyShooter(Robot.Feeder));
 
         /* --- DRIVER STATION CONTROLS --- */
 
