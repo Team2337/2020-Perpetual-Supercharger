@@ -1,14 +1,17 @@
 package frc.robot;
 
 import frc.robot.commands.KickerWheel.*;
+import frc.robot.commands.swerve.*;
 import frc.robot.commands.Intake.*;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 
-
-
+/**
+ * OI Class where all controllers and button presses are placed 
+ */
 public class OI {
+    
     public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
     public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
     public NerdyOperatorStation operatorControls = new NerdyOperatorStation(2);
@@ -21,6 +24,10 @@ public class OI {
         driverJoystick.yellowY .whenPressed(new increaseKickerSpeed(Robot.KickerWheel, 0.1));
         driverJoystick.greenA .whenPressed(new decreaseKickerSpeed(Robot.KickerWheel, 0.1));
         driverJoystick. redB .whenPressed(new stopKickerSpeed(Robot.KickerWheel, 0.1));
+
+        // Sets the field orientation
+        driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
+        driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
 
         /* --- OPERATOR JOYSTICK --- */
         
