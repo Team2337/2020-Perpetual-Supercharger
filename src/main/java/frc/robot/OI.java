@@ -31,9 +31,9 @@ public class OI {
         operatorJoystick.bumperLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
 
         // Extends and retracts left flipper on hopper to grab power cells and feed them into the intake
-        operatorJoystick.triggerLeft   .whileHeld(new leftHopperExtension(Robot.Hopper));
+        operatorJoystick.macroOne   .whileHeld(new leftHopperExtension(Robot.Hopper));
         // Extends and retracts right flipper on hopper to grab power cells and feed them into the intake
-        operatorJoystick.triggerRight  .whileHeld(new rightHopperExtension(Robot.Hopper));
+        operatorJoystick.macroTwo  .whileHeld(new rightHopperExtension(Robot.Hopper));
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here
