@@ -78,5 +78,5 @@ public final class Constants {
     public static int PWMPORT9 = 9;
 
     /* --- Other Values --- */
-    public static int SHOOTERRAMPVALUE = 5000;
+    public static int SHOOTERRAMPSWITCHVALUE = 5000;
 }

@@ -52,7 +52,7 @@ public class startShooter extends CommandBase {
   public void execute() {
     //Once the velocity reaches a certain speed, the closed-loop ramp is turned off.
     //This is to ensure that the motors get up to speed quickly without damaging themselves.
-    if(m_subsystem.leftShootMotor.getSelectedSensorVelocity() > Constants.SHOOTERRAMPVALUE){
+    if(m_subsystem.leftShootMotor.getSelectedSensorVelocity() > Constants.SHOOTERRAMPSWITCHVALUE){
       m_subsystem.leftShootMotor.configClosedloopRamp(0);
       m_subsystem.rightShootMotor.configClosedloopRamp(0);
     }
