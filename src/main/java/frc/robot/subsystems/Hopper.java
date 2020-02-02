@@ -18,8 +18,8 @@ public class Hopper extends SubsystemBase {
 
   // Sets port the Solenoids work from
   public Hopper() {
-    leftFlipper = new Solenoid(Constants.leftFlipperSolenoid);
-    rightFlipper = new Solenoid(Constants.rightFlipperSolenoid);
+    leftFlipper = new Solenoid(Constants.LEFTFLIPPERSOLENOID);
+    rightFlipper = new Solenoid(Constants.RIGHTFLIPPERSOLENOID);
   }
 
   // Defines the act of extending and retracting the left flipper through a

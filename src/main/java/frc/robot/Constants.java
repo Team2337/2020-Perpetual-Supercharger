@@ -32,8 +32,8 @@ public final class Constants {
     public static final int PCM1 = 1;
 
     /** --- PCM Ports --- */
-    public static int leftFlipperSolenoid = 0;
-    public static int rightFlipperSolenoid = 1;
+    public static int LEFTFLIPPERSOLENOID = 0;
+    public static int RIGHTFLIPPERSOLENOID = 1;
     public static int PCM0PORT2 = 2;
     public static int PCM0PORT3 = 3;
     public static int PCM0PORT4 = 4;
