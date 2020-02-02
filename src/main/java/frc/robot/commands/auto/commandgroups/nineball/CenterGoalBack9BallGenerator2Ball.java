@@ -5,11 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.auto.commandgroups;
+package frc.robot.commands.auto.commandgroups.nineball;
 
 import frc.robot.Robot;
-import frc.robot.commands.auto.driveToPosition;
-import frc.robot.commands.auto.rotateToAngle;
+import frc.robot.commands.auto.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
@@ -17,17 +16,24 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  * @author Madison J. 
  * @category AUTON 
  */
-public class swerveCircle extends SequentialCommandGroup {
+public class CenterGoalBack9BallGenerator2Ball extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
  /**
   * The chassis rotates in a circle command group
   */
-  public swerveCircle() {
+  public CenterGoalBack9BallGenerator2Ball() {
     addCommands(
-     // new driveToPosition(Robot.SwerveDrivetrain, 0, 0, 1)
-      //new rotateToAngle(Robot.SwerveDrivetrain, 49, 45, 0.5).withTimeout(254)
+    /* new turnModulesToDegree(Robot.SwerveDrivetrain, 55).withTimeout(0.5),
+    new driveToPosition(Robot.SwerveDrivetrain, -140, 55) */
+    //new turnModulesToDegree(Robot.SwerveDrivetrain, 55).withTimeout(0.5),
+     new driveToPosition(Robot.SwerveDrivetrain, -140, 55).withTimeout(5),
+     new rotateToAngle(Robot.SwerveDrivetrain, "left", -27, 0),
+     new driveToPosition(Robot.SwerveDrivetrain, -30, 0),
+     //new driveToPosition(Robot.SwerveDrivetrain, 50, 90, 5),
+     //new driveToPosition(Robot.SwerveDrivetrain, 48, 0, 5),
 
+     new turnModulesToDegree(Robot.SwerveDrivetrain, 0).withTimeout(0.5)
     );
   
   }

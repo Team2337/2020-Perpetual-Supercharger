@@ -24,7 +24,7 @@ public class swerveDiamond extends SequentialCommandGroup {
  */
   public swerveDiamond() {
     addCommands(
-      new driveToPosition(Robot.SwerveDrivetrain, 0, 45, 1),
+     /*  new driveToPosition(Robot.SwerveDrivetrain, 0, 45, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 24, 45, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 0, -45, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 24, -45, 1),
@@ -32,7 +32,7 @@ public class swerveDiamond extends SequentialCommandGroup {
       new driveToPosition(Robot.SwerveDrivetrain, -24, 45, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 0, -45, 1),
       new driveToPosition(Robot.SwerveDrivetrain, -24, -45, 1)
-
+ */
     );
   
   }

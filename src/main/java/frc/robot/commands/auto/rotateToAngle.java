@@ -1,15 +1,11 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.auto;
 
+import frc.robot.Robot;
 import frc.robot.Constants.Swerve;
 import frc.robot.subsystems.SwerveDrivetrain;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -22,10 +18,14 @@ public class rotateToAngle extends CommandBase {
   private final SwerveDrivetrain m_subsystem;
   /* --- Integers --- */
   private int position;
+  private int iteration = 0;
   /* --- Doubles --- */
-  private double rotationDegree;
-  private double kP;
+  private double rotationDegree = 45;
+  private double kP = 1;
+  private double getDriveEncoder;
+  private double maxSpeed;
 
+  private boolean finish;
 /**
  * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
  * @param subsystem - SwerveDrivetrain subsystem object
@@ -33,13 +33,19 @@ public class rotateToAngle extends CommandBase {
  * @param rotationDegree - The angle each module is being set to
  * @param kP - The value that the error is multiplied by to get our speed
  */
-  public rotateToAngle(SwerveDrivetrain subsystem, int position, double rotationDegree, double kP) {
+  public rotateToAngle(SwerveDrivetrain subsystem, String direction, double angle, double maxSpeed) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
+    this.position = (int) ((angle * Swerve.INCHESPERDEGREE) * Swerve.TICKSPERINCH);
+    this.maxSpeed = maxSpeed;
     /* --- Parameters Being Set to Global Variables --- */
-    this.position = (int) (position* Swerve.TICKSPERINCH);
-    this.rotationDegree = rotationDegree;
-    this.kP = kP;
+    switch (direction) {
+      case "right":
+      position = -position;
+      break;
+      case "left":
+      position = position;
+    }
   }
 
   // Called when the command is initially scheduled.
@@ -47,6 +53,8 @@ public class rotateToAngle extends CommandBase {
   public void initialize() {
     // Goes through 4 times to get the angle of each module
     for(int i = 0; i < 4; i++) {
+      //m_subsystem.getModule(i).TalonFXConfiguration.peakOutputForward = maxSpeed;
+      //m_subsystem.getModule(i).TalonFXConfiguration.peakOutputReverse = -maxSpeed;
       // Resests the drive configuration 
       m_subsystem.getModule(i).TalonFXConfiguration.slot0.kP = kP;
       m_subsystem.getModule(i).TalonFXConfiguration.slot0.allowableClosedloopError = 50;
@@ -70,8 +78,13 @@ public class rotateToAngle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    for (int i = 0; i < 4; i++) {
+      SmartDashboard.putNumber("encoderValue/" + i, m_subsystem.getModule(i).getDriveEncoder());
+      System.out.println("encoderValue" + i + "  " + m_subsystem.getModule(i).getDriveEncoder());
+    }
     // Goes through 4 times to set each module to an angle
     for(int i = 0; i < 4; i++) {
+      getDriveEncoder = m_subsystem.getAverageDriveEncoderDistance();
       // Checks to see if the module is rotated
       if (Math.abs(rotationDegree) > 0) {
         // If the module is even then the angle is inverted
@@ -81,16 +94,33 @@ public class rotateToAngle extends CommandBase {
           m_subsystem.getModule(i).setModuleAngle(Math.toRadians(rotationDegree));
         }
       } 
+      SmartDashboard.putNumber("getDriveEncoder", getDriveEncoder);
+      SmartDashboard.putNumber("position", position);
+      SmartDashboard.putNumber("endPosition", position - 400);
+
+      if (Math.abs(getDriveEncoder) > Math.abs(position) - 400 && Math.abs(getDriveEncoder) < Math.abs(position) + 400) {
+        if (iteration > 10) {
+          finish = true;
+        } else {
+          finish = false;
+        }
+        SmartDashboard.putBoolean("finish", finish);
+        iteration++;
+      } else {
+        iteration = 0;
+        finish = false;
+      }
     }
     
   }
 
   @Override
   public void end(boolean interrupted) {
+    //Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod());
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return finish;
   }
 }

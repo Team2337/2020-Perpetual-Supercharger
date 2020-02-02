@@ -24,13 +24,13 @@ public class swerveTriangle extends SequentialCommandGroup {
  */
   public swerveTriangle() {
     addCommands(
-      new driveToPosition(Robot.SwerveDrivetrain, 0, 0, 1),
+    /*   new driveToPosition(Robot.SwerveDrivetrain, 0, 0, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 24, 0, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 0, 90, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 24, 90, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 0, 45, 1),
       new driveToPosition(Robot.SwerveDrivetrain, -34, 45, 1)
-
+ */
     );
   
   }

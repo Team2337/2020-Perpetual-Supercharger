@@ -186,10 +186,6 @@ public class FXSwerveModule {
         driveMotor.configClosedLoopPeakOutput(0, 1, 30);
 
         /* Config the peak and nominal outputs, 12V means full */
-		driveMotor.configNominalOutputForward(0.05, 30);
-		driveMotor.configNominalOutputReverse(-0.05, 30);
-		driveMotor.configPeakOutputForward(0.25, 30);
-        driveMotor.configPeakOutputReverse(-0.25, 30);
         driveMotor.configAllowableClosedloopError(0, 100, 30);
         
         /* --- FX Configurations for the Drive Motors --- */

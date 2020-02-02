@@ -24,7 +24,7 @@ public class swerveSquare extends SequentialCommandGroup {
  */
   public swerveSquare() {
     addCommands(
-      new driveToPosition(Robot.SwerveDrivetrain, 24, 0, 1),
+     /*  new driveToPosition(Robot.SwerveDrivetrain, 24, 0, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 0, 90, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 24, 90, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 0, 180, 1),
@@ -32,7 +32,7 @@ public class swerveSquare extends SequentialCommandGroup {
       new driveToPosition(Robot.SwerveDrivetrain, 0, 270, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 24, 270, 1),
       new driveToPosition(Robot.SwerveDrivetrain, 0, 0, 1)
-
+ */
     );
   
   }

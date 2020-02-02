@@ -51,7 +51,7 @@ public class SwerveDrivetrain extends SubsystemBase {
    * 2 is Back Left, 
    * 3 is Back Right
    */
-  private double angleOffsets[];
+  public double angleOffsets[];
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
@@ -74,6 +74,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 	 */
 	private FXSwerveModule[] swerveModules;
 
+  private double averageVelocity;
+
   /**
    * Subsystem where swerve modules are configured, 
    * and the calculations from the joystick inputs is handled. 
@@ -83,10 +85,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     setDefaultCommand(new SwerveDriveCommand(this));
 
     angleOffsets = new double[] {
-      4.57,  // Module 0 
-      1.3,   // Module 1 
-      -0.60, // Module 2 
-      -5.95  // Module 3
+      4.5611,  // Module 0 //4.57
+      1.278353,   // Module 1 //1.3
+      -0.678327, // Module 2 //-0.6
+      -5.90436  // Module 3 -5.95
     };
 
     analogAngleSensors = new AnalogInput[] {
@@ -322,6 +324,13 @@ public class SwerveDrivetrain extends SubsystemBase {
     for(int i =0; i < 4; i++) {
       getModule(i).setCoastMode();
     }
+  }
+
+  public double getAverageVelocity() {
+    for(int i = 0; i < 4; i++) {
+      averageVelocity += getModule(i).driveMotor.getSelectedSensorVelocity(0);
+    }
+    return averageVelocity / 4;
   }
 
 

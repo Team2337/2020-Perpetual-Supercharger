@@ -88,13 +88,16 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("getAbsoluteCompassHeading", Pigeon.getAbsoluteCompassHeading());
+    SmartDashboard.putNumber("Yaw", -Pigeon.getYaw());
     SmartDashboard.putNumber("getAverageEncoderDistance", SwerveDrivetrain.getAverageDriveEncoderDistance());
     SmartDashboard.putNumber("getModuleDriveEncoder0", SwerveDrivetrain.getModule(0).getDriveEncoder());
     SmartDashboard.putNumber("getModuleDriveEncoder1", SwerveDrivetrain.getModule(1).getDriveEncoder());
     SmartDashboard.putNumber("getModuleDriveEncoder2", SwerveDrivetrain.getModule(2).getDriveEncoder());
     SmartDashboard.putNumber("getModuleDriveEncoder3", SwerveDrivetrain.getModule(3).getDriveEncoder());
-
+    for(int i = 0; i < 4; i++) {
+    SmartDashboard.putNumber("ModuleAngle/" + i, 
+    ((SwerveDrivetrain.getModule(i).getNormalizedAnalogVoltageRadians() - SwerveDrivetrain.angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
+    }
 
   }
 
