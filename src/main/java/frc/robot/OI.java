@@ -4,7 +4,7 @@ import frc.robot.commands.swerve.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
-import frc.robot.commands.Shooter.shootBall;
+import frc.robot.commands.Shooter.*;
 
 /**
  * OI Class where all controllers and button presses are placed 
@@ -25,18 +25,16 @@ public class OI {
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
-        operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
+        operatorJoystick.bumperRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
+        operatorJoystick.bumperLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
+
+        //Sets the speed of the shooter motors
+        operatorJoystick.triggerRight .whileHeld(new shootBall(Robot.Shooter, 15295));//14450 close - 15295 far
 
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here
         
-        /////////////////////////////////////////
-
-        /* --- TEST CODE --- */
-
-        operatorJoystick.triggerRight .whileHeld(new shootBall(Robot.Shooter, 15295));//14450 close - 15295 far
     }
 }
