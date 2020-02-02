@@ -126,7 +126,17 @@ public class FXSwerveModule {
     private StatorCurrentLimitConfiguration currentLimitConfigurationDrive = new StatorCurrentLimitConfiguration();
 
     /** The configuration object for the Talons */
-    public TalonFXConfiguration TalonFXConfiguration;
+    public TalonFXConfiguration TalonFXConfigurationDrive;
+    public TalonFXConfiguration TalonFXConfigurationAngle;
+
+
+    public final double maxSpeed = 0.5;
+
+    private int angleAllowableClosedloopError = 100;
+    private double talonAngleP;
+    private double talonAngleI;
+    private double talonAngleD;
+    private double talonAngleF;
 
     /**
      * Swerve Module Object used to run the calculations for the swerve drive
@@ -147,7 +157,7 @@ public class FXSwerveModule {
         this.angleMotor = angleMotor;
         this.angleMotorOffset = angleMotorOffset;
         this.analogAngleSensor = analogAngleSensor;
-        TalonFXConfiguration = new TalonFXConfiguration();
+        TalonFXConfigurationDrive = new TalonFXConfiguration();
         /* --- Set Factory Default --- */
 
         // Resets the angle motor to its factory default
@@ -169,6 +179,12 @@ public class FXSwerveModule {
         angleMotor.setSensorPhase(false);
         angleMotor.setInverted(false);
         
+        TalonFXConfigurationAngle.slot1.kP = talonAngleP;
+        TalonFXConfigurationAngle.slot1.kI = talonAngleI;
+        TalonFXConfigurationAngle.slot1.kD = talonAngleD;
+        TalonFXConfigurationAngle.slot1.kF = talonAngleF;
+        TalonFXConfigurationAngle.slot1.allowableClosedloopError = angleAllowableClosedloopError;
+
         /*****************************/
         /* ------------------------- */
         /* --- Drive Motor Setup --- */
@@ -189,15 +205,15 @@ public class FXSwerveModule {
         driveMotor.configAllowableClosedloopError(0, 100, 30);
         
         /* --- FX Configurations for the Drive Motors --- */
-        TalonFXConfiguration.slot0.kP = driveP;
-        TalonFXConfiguration.slot0.kI = driveI;
-        TalonFXConfiguration.slot0.kD = driveD;
-        TalonFXConfiguration.slot0.kF = driveF;
-        TalonFXConfiguration.peakOutputForward = 0.5;
-        TalonFXConfiguration.peakOutputReverse = -0.5;
-        TalonFXConfiguration.slot0.allowableClosedloopError = 100;
+        TalonFXConfigurationDrive.slot0.kP = driveP;
+        TalonFXConfigurationDrive.slot0.kI = driveI;
+        TalonFXConfigurationDrive.slot0.kD = driveD;
+        TalonFXConfigurationDrive.slot0.kF = driveF;
+        TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
+        TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
+        TalonFXConfigurationDrive.slot0.allowableClosedloopError = 100;
 
-        driveMotor.configAllSettings(TalonFXConfiguration);
+        driveMotor.configAllSettings(TalonFXConfigurationDrive);
 
 
 

@@ -33,6 +33,20 @@ public class rotateToAngle extends CommandBase {
  * @param rotationDegree - The angle each module is being set to
  * @param kP - The value that the error is multiplied by to get our speed
  */
+  public rotateToAngle(SwerveDrivetrain subsystem, String direction, double angle) {
+    m_subsystem = subsystem;
+    addRequirements(subsystem);
+    this.position = (int) ((angle * Swerve.INCHESPERDEGREE) * Swerve.TICKSPERINCH);
+    /* --- Parameters Being Set to Global Variables --- */
+    switch (direction) {
+      case "right":
+      position = -position;
+      break;
+      case "left":
+      position = position;
+    }
+  }
+
   public rotateToAngle(SwerveDrivetrain subsystem, String direction, double angle, double maxSpeed) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
@@ -53,12 +67,19 @@ public class rotateToAngle extends CommandBase {
   public void initialize() {
     // Goes through 4 times to get the angle of each module
     for(int i = 0; i < 4; i++) {
+      if (maxSpeed != 0) {
+        m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
+        m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
+      } else {
+        m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputForward = m_subsystem.getModule(i).maxSpeed;
+        m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputReverse = -m_subsystem.getModule(i).maxSpeed;
+      }
       //m_subsystem.getModule(i).TalonFXConfiguration.peakOutputForward = maxSpeed;
       //m_subsystem.getModule(i).TalonFXConfiguration.peakOutputReverse = -maxSpeed;
       // Resests the drive configuration 
-      m_subsystem.getModule(i).TalonFXConfiguration.slot0.kP = kP;
-      m_subsystem.getModule(i).TalonFXConfiguration.slot0.allowableClosedloopError = 50;
-      m_subsystem.getModule(i).driveMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfiguration, 0);
+      m_subsystem.getModule(i).TalonFXConfigurationDrive.slot0.kP = kP;
+      m_subsystem.getModule(i).TalonFXConfigurationDrive.slot0.allowableClosedloopError = 50;
+      m_subsystem.getModule(i).driveMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfigurationDrive, 0);
       // Checks to see if the modules are rotating
       if (Math.abs(rotationDegree) > 0) {
         // Checks to see if it is module 1 or 2 and inverts their position so they will go in the opposite direction

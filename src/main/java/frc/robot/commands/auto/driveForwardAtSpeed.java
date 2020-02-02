@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @author Madison J.
  * @category AUTON
  */
-public class driveToPosition extends CommandBase {
+public class driveForwardAtSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SwerveDrivetrain m_subsystem;
   /* --- Intergers --- */
@@ -28,9 +28,8 @@ public class driveToPosition extends CommandBase {
   /* --- Booleans --- */
   private boolean finish;
   /* --- Doubles --- */
-  private double moduleAngle;
   private double getDriveEncoder;
-  private double maxSpeed = 0;
+  private double speed;
 
 /**
  * Drives to a set distance in inches and sets each module angle to be the same
@@ -39,35 +38,21 @@ public class driveToPosition extends CommandBase {
  * @param moduleAngle - The desired angle of the modules in degrees
  * @param timeout - Ends the command after the amount of seconds given
  */
-  public driveToPosition(SwerveDrivetrain subsystem, int position, double moduleAngle) {
+  public driveForwardAtSpeed(SwerveDrivetrain subsystem, int position, double speed) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
     /* --- Parameters Being Set to Global Variables --- */
     this.position = (int) (position* Swerve.TICKSPERINCH);
-    this.moduleAngle = moduleAngle + m_subsystem.getYaw();
-  }
-  
-  public driveToPosition(SwerveDrivetrain subsystem, int position, double moduleAngle, double maxSpeed) {
-    m_subsystem = subsystem;
-    addRequirements(subsystem);
-    /* --- Parameters Being Set to Global Variables --- */
-    this.position = (int) (position* Swerve.TICKSPERINCH);
-    this.moduleAngle = moduleAngle + m_subsystem.getYaw();
-    this.maxSpeed = maxSpeed;
-  
+    this.speed = speed;
   }
 
   @Override
   public void initialize() {
     // Goes through 4 times to set the position and neutral mode to coast mode on each module
     for(int i = 0; i < 4; i++) {
-      if (maxSpeed != 0) {
-        m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
-        m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
-      } else {
-        m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputForward = m_subsystem.getModule(i).maxSpeed;
-        m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputReverse = -m_subsystem.getModule(i).maxSpeed;
-      }
+     m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputForward = speed;
+      m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputReverse = -speed;
+ 
       m_subsystem.getModule(i).driveMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfigurationDrive);
       m_subsystem.getModule(i).setSetpoint(position);
       m_subsystem.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
@@ -80,7 +65,13 @@ public class driveToPosition extends CommandBase {
     // Goes through 4 times and sets the target angle on each module
     for(int i = 0; i < 4; i++) {
       getDriveEncoder = m_subsystem.getModule(i).getDriveEncoder();
-       m_subsystem.getModule(i).setModuleAngle(Math.toRadians(moduleAngle));
+      double motorOutput = m_subsystem.getModule(i).driveMotor.getMotorOutputPercent();
+     /*  if ((motorOutput) > speed || motorOutput < -speed) {
+        m_subsystem.getModule(i).setDriveSpeed(Math.copySign(speed, m_subsystem.getModule(i).driveMotor.getMotorOutputPercent()));
+      } else {
+        m_subsystem.getModule(i).setSetpoint(position);
+      } */
+       m_subsystem.getModule(i).setModuleAngle(Math.toRadians(0 + m_subsystem.getYaw()));
        if (Math.abs(getDriveEncoder) > Math.abs(position) - 400 && Math.abs(getDriveEncoder) < Math.abs(position) + 400) {
         if (iteration > 10) {
           finish = true;
