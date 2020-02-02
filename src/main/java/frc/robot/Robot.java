@@ -10,7 +10,7 @@ import frc.robot.subsystems.*;
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
  * the package after creating this project, you must also update the build.gradle file in the
- * project.
+ * project.  
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static Feeder Feeder;
+  public static KickerWheel KickerWheel;
   public static OI OI;
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -48,7 +49,9 @@ public class Robot extends TimedRobot {
     ShooterHood = new ShooterHood();
     Vision = new Vision();
     Feeder = new Feeder();
+    KickerWheel = new KickerWheel();
     OI = new OI();
+    
   }
 
   /**
