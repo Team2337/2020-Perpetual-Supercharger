@@ -23,7 +23,7 @@ public class OI {
         driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
         driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
 
-        // --- OPERATOR JOYSTICK --- //
+        /* --- OPERATOR JOYSTICK --- */
         
         // Sets the intake motors to intake balls
         operatorJoystick.bumperRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
