@@ -24,6 +24,7 @@ public class SerializerFeeder extends SubsystemBase {
    * @see #periodic()
    */
   public final boolean feederDebug = true;
+  public double targetPosition;
 
   // Motors
   TalonFX serializerMotor;
@@ -31,7 +32,7 @@ public class SerializerFeeder extends SubsystemBase {
 
   // Current limit configuration
   private StatorCurrentLimitConfiguration currentLimitConfigurationFeederMotors = new StatorCurrentLimitConfiguration();
-
+TalonFXConfiguration config = new TalonFXConfiguration();
   /**
    * Creates a new Serializer+Feeder subsystem and sets up the motors to their corresponding
    * ports.
@@ -42,6 +43,7 @@ public class SerializerFeeder extends SubsystemBase {
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
     FXConfig = new TalonFXConfiguration();
+    FXConfig.
     serializerMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
     FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
 
@@ -52,7 +54,7 @@ public class SerializerFeeder extends SubsystemBase {
     currentLimitConfigurationFeederMotors.triggerThresholdTime = 3;
 
      //Set variables
-     final double kP = 0.1;
+     final double kP = 0.95;
      final double kI = 0;
      final double kD = 0;
      final double kF = 0;
@@ -61,7 +63,8 @@ public class SerializerFeeder extends SubsystemBase {
      serializerMotor.config_kI(0, kI);
      serializerMotor.config_kD(0, kD);
      serializerMotor.config_kF(0, kF);
-
+     serializerMotor.configAllowableClosedloopError(0,5);
+     serializerMotor.configPeakOutputForward(0.1) ;
     // Set amperage limits
     serializerMotor.configStatorCurrentLimit(currentLimitConfigurationFeederMotors, 0);
   }
@@ -72,8 +75,8 @@ public class SerializerFeeder extends SubsystemBase {
     // If in debug mode, put the feeder speed and temperature on Shuffleboard
     if (feederDebug) {
       SmartDashboard.putNumber("CurrentPosisition", getFeederPosition());
-      SmartDashboard.putNumber("TargetPosition", 512);
-      SmartDashboard.putNumber("Error", getFeederPosition() - 512);
+      SmartDashboard.putNumber("TargetPosition", targetPosition);
+      SmartDashboard.putNumber("Error", getFeederPosition() - targetPosition);
       SmartDashboard.putNumber("Feeder Motor Speed", getFeederSpeed());
       SmartDashboard.putNumber("Feeder Motor Temperature", getFeederTemperature());
     }
@@ -120,8 +123,9 @@ public class SerializerFeeder extends SubsystemBase {
     double temp =  serializerMotor.getTemperature();
     return temp;
   }
-    public void positionShift(double position) {
-    serializerMotor.set(ControlMode.Position, position);
+    public void positionShift(double position ) {
+      targetPosition = getFeederPosition()-position;
+    serializerMotor.set(ControlMode.Position, targetPosition);
 
     }
 }

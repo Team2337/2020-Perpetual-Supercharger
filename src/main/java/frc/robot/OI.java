@@ -32,7 +32,9 @@ public class OI {
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
 
         operatorJoystick.start .whileHeld(new setSerializerFeederSpeed(Robot.Feeder, 0.4));
-        operatorJoystick.back .whenPressed(new readyShooter(Robot.Feeder));
+        //operatorJoystick.back .whenPressed(new readyShooter(Robot.Feeder));
+        operatorJoystick.yellowY .whenPressed(new readyShooter(Robot.Feeder, -2*2048));
+        
 
         /* --- DRIVER STATION CONTROLS --- */
 
