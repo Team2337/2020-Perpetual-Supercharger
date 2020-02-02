@@ -23,8 +23,8 @@ public final class Constants {
     public static int RIGHTINTAKE = 10;
     public static int LEFTFEEDER = 11;
     public static int RIGHTFEEDER = 12;
-    public static int CANID13 = 13;
-    public static int CANID14 = 14;
+    public static int SHOOTERLEFTMOTOR = 13;
+    public static int SHOOTERRIGHTMOTOR = 14;
     public static int CANID15 = 15;
 
     /** --- PCMs --- */
