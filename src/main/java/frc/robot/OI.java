@@ -22,15 +22,15 @@ public class OI {
         driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
         driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
 
+        //Sets the speed of the shooter motors
+        driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, 15295));//14450 close - 15295 far
+
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
-        operatorJoystick.bumperRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
+        operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.bumperLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
-
-        //Sets the speed of the shooter motors
-        operatorJoystick.triggerRight .whileHeld(new shootBall(Robot.Shooter, 15295));//14450 close - 15295 far
+        operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
 
         /* --- DRIVER STATION CONTROLS --- */
 

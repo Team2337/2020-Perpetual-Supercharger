@@ -1,14 +1,7 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.Shooter;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
@@ -17,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Shoots the ball
  * @author Michael Francis
  */
-public class shootBall extends CommandBase {
+public class startShooter extends CommandBase {
   
   private final Shooter m_subsystem;
   private double m_velocity;
@@ -31,7 +24,7 @@ public class shootBall extends CommandBase {
    * @param velocity
    * The velocity (in encoder ticks per 100ms) in which the shooter will shoot at.
    */
-  public shootBall(Shooter subsystem, double velocity) {
+  public startShooter(Shooter subsystem, double velocity) {
     //Puts the parameters in the command's variables to be used around as a shortcut.
     m_subsystem = subsystem;
 
@@ -44,9 +37,11 @@ public class shootBall extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //Sets the speed.
+    //Sets the ramp rate. We set them here because in the execute of this command,
+    // they are set to another value after a set speed.
     m_subsystem.leftShootMotor.configClosedloopRamp(0.5);
     m_subsystem.rightShootMotor.configClosedloopRamp(0.5);
+    //Sets the speed.
     m_subsystem.setShooterSpeed(m_velocity);
   }
 
@@ -56,22 +51,19 @@ public class shootBall extends CommandBase {
   @Override
   public void execute() {
     //Once the velocity reaches a certain speed, the closed-loop ramp is turned off.
-    if(m_subsystem.leftShootMotor.getSelectedSensorVelocity() > 5000){
+    //This is to ensure that the motors get up to speed quickly without damaging themselves.
+    if(m_subsystem.leftShootMotor.getSelectedSensorVelocity() > Constants.SHOOTERRAMPVALUE){
       m_subsystem.leftShootMotor.configClosedloopRamp(0);
       m_subsystem.rightShootMotor.configClosedloopRamp(0);
     }
   }
 
-
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //Code that when the command ends, stop the shooter.
+    //Stop the shooter.
     m_subsystem.stopShooter();
   }
-
-
 
   // Returns true when the command should end.
   @Override

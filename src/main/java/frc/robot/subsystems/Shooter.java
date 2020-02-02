@@ -19,7 +19,10 @@ import frc.robot.Constants;
  */
 public class Shooter extends SubsystemBase {
 
-  // Shooter debug (adds in more values to SmartDashboard)
+  /**
+   * Specifies whether or not the Shooter will be in debug mode.
+   * @see #periodic()
+   */
   private final boolean shooterDebug = false;
 
   //////////////////////////
@@ -28,23 +31,19 @@ public class Shooter extends SubsystemBase {
   /* -------------------- */
   //////////////////////////
 
-  // Creates motors
   public TalonFX leftShootMotor;
   public TalonFX rightShootMotor;
-  // Configures sensors
   public TalonFXConfiguration FXConfig;
-  // Configures code for putting limits onto motors
+  // Creates a new current limit configuration for putting current limits onto motors
   private StatorCurrentLimitConfiguration currentLimitConfigurationMotor = new StatorCurrentLimitConfiguration();
 
   /**
    * Shoots the ball with a certain strength
    */
   public Shooter() {
-    // Also creates motors
     leftShootMotor = new TalonFX(Constants.SHOOTERLEFTMOTOR);
     rightShootMotor = new TalonFX(Constants.SHOOTERRIGHTMOTOR);
 
-    // Also configures sensors
     FXConfig = new TalonFXConfiguration();
 
     /** --- CONFIGURE MOTOR AND SENSOR SETTINGS --- **/
@@ -57,14 +56,21 @@ public class Shooter extends SubsystemBase {
     FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
 
     /** --- SETS UP SETTINGS (Such as current limits) ON MOTORS AND SENSORS --- **/
-    // Set up limits
+    // Set up current limits
     currentLimitConfigurationMotor.currentLimit = 50;
     currentLimitConfigurationMotor.enable = true;
     currentLimitConfigurationMotor.triggerThresholdCurrent = 40;
     currentLimitConfigurationMotor.triggerThresholdTime = 3;
-    // Implements these limits on the motors
+    // Implements these current limits on the motors
     leftShootMotor.configStatorCurrentLimit(currentLimitConfigurationMotor, 0);
     rightShootMotor.configStatorCurrentLimit(currentLimitConfigurationMotor, 0);
+
+    // Set a closed-loop ramp rate on the motors
+    leftShootMotor.configClosedloopRamp(0.5);
+    rightShootMotor.configClosedloopRamp(0.5);
+    // Enable voltage compensation for all control modes on the motors
+    leftShootMotor.enableVoltageCompensation(true);
+    rightShootMotor.enableVoltageCompensation(true);
 
     /** --- CONFIGURE PIDS --- **/
     // Set variables
@@ -82,15 +88,10 @@ public class Shooter extends SubsystemBase {
     rightShootMotor.config_kI(0, kI);
     rightShootMotor.config_kD(0, kD);
     rightShootMotor.config_kF(0, kF);
-    // Set a closed-loop ramp rate
-    leftShootMotor.configClosedloopRamp(0.5);
-    rightShootMotor.configClosedloopRamp(0.5);
-    // Makes sure the robot recognizes that it needs to use voltage stuff
-    leftShootMotor.enableVoltageCompensation(true);
-    rightShootMotor.enableVoltageCompensation(true);
 
-    /** --- OTHER MOTOR INFORMATION SET UP --- **/
-    // Sets up brakes
+    /** --- BRAKE MODES AND INVERSIONS --- **/
+    // Sets up control mode.
+    // Sets it to neutral mode so that the motors do not brake down to 0.
     leftShootMotor.setNeutralMode(NeutralMode.Coast);
     rightShootMotor.setNeutralMode(NeutralMode.Coast);
     // Sets up inversions
@@ -98,21 +99,15 @@ public class Shooter extends SubsystemBase {
     rightShootMotor.setInverted(false);
   }
 
-  ///////////////////////////////////////////////////
-  /* --------------------------------------------- */
-  /* --- SMARTDASHBOARD/SHUFFLEBOARD REPORTING --- */
-  /* --------------------------------------------- */
-  ///////////////////////////////////////////////////
+  //////////////////////////////////////
+  /* -------------------------------- */
+  /* --- SMARTDASHBOARD REPORTING --- */
+  /* -------------------------------- */
+  //////////////////////////////////////
 
-  /**
-   * Boolean that returns true when the shooter temperature is over 70 degrees
-   * Celsius.
-   */
+  /** Boolean that returns true when the shooter temperature is over 70 degrees Celsius. */
   public boolean shooterTemp;
-  /**
-   * A number that returns the highest number the speed of the shooter has
-   * reached.
-   */
+  /** A number that returns the highest number the speed of the shooter has reached. */
   public double shooterMaxSpeed = 0;
 
   @Override
@@ -142,14 +137,18 @@ public class Shooter extends SubsystemBase {
     /////////////////////////////
 
     if (shooterDebug) {
-      // Calculate the max speed
+      // Calculate the max speed.
+      // Calculations: Maximum value between the average of left and right motors and itself.
+      // This was used during testing for reporting values.
       shooterMaxSpeed = Math.max(shooterMaxSpeed,
           (Math.max(leftShootMotor.getSelectedSensorVelocity(), rightShootMotor.getSelectedSensorVelocity())
               + shooterMaxSpeed) / 2);
+      // If either motor's velocity is about 0, reset the max speed variable.
       if (Math.round(leftShootMotor.getSelectedSensorVelocity()) == 0
           || Math.round(rightShootMotor.getSelectedSensorVelocity()) == 0) {
         shooterMaxSpeed = 0;
       }
+      // Report the max speed variable to SmartDashboard
       SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
     }
   }
@@ -162,12 +161,11 @@ public class Shooter extends SubsystemBase {
 
   /**
    * Sets the shooter motors to run at a certain speed
-   * 
-   * @param velo The <em>velo</em>city at which the motors run at
+   * @param velocity The velocity at which the motors run at
    */
-  public void setShooterSpeed(double velo) {
-    leftShootMotor.set(ControlMode.Velocity, velo);
-    rightShootMotor.set(ControlMode.Velocity, velo);
+  public void setShooterSpeed(double velocity) {
+    leftShootMotor.set(ControlMode.Velocity, velocity);
+    rightShootMotor.set(ControlMode.Velocity, velocity);
   }
 
   //////////////////////////////////
@@ -177,7 +175,10 @@ public class Shooter extends SubsystemBase {
   //////////////////////////////////
 
   /**
-   * Stops the shooter motors by setting their velocity to 0
+   * Stops the shooter motors by setting their power output to 0.
+   * <p>We do this instead of setting the velocity because otherwise the motors will try to
+   * get to 0 RPM as quickly as possible.
+   * If it does this, you will hear a very horrible noise as the motors damage themselves.
    */
   public void stopShooter() {
     leftShootMotor.set(TalonFXControlMode.PercentOutput, 0);
