@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * Sets the serializer speed
- * 
+ * Note: Feeder equals SerializerFeeder
  * @author Nicholas Stokes
  */
 public class setSerializerFeederSpeed extends CommandBase {
@@ -16,7 +16,7 @@ public class setSerializerFeederSpeed extends CommandBase {
   /**
    * Sets the feeder speed to a given percent
    * 
-   * @param feeder The subsystem used by this command. (Feeder)
+   * @param serializer The subsystem used by this command. (SerializerFeeder)
    * @param speed  A double number that sets what speed the motors move at
    */
   public setSerializerFeederSpeed(SerializerFeeder serializer, double speed) {

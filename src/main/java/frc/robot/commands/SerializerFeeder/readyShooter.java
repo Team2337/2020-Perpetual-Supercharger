@@ -1,20 +1,24 @@
 package frc.robot.commands.SerializerFeeder;
 
 import frc.robot.subsystems.SerializerFeeder;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * An example command that uses an example subsystem.
+ * Move balls back to ready the kicker wheel so that the robot can shoot
+ * @author Nicholas Stokes
  */
-public class readyShooter extends CommandBase {
+public class readyShooter extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SerializerFeeder m_subsystem;
   public double positionThing;
 
   /**
-   * Creates a new ExampleCommand.
+   * Creates the ready shooter command
    *
-   * @param subsystem The subsystem used by this command.
+   * @param subsystem The subsystem used by this command. (SerializerFeeder)
+   * @param positionThingg What value the command is passed in OI.java
+   * @param positionThing is the value the method uses for shifting
+   * These values are exactly the same but are named different for Java Reasons
    */
   public readyShooter(SerializerFeeder subsystem,  double positionThingg) {
     m_subsystem = subsystem;
@@ -26,12 +30,8 @@ public class readyShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    //This calls the Subsystem method positionShift with a value designated in OI
     m_subsystem.positionShift(positionThing);
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
   }
 
   // Called once the command ends or is interrupted.
@@ -39,9 +39,4 @@ public class readyShooter extends CommandBase {
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
 }
