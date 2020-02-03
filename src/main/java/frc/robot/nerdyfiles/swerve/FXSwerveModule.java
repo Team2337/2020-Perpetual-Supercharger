@@ -48,7 +48,7 @@ public class FXSwerveModule {
      * Proportional value for the drive motor speed
      * This is used to scale the error to a funcitonal speed for the motors
      */
-    private double driveP = 0.05;
+    public double driveP = 0.05;
 
     /**
      * Integral value for the drive motor speed
@@ -75,14 +75,14 @@ public class FXSwerveModule {
      * Proportional value for the angle motor speed
      * This is used to scale the error to a funcitonal speed for the motors
      */
-    private double angleP = 0.63;
+    private double angleP = 0.75; //0.63
 
     /**
      * Derivative value for the angle motor speed
      * This is added to the speed of the motors to increase power at 
      * smaller errors
      */
-    private double angleD = 0.02;
+    private double angleD = 0; //0.02
 
     /* --- Booleans --- */
 
@@ -97,7 +97,7 @@ public class FXSwerveModule {
     public TalonFX driveMotor;
 
     /** TalonFX motor controller, used as a drive motor in the swerve module */
-    private TalonFX angleMotor;
+    public TalonFX angleMotor;
 
     /* --- Sensors --- */
 
@@ -132,11 +132,11 @@ public class FXSwerveModule {
 
     public final double maxSpeed = 0.5;
 
-    private int angleAllowableClosedloopError = 100;
-    private double talonAngleP;
-    private double talonAngleI;
-    private double talonAngleD;
-    private double talonAngleF;
+    private int angleAllowableClosedloopError = 5;
+    private double talonAngleP = 2.5;
+    private double talonAngleI = 0;
+    private double talonAngleD = 0;
+    private double talonAngleF = 0;
 
     /**
      * Swerve Module Object used to run the calculations for the swerve drive
@@ -158,6 +158,8 @@ public class FXSwerveModule {
         this.angleMotorOffset = angleMotorOffset;
         this.analogAngleSensor = analogAngleSensor;
         TalonFXConfigurationDrive = new TalonFXConfiguration();
+        TalonFXConfigurationAngle = new TalonFXConfiguration();
+
         /* --- Set Factory Default --- */
 
         // Resets the angle motor to its factory default
@@ -179,11 +181,13 @@ public class FXSwerveModule {
         angleMotor.setSensorPhase(false);
         angleMotor.setInverted(false);
         
-        TalonFXConfigurationAngle.slot1.kP = talonAngleP;
-        TalonFXConfigurationAngle.slot1.kI = talonAngleI;
-        TalonFXConfigurationAngle.slot1.kD = talonAngleD;
-        TalonFXConfigurationAngle.slot1.kF = talonAngleF;
-        TalonFXConfigurationAngle.slot1.allowableClosedloopError = angleAllowableClosedloopError;
+        TalonFXConfigurationAngle.slot0.kP = talonAngleP;
+        TalonFXConfigurationAngle.slot0.kI = talonAngleI;
+        TalonFXConfigurationAngle.slot0.kD = talonAngleD;
+        TalonFXConfigurationAngle.slot0.kF = talonAngleF;
+        TalonFXConfigurationAngle.slot0.allowableClosedloopError = angleAllowableClosedloopError;
+
+        angleMotor.configAllSettings(TalonFXConfigurationAngle);
 
         /*****************************/
         /* ------------------------- */
@@ -328,6 +332,7 @@ public class FXSwerveModule {
         SmartDashboard.putNumber("Power Output" + moduleNumber, errorRad*angleP);
     }
 
+    
     /**
      * Sets the speed of the module angle motor
      * @param speed - double value to set the speed to the angle motor (-1 -> 1)
@@ -342,6 +347,10 @@ public class FXSwerveModule {
      */
     public double getAngleOffset() {
         return this.angleMotorOffset;
+    }
+
+    public void setAngleEncoder(int position) {
+        angleMotor.setSelectedSensorPosition(position, 0, 0);
     }
 
     /*************************/
@@ -371,8 +380,12 @@ public class FXSwerveModule {
      * Gets the drive encoder position in ticks
      * @return - The selected sensor position
      */
-    public int getDriveEncoder() {
+    public int getDriveEncoderValue() {
         return driveMotor.getSelectedSensorPosition(0);
+    }
+
+    public int getAngleEncoderValue() {
+        return angleMotor.getSelectedSensorPosition(0);
     }
 
     /**
@@ -408,9 +421,14 @@ public class FXSwerveModule {
      * Sets the setpoints for the Talons
      * @param setpoint - The desired position
      */
-    public void setSetpoint(int setpoint) {
+    public void setDriveSetpoint(int setpoint) {
         driveMotor.set(TalonFXControlMode.Position, setpoint);
     }
+
+    public void setAngleSetpoint(int setpoint) {
+        angleMotor.set(TalonFXControlMode.Position, setpoint);
+    }
+
     /**
      * Sets the speed of the drive motors
      * @param speed - double value in percent of the motors (-1 -> 1)

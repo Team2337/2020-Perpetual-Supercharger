@@ -193,7 +193,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {
-        getModule(i).setModuleAngle(lastAngle);
+       // getModule(i).setModuleAngle(lastAngle);
         getModule(i).setDriveSpeed(0);
       }
       //Sets the drive speed for each drive motor
@@ -271,7 +271,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     averageDriveEncoderDistanceValue = 0;
     // Goes through 4 times and averages the drive encoders
     for(int i = 0; i < 4; i++) {
-      averageDriveEncoderDistanceValue += Math.abs(getModule(i).getDriveEncoder());
+      averageDriveEncoderDistanceValue += Math.abs(getModule(i).getDriveEncoderValue());
     }
 
     return (averageDriveEncoderDistanceValue / 4);
@@ -302,7 +302,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   public void setAllModuleDriveSetpoint(int setpoint) {
     // Goes through 4 times and sets the setpoint for the modules
     for(int i = 0; i < 4; i++) {
-      getModule(i).setSetpoint(setpoint);
+      getModule(i).setDriveSetpoint(setpoint);
   }
 }
 

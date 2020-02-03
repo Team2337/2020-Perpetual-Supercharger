@@ -54,7 +54,7 @@ public class driveForwardAtSpeed extends CommandBase {
       m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputReverse = -speed;
  
       m_subsystem.getModule(i).driveMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfigurationDrive);
-      m_subsystem.getModule(i).setSetpoint(position);
+      m_subsystem.getModule(i).setDriveSetpoint(position);
       m_subsystem.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
     }
     m_subsystem.zeroAllDriveEncoders();
@@ -64,7 +64,7 @@ public class driveForwardAtSpeed extends CommandBase {
   public void execute() {
     // Goes through 4 times and sets the target angle on each module
     for(int i = 0; i < 4; i++) {
-      getDriveEncoder = m_subsystem.getModule(i).getDriveEncoder();
+      getDriveEncoder = m_subsystem.getModule(i).getDriveEncoderValue();
       double motorOutput = m_subsystem.getModule(i).driveMotor.getMotorOutputPercent();
      /*  if ((motorOutput) > speed || motorOutput < -speed) {
         m_subsystem.getModule(i).setDriveSpeed(Math.copySign(speed, m_subsystem.getModule(i).driveMotor.getMotorOutputPercent()));

@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.auto.driveToPosition;
+import frc.robot.commands.auto.turnModulesToDegree;
 import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator2Ball;
 import frc.robot.commands.auto.commandgroups.swerveCircle;
 import frc.robot.commands.auto.commandgroups.swerveDiamond;
@@ -48,6 +49,8 @@ public class OI {
         operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
         operatorJoystick.triggerLeft.whenPressed(new swerveCircle());
         operatorJoystick.triggerRight.whenPressed(new CenterGoalBack9BallGenerator2Ball());
+        operatorJoystick.bumperLeft.whileHeld(new turnModulesToDegree(Robot.SwerveDrivetrain, 0));
+
         /* --- DRIVER STATION CONTROLS --- */
 
         // insert code here

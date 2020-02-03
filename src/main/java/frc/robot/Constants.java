@@ -24,5 +24,6 @@ public final class Constants {
         public static final double TICKSPERINCH = 1550;
         public static final double INCHESPERDEGREE = 0.2722;
         public static final double MINVELOCITY = 1;
+        public static final double TICKSPERDEGREE = 102;
     }
 }

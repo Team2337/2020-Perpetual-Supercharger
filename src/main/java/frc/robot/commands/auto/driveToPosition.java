@@ -31,6 +31,8 @@ public class driveToPosition extends CommandBase {
   private double moduleAngle;
   private double getDriveEncoder;
   private double maxSpeed = 0;
+  private double driveP;
+  private double angleP;
 
 /**
  * Drives to a set distance in inches and sets each module angle to be the same
@@ -54,7 +56,17 @@ public class driveToPosition extends CommandBase {
     this.position = (int) (position* Swerve.TICKSPERINCH);
     this.moduleAngle = moduleAngle + m_subsystem.getYaw();
     this.maxSpeed = maxSpeed;
-  
+  }
+
+  public driveToPosition(SwerveDrivetrain subsystem, int position, double moduleAngle, double maxSpeed, double driveP, double angleP) {
+    m_subsystem = subsystem;
+    addRequirements(subsystem);
+    /* --- Parameters Being Set to Global Variables --- */
+    this.position = (int) (position* Swerve.TICKSPERINCH);
+    this.moduleAngle = moduleAngle + m_subsystem.getYaw();
+    this.maxSpeed = maxSpeed;
+    this.driveP = driveP;
+    this.angleP = angleP;
   }
 
   @Override
@@ -67,10 +79,20 @@ public class driveToPosition extends CommandBase {
       } else {
         m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputForward = m_subsystem.getModule(i).maxSpeed;
         m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputReverse = -m_subsystem.getModule(i).maxSpeed;
+      } 
+      if (driveP > 0) {
+        m_subsystem.getModule(i).TalonFXConfigurationDrive.slot0.kP = driveP;
       }
+      if (angleP > 0) {
+        m_subsystem.getModule(i).TalonFXConfigurationAngle.slot0.kP = angleP;
+      }
+      m_subsystem.getModule(i).TalonFXConfigurationDrive.closedloopRamp = 0.5;
       m_subsystem.getModule(i).driveMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfigurationDrive);
-      m_subsystem.getModule(i).setSetpoint(position);
+      m_subsystem.getModule(i).angleMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfigurationAngle);
+      m_subsystem.getModule(i).setDriveSetpoint(position);
       m_subsystem.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
+      SmartDashboard.putNumber("angleSetpoint/" + i, m_subsystem.getModule(i).getAngleEncoderValue());
+      m_subsystem.getModule(i).setAngleSetpoint(m_subsystem.getModule(i).getAngleEncoderValue()); //angleSetpoint[i]
     }
     m_subsystem.zeroAllDriveEncoders();
   }
@@ -79,8 +101,8 @@ public class driveToPosition extends CommandBase {
   public void execute() {
     // Goes through 4 times and sets the target angle on each module
     for(int i = 0; i < 4; i++) {
-      getDriveEncoder = m_subsystem.getModule(i).getDriveEncoder();
-       m_subsystem.getModule(i).setModuleAngle(Math.toRadians(moduleAngle));
+      getDriveEncoder = m_subsystem.getModule(i).getDriveEncoderValue();
+      // m_subsystem.getModule(i).setModuleAngle(Math.toRadians(moduleAngle));
        if (Math.abs(getDriveEncoder) > Math.abs(position) - 400 && Math.abs(getDriveEncoder) < Math.abs(position) + 400) {
         if (iteration > 10) {
           finish = true;
