@@ -20,11 +20,6 @@ public class OI {
 
         /* --- DRIVER JOYSTICK --- */
 
-        // Increase Neo speed by 10%
-        driverJoystick.yellowY .whenPressed(new increaseKickerSpeed(Robot.KickerWheel, 0.1));
-        driverJoystick.greenA .whenPressed(new decreaseKickerSpeed(Robot.KickerWheel, 0.1));
-        driverJoystick. redB .whenPressed(new stopKickerSpeed(Robot.KickerWheel, 0.1));
-
         // Sets the field orientation
         driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
         driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
@@ -35,6 +30,9 @@ public class OI {
         operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
+
+        // Speed to the neo
+        operatorJoystick.yellowY .whileHeld(new setKickerSpeed(Robot.KickerWheel, 1000));
 
         /* --- DRIVER STATION CONTROLS --- */
 

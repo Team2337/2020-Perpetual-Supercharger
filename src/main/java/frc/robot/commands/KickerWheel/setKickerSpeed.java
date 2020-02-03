@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class increaseKickerSpeed extends CommandBase {
+public class setKickerSpeed extends CommandBase {
   public double kspeed;
   private KickerWheel subsystem;
 
@@ -16,7 +16,7 @@ public class increaseKickerSpeed extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public increaseKickerSpeed(KickerWheel kickerWheel, double kickerspeed) {
+  public setKickerSpeed(KickerWheel kickerWheel, double kickerspeed) {
     subsystem = kickerWheel;
     kspeed = kickerspeed;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -27,7 +27,7 @@ public class increaseKickerSpeed extends CommandBase {
   @Override
   public void initialize(){ 
 
-    subsystem.decreaseKickerSpeed(kspeed);
+    subsystem.setKickerSpeed(kspeed);
   }
 
 
@@ -39,11 +39,12 @@ public class increaseKickerSpeed extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    subsystem.stopKicker();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

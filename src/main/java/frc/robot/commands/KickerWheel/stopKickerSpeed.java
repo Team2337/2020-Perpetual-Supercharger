@@ -27,7 +27,7 @@ public class stopKickerSpeed extends CommandBase {
   @Override
   public void initialize(){ 
 
-    subsystem.stopKickerSpeed(kspeed);
+    subsystem.stopKicker();
   }
 
 
