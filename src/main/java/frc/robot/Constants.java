@@ -83,7 +83,9 @@ public final class Constants {
      * goes from 0.5 to 0 to increase speed
      */
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
-    // Speeds:
+    
+    //These variables are for the shooter function in OI.java.
+    //They are the speeds at which to launch the power cells (balls) at.
     /** To be used from ~16 feet away */
     public static int SHOOTSPEEDCLOSE = 14450;
     /** To be used from ~34 feet away */

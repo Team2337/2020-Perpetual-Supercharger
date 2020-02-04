@@ -23,7 +23,7 @@ public class OI {
         driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
 
         //Sets the speed of the shooter motors
-        driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));//14450 close - 15295 far
+        driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
 
         /* --- OPERATOR JOYSTICK --- */
         
