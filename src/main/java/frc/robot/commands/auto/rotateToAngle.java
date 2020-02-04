@@ -1,15 +1,13 @@
 package frc.robot.commands.auto;
 
-import frc.robot.Robot;
 import frc.robot.Constants.Swerve;
 import frc.robot.subsystems.SwerveDrivetrain;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
+ * Sets the module angles to the desired rotation angle and rotates the robot a specified direction, either left or right
  * @author Madison J.
  * @category AUTON
  */
@@ -23,15 +21,15 @@ public class rotateToAngle extends CommandBase {
   private double rotationDegree = 45;
   private double kP = 0.25;
   private double getDriveEncoder;
-  private double maxSpeed;/*  */
-
+  private double maxSpeed;
+  /* --- Booleans --- */
   private boolean finish;
+
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
+ * Sets the module angles to the desired rotation angle and rotates the robot a specified direction, either left or right
  * @param subsystem - SwerveDrivetrain subsystem object
- * @param position - The desired distance to rotate in inches (49 inches = 180 degrees)
- * @param rotationDegree - The angle each module is being set to
- * @param kP - The value that the error is multiplied by to get our speed
+ * @param direction - The direction, left or right, the chassis will go
+ * @param angle - The angle we want the robot to rotate to
  */
   public rotateToAngle(SwerveDrivetrain subsystem, String direction, double angle) {
     m_subsystem = subsystem;
@@ -47,6 +45,14 @@ public class rotateToAngle extends CommandBase {
     }
   }
 
+  /**
+   * Sets the module angles to the desired rotation angle and rotates the robot a specified direction, 
+   * either left or right at a set max speed
+   * @param subsystem - SwerveDrivetrain subsystem object
+   * @param direction - The direction, left or right, the chassis will go
+   * @param angle - The angle we want the robot to rotate to
+   * @param maxSpeed - The maximum speed we set to the robot
+   */
   public rotateToAngle(SwerveDrivetrain subsystem, String direction, double angle, double maxSpeed) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
@@ -62,11 +68,12 @@ public class rotateToAngle extends CommandBase {
     }
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Goes through 4 times to get the angle of each module
+    // Goes through 4 times and sets the max speed, positive or negative, sets the drive configuration to our P value,
+    // sets the drive modules to our P value, configures all our drive modules, and inverts modules 1 and 2
     for(int i = 0; i < 4; i++) {
+      // Sets the positive max speed (forward) and the negative max speed (backward)
       if (maxSpeed != 0) {
         m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
         m_subsystem.getModule(i).TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
@@ -96,7 +103,6 @@ public class rotateToAngle extends CommandBase {
       m_subsystem.zeroAllDriveEncoders();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     for (int i = 0; i < 4; i++) {
@@ -119,6 +125,7 @@ public class rotateToAngle extends CommandBase {
       SmartDashboard.putNumber("position", position);
       SmartDashboard.putNumber("endPosition", position - 400);
 
+      // If the drive encoder is greater than position - 400 and less than position + 400 then finish gets set accordingly
       if (Math.abs(getDriveEncoder) > Math.abs(position) - 400 && Math.abs(getDriveEncoder) < Math.abs(position) + 400) {
         if (iteration > 10) {
           finish = true;
@@ -132,7 +139,6 @@ public class rotateToAngle extends CommandBase {
         finish = false;
       }
     }
-    
   }
 
   @Override
