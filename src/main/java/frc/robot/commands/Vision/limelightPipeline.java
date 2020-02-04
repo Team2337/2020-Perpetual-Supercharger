@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
    * @author Zayd A. & Madison J.
    * @category VISION
    */
-
 public class limelightPipeline extends InstantCommand {
   private Vision subsystem;
 
@@ -20,7 +19,6 @@ public class limelightPipeline extends InstantCommand {
  * @param subsystem - Vision subsystem object
  * @param pipe - Chamnges to the different configurations 
  */
-
   public limelightPipeline(Vision subsystem, int pipe) {
     this.subsystem = subsystem;
     addRequirements(subsystem);

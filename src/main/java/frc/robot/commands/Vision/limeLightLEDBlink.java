@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * @author Zayd A. & Madison J.
  * @category VISION
  */
-
 public class limeLightLEDBlink extends InstantCommand {
   private Vision subsystem;
   /**

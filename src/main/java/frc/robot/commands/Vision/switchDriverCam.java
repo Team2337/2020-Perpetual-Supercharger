@@ -8,14 +8,12 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * @author Zayd A. & Madison J.
  * @category VISION
  */
-
 public class switchDriverCam extends InstantCommand {
   private Vision subsystem;
 
   /**
    * Drivecam will be turned on
    */
-  
   public switchDriverCam(Vision subsystem) {
     this.subsystem = subsystem;
     addRequirements(subsystem);

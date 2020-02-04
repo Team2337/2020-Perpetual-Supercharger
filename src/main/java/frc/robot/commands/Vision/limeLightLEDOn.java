@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
    * @author Zayd A. & Madison J.
    * @category VISION
    */
-  
 public class limeLightLEDOn extends InstantCommand {
 
 /**
@@ -20,7 +19,6 @@ public class limeLightLEDOn extends InstantCommand {
     addRequirements(Robot.Vision);
   }
 
-  // Called just before this Command runs the first time
   @Override
   public void initialize() {
     Robot.Vision.setLEDMode(3);
