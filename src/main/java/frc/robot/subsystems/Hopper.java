@@ -37,4 +37,22 @@ public class Hopper extends SubsystemBase {
   public void extendRightFlipper(boolean state) {
     rightFlipper.set(state);
   }
+
+  /**
+   * This method returns the state of the left flipper and makes it so that the state can 
+   * be displayed on the smart dashboard
+   * @return it returns the boolean state of the left flipper being extended or retracted
+   */
+  public boolean getLeftFlipperState() {
+    return leftFlipper.get();
+  }
+
+  /**
+   * This method returns the state of the right flipper and makes it so that the state can 
+   * be displayed on the smart dashboard
+   * @return it returns the boolean state of the right flipper being extended or retracted
+   */
+    public boolean getRightFlipperState() {
+    return rightFlipper.get();
+  }
 }

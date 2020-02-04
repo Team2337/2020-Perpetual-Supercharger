@@ -11,11 +11,10 @@ public class leftHopperExtension extends CommandBase {
   //A command that uses the hopper subsystem to move the left flipper
   public leftHopperExtension(Hopper m_subsystem) {
     subsystem = m_subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
+    
     addRequirements(m_subsystem);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
