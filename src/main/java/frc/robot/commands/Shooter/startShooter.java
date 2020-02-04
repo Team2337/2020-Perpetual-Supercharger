@@ -4,34 +4,30 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-
-
 /**
  * Shoots the ball
  * @author Michael Francis
  */
 public class startShooter extends CommandBase {
   
-  private final Shooter m_subsystem;
-  private double m_velocity;
-
-
+  private final Shooter subsystem;
+  private double velocity;
 
   /**
    * Shoots the ball at a specified speed.
-   * @param subsystem
+   * @param m_subsystem
    * The subsystem that the command uses (Shooter)
-   * @param velocity
+   * @param m_velocity
    * The velocity (in encoder ticks per 100ms) in which the shooter will shoot at.
    */
-  public startShooter(Shooter subsystem, double velocity) {
+  public startShooter(Shooter m_subsystem, double m_velocity) {
     //Puts the parameters in the command's variables to be used around as a shortcut.
-    m_subsystem = subsystem;
+    subsystem = m_subsystem;
+    velocity = m_velocity;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_subsystem);
   }
-
 
 
   // Called when the command is initially scheduled.
@@ -39,12 +35,11 @@ public class startShooter extends CommandBase {
   public void initialize() {
     //Sets the ramp rate. We set them here because in the execute of this command,
     // they are set to another value after a set speed.
-    m_subsystem.leftShootMotor.configClosedloopRamp(0.5);
-    m_subsystem.rightShootMotor.configClosedloopRamp(0.5);
+    subsystem.leftShootMotor.configClosedloopRamp(0.5);
+    subsystem.rightShootMotor.configClosedloopRamp(0.5);
     //Sets the speed.
-    m_subsystem.setShooterSpeed(m_velocity);
+    subsystem.setShooterSpeed(velocity);
   }
-
 
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -52,9 +47,9 @@ public class startShooter extends CommandBase {
   public void execute() {
     //Once the velocity reaches a certain speed, the closed-loop ramp is turned off.
     //This is to ensure that the motors get up to speed quickly without damaging themselves.
-    if(m_subsystem.leftShootMotor.getSelectedSensorVelocity() > Constants.SHOOTERRAMPSWITCHVALUE){
-      m_subsystem.leftShootMotor.configClosedloopRamp(0);
-      m_subsystem.rightShootMotor.configClosedloopRamp(0);
+    if(subsystem.leftShootMotor.getSelectedSensorVelocity() > Constants.SHOOTERRAMPSWITCHVALUE){
+      subsystem.leftShootMotor.configClosedloopRamp(0);
+      subsystem.rightShootMotor.configClosedloopRamp(0);
     }
   }
 
@@ -62,7 +57,7 @@ public class startShooter extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     //Stop the shooter.
-    m_subsystem.stopShooter();
+    subsystem.stopShooter();
   }
 
   // Returns true when the command should end.

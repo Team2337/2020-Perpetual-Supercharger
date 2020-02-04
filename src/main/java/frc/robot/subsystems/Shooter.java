@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,14 +12,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 /**
- * Shoots the ball with a certain strength
- * 
+ * Shoots the power cells (balls) at a certain speed. It sets up the mechanical and electrical
+ * components of the shoooter portion of the robot.
  * @author Michael F, Sean L
  */
 public class Shooter extends SubsystemBase {
 
   /**
    * Specifies whether or not the Shooter will be in debug mode.
+   * During debug mode, the SmartDashboard will show troubleshooting values.
    * @see #periodic()
    */
   private final boolean shooterDebug = false;
@@ -51,8 +51,6 @@ public class Shooter extends SubsystemBase {
     leftShootMotor.configFactoryDefault();
     rightShootMotor.configFactoryDefault();
     // Configures sensors for PID calculations
-    leftShootMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
-    rightShootMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
     FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
 
     /** --- SETS UP SETTINGS (Such as current limits) ON MOTORS AND SENSORS --- **/
@@ -105,9 +103,9 @@ public class Shooter extends SubsystemBase {
   /* -------------------------------- */
   //////////////////////////////////////
 
-  /** Boolean that returns true when the shooter temperature is over 70 degrees Celsius. */
-  public boolean shooterTemp;
-  /** A number that returns the highest number the speed of the shooter has reached. */
+  /** Boolean set to true when the shooter temperature is over 70 degrees Celsius. */
+  public boolean shooterOver70 = false;
+  /** A number set to the highest number the speed (velocity) of the shooter has reached. */
   public double shooterMaxSpeed = 0;
 
   @Override
@@ -125,10 +123,9 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Right Motor RPM", calculateRightRPM());
 
     /* --- BOOLEAN VALUES --- */
-    // Variable that returns true when the one of the motors of the shooter are over
-    // 70 degrees Celsius
-    shooterTemp = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
-    SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterTemp);
+    /** Sets the value to true if either motor's temperature is over 70 degrees Celsius */
+    shooterOver70 = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
+    SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterOver70);
 
     /////////////////////////////
     /* ----------------------- */
@@ -178,7 +175,8 @@ public class Shooter extends SubsystemBase {
    * Stops the shooter motors by setting their power output to 0.
    * <p>We do this instead of setting the velocity because otherwise the motors will try to
    * get to 0 RPM as quickly as possible.
-   * If it does this, you will hear a very horrible noise as the motors damage themselves.
+   * If it does this, you will hear a very horrible noise as the motors damage themselves
+   * by skipping the belt on the pinion.
    */
   public void stopShooter() {
     leftShootMotor.set(TalonFXControlMode.PercentOutput, 0);

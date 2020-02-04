@@ -77,6 +77,15 @@ public final class Constants {
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
 
-    /* --- Other Values --- */
+    /* --- Shooter Values --- */
+    /**
+     * This value is the number at which the closed loop ramp rate of the shooter
+     * goes from 0.5 to 0 to increase speed
+     */
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
+    // Speeds:
+    /** To be used from ~16 feet away */
+    public static int SHOOTSPEEDCLOSE = 14450;
+    /** To be used from ~34 feet away */
+    public static int SHOOTSPEEDFAR = 15295;
 }
