@@ -384,6 +384,10 @@ public class FXSwerveModule {
         return driveMotor.getSelectedSensorPosition(0);
     }
 
+    /**
+     * Gets the angle encoder position in ticks
+     * @return - The selected sensor position
+     */    
     public int getAngleEncoderValue() {
         return angleMotor.getSelectedSensorPosition(0);
     }
@@ -425,6 +429,10 @@ public class FXSwerveModule {
         driveMotor.set(TalonFXControlMode.Position, setpoint);
     }
 
+    /**
+     * Sets the setpoints for the angles
+     * @param setpoint - The desired position
+     */
     public void setAngleSetpoint(int setpoint) {
         angleMotor.set(TalonFXControlMode.Position, setpoint);
     }

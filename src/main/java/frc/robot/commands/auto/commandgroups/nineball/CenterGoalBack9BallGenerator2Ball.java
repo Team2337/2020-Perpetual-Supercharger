@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.auto.commandgroups.nineball;
 
 import frc.robot.Robot;
@@ -12,7 +5,7 @@ import frc.robot.commands.auto.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
- * The chassis rotates in a circle command group
+ * Shoots 9 balls centered on the goal then the chassis drives to the generator and we intake 3 balls
  * @author Madison J. 
  * @category AUTON 
  */
@@ -20,8 +13,8 @@ public class CenterGoalBack9BallGenerator2Ball extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
  /**
-  * The chassis rotates in a circle command group
-  */
+ * Shoots 9 balls centered on the goal then the chassis drives to the generator and we intake 3 balls  
+ */
   public CenterGoalBack9BallGenerator2Ball() {
     addCommands(
       new zeroAngleEncoders(Robot.SwerveDrivetrain).withTimeout(0.04),

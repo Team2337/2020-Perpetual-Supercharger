@@ -1,56 +1,57 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.auto;
 
-import frc.robot.Robot;
 import frc.robot.Constants.Swerve;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.SwerveDrivetrain;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * An example command that uses an example subsystem.
+ * Sets the desired module angle in degrees
+ * @author Madison J.
+ * @category AUTON
  */
 public class turnModulesToDegree extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SwerveDrivetrain m_subsystem;
+  /* --- Integers --- */
   private int desiredModuleAngle;
   private int angleSetpoint[] = new int[4];
+  /* --- Doubles --- */
   private double moduleAngle;
   private double angleP;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+/**
+ * Sets the desired module angle in degrees
+ * @param subsystem - SwerveDrivetrain subsystem object
+ * @param moduleAngle - The desired angle of the modules in degrees
+ */
   public turnModulesToDegree(SwerveDrivetrain subsystem, double moduleAngle) {
     m_subsystem = subsystem;
+    addRequirements(subsystem);
+    /* --- Parameters Being Set to Global Variables --- */
     this.desiredModuleAngle = (int) (-moduleAngle * Swerve.TICKSPERDEGREE);
     this.moduleAngle = moduleAngle;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
   }
 
+  /**
+   * Sets the desired module angle in degrees with our set P value
+   * @param subsystem - SwerveDrivetrain subsystem object
+   * @param moduleAngle - The desired angle of the modules in degrees
+   * @param angleP - The P value we set to the angle motot
+   */
   public turnModulesToDegree(SwerveDrivetrain subsystem, double moduleAngle, double angleP) {
     m_subsystem = subsystem;
+    addRequirements(subsystem);
+    /* --- Parameters Being Set to Global Variables --- */
     this.desiredModuleAngle = (int) (-moduleAngle * Swerve.TICKSPERDEGREE);
     this.moduleAngle = moduleAngle;
     this.angleP = angleP;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     for(int i = 0; i < 4; i++) {
+    // Goes through 4 times and sets the desired angle setpoint, sets the angle modules to our P value,
+    // and configures all our angle modules
     //  this.angleSetpoint[i] = (int) (desiredModuleAngle - m_subsystem.getModule(i).getAngleEncoderValue());
       m_subsystem.getModule(i).setAngleSetpoint(desiredModuleAngle); //angleSetpoint[i]
       if (angleP > 0) {
@@ -60,18 +61,15 @@ public class turnModulesToDegree extends CommandBase {
     }
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
    
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
