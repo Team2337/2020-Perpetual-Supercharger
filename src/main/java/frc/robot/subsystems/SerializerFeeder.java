@@ -5,11 +5,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
-
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
  /** 
  *  Subsystem for the Feeder+Serializer 
  * The Feeder+Serializer is a mechanism to feed 
@@ -25,11 +24,14 @@ public class SerializerFeeder extends SubsystemBase {
    * Also sets up posistion stuff (referenced later)
    * @see #periodic()
    */
-  public final boolean feederDebug = true;
+  public final boolean feederDebug = false;
   public double targetPosition;
-
+  final double kP = 0.95;
+  final double kI = 0;
+  final double kD = 0;
+  final double kF = 0;
   // Motors
-  TalonFX serializerMotor;
+  public TalonFX serializerMotor;
   public TalonFXConfiguration FXConfig;
 
   // Current limit configuration
@@ -40,7 +42,7 @@ TalonFXConfiguration config = new TalonFXConfiguration();
    * ports.
    */
   public SerializerFeeder() {
-  // These are the motors, Falcons, and they are set up here. Ports are referenced in the Constants file
+  // The configuration, ramp rate, and inversion are set here as well as the ports.
     serializerMotor = new TalonFX(Constants.SERIALIZING);
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
@@ -52,12 +54,14 @@ TalonFXConfiguration config = new TalonFXConfiguration();
     currentLimitConfigurationFeederMotors.triggerThresholdCurrent = 40;
     currentLimitConfigurationFeederMotors.triggerThresholdTime = 3;
 
-     //Set variables
-     final double kP = 0.95;
-     final double kI = 0;
-     final double kD = 0;
-     final double kF = 0;
-     //Implement variables into the PIDs
+    // Set amperage limits
+    serializerMotor.configStatorCurrentLimit(currentLimitConfigurationFeederMotors, 0);
+
+     /**
+      * This is where the Talon FX is configured
+      * All of the PID values are configured here as well
+      * as allowable error and the speed of the motor during the PID
+      */
 
      FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
      FXConfig.slot0.kP = kP;
@@ -68,15 +72,11 @@ TalonFXConfiguration config = new TalonFXConfiguration();
      FXConfig.peakOutputForward = (0.1);
      serializerMotor.configAllSettings(FXConfig);
 
-    // Set amperage limits
-    serializerMotor.configStatorCurrentLimit(currentLimitConfigurationFeederMotors, 0);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // If in debug mode, put the feeder speed and temperature on Shuffleboard as well as 
-    //values for the Positional PIDs
+
     if (feederDebug) {
       SmartDashboard.putNumber("CurrentPosisition", getFeederPosition());
       SmartDashboard.putNumber("TargetPosition", targetPosition);
@@ -88,9 +88,7 @@ TalonFXConfiguration config = new TalonFXConfiguration();
 
   /**
    * A method that sets the speed of the feeder motor
-   * 
    * @param speed Sets the speed of the motor as a value -1 through 1
-   * 
    */
   public void setFeederSpeed(double speed) {
     // Sets the speed of the feeder motor
@@ -98,43 +96,43 @@ TalonFXConfiguration config = new TalonFXConfiguration();
   }
 
   /**
-   * This returns the speed of the motor as a percent.
-   * In Debug mode, this value is put on SmartDashboard
+   * @return speed
+   * Returns the speed of the motor 
    */
   public double getFeederSpeed() {
     double speed = serializerMotor.getMotorOutputPercent();
     return speed;
   }
 
+/**
+ * @return position
+ * This returns the current position of the motor
+ */
   public int getFeederPosition() {
     int position = serializerMotor.getSelectedSensorPosition();
     return position;
   }
 
   /**
-   * A method that stops the feeder motors.
-   * 
+   * Stops the feeder motors.
    */
   public void stopFeeder() {
     serializerMotor.set(ControlMode.PercentOutput, 0);
   }
 
   /**
-   * This returns the temperature of the motor
-   * In Debug mode, this value is put on SmartDashboard
+   * @return temp
+   * Returns the temperature of the motor 
    */
-  public double getFeederTemperature() {
-    // Returns an array containing the temperature of the left and right feeder
-    // motors in that order.
-    double temp =  serializerMotor.getTemperature();
-    return temp;
+  public double getFeederTemperature() { 
+    return serializerMotor.getTemperature();
   }
   /**
-   * 
    * @param position
-   * This is the position that the motor is in
+   * This is the amount to shift by
    * targetPosition is the target position of the motor
-   * This is calculated by what the position is subtracted by what we want the position to be decreased by
+   * This is found by subtracting the position of the motor by the amount to shift by,
+   * creating the target position
    */
     public void positionShift(double position ) {
       targetPosition = getFeederPosition()-position;

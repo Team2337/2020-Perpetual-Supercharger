@@ -1,28 +1,27 @@
 package frc.robot.commands.SerializerFeeder;
 
 import frc.robot.subsystems.SerializerFeeder;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Move balls back to ready the kicker wheel so that the robot can shoot
+ * Move balls back to ready the kicker wheel so that the kicker wheel can get up to speed
  * @author Nicholas Stokes
  */
-public class readyShooter extends InstantCommand {
+public class readyShooter extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SerializerFeeder m_subsystem;
-  public double positionThing;
-
+  public double position;
+  
   /**
    * Creates the ready shooter command
    *
    * @param subsystem The subsystem used by this command. (SerializerFeeder)
-   * @param positionThingg What value the command is passed in OI.java
-   * @param positionThing is the value the method uses for shifting
-   * These values are exactly the same but are named different for Java Reasons
+   * @param positionOI What value the command is passed in OI.java
+   * @param position is the value the method uses for shifting
    */
-  public readyShooter(SerializerFeeder subsystem,  double positionThingg) {
+  public readyShooter(SerializerFeeder subsystem,  double positionOI) {
     m_subsystem = subsystem;
-    positionThing = positionThingg;
+    position = positionOI;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -31,12 +30,21 @@ public class readyShooter extends InstantCommand {
   @Override
   public void initialize() {
     //This calls the Subsystem method positionShift with a value designated in OI
-    m_subsystem.positionShift(positionThing);
+    m_subsystem.positionShift(position);
+  }
+
+  @Override
+  public void execute() {
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+  }
+  
+  @Override
+  public boolean isFinished() {
+    return false;
   }
 
 }

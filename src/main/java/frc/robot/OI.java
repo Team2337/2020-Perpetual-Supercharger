@@ -29,18 +29,6 @@ public class OI {
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
 
-        /**
-         * operatorJoystick.start .whileHeld(new setSerializerFeederSpeed(Robot.Feeder, 0.4));
-         * operatorJoystick.back .whenPressed(new readyShooter(Robot.Feeder, -2*2048));
-         * 
-         * These are the controller commands for the SerializerFeeder
-         * These are commented out because they might be purely autonomous
-         * If that happens delete these comments
-         * If not, delete these lines and keep the commands
-         */
-        
-    
-
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here

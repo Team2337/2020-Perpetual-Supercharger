@@ -34,6 +34,10 @@ public class setSerializerFeederSpeed extends CommandBase {
     subsystem.setFeederSpeed(serializerFeederSpeed);
   }
 
+  @Override
+  public void execute() {
+  }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -41,4 +45,9 @@ public class setSerializerFeederSpeed extends CommandBase {
     subsystem.stopFeeder();
   }
 
+ @Override
+  public boolean isFinished() {
+    return false;
+  }
+  
 }
