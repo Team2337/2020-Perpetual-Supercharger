@@ -53,6 +53,7 @@ public class turnModulesToDegree extends CommandBase {
     // Goes through 4 times and sets the desired angle setpoint, sets the angle modules to our P value,
     // and configures all our angle modules
     //  this.angleSetpoint[i] = (int) (desiredModuleAngle - m_subsystem.getModule(i).getAngleEncoderValue());
+      desiredModuleAngle += m_subsystem.getAngleEncoderOffsets()[i];
       m_subsystem.getModule(i).setAngleSetpoint(desiredModuleAngle); //angleSetpoint[i]
       if (angleP > 0) {
       m_subsystem.getModule(i).TalonFXConfigurationAngle.slot0.kP = angleP;

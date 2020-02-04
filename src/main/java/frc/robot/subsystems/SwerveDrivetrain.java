@@ -52,7 +52,17 @@ public class SwerveDrivetrain extends SubsystemBase {
    * 2 is Back Left, 
    * 3 is Back Right
    */
-  public double angleOffsets[];
+  public double angleOffsets[]; //TODO: change to private 
+
+  /**
+   * <p>Array for module angle offsets when using the <b>integrated encoder</b></p>
+   * <br/>
+   * 0 is Front Right,
+   * 1 is Front Left, 
+   * 2 is Back Left, 
+   * 3 is Back Right
+   */
+  private double angleEncoderOffsets[];
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
@@ -94,6 +104,13 @@ public class SwerveDrivetrain extends SubsystemBase {
       1.278353,   // Module 1 //1.3
       -0.678327, // Module 2 //-0.6
       -5.90436  // Module 3 -5.95
+    };
+
+    angleEncoderOffsets = new double[] {
+      0, // Module 0
+      0, // Module 1
+      0, // Module 2
+      0  // Module 3
     };
 
     analogAngleSensors = new AnalogInput[] {
@@ -248,6 +265,10 @@ public class SwerveDrivetrain extends SubsystemBase {
    */
   public FXSwerveModule getModule(int module) {
     return swerveModules[module];
+  }
+
+  public double[] getAngleEncoderOffsets() {
+    return angleEncoderOffsets;
   }
 
   /**
