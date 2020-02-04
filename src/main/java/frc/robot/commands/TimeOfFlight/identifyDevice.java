@@ -6,13 +6,13 @@ import frc.robot.subsystems.CanbusDistanceSensor;
 /**
  * Add your docs here.
  */
-public class identifyDevice extends InstantCommand {
+public class IdentifyDevice extends InstantCommand {
   /**
    * Add your docs here.
    */
   private int myDeviceNumber;
 
-  public identifyDevice(int deviceNumber) {
+  public IdentifyDevice(int deviceNumber) {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);

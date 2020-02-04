@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.*;
@@ -26,7 +27,7 @@ public class Robot extends TimedRobot {
   public static double loadSensorFirmware;
   public static byte[] hwdataLoad = new byte[8];
 
-  public static int distanceSensorRocket = 23;
+  public static int distanceSensorRocket = 0;
   public static double rocketSensorSerial;
   public static double rocketSensorPart;
   public static double rocketSensorFirmware;
@@ -70,9 +71,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("LoadPart", loadSensorPart);
     SmartDashboard.putNumber("LoadFirmware", loadSensorFirmware);
     int temp1[] = CanbusDistanceSensor.readCalibrationState(distanceSensorLoad);
-    SmartDashboard.putNumber("X", temp1[0]);
-    SmartDashboard.putNumber("Y", temp1[1]);
-    SmartDashboard.putNumber("Offset", temp1[2]);
+    SD.putN("X", temp1[0]);
+    SD.putN("Y", temp1[1]);
+    SD.putN("Offset", temp1[2]);
     //End TOF Code
 
     
@@ -163,12 +164,18 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    //Time of Flight Code
-    CommandScheduler.getInstance().run();
+
+    //////////////////////////////////////////////////////////////
+    // -------------------------------------------------------- //
+    // --- PUT TIMEOFFLIGHT SENSOR VALUES ON SMARTDASHBOARD --- //
+    // -------------------------------------------------------- //
+    //////////////////////////////////////////////////////////////
+    
+    Scheduler.getInstance().run();
     SmartDashboard.putNumber("TTT", Timer.getFPGATimestamp() - a);
     a = Timer.getFPGATimestamp();
     b++;
-    int[] temp = { 0, 0 };
+    double[] temp = { 0, 0 };
     if (b >= 10) {
 
       temp = CanbusDistanceSensor.getDistanceMM(distanceSensorLoad);
@@ -176,23 +183,23 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Read Error", temp[0]);
         // temp[0] = 0;
       }
-      SmartDashboard.putNumber("SigRate", Math.round(temp[1]));
+      SD.putN0("SigRate", temp[1]);
 
-      SmartDashboard.putNumber("DistMM", Math.round(temp[0]));
-      SmartDashboard.putNumber("DistFt", Math.round((temp[0] / 304.8)*100)/100);
+      SD.putN0("DistMM", temp[0]);
+      SD.putN2("DistFt", temp[0] / 304.8);
       temp = CanbusDistanceSensor.readQuality(distanceSensorLoad);
-      SmartDashboard.putNumber("AmbLight", Math.round(temp[0]));
-      SmartDashboard.putNumber("StdDev", Math.round(temp[1]));
-      // double distR = CanbusDistanceSensor.getDistanceMM(distanceSensorRocket);
-      // if (distR < 0) {
-      // SmartDashboard.putNumber("Read Error", distR);
-      // distR = 0;
-      // }
-      // SD.putN0("DistMM23", distR);
-      // SD.putN2("DistFt23", distR / 304.8);
-      // double tempR[] = CanbusDistanceSensor.readQuality(distanceSensorRocket);
-      // SD.putN0("AmbLight23", tempR[0]);
-      // SD.putN0("StdDev23", tempR[1]);
+      SD.putN0("AmbLight", temp[0]);
+      SD.putN0("StdDev", temp[1]);
+      double distR = CanbusDistanceSensor.getDistanceMM(distanceSensorRocket)[0];
+      if (distR < 0) {
+        SmartDashboard.putNumber("Read Error", distR);
+      distR = 0;
+      }
+      SD.putN0("DistMM23", distR);
+      SD.putN2("DistFt23", distR / 304.8);
+      double tempR[] = CanbusDistanceSensor.readQuality(distanceSensorRocket);
+      SD.putN0("AmbLight23", tempR[0]);
+      SD.putN0("StdDev23", tempR[1]);
 
       b = 0;
     }
