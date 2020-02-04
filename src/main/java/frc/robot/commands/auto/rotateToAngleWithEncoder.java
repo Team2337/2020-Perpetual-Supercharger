@@ -13,15 +13,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @author Madison J.
  * @category AUTON
  */
-public class rotateToAngle extends CommandBase {
+public class rotateToAngleWithEncoder extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SwerveDrivetrain m_subsystem;
   /* --- Integers --- */
   private int position;
   private int iteration = 0;
   /* --- Doubles --- */
-  private double rotationDegree = 45;
-  private double kP = 0.25;
+  private double rotationDegree = 45 * Swerve.TICKSPERDEGREE;
+  private double kP = 0.1;
   private double getDriveEncoder;
   private double maxSpeed;/*  */
 
@@ -33,7 +33,7 @@ public class rotateToAngle extends CommandBase {
  * @param rotationDegree - The angle each module is being set to
  * @param kP - The value that the error is multiplied by to get our speed
  */
-  public rotateToAngle(SwerveDrivetrain subsystem, String direction, double angle) {
+  public rotateToAngleWithEncoder(SwerveDrivetrain subsystem, String direction, double angle) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
     this.position = (int) ((angle * Swerve.INCHESPERDEGREE) * Swerve.TICKSPERINCH);
@@ -47,7 +47,7 @@ public class rotateToAngle extends CommandBase {
     }
   }
 
-  public rotateToAngle(SwerveDrivetrain subsystem, String direction, double angle, double maxSpeed) {
+  public rotateToAngleWithEncoder(SwerveDrivetrain subsystem, String direction, double angle, double maxSpeed) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
     this.position = (int) ((angle * Swerve.INCHESPERDEGREE) * Swerve.TICKSPERINCH);
@@ -81,15 +81,18 @@ public class rotateToAngle extends CommandBase {
       m_subsystem.getModule(i).TalonFXConfigurationDrive.slot0.allowableClosedloopError = 50;
       m_subsystem.getModule(i).driveMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfigurationDrive, 0);
       // Checks to see if the modules are rotating
-      if (Math.abs(rotationDegree) > 0) {
+      
         // Checks to see if it is module 1 or 2 and inverts their position so they will go in the opposite direction
         if (i > 0 && i < 3) {
           m_subsystem.getModule(i).setDriveSetpoint(-position);
         } else {
           m_subsystem.getModule(i).setDriveSetpoint(position);
         }
+      // If the module is even then the angle is inverted
+      if (i % 2 == 0) {
+        m_subsystem.getModule(i).setAngleSetpoint((int) rotationDegree);
       } else {
-        m_subsystem.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
+         m_subsystem.getModule(i).setAngleSetpoint((int) -rotationDegree);
       }
     }
       // Zeros all of the drive encoders
@@ -108,12 +111,7 @@ public class rotateToAngle extends CommandBase {
       getDriveEncoder = m_subsystem.getAverageDriveEncoderDistance();
       // Checks to see if the module is rotated
       if (Math.abs(rotationDegree) > 0) {
-        // If the module is even then the angle is inverted
-        if (i % 2 == 0) {
-          m_subsystem.getModule(i).setModuleAngle(Math.toRadians(-rotationDegree));
-        } else {
-          m_subsystem.getModule(i).setModuleAngle(Math.toRadians(rotationDegree));
-        }
+        
       } 
       SmartDashboard.putNumber("getDriveEncoder", getDriveEncoder);
       SmartDashboard.putNumber("position", position);

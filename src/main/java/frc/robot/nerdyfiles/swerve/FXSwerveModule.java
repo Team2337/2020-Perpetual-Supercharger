@@ -48,7 +48,7 @@ public class FXSwerveModule {
      * Proportional value for the drive motor speed
      * This is used to scale the error to a funcitonal speed for the motors
      */
-    private double driveP = 0.05;
+    public double driveP = 0.05;
 
     /**
      * Integral value for the drive motor speed
@@ -75,20 +75,21 @@ public class FXSwerveModule {
      * Proportional value for the angle motor speed
      * This is used to scale the error to a funcitonal speed for the motors
      */
-    private double angleP = 0.63;
+    private double angleP = 0.75; //0.63
 
     /**
      * Derivative value for the angle motor speed
      * This is added to the speed of the motors to increase power at 
      * smaller errors
      */
-    private double angleD = 0.02;
+    private double angleD = 0; //0.02
 
     /* --- Booleans --- */
 
     /** Sets the inversion mode on the drive motors (True: invered | False: not inverted) */
     private boolean isDriveInverted = false;
-    private boolean isDriveSensorPhaseInverted = false;
+    /** Sets the drive sensor to be inverted */
+    private boolean isDriveSensorPhaseInverted = false; 
 
     /* --- Motor Controllers --- */
 
@@ -96,7 +97,7 @@ public class FXSwerveModule {
     public TalonFX driveMotor;
 
     /** TalonFX motor controller, used as a drive motor in the swerve module */
-    private TalonFX angleMotor;
+    public TalonFX angleMotor;
 
     /* --- Sensors --- */
 
@@ -123,7 +124,19 @@ public class FXSwerveModule {
      * in the TalonFX class
      */
     private StatorCurrentLimitConfiguration currentLimitConfigurationDrive = new StatorCurrentLimitConfiguration();
-    public TalonFXConfiguration _fx;
+
+    /** The configuration object for the Talons */
+    public TalonFXConfiguration TalonFXConfigurationDrive;
+    public TalonFXConfiguration TalonFXConfigurationAngle;
+
+
+    public final double maxSpeed = 0.5;
+
+    private int angleAllowableClosedloopError = 5;
+    private double talonAngleP = 2.5;
+    private double talonAngleI = 0;
+    private double talonAngleD = 0;
+    private double talonAngleF = 0;
 
     /**
      * Swerve Module Object used to run the calculations for the swerve drive
@@ -144,7 +157,9 @@ public class FXSwerveModule {
         this.angleMotor = angleMotor;
         this.angleMotorOffset = angleMotorOffset;
         this.analogAngleSensor = analogAngleSensor;
-        _fx = new TalonFXConfiguration();
+        TalonFXConfigurationDrive = new TalonFXConfiguration();
+        TalonFXConfigurationAngle = new TalonFXConfiguration();
+
         /* --- Set Factory Default --- */
 
         // Resets the angle motor to its factory default
@@ -166,6 +181,14 @@ public class FXSwerveModule {
         angleMotor.setSensorPhase(false);
         angleMotor.setInverted(false);
         
+        TalonFXConfigurationAngle.slot0.kP = talonAngleP;
+        TalonFXConfigurationAngle.slot0.kI = talonAngleI;
+        TalonFXConfigurationAngle.slot0.kD = talonAngleD;
+        TalonFXConfigurationAngle.slot0.kF = talonAngleF;
+        TalonFXConfigurationAngle.slot0.allowableClosedloopError = angleAllowableClosedloopError;
+
+        angleMotor.configAllSettings(TalonFXConfigurationAngle);
+
         /*****************************/
         /* ------------------------- */
         /* --- Drive Motor Setup --- */
@@ -178,30 +201,23 @@ public class FXSwerveModule {
         driveMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 
         /* --- Drive PID --- */
-       // driveMotor.config_kP(0, driveP, 30);
-        // driveMotor.config_kI(0, driveI, 30);
-        // driveMotor.config_kD(0, driveD, 30);
-        // driveMotor.config_kF(0, driveF, 30);
         driveMotor.setSensorPhase(isDriveSensorPhaseInverted);
         driveMotor.setInverted(isDriveSensorPhaseInverted);
         driveMotor.configClosedLoopPeakOutput(0, 1, 30);
 
         /* Config the peak and nominal outputs, 12V means full */
-		driveMotor.configNominalOutputForward(0.05, 30);
-		driveMotor.configNominalOutputReverse(-0.05, 30);
-		driveMotor.configPeakOutputForward(0.25, 30);
-        driveMotor.configPeakOutputReverse(-0.25, 30);
         driveMotor.configAllowableClosedloopError(0, 100, 30);
         
-        _fx.slot0.kP = driveP;
-        _fx.slot0.kI = driveI;
-        _fx.slot0.kD = driveD;
-        _fx.slot0.kF = driveF;
-        _fx.peakOutputForward = 0.9;
-        _fx.peakOutputReverse = -0.9;
-        _fx.slot0.allowableClosedloopError = 100;
+        /* --- FX Configurations for the Drive Motors --- */
+        TalonFXConfigurationDrive.slot0.kP = driveP;
+        TalonFXConfigurationDrive.slot0.kI = driveI;
+        TalonFXConfigurationDrive.slot0.kD = driveD;
+        TalonFXConfigurationDrive.slot0.kF = driveF;
+        TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
+        TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
+        TalonFXConfigurationDrive.slot0.allowableClosedloopError = 100;
 
-        driveMotor.configAllSettings(_fx);
+        driveMotor.configAllSettings(TalonFXConfigurationDrive);
 
 
 
@@ -316,6 +332,7 @@ public class FXSwerveModule {
         SmartDashboard.putNumber("Power Output" + moduleNumber, errorRad*angleP);
     }
 
+    
     /**
      * Sets the speed of the module angle motor
      * @param speed - double value to set the speed to the angle motor (-1 -> 1)
@@ -332,6 +349,10 @@ public class FXSwerveModule {
         return this.angleMotorOffset;
     }
 
+    public void setAngleEncoder(int position) {
+        angleMotor.setSelectedSensorPosition(position, 0, 0);
+    }
+
     /*************************/
     /* --------------------- */
     /* --- Drive Methods --- */
@@ -346,25 +367,68 @@ public class FXSwerveModule {
         this.isDriveInverted = isDriveInverted;
     }
 
+    /**
+     * Sets the drive sensors to be inverted 
+     * @param isDriveSensorPhaseInverted - The drive sensors are inverted
+     */
     public void setDriveSensorPhaseInverted(boolean isDriveSensorPhaseInverted) {
         this.isDriveSensorPhaseInverted = isDriveSensorPhaseInverted;
         driveMotor.setInverted(isDriveSensorPhaseInverted);
     }
-    public int getDriveEncoder() {
+
+    /**
+     * Gets the drive encoder position in ticks
+     * @return - The selected sensor position
+     */
+    public int getDriveEncoderValue() {
         return driveMotor.getSelectedSensorPosition(0);
     }
 
+    public int getAngleEncoderValue() {
+        return angleMotor.getSelectedSensorPosition(0);
+    }
+
+    /**
+     * Sets the encoder drive position
+     * @param position - Sets the selected sensor position
+     */
     public void setDriveEncoder(int position) {
         driveMotor.setSelectedSensorPosition(position, 0, 0);
     }
 
+    /**
+     * Zeros all drive encoders
+     */
     public void zeroDriveEncoder() {
         setDriveEncoder(0);
     }
 
-    public void setSetpoint(int setpoint) {
+    /**
+     * Sets break mode
+     */
+    public void setBreakMode() {
+        driveMotor.setNeutralMode(NeutralMode.Brake);
+    }
+
+    /**
+     * Sets coast mode
+     */
+    public void setCoastMode() {
+        driveMotor.setNeutralMode(NeutralMode.Coast);
+    }
+
+    /**
+     * Sets the setpoints for the Talons
+     * @param setpoint - The desired position
+     */
+    public void setDriveSetpoint(int setpoint) {
         driveMotor.set(TalonFXControlMode.Position, setpoint);
     }
+
+    public void setAngleSetpoint(int setpoint) {
+        angleMotor.set(TalonFXControlMode.Position, setpoint);
+    }
+
     /**
      * Sets the speed of the drive motors
      * @param speed - double value in percent of the motors (-1 -> 1)

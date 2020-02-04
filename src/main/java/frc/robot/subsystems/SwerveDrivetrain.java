@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,9 +36,14 @@ public class SwerveDrivetrain extends SubsystemBase {
   /* --- Private Double Values --- */
   private double deadband = 0.1;
   private double lastAngle;
-  private double gyroOffset = 0;
   private double averageDriveEncoderDistanceValue = 0;
   private double kP = 1;
+
+  /**
+   * Offsets the current gyro position to allow for 
+   * rotational adjustments during the match
+   */
+  private double gyroOffset = 0; 
 
   /**
    * Array for module angle offsets
@@ -48,7 +52,7 @@ public class SwerveDrivetrain extends SubsystemBase {
    * 2 is Back Left, 
    * 3 is Back Right
    */
-  private double angleOffsets[];
+  public double angleOffsets[];
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
@@ -75,6 +79,8 @@ public class SwerveDrivetrain extends SubsystemBase {
   public double lastRotation;
   public double fieldOrientedAngle;
 
+  private double averageVelocity;
+
   /**
    * Subsystem where swerve modules are configured, 
    * and the calculations from the joystick inputs is handled. 
@@ -84,10 +90,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     setDefaultCommand(new SwerveDriveCommand(this));
 
     angleOffsets = new double[] {
-      4.57,  // Module 0 
-      1.3,   // Module 1 
-      -0.60, // Module 2 
-      -5.95  // Module 3
+      4.5611,  // Module 0 //4.57
+      1.278353,   // Module 1 //1.3
+      -0.678327, // Module 2 //-0.6
+      -5.90436  // Module 3 -5.95
     };
 
     analogAngleSensors = new AnalogInput[] {
@@ -199,8 +205,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {
-        getModule(i).setModuleAngle(lastAngle);
-        // getModule(i).setDriveSpeed(0);
+       // getModule(i).setModuleAngle(lastAngle);
+        getModule(i).setDriveSpeed(0);
       }
       //Sets the drive speed for each drive motor
       SmartDashboard.putNumberArray("Drive Speeds", speeds);
@@ -253,39 +259,92 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.isFieldOriented = isFieldOriented;
   }
 
+  /**
+   * Sets the offset angle for each of the modules
+   * @param angle - The angle we want to offset in radians
+   */
   public void setGyroOffsetAngle(double angle) {
     this.gyroOffset = angle;
   }
 
+  /**
+   * Gets the offset angle for each of the modules
+   * @return - Gyro angle offset in radians
+   */
   public double getGyroOffsetAngle() {
     return gyroOffset;
   }
 
+  /**
+   * Gets the average drive encoder distance for each module
+   * @return - Average drive encoder distance in ticks divided by 4
+   */
   public double getAverageDriveEncoderDistance() {
     averageDriveEncoderDistanceValue = 0;
+    // Goes through 4 times and averages the drive encoders
     for(int i = 0; i < 4; i++) {
-    averageDriveEncoderDistanceValue += Math.abs(getModule(i).getDriveEncoder());
-        }
+      averageDriveEncoderDistanceValue += Math.abs(getModule(i).getDriveEncoderValue());
+    }
 
     return (averageDriveEncoderDistanceValue / 4);
 
   }
 
+  /**
+   * Sets the drive encoders for each module
+   */
   public void setAllModuleDriveEncoders(int position) {
+    // Goes through 4 times and sets the drive encoders 
     for(int i = 0; i < 4; i++) {
       getModule(i).setDriveEncoder(position);
     }
   }
 
+  /**
+   * Zeros all of the drive encoders
+   */
   public void zeroAllDriveEncoders() {
     setAllModuleDriveEncoders(0);
   }
 
+  /**
+   * Sets the module setpoints
+   * @param setpoint - The desired position in ticks
+   */
   public void setAllModuleDriveSetpoint(int setpoint) {
+    // Goes through 4 times and sets the setpoint for the modules
     for(int i = 0; i < 4; i++) {
-      getModule(i).setSetpoint(setpoint);
+      getModule(i).setDriveSetpoint(setpoint);
   }
 }
+
+/**
+ * Sets break mode on drive modules
+ */
+  public void setAllModuleBreakMode() {
+    // Goes through 4 times and sets break mode for each module
+    for(int i = 0; i < 4; i++) {
+      getModule(i).setBreakMode();
+    }
+  }
+
+  /**
+   * Sets coast mode on drive modules
+   */
+  public void setAllModuleCoastMode() {
+    // Goes through 4 times and sets coast mode for each module
+    for(int i =0; i < 4; i++) {
+      getModule(i).setCoastMode();
+    }
+  }
+
+  public double getAverageVelocity() {
+    for(int i = 0; i < 4; i++) {
+      averageVelocity += getModule(i).driveMotor.getSelectedSensorVelocity(0);
+    }
+    return averageVelocity / 4;
+  }
+
 
   /**
    * Gets the current field orientation mode

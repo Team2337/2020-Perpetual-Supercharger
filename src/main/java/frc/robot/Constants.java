@@ -22,5 +22,8 @@ public final class Constants {
         public static final double TICKSPERREVOLUTION = GEARRATIO * 4096;
         public static final double INCHESPERREVOLUTION = WHEELDIAMETER * Math.PI;
         public static final double TICKSPERINCH = 1550;
+        public static final double INCHESPERDEGREE = 0.2722;
+        public static final double MINVELOCITY = 1;
+        public static final double TICKSPERDEGREE = 102;
     }
 }
