@@ -21,7 +21,6 @@ public class Robot extends TimedRobot {
   public static Climber Climber;
   public static ClimberExtender ClimberExtender;
   public static ControlPanelSpinner ControlPanelSpinner;
-  public static Serializer Serializer;
   public static Intake Intake;
   public static LEDs LEDs;
   public static Pigeon Pigeon;
@@ -30,7 +29,7 @@ public class Robot extends TimedRobot {
   public static SwerveDrivetrain SwerveDrivetrain;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
-  public static SerializerFeeder Feeder;
+  public static Serializer Serializer;
   public static OI OI;
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -47,7 +46,6 @@ public class Robot extends TimedRobot {
     Climber = new Climber();
     ClimberExtender = new ClimberExtender();
     ControlPanelSpinner = new ControlPanelSpinner();
-    Serializer = new Serializer();
     Intake = new Intake();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
@@ -55,7 +53,7 @@ public class Robot extends TimedRobot {
     ShooterHood = new ShooterHood();
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
-    Feeder = new SerializerFeeder();
+    Serializer = new Serializer();
     OI = new OI();
 
     // Resets the pigeon to 0    
