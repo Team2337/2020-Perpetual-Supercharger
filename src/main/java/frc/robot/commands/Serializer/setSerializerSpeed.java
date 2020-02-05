@@ -13,8 +13,8 @@ public class setSerializerSpeed extends CommandBase {
   private double serializerSpeed;
 
   /**
-   * Sets the serializer speed to a given percent
-   * 
+   * Sets the serializer speed 
+   * @author Nicholas Stokes
    * @param serializer The subsystem used by this command. (Serializer)
    * @param speed  A double number that sets what speed the motors move at
    */

@@ -29,21 +29,28 @@ public class Serializer extends SubsystemBase {
   final double kF = 0;
   // Motors
   private TalonFX serializerMotor;
+  private TalonFX agitatorMotor;
   public TalonFXConfiguration FXConfig;
 
   // Current limit configuration
   private StatorCurrentLimitConfiguration currentLimitConfigurationSerializerMotor = new StatorCurrentLimitConfiguration();
-TalonFXConfiguration config = new TalonFXConfiguration();
-  /**
-   * Creates a new Serializer subsystem and sets up the motors to their corresponding
-   * ports.
-   */
+  TalonFXConfiguration config = new TalonFXConfiguration();
+  
+  /** 
+ * Subsystem for the Serializer 
+ * The Serializer is a mechanism to feed balls up to the shooter
+ * For more information, see the wiki 
+ * @author Nicholas Stokes
+ */
   public Serializer() {
   // The configuration, ramp rate, and inversion are set here as well as the ports.
     serializerMotor = new TalonFX(Constants.SERIALIZER);
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
     FXConfig = new TalonFXConfiguration();
+ // Agitator Motor Setup
+    agitatorMotor = new TalonFX(Constants.AGITATORMOTOR);
+    agitatorMotor.setInverted(false);
     
     // Set up the current configuration
     currentLimitConfigurationSerializerMotor.currentLimit = 50;
@@ -92,6 +99,10 @@ TalonFXConfiguration config = new TalonFXConfiguration();
     serializerMotor.set(ControlMode.PercentOutput, speed);
   }
 
+  public void setAgitatorSpeed(double speed) {
+    // Sets the speed of the agitator motor
+    agitatorMotor.set(ControlMode.PercentOutput, speed);
+  }
   /**
    * @return speed
    * Returns the speed of the serializer motor 
@@ -116,6 +127,10 @@ TalonFXConfiguration config = new TalonFXConfiguration();
   public void stopSerializer() {
     serializerMotor.set(ControlMode.PercentOutput, 0);
   }
+// Stops the agitator motor
+  public void stopAgitator() {
+    agitatorMotor.set(ControlMode.PercentOutput, 0);
+  }
 
   /**
    * @return temp
@@ -134,6 +149,8 @@ TalonFXConfiguration config = new TalonFXConfiguration();
     public void positionShift(double position ) {
       targetPosition = getSerializerPosition()-position;
     serializerMotor.set(ControlMode.Position, targetPosition);
+
+  
 
     }
 }
