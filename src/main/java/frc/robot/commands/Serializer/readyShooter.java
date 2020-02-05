@@ -1,6 +1,6 @@
-package frc.robot.commands.SerializerFeeder;
+package frc.robot.commands.Serializer;
 
-import frc.robot.subsystems.SerializerFeeder;
+import frc.robot.subsystems.Serializer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -9,17 +9,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class readyShooter extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final SerializerFeeder m_subsystem;
+  private final Serializer m_subsystem;
   public double position;
   
   /**
    * Creates the ready shooter command
    *
-   * @param subsystem The subsystem used by this command. (SerializerFeeder)
+   * @param subsystem The subsystem used by this command. (Serializer)
    * @param positionOI What value the command is passed in OI.java
    * @param position is the value the method uses for shifting
    */
-  public readyShooter(SerializerFeeder subsystem,  double positionOI) {
+  public readyShooter(Serializer subsystem,  double positionOI) {
     m_subsystem = subsystem;
     position = positionOI;
     // Use addRequirements() here to declare subsystem dependencies.

@@ -23,7 +23,7 @@ public final class Constants {
     public static int RIGHTINTAKE = 10;
     public static int CANID11 = 11;
     public static int CANID12 = 12;
-    public static int SERIALIZING = 13;
+    public static int SERIALIZER = 13;
     public static int CANID14 = 14;
     public static int CANID15 = 15;
 

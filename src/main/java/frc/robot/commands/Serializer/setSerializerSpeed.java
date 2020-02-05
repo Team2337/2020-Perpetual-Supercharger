@@ -1,27 +1,26 @@
-package frc.robot.commands.SerializerFeeder;
+package frc.robot.commands.Serializer;
 
-import frc.robot.subsystems.SerializerFeeder;
+import frc.robot.subsystems.Serializer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * Sets the serializer speed
- * Note: Feeder equals SerializerFeeder
  * @author Nicholas Stokes
  */
-public class setSerializerFeederSpeed extends CommandBase {
+public class setSerializerSpeed extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final SerializerFeeder subsystem;
-  private double serializerFeederSpeed;
+  private final Serializer subsystem;
+  private double serializerSpeed;
 
   /**
-   * Sets the feeder speed to a given percent
+   * Sets the serializer speed to a given percent
    * 
-   * @param serializer The subsystem used by this command. (SerializerFeeder)
+   * @param serializer The subsystem used by this command. (Serializer)
    * @param speed  A double number that sets what speed the motors move at
    */
-  public setSerializerFeederSpeed(SerializerFeeder serializer, double speed) {
+  public setSerializerSpeed(Serializer serializer, double speed) {
     subsystem = serializer;
-    serializerFeederSpeed = speed;
+    serializerSpeed = speed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -30,8 +29,8 @@ public class setSerializerFeederSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will set the feeder to run at a set speed
-    subsystem.setFeederSpeed(serializerFeederSpeed);
+    // This will set the serializer to run at a set speed
+    subsystem.setSerializerSpeed(serializerSpeed);
   }
 
   @Override
@@ -41,8 +40,8 @@ public class setSerializerFeederSpeed extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops the feeder
-    subsystem.stopFeeder();
+    // Stops the serializer
+    subsystem.stopSerializer();
   }
 
  @Override

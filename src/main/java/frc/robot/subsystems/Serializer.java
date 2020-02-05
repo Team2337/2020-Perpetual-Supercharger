@@ -10,54 +10,51 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
  /** 
- *  Subsystem for the Feeder+Serializer 
- * The Feeder+Serializer is a mechanism to feed 
- * up to the shooter
- * Just to clarify, any reference to the feeder
- * is referencing the Feeder+Serializer just to make wording easier
+ * Subsystem for the Serializer 
+ * The Serializer is a mechanism to feed balls up to the shooter
  * For more information, see the wiki 
  * @author Nicholas Stokes
  */
-public class SerializerFeeder extends SubsystemBase {
+public class Serializer extends SubsystemBase {
   /**
-   * Specifies whether or not the Feeder will be in debug mode.
+   * Specifies whether or not the Serializer will be in debug mode.
    * Also sets up posistion stuff (referenced later)
    * @see #periodic()
    */
-  public final boolean feederDebug = false;
+  public final boolean serializerDebug = false;
   public double targetPosition;
   final double kP = 0.95;
   final double kI = 0;
   final double kD = 0;
   final double kF = 0;
   // Motors
-  public TalonFX serializerMotor;
+  private TalonFX serializerMotor;
   public TalonFXConfiguration FXConfig;
 
   // Current limit configuration
-  private StatorCurrentLimitConfiguration currentLimitConfigurationFeederMotors = new StatorCurrentLimitConfiguration();
+  private StatorCurrentLimitConfiguration currentLimitConfigurationSerializerMotor = new StatorCurrentLimitConfiguration();
 TalonFXConfiguration config = new TalonFXConfiguration();
   /**
-   * Creates a new Serializer+Feeder subsystem and sets up the motors to their corresponding
+   * Creates a new Serializer subsystem and sets up the motors to their corresponding
    * ports.
    */
-  public SerializerFeeder() {
+  public Serializer() {
   // The configuration, ramp rate, and inversion are set here as well as the ports.
-    serializerMotor = new TalonFX(Constants.SERIALIZING);
+    serializerMotor = new TalonFX(Constants.SERIALIZER);
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
     FXConfig = new TalonFXConfiguration();
     
     // Set up the current configuration
-    currentLimitConfigurationFeederMotors.currentLimit = 50;
-    currentLimitConfigurationFeederMotors.enable = true;
-    currentLimitConfigurationFeederMotors.triggerThresholdCurrent = 40;
-    currentLimitConfigurationFeederMotors.triggerThresholdTime = 3;
+    currentLimitConfigurationSerializerMotor.currentLimit = 50;
+    currentLimitConfigurationSerializerMotor.enable = true;
+    currentLimitConfigurationSerializerMotor.triggerThresholdCurrent = 40;
+    currentLimitConfigurationSerializerMotor.triggerThresholdTime = 3;
 
     // Set amperage limits
-    serializerMotor.configStatorCurrentLimit(currentLimitConfigurationFeederMotors, 0);
+    serializerMotor.configStatorCurrentLimit(currentLimitConfigurationSerializerMotor, 0);
 
-     /**
+     /*
       * This is where the Talon FX is configured
       * All of the PID values are configured here as well
       * as allowable error and the speed of the motor during the PID
@@ -77,54 +74,54 @@ TalonFXConfiguration config = new TalonFXConfiguration();
   @Override
   public void periodic() {
 
-    if (feederDebug) {
-      SmartDashboard.putNumber("CurrentPosisition", getFeederPosition());
+    if (serializerDebug) {
+      SmartDashboard.putNumber("CurrentPosisition", getSerializerPosition());
       SmartDashboard.putNumber("TargetPosition", targetPosition);
-      SmartDashboard.putNumber("Error", getFeederPosition() - targetPosition);
-      SmartDashboard.putNumber("Feeder Motor Speed", getFeederSpeed());
-      SmartDashboard.putNumber("Feeder Motor Temperature", getFeederTemperature());
+      SmartDashboard.putNumber("Error", getSerializerPosition() - targetPosition);
+      SmartDashboard.putNumber("Feeder Motor Speed", getSerializerSpeed());
+      SmartDashboard.putNumber("Feeder Motor Temperature", getSerializerTemperature());
     }
   }
 
   /**
-   * A method that sets the speed of the feeder motor
+   * A method that sets the speed of the serializer motor
    * @param speed Sets the speed of the motor as a value -1 through 1
    */
-  public void setFeederSpeed(double speed) {
-    // Sets the speed of the feeder motor
+  public void setSerializerSpeed(double speed) {
+    // Sets the speed of the serializer motor
     serializerMotor.set(ControlMode.PercentOutput, speed);
   }
 
   /**
    * @return speed
-   * Returns the speed of the motor 
+   * Returns the speed of the serializer motor 
    */
-  public double getFeederSpeed() {
+  public double getSerializerSpeed() {
     double speed = serializerMotor.getMotorOutputPercent();
     return speed;
   }
 
 /**
  * @return position
- * This returns the current position of the motor
+ * This returns the current position of the serializer motor
  */
-  public int getFeederPosition() {
+  public int getSerializerPosition() {
     int position = serializerMotor.getSelectedSensorPosition();
     return position;
   }
 
   /**
-   * Stops the feeder motors.
+   * Stops the serializer motors.
    */
-  public void stopFeeder() {
+  public void stopSerializer() {
     serializerMotor.set(ControlMode.PercentOutput, 0);
   }
 
   /**
    * @return temp
-   * Returns the temperature of the motor 
+   * Returns the temperature of the serializer motor 
    */
-  public double getFeederTemperature() { 
+  public double getSerializerTemperature() { 
     return serializerMotor.getTemperature();
   }
   /**
@@ -135,7 +132,7 @@ TalonFXConfiguration config = new TalonFXConfiguration();
    * creating the target position
    */
     public void positionShift(double position ) {
-      targetPosition = getFeederPosition()-position;
+      targetPosition = getSerializerPosition()-position;
     serializerMotor.set(ControlMode.Position, targetPosition);
 
     }
