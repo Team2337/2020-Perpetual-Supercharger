@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    */
 public class Vision extends SubsystemBase {
 
-   public Vision() {
+  public Vision() {
 
   }
 
@@ -26,7 +26,7 @@ public class Vision extends SubsystemBase {
      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
    }
 
-/**
+  /**
  * Gets the Limelight mode number from the NetworkTable
  * @return - returns the mode number from the NetworkTable 
  */
@@ -51,12 +51,18 @@ public class Vision extends SubsystemBase {
      * @param output - string double value
      * @return - returns the double value from the string for example from ta, tx, etc.
      */
-public double getDoubleValue(String output) {
-  return NetworkTableInstance.getDefault().getTable("limelight").getEntry(output).getDouble(0);
+  public double getDoubleValue(String output) {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry(output).getDouble(0);
 }
-public double getOpenSightValue(String output) {
-  return NetworkTableInstance.getDefault().getTable("PutNT").getEntry(circle).getDouble(double);
+public double getOpenSightCoordinateValue() {
+  return NetworkTableInstance.getDefault().getTable("PutCoordinate").getEntry("coord").getDouble(0);
+
 }
+public double getOpenSightNTValue() {
+  return NetworkTableInstance.getDefault().getTable("PutNT").getEntry("succ").getDouble(0);
+
+}
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
