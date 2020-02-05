@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.*;
@@ -171,7 +170,7 @@ public class Robot extends TimedRobot {
     // -------------------------------------------------------- //
     //////////////////////////////////////////////////////////////
     
-    Scheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("TTT", Timer.getFPGATimestamp() - a);
     a = Timer.getFPGATimestamp();
     b++;

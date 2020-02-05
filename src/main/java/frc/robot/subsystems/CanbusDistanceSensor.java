@@ -30,7 +30,7 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
   // LiveWindow color update MS maximum interval (milliseconds)
   protected final static int LIVE_WINDOW_UPDATE_INTERVAL = 50;
 
-  private static double lastDistance = 0;
+  private static double lastDistance = 0;//unused
   public static byte[] hwdata = new byte[8];
   private double serialNumber;
   private double partNumber;
@@ -148,9 +148,6 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
 
 
         temp[0] = extractValue(CANSendReceive.result, 1, 0);
-        // temp[0 ]= CANSendReceive.result[1]<<8;
-        // temp[1]= Byte.toUnsignedInt(CANSendReceive.result[0]);
-        // temp[0]+=temp[1];
         temp[1] = extractValue(CANSendReceive.result, 7, 4) / 65536;
         return temp;
       }
@@ -337,8 +334,8 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
     builder.addDoubleProperty("Part Number", () -> (double) partNumber, null);
     builder.addDoubleProperty("Firmware", () -> (double) firmWare, null);
 
-    // builder.addDoubleProperty("Distance MM", () -> getDistanceMM(), null);
-    // builder.addDoubleProperty("Distance Inch", () -> getDistanceMM() / 25.4, null);
+    builder.addDoubleProperty("Distance MM", () -> getDistanceMM(0)[0], null);
+    builder.addDoubleProperty("Distance Inch", () -> getDistanceMM(0)[0] / 25.4, null);
     // builder.addDoubleProperty("Ambient Light", () -> readQuality()[0], null);
     // builder.addDoubleProperty("Std Dev", () -> readQuality()[1], null);
 

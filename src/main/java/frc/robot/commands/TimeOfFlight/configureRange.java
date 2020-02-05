@@ -6,14 +6,14 @@ import frc.robot.subsystems.CanbusDistanceSensor;
 /**
  * Add your docs here.
  */
-public class ConfigureRange extends InstantCommand {
+public class configureRange extends InstantCommand {
   /**
    * Add your docs here.
    */
   private int myRange;
   private int myId;
 
-  public ConfigureRange(int id, int range) {
+  public configureRange(int id, int range) {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);

@@ -1,17 +1,17 @@
 package frc.robot.commands.TimeOfFlight;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.CanbusDistanceSensor;
 
-public class FindSensor extends Command {
+public class findSensor extends CommandBase {
   private int myStartId;
   private int foundId;
   private int currentId;
   private int highestId = 32;
   private int[] temp;
 
-  public FindSensor(int startId) {
+  public findSensor(int startId) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     myStartId = startId;
@@ -19,13 +19,13 @@ public class FindSensor extends Command {
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
     currentId = myStartId;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
 
     foundId = CanbusDistanceSensor.findSensor(currentId);
 
@@ -41,19 +41,13 @@ public class FindSensor extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return foundId != 999 || currentId > highestId;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
 
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
   }
 }

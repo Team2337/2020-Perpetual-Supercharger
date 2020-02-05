@@ -6,13 +6,13 @@ import frc.robot.subsystems.CanbusDistanceSensor;
 /**
  * Add your docs here.
  */
-public class ReadCalibration extends InstantCommand {
+public class readCalibration extends InstantCommand {
   /**
    * Add your docs here.
    */
   private int myId;
 
-  public ReadCalibration(int id) {
+  public readCalibration(int id) {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
