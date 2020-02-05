@@ -20,17 +20,12 @@ public class Robot extends TimedRobot {
   private double a;
   private int b;
 
-  public static int distanceSensorLoad = 0;
+  public static int tofsensor = 0;
   public static double loadSensorSerial;
   public static double loadSensorPart;
   public static double loadSensorFirmware;
-  public static byte[] hwdataLoad = new byte[8];
-
-  public static int distanceSensorRocket = 0;
-  public static double rocketSensorSerial;
-  public static double rocketSensorPart;
-  public static double rocketSensorFirmware;
-  public static byte[] hwdataRocket = new byte[8];
+  public static byte[] tofdata = new byte[8];
+  public static int[] temp;
   //End TOF Code
 
 
@@ -61,18 +56,12 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     //Time Of Flight sensor code
-    hwdataLoad = CanbusDistanceSensor.readHeartbeat(distanceSensorLoad);
-    int[] temp = CanbusDistanceSensor.getSensorInfo(hwdataLoad);
+    tofdata = CanbusDistanceSensor.readHeartbeat(tofsensor);
+    int[] temp = CanbusDistanceSensor.getSensorInfo(tofdata);
     loadSensorSerial = temp[0];
     loadSensorPart = temp[1];
     loadSensorFirmware = temp[2];
-    SmartDashboard.putNumber("LoadSerial", loadSensorSerial);
-    SmartDashboard.putNumber("LoadPart", loadSensorPart);
-    SmartDashboard.putNumber("LoadFirmware", loadSensorFirmware);
-    int temp1[] = CanbusDistanceSensor.readCalibrationState(distanceSensorLoad);
-    SD.putN("X", temp1[0]);
-    SD.putN("Y", temp1[1]);
-    SD.putN("Offset", temp1[2]);
+    CanbusDistanceSensor.configureRange(0,0);
     //End TOF Code
 
     
@@ -177,32 +166,21 @@ public class Robot extends TimedRobot {
     double[] temp = { 0, 0 };
     if (b >= 10) {
 
-      temp = CanbusDistanceSensor.getDistanceMM(distanceSensorLoad);
+      temp = CanbusDistanceSensor.getDistanceMM(tofsensor);
       if (temp[0] < 0) {
         SmartDashboard.putNumber("Read Error", temp[0]);
         // temp[0] = 0;
       }
-      SD.putN0("SigRate", temp[1]);
-
-      SD.putN0("DistMM", temp[0]);
-      SD.putN2("DistFt", temp[0] / 304.8);
-      temp = CanbusDistanceSensor.readQuality(distanceSensorLoad);
-      SD.putN0("AmbLight", temp[0]);
-      SD.putN0("StdDev", temp[1]);
-      double distR = CanbusDistanceSensor.getDistanceMM(distanceSensorRocket)[0];
+      temp = CanbusDistanceSensor.readQuality(tofsensor);
+      double distR = CanbusDistanceSensor.getDistanceMM(tofsensor)[0];
       if (distR < 0) {
         SmartDashboard.putNumber("Read Error", distR);
       distR = 0;
       }
-      SD.putN0("DistMM23", distR);
-      SD.putN2("DistFt23", distR / 304.8);
-      double tempR[] = CanbusDistanceSensor.readQuality(distanceSensorRocket);
-      SD.putN0("AmbLight23", tempR[0]);
-      SD.putN0("StdDev23", tempR[1]);
 
       b = 0;
     }
-      //End TOF Code
+    //End TOF Code
   }
 
   @Override

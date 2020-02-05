@@ -8,6 +8,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ * IMPORTANT INFORMATION ABOUT THE TIME OF FLIGHT SENSOR DATA
+ * ----------------------------------------------------------
+ * Field of view is 27 degrees
+ * 
+ * Short range can measure up to 1.3 meters away (error 20-25)
+ * 
+ * Long range up to 3.6 meters away in the dark
+ * DATA (Source: https://www.st.com/resource/en/datasheet/vl53l1x.pdf page 17):
+ * Light values measured in kilo counts per second (kcps)
+ * Range is calculated based on reflectivity, white 80% to gray 17%
+ *       Dark: 3.60-1.70 meter range (error 20)
+ *    50 kcps: 1.66-1.14 meter range (error 25)
+ *   200 kcps: 0.73-0.68 meter range (error 25)
+ */
+
+
+/**
  * Get important information and values and also put them on the dashboard
  */
 public class CanbusDistanceSensor extends SendableBase implements Sendable {
@@ -43,7 +60,6 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
   }
 
 
-
   //////////////////////////////////////////////
   // ---------------------------------------- //
   // --- HEARTBEAT INFORMATION EXTRACTION --- //
@@ -74,7 +90,6 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
     return hwdata;
   }
 
-
   /**
    * Extracts important information from the heartbeat
    * @param hwdata Data to get information from (readHeartbeat)
@@ -97,7 +112,6 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
     return temp;
   }
 
-
   /**
    * Finds if the sensor of a certain ID exists
    * @param id The ID of the sensor
@@ -113,7 +127,6 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
   }
 
 
-
   ///////////////////////////
   // --------------------- //
   // --- READ DISTANCE --- //
@@ -123,37 +136,64 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
   /**
    * Gets the distance in MM
    * @param id The ID of the sensor
-   * @return
+   * @return Returns an array with 2 items containing useful information.
+   * <ul>
+   * <li> 0 - Measurement in milimieters (divide by 25.4 for inches; 304.8 for feet)</li>
+   * <li> 1 - The signal return rate in mega counts per second.</li>
+   * </ul>
    */
   public static double[] getDistanceMM(int id) {
+    //Set up an array with 2 variables
     double[] temp = { 0, 0 };
+    //Retrieve the measured distance from the CAN device
     long read = CANSendReceive.readMessage(MEASURED_DISTANCE_MESSAGE, id);
 
+    //If the message retrieval failed:
     if (read == -1) {
-      //If the timestamp retrieval failed, just return the array with {0,0}
+      //Return nothing
       return temp;
+    //Otherwise:
     } else {
-      //Create a variable with the status of the robot
+      //Create a variable with the status of the CAN device
+      /**
+       * MEANINGS OF THE RESULTS:
+       *   0 - Measured distance is invalid
+       *   1 - Sigma estimator check is above internally defined threshold
+       *   2 - Return signal value is below the internal defined threshold
+       *   4 - Return signal phase is out of bounds
+       *   5 - Hardware failure
+       *   7 - Wrapped target, non-matching phases
+       *   8 - Internal algorithm underflow or overflow
+       *  14 - The measured distance is invalid
+       */
       int rangingStatus = Byte.toUnsignedInt(CANSendReceive.result[2]);
+      //If the status is not 0 (probably failure)
       if (rangingStatus != 0) {
+        //Set
         temp[0] = -rangingStatus;
         return temp;
       } else {
-        ///////////////////////
-        // --- IMPORTANT --- //
-        ///////////////////////
-        SmartDashboard.putNumber("D1",Byte.toUnsignedInt(CANSendReceive.result[1]));//Is this for another sensor?
-        SmartDashboard.putNumber("D0",Byte.toUnsignedInt(CANSendReceive.result[0]));//THIS IS THE INFORMATION WE WANT TO KEEP
-        //END IMPORTANT
+        //Retrieve the measurement in milimeters
+        SmartDashboard.putNumber("D1",Byte.toUnsignedInt(CANSendReceive.result[1]));
+        SmartDashboard.putNumber("D0",Byte.toUnsignedInt(CANSendReceive.result[0]));
 
-
+        //Extract the results in milimeters
         temp[0] = extractValue(CANSendReceive.result, 1, 0);
+        //Extract signal return rate in mega counts per second
+        //Value is multiplied by 65536, so it must be divided.
         temp[1] = extractValue(CANSendReceive.result, 7, 4) / 65536;
+
+        //Put the value to the SmartDashboard so that it makes sense
+        //(not from original code)
+        SmartDashboard.putNumber("Measurement MM", temp[0]);
+        SmartDashboard.putNumber("Measurement In", temp[0]/25.4);
+        SmartDashboard.putNumber("Measurement Ft", temp[0]/304.8);
+
+        //Return the value
         return temp;
       }
     }
   }
-
 
 
   //////////////////////////
@@ -172,16 +212,21 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
    * </ul>
    */
   public static double[] readQuality(int id) {
+    //Set up an array temp with 2 items
     double temp[] = { 0, 0 };
+    //Read the measurement quality from the CAN device
     long read = CANSendReceive.readMessage(MEASUREMENT_QUALITY_MESSAGE, id);
 
+    //If the read didn't retrieve nothing:
     if (read != -1) {
+      //NOTE: The data comes multiplied by 65536, so we divide this.
+      //Extract the ambient light in megacounts per second
       temp[0] = extractValue(CANSendReceive.result, 3, 0) / 65536;
+      //Extract the std deviation of the measured distance value (in mm)
       temp[1] = extractValue(CANSendReceive.result, 7, 4) / 65536;
     }
     return temp;
   }
-
 
 
   /////////////////////////////
@@ -201,51 +246,70 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
    * </ul>
    */
   public static int[] readCalibrationState(int id) {
+    //Set up the temp array with 7 items
     int temp[] = { 0, 0, 0, 0, 0, 0, 0 };
+    //Read the calibration state from the CAN device
     long read = CANSendReceive.readMessage(CALIBRATION_STATE_MESSAGE, id);
 
+    //If the read was not an error:
     if (read != -1) {
+      //Extract the range offset in milimeters
       temp[2] = extractValue(CANSendReceive.result, 2, 1);
-      // Reading bits 0-3 by excluding bits 4-7
+      //Extract the Y position
+      //Reading bits 0-3 by excluding bits 4-7
       temp[0] = CANSendReceive.result[0] & 0b00001111;
-      // Bit-shifting to read bits 4-7
+      //Extract the X position
+      //Bit-shifting to read bits 4-7
       temp[1] = CANSendReceive.result[0] >> 4;
     }
 
+    //Return the retrieved data
     return temp;
-
   }
 
-  // // Messages to device
+  // Messages to device
+  /**
+   * Configures the range of the sensor
+   * @param id ID of the sensor being set
+   * @param mode The mode (0-short; 1-medium; 2-long)
+   */
   public static void configureRange(int id, int mode) {
+    //Set up the byte array data with 3 items
     byte[] data = new byte[3];
+    //Set the interval variable to 100
     int interval = 100;
+    //Set item 0 in array data to the mode as a byte
     data[0] = (byte) mode;
 
+    //Set up interval using mode
     switch (mode) {
-    case 0:
-      interval = 100;
-      break;
-    case 1:// 150ms in 2 byte format
-      interval = 150;
-      break;
-    case 2:// 200ms in 2 byte format
-      interval = 200;
-      break;
-    default:
-      interval = 100;
-      break;
+      //Short range (up to 1.3 meters)
+      case 0:
+        interval = 100;
+        break;
+      //Medium range
+      case 1:// 150ms in 2 byte format
+        interval = 150;
+        break;
+      //Long range (up to 4 meters depending on lighting conditions)
+      case 2:// 200ms in 2 byte format
+        interval = 200;
+        break;
+      //Default range (short)
+      default:
+        interval = 100;
+        break;
     }
+
     ByteBuffer b = ByteBuffer.allocate(4);
     b.putInt(interval);
     byte[] result = b.array();
     data[1] = result[1];
     data[2] = result[2];
 
+    //Send information to the CAN device
     CANSendReceive.sendMessage(RANGING_CONFIGURATION_MESSAGE | id, data, 3, kSendMessagePeriod);
-
   }
-
 
 
   //////////////////////////////
@@ -259,11 +323,13 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
    * @param id The ID of the device
    */
   public static void identifyDevice(int id) {
+    //Set up the array hwdata with 8 values
     byte[] hwdata = new byte[8];
-
+    //Read the heartbeat data
     hwdata = readHeartbeat(id);
-
+    //Set the reversed data
     hwdata[0] = 0x0D;//13
+    //Send information to the CAN device
     CANSendReceive.sendMessage(DEVICE_CONFIGURATION_MESSAGE, hwdata, 6, kSendMessagePeriod);
   }
 
@@ -273,16 +339,21 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
    * @param newID Current ID of the device
    */
   public static void configureDevice(int oldID, int newID) {
+    //Set up the array hwdata with 8 values
     byte[] hwdata = new byte[8];
     if (newID >= 0 && newID < 33) {
+      //Read the heartbeat and set the information to hwdata
       hwdata = readHeartbeat(oldID);
+      //Translate the information into useful data
       getSensorInfo(hwdata);
+      //Set the reversed data
       hwdata[0] = 0x0C;
+      //Translate the newID into a byte
       hwdata[6] = (byte) newID;
+      //Send a message to the CAN device
       CANSendReceive.sendMessage(DEVICE_CONFIGURATION_MESSAGE, hwdata, 7, kSendMessagePeriod);
     }
   }
-
 
 
   ///////////////////////////
@@ -299,17 +370,27 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
    * @return An integer containing the specified range of bits in the byte strung together
    */
   public static int extractValue(byte[] src, int high, int low) {
+    /* --- CREATE VARIABLES --- */
+    //Integer that adds together values of a byte
     int temp = 0;
+    //A variable that temporarily stores information
     int temp1 = 0;
+    //A counting variable that could be set in the for loop it is used in but it wasn't
     int i = 0;
+
+    /* --- Add together byte data --- */
+    //Set the temp variable to the high bit
     temp = (src[high]);
+    //While i is less greater than the low value, add values to temp
     for (i = high - 1; i >= low; i--) {
+      //For each time the loop is run, set the temp1 variable to the bit value
       temp1 = Byte.toUnsignedInt(src[i]);
+      //Add the bit value to the temp variable
       temp = (temp * 256) + temp1;
     }
+    //Return the result
     return temp;
   }
-
 
 
   ///////////////////////////////////
