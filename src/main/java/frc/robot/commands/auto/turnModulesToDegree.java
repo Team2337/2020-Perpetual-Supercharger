@@ -14,9 +14,7 @@ public class turnModulesToDegree extends CommandBase {
   private final SwerveDrivetrain m_subsystem;
   /* --- Integers --- */
   private int desiredModuleAngle;
-  private int angleSetpoint[] = new int[4];
   /* --- Doubles --- */
-  private double moduleAngle;
   private double angleP;
 
 /**
@@ -29,34 +27,34 @@ public class turnModulesToDegree extends CommandBase {
     addRequirements(subsystem);
     /* --- Parameters Being Set to Global Variables --- */
     this.desiredModuleAngle = (int) (-moduleAngle * Swerve.TICKSPERDEGREE);
-    this.moduleAngle = moduleAngle;
   }
 
   /**
    * Sets the desired module angle in degrees with our set P value
    * @param subsystem - SwerveDrivetrain subsystem object
    * @param moduleAngle - The desired angle of the modules in degrees
-   * @param angleP - The P value we set to the angle motot
+   * @param angleP - The P value we set to the angle motor
    */
   public turnModulesToDegree(SwerveDrivetrain subsystem, double moduleAngle, double angleP) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
     /* --- Parameters Being Set to Global Variables --- */
     this.desiredModuleAngle = (int) (-moduleAngle * Swerve.TICKSPERDEGREE);
-    this.moduleAngle = moduleAngle;
     this.angleP = angleP;
   }
 
   @Override
   public void initialize() {
     for(int i = 0; i < 4; i++) {
-    // Goes through 4 times and sets the desired angle setpoint, sets the angle modules to our P value,
-    // and configures all our angle modules
-    //  this.angleSetpoint[i] = (int) (desiredModuleAngle - m_subsystem.getModule(i).getAngleEncoderValue());
-      desiredModuleAngle += m_subsystem.getAngleEncoderOffsets()[i];
-      m_subsystem.getModule(i).setAngleSetpoint(desiredModuleAngle); //angleSetpoint[i]
+    /*
+     * Goes through 4 times and sets the desired angle setpoint, sets the angle modules to our P value,
+     * and configures all our angle modules
+     */
+      
+      int wantedModuleAngle = desiredModuleAngle + m_subsystem.getAngleEncoderOffsets()[i];
+        m_subsystem.getModule(i).setAngleSetpoint(wantedModuleAngle);
       if (angleP > 0) {
-      m_subsystem.getModule(i).TalonFXConfigurationAngle.slot0.kP = angleP;
+        m_subsystem.getModule(i).TalonFXConfigurationAngle.slot0.kP = angleP;
       }
       m_subsystem.getModule(i).angleMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfigurationAngle);
     }

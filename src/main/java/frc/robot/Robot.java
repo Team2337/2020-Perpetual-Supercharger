@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator2Ball;
 import frc.robot.subsystems.*;
 
 /**
@@ -67,11 +68,10 @@ public class Robot extends TimedRobot {
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
     OI = new OI();
-    SwerveDrivetrain.zeroAllDriveEncoders();
-    SwerveDrivetrain.getModule(0).zeroDriveEncoder();
-
+    
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
+    m_autonomousCommand = new CenterGoalBack9BallGenerator2Ball();
   }
 
   /**
@@ -126,7 +126,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    SwerveDrivetrain.zeroAllDriveEncoders();
+    //SwerveDrivetrain.zeroAllDriveEncoders();
   }
 
   /**

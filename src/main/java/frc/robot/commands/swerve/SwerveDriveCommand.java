@@ -99,7 +99,7 @@ public class SwerveDriveCommand extends CommandBase {
       rotation = Robot.OperatorAngleAdjustment.calculateGyroOffset(error, rotation, kP);
     }
     // Pass on joystick values to be calculated into angles and speeds
-    System.out.println("forawrd: " + forward + " strafe: " + strafe+  " rotation: "+ rotation);
+    System.out.println("forward: " + forward + " strafe: " + strafe+  " rotation: "+ rotation);
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
   }
 

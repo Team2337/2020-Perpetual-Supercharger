@@ -44,6 +44,8 @@ public class FXSwerveModule {
      */
     private double allowableErrorDegree = 3;
 
+    private double autonAllowableErrorDegree = 0.5;
+
     /**
      * Proportional value for the drive motor speed
      * This is used to scale the error to a funcitonal speed for the motors
@@ -76,6 +78,7 @@ public class FXSwerveModule {
      * This is used to scale the error to a funcitonal speed for the motors
      */
     private double angleP = 0.75; //0.63
+    private double autoAngleP = 1.37;
 
     /**
      * Derivative value for the angle motor speed
@@ -137,6 +140,7 @@ public class FXSwerveModule {
     private double talonAngleI = 0;
     private double talonAngleD = 0;
     private double talonAngleF = 0;
+    private int angleEncoderOffset;
 
     /**
      * Swerve Module Object used to run the calculations for the swerve drive
@@ -151,11 +155,12 @@ public class FXSwerveModule {
      * @param angleMotorOffset - double value indicating the angle offset for the current module
      * @param analogAngleSensor - AnalogInput sensor Object with the Analog Port of the current module
      */
-    public FXSwerveModule(int moduleNumber, TalonFX driveMotor, TalonFX angleMotor, double angleMotorOffset, AnalogInput analogAngleSensor) {
+    public FXSwerveModule(int moduleNumber, TalonFX driveMotor, TalonFX angleMotor, double angleMotorOffset, int angleEncoderOffset, AnalogInput analogAngleSensor) {
         this.moduleNumber = moduleNumber;
         this.driveMotor = driveMotor;
         this.angleMotor = angleMotor;
         this.angleMotorOffset = angleMotorOffset;
+        this.angleEncoderOffset = angleEncoderOffset;
         this.analogAngleSensor = analogAngleSensor;
         TalonFXConfigurationDrive = new TalonFXConfiguration();
         TalonFXConfigurationAngle = new TalonFXConfiguration();
@@ -174,7 +179,7 @@ public class FXSwerveModule {
         /*****************************/
 
         angleMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
-        angleMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+        //angleMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
                 
         angleMotor.setNeutralMode(NeutralMode.Coast);
         angleMotor.configOpenloopRamp(0.1); 
@@ -186,6 +191,9 @@ public class FXSwerveModule {
         TalonFXConfigurationAngle.slot0.kD = talonAngleD;
         TalonFXConfigurationAngle.slot0.kF = talonAngleF;
         TalonFXConfigurationAngle.slot0.allowableClosedloopError = angleAllowableClosedloopError;
+        TalonFXConfigurationAngle.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
+        TalonFXConfigurationAngle.feedbackNotContinuous = true;
+        TalonFXConfigurationAngle.integratedSensorOffsetDegrees = angleEncoderOffset / 5.6888;
 
         angleMotor.configAllSettings(TalonFXConfigurationAngle);
 
@@ -332,7 +340,51 @@ public class FXSwerveModule {
         SmartDashboard.putNumber("Power Output" + moduleNumber, errorRad*angleP);
     }
 
-    
+    public void setAutonModuleAngle(double targetAngle) {
+        /* --- Local Variables --- */
+        double errorRad;
+        double currentAngle = getNormalizedAnalogVoltageRadians();
+
+        SmartDashboard.putNumber("CurrentAngle " + moduleNumber, getNormalizedAnalogVoltageRadians());
+
+        // Adds angle offset to target angle
+        targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
+
+        // Calculates error
+        errorRad = (currentAngle - targetAngle + (2*Math.PI)) % (2*Math.PI);
+        // Sets error to error deadband
+        //errorRad = Math.abs(errorRad) < Math.toRadians(autonAllowableErrorDegree) ? 0 : errorRad;
+
+        // Puts error behind current position if greater than PI
+        if (errorRad > Math.PI) {
+            errorRad -= (Math.PI*2);
+        } 
+        
+        // Makes decsion on whether or not to invert drive motors
+        if (errorRad > Math.PI/2 || errorRad < -Math.PI/2) {
+            driveMotor.setInverted(true);
+        } else {
+            driveMotor.setInverted(false);
+        }
+
+        // Converts the error to be in terms of quadrents and removes edge cases
+        if(errorRad > Math.PI/2 && errorRad < Math.PI) {
+            errorRad -= Math.PI;
+        } else if(errorRad < -Math.PI/2 && errorRad > -Math.PI) {
+            errorRad += Math.PI;
+        }
+
+        // Calculates the speed of the angle motor using a derivative
+        double d = Robot.Utilities.calculateDerivative(errorRad, lastError, 0.02);
+        lastError = errorRad;
+        double speed = (errorRad * autoAngleP); //+ (d * angleD);
+        if (Math.abs(speed) < 0.05) {
+            speed = Math.copySign(0.05, speed);
+        }
+        setAngleMotorSpeed(speed);
+        SmartDashboard.putNumber("ErrorRad2 " + moduleNumber, errorRad);
+        SmartDashboard.putNumber("Power Output2" + moduleNumber, errorRad*autoAngleP);
+    }
     /**
      * Sets the speed of the module angle motor
      * @param speed - double value to set the speed to the angle motor (-1 -> 1)
@@ -351,6 +403,11 @@ public class FXSwerveModule {
 
     public void setAngleEncoder(int position) {
         angleMotor.setSelectedSensorPosition(position, 0, 0);
+    }
+
+    public void setAngleOffset(int offset) {
+        TalonFXConfigurationAngle.integratedSensorOffsetDegrees = offset;
+        angleMotor.configAllSettings(TalonFXConfigurationAngle);
     }
 
     /*************************/
