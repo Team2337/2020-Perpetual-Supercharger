@@ -1,24 +1,24 @@
-package frc.robot.commands.Intake;
+package frc.robot.commands.Agitator;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Agitator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the intake speed
+ * Sets the agitator speed
  * @author Michael Francis
  */
-public class setIntakeSpeed extends CommandBase {
+public class setAgitatorSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Intake subsystem;
-  /** Intake motor speed */
+  private final Agitator subsystem;
+  /** Agitator motor speed */
   private double speed;
 
   /**
-   * Sets the intake speed to a given percent
-   * @param m_subsystem The subsystem used by this command. (Intake)
-   * @param m_speed A double number that sets the speed of the left intake motor
+   * Sets the agitator speed to a given percent
+   * @param m_subsystem The subsystem used by this command. (agitator)
+   * @param m_speed A double number that sets the speed of the left agitator motor
    */
-  public setIntakeSpeed(Intake m_subsystem, double m_speed) {
+  public setAgitatorSpeed(Agitator m_subsystem, double m_speed) {
     subsystem = m_subsystem;
     speed = m_speed;
     
@@ -29,8 +29,8 @@ public class setIntakeSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will set the intake to run at a set speed
-    subsystem.setIntakeSpeed(speed);
+    // This will set the agitator to run at a set speed
+    subsystem.setAgitatorSpeed(speed);
   }
 
   @Override
@@ -40,8 +40,8 @@ public class setIntakeSpeed extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops the intake
-    subsystem.stopIntake();
+    // Stops the agitator
+    subsystem.stopAgitator();
   }
 
   @Override

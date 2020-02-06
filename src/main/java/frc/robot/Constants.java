@@ -19,11 +19,11 @@ public final class Constants {
     public static int MODULE2ANGLEMOTORID = 6;
     public static int MODULE3DRIVEMOTORID = 7;
     public static int MODULE3ANGLEMOTORID = 8;
-    public static int LEFTINTAKE = 9;
-    public static int RIGHTINTAKE = 10;
-    public static int LEFTFEEDER = 11;
-    public static int RIGHTFEEDER = 12;
-    public static int CANID13 = 13;
+    public static int INTAKE = 9;
+    public static int AGITATOR = 10;
+    public static int CLIMBER = 11;
+    public static int CONTROLPANELSPINNER = 12;
+    public static int SERIALIZER = 13;
     public static int CANID14 = 14;
     public static int CANID15 = 15;
 

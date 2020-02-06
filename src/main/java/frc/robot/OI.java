@@ -25,9 +25,9 @@ public class OI {
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
-        operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
+        operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
+        operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4));
 
         /* --- DRIVER STATION CONTROLS --- */
 
