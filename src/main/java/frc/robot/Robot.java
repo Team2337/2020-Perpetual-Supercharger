@@ -19,6 +19,7 @@ public class Robot extends TimedRobot {
   public static Constants Constants;
   public static Utilities Utilities;
 
+  public static AirCompressor AirCompressor;
   public static Climber Climber;
   public static ClimberExtender ClimberExtender;
   public static ControlPanelSpinner ControlPanelSpinner;
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
     Utilities = new Utilities();
 
     /* --- Subsystems --- */
+    AirCompressor = new AirCompressor();
     Climber = new Climber();
     ClimberExtender = new ClimberExtender();
     ControlPanelSpinner = new ControlPanelSpinner();
