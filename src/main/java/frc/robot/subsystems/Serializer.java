@@ -34,6 +34,10 @@ public class Serializer extends SubsystemBase {
    */
   public Serializer() {
     serializerMotor = new TalonFX(Constants.CONTROLPANELSPINNER);
+
+    //Reset the motor to its factory settings each boot
+    serializerMotor.configFactoryDefault();
+
     serializerMotor.setInverted(false);
 
     //Sets up current limits on variables

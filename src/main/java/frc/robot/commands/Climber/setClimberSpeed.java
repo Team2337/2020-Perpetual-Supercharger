@@ -16,7 +16,7 @@ public class setClimberSpeed extends CommandBase {
   /**
    * Sets the climber speed to a given percent
    * @param m_subsystem The subsystem used by this command. (climber)
-   * @param m_speed A double number that sets the speed of the left climber motor
+   * @param m_speed A double number that sets the speed of the climber motor
    */
   public setClimberSpeed(Climber m_subsystem, double m_speed) {
     subsystem = m_subsystem;

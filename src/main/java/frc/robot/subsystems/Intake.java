@@ -32,6 +32,10 @@ public class Intake extends SubsystemBase {
    */
   public Intake() {
     intakeMotor = new TalonFX(Constants.INTAKE);
+
+    //Reset the motor to its factory settings each boot
+    intakeMotor.configFactoryDefault();
+
     intakeMotor.setInverted(false);
 
     //Sets up current limits on variables

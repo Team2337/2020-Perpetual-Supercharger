@@ -18,6 +18,7 @@ public class Robot extends TimedRobot {
   public static Constants Constants;
   public static Utilities Utilities;
 
+  public static Agitator Agitator;
   public static Climber Climber;
   public static ControlPanelSpinner ControlPanelSpinner;
   public static Serializer Serializer;
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
     Utilities = new Utilities();
 
     /* --- Subsystems --- */
+    Agitator = new Agitator();
     Climber = new Climber();
     ControlPanelSpinner = new ControlPanelSpinner();
     Serializer = new Serializer();

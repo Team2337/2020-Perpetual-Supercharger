@@ -32,6 +32,10 @@ public class Agitator extends SubsystemBase {
    */
   public Agitator() {
     agitatorMotor = new TalonFX(Constants.AGITATOR);
+
+    //Reset the motor to its factory settings each boot
+    agitatorMotor.configFactoryDefault();
+
     agitatorMotor.setInverted(false);
 
     //Sets up current limits on variables

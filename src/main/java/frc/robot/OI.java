@@ -1,6 +1,8 @@
 package frc.robot;
 
 import frc.robot.commands.swerve.*;
+import frc.robot.commands.Agitator.*;
+import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
@@ -28,6 +30,13 @@ public class OI {
         operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4));
+
+        operatorJoystick.yellowY     .whenPressed(new setAgitatorSpeed(Robot.Agitator, 0.4));
+        operatorJoystick.yellowY     .whenReleased(new stopAgitatorMotors(Robot.Agitator));
+
+        operatorJoystick.blueX       .whenPressed(new setClimberSpeed(Robot.Climber, 0.4));
+        operatorJoystick.blueX       .whenReleased(new stopClimberMotors(Robot.Climber));
+
 
         /* --- DRIVER STATION CONTROLS --- */
 
