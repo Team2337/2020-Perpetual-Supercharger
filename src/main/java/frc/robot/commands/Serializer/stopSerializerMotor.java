@@ -1,6 +1,6 @@
 package frc.robot.commands.Serializer;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Serializer;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
@@ -26,7 +26,7 @@ public class stopSerializerMotor extends InstantCommand {
   @Override
   public void initialize() {
     // This will stop the intake
-    m_subsystem.stopIntake();
+    m_subsystem.stopSerializer();
   }
 
   // Called once the command ends or is interrupted.

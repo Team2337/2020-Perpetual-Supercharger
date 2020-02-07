@@ -18,15 +18,19 @@ import frc.robot.Constants;
 public class Serializer extends SubsystemBase {
   /**
    * Specifies whether or not the Serializer will be in debug mode.
-   * Also sets up posistion stuff (referenced later)
    * @see #periodic()
    */
   public final boolean serializerDebug = false;
+  // Sets up posistion stuff (referenced later)
   public double targetPosition;
   final double kP = 0.95;
   final double kI = 0;
   final double kD = 0;
   final double kF = 0;
+
+  //Variables
+  final double tolerance = 5;
+
   // Motors
   private TalonFX serializerMotor;
   private TalonFX agitatorMotor;
@@ -99,7 +103,10 @@ public class Serializer extends SubsystemBase {
     // Sets the speed of the serializer motor
     serializerMotor.set(ControlMode.PercentOutput, speed);
   }
-
+   /**
+   * A method that sets the speed of the agitator motor
+   * @param speed Sets the speed of the motor as a value -1 through 1
+   */
   public void setAgitatorSpeed(double speed) {
     // Sets the speed of the agitator motor
     agitatorMotor.set(ControlMode.PercentOutput, speed);
@@ -128,7 +135,9 @@ public class Serializer extends SubsystemBase {
   public void stopSerializer() {
     serializerMotor.set(ControlMode.PercentOutput, 0);
   }
-// Stops the agitator motor
+/**
+ * Stops the agitator motor
+ */ 
   public void stopAgitator() {
     agitatorMotor.set(ControlMode.PercentOutput, 0);
   }
@@ -152,4 +161,8 @@ public class Serializer extends SubsystemBase {
     serializerMotor.set(ControlMode.Position, targetPosition);
 
     }
+    public boolean isAtPosition(double target){
+    return Math.abs(target - getSerializerPosition()) < tolerance;
+    }
+    
 }
