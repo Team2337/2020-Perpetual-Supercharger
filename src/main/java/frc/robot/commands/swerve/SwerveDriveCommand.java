@@ -113,6 +113,9 @@ public class SwerveDriveCommand extends CommandBase {
       rotation = Robot.OperatorAngleAdjustment.calculateGyroOffset(error, rotation, kP);
       // System.out.println("rotation4" + rotation);
     }
+    if (Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
+      rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * 0.85);
+    }
     // Pass on joystick values to be calculated into angles and speeds
     // System.out.println("forawrd: " + forward + " strafe: " + strafe+  " rotation: "+ rotation);
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);

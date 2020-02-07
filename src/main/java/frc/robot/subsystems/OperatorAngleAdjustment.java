@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
 public class OperatorAngleAdjustment extends SubsystemBase {
   /**
@@ -22,6 +23,8 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    public double futureOffsetAngle;
    public boolean isFieldOrientend;
    public boolean isChangingGyroAngle;
+   public boolean limelightRotationMode;
+   public String mode;
 
   public OperatorAngleAdjustment() {
     gyroOffset = 0;
@@ -32,6 +35,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   }
 
   public void setFutureOffsetAngle(String mode) {
+    this.mode = mode;
     switch(mode) {
       case "farShot": 
       futureOffsetAngle = farShot;
@@ -42,8 +46,17 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       case "climbing":
       futureOffsetAngle = climbing;
       break;
+      case "targetLimelightOn":
+      Robot.Vision.setRotateLimelight(true);
+      break;
+      case "targetLimelightOff":
+      futureOffsetAngle = -Robot.Vision.getDoubleValue("tx");
+      break;
+      case "targetLimelightWithForward":
+      break;
       default:
       futureOffsetAngle = 0;
+      Robot.Vision.setRotateLimelight(false);
     }
   }
 
@@ -75,6 +88,18 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     }
     rotation = error * kP;
     return (Math.abs(rotation) > 0.6) ? Math.copySign(0.6, rotation) : rotation;
+  }
+
+  public void setLimelightRotationMode(boolean limelightRotationMode) {
+    this.limelightRotationMode = limelightRotationMode;
+  }
+
+  public boolean getLimelightRotationMode() {
+    return limelightRotationMode;
+  }
+
+  public String getMode() {
+    return mode;
   }
 
   @Override

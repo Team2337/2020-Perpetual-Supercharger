@@ -38,10 +38,25 @@ public class ChangeGyroAngleOffset extends InstantCommand {
   public void initialize() {
     Robot.OperatorAngleAdjustment.setOffsetAngle(Robot.OperatorAngleAdjustment.getGyroAngleOffset());
     Robot.OperatorAngleAdjustment.setIsChangingGyroAngle(isRotating);
+    if (Robot.Vision.getRotateLimelight() && isRotating) {
+      Robot.Vision.setLEDMode(3);
+      Robot.OperatorAngleAdjustment.setLimelightRotationMode(true);
+    } else {
+      Robot.Vision.setLEDMode(0);
+      Robot.OperatorAngleAdjustment.setLimelightRotationMode(false);
+    }
+
+    if (!isRotating) {
+      if (Robot.OperatorAngleAdjustment.getMode().equals("targetLimelightOn")) {
+        Robot.OperatorAngleAdjustment.setFutureOffsetAngle("targetLimelightOff");
+        Robot.OperatorAngleAdjustment.setLimelightRotationMode(false);
+      }
+    }
   }
 
   @Override
   public void end(boolean interrupted) {
+    Robot.Vision.setLEDMode(0);
   }
 
 }

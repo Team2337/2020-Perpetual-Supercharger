@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import java.util.function.BooleanSupplier;
@@ -238,16 +231,16 @@ public class SwerveDrivetrain extends SubsystemBase {
       // Sets the angles and speeds if a joystick is beyond zero,
       // otherwise drive stops and the modules are sent to their last angle
       if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband) {
-        SmartDashboard.putNumberArray("Angles", angles);
+      //  SmartDashboard.putNumberArray("Angles", angles);
         lastAngle = angles[i];
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {
-       // getModule(i).setModuleAngle(lastAngle);
+        getModule(i).setModuleAngle(lastAngle);
         getModule(i).setDriveSpeed(0);
       }
       //Sets the drive speed for each drive motor
-      SmartDashboard.putNumberArray("Drive Speeds", speeds);
+     //SmartDashboard.putNumberArray("Drive Speeds", speeds);
     }
   }
 
