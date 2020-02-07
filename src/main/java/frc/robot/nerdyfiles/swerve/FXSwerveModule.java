@@ -32,7 +32,7 @@ public class FXSwerveModule {
     
     /**
      * The error of the previous iteration of the angle calculations
-     * This is requred in order to find the D (derivative) value for 
+     * This is required in order to find the D (derivative) value for 
      * the speed calculations
      */
     private double lastError = 0;
@@ -209,6 +209,10 @@ public class FXSwerveModule {
         driveMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 
         /* --- Drive PID --- */
+       // driveMotor.config_kP(0, driveP, 30);
+        // driveMotor.config_kI(0, driveI, 30);
+        // driveMotor.config_kD(0, driveD, 30);
+        // driveMotor.config_kF(0, driveF, 30);
         driveMotor.setSensorPhase(isDriveSensorPhaseInverted);
         driveMotor.setInverted(isDriveSensorPhaseInverted);
         driveMotor.configClosedLoopPeakOutput(0, 1, 30);
@@ -423,7 +427,7 @@ public class FXSwerveModule {
     public void setDriveInverted(boolean isDriveInverted) {
         this.isDriveInverted = isDriveInverted;
     }
-
+    
     /**
      * Sets the drive sensors to be inverted 
      * @param isDriveSensorPhaseInverted - The drive sensors are inverted

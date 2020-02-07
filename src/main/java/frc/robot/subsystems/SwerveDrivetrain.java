@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,6 +31,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   // Sets the distances from module to module 
   public static final double WHEELBASE = 22.5;  
   public static final double TRACKWIDTH = 23.5; 
+  public static final double RADIUS = Math.sqrt(Math.pow(WHEELBASE, 2) + Math.pow(TRACKWIDTH, 2));
 
   // Length and width of the robot
   public static final double WIDTH = 29;  
@@ -39,6 +42,9 @@ public class SwerveDrivetrain extends SubsystemBase {
   private double lastAngle;
   private double averageDriveEncoderDistanceValue = 0;
   private double kP = 1;
+  private double total;
+  private double average;
+  private double iteration;
 
   /**
    * Offsets the current gyro position to allow for 
@@ -67,6 +73,16 @@ public class SwerveDrivetrain extends SubsystemBase {
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
+
+  public boolean fineRotateOn = false;
+  public BooleanSupplier fineRotation = new BooleanSupplier(){
+  
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return fineRotateOn;
+    }
+  };
 
   /**
    * Array for swerve module Analog sensors, sorted by AnalogInput ports
@@ -103,7 +119,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     angleOffsets = new double[] {
       4.5611,  // Module 0 //4.57
       1.278353,   // Module 1 //1.3
-      -0.678327, // Module 2 //-0.6
+      -0.666697, // Module 2 //-0.678327
       -5.90436  // Module 3 -5.95
     };
 
@@ -347,12 +363,12 @@ public class SwerveDrivetrain extends SubsystemBase {
     // Goes through 4 times and sets the setpoint for the modules
     for(int i = 0; i < 4; i++) {
       getModule(i).setDriveSetpoint(setpoint);
+    }
   }
-}
 
-/**
- * Sets break mode on drive modules
- */
+ /**
+  * Sets break mode on drive modules
+  */
   public void setAllModuleBreakMode() {
     // Goes through 4 times and sets break mode for each module
     for(int i = 0; i < 4; i++) {
@@ -375,6 +391,16 @@ public class SwerveDrivetrain extends SubsystemBase {
       averageVelocity += getModule(i).driveMotor.getSelectedSensorVelocity(0);
     }
     return averageVelocity / 4;
+  }
+
+  public double getAverageAnalogValueInRadians(int module) {
+    if(iteration < 200) {
+      total += getModule(module).getNormalizedAnalogVoltageRadians();
+      iteration++;
+    } 
+    average = total / iteration;
+    System.out.println("iteration: " + iteration + " average: " + average);
+    return average;
   }
 
 

@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+//Used for calibration
 import com.ctre.phoenix.sensors.PigeonIMUConfiguration;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 
@@ -11,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * Gyro class for CTRE Pigeon Gyro
  * @category CHASSIS
  * @author Team2337 - EngiNERDs
- * Must be initiated after RobotMap
+ * Must be initiated after Subsystems
  */
 public class Pigeon extends SubsystemBase {
 

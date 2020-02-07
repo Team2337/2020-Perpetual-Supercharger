@@ -36,6 +36,13 @@ public class SwerveDriveCommand extends CommandBase {
   private double lastAngle;
   private double lastRotation;
   private double rotationDeadband = 0.1;
+  private double lastError;
+  private double rotationVelocity;
+  private double velocityDeadband = 1;
+  private double lastVelocity;
+  
+  private double stationaryP = 0.015;
+  private double movingP = 0.007;
 
   /**
    * Command running the swerve calculations with the joystick
@@ -70,13 +77,12 @@ public class SwerveDriveCommand extends CommandBase {
     SmartDashboard.putNumber("Rotation", rotation);
 
     if (Math.abs(rotation) > rotationDeadband) {
-      // stoppedRotating = false;
       //lastAngle = Robot.Utilities.getYawMod();
       lastRotation = rotation;
     } else {
       if (Math.abs(lastRotation) > rotationDeadband && Math.abs(rotation) <= rotationDeadband) {
         // stoppedRotating = true;
-        System.out.println("fdijkfdisjiffdsjkhnserdtcyuvbiokoiuuies" + -Robot.Utilities.getYawMod());
+        // System.out.println("fdijkfdisjiffdsjkhnserdtcyuvbiokoiuuies" + -Robot.Utilities.getYawMod());
         Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod());
         rotation = 0;
         lastRotation = rotation;
@@ -96,10 +102,19 @@ public class SwerveDriveCommand extends CommandBase {
       }
       error = Robot.OperatorAngleAdjustment.getGyroAngleOffset() + Robot.Utilities.getYawMod();
       // System.out.println("error: " + error + " offsetAngle: " + Robot.OperatorAngleAdjustment.getGyroAngleOffset());
+      kP = forward == 0 && strafe == 0 ? stationaryP : movingP;
+      // System.out.println("error: " + error + " rotation: " + rotation);
+      if(error > 180) {
+        error -= 360;
+      } else if(error < -180) {
+        error += 360;
+      }
+      // System.out.println("error: " + error + " rotation: " + rotation + " offsetangle: " + Robot.OperatorAngleAdjustment.getGyroAngleOffset());
       rotation = Robot.OperatorAngleAdjustment.calculateGyroOffset(error, rotation, kP);
+      // System.out.println("rotation4" + rotation);
     }
     // Pass on joystick values to be calculated into angles and speeds
-    System.out.println("forward: " + forward + " strafe: " + strafe+  " rotation: "+ rotation);
+    // System.out.println("forawrd: " + forward + " strafe: " + strafe+  " rotation: "+ rotation);
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
   }
 

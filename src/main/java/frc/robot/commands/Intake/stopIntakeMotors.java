@@ -1,22 +1,23 @@
-package frc.robot.commands;
+package frc.robot.commands.Intake;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * An example command that uses an example subsystem.
+ * Stops the intake motors.
+ * @author Michael Francis
  */
-public class ExampleCommand extends CommandBase {
+public class stopIntakeMotors extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  private final Intake m_subsystem;
 
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
+   * Stops the intake motors.
+   * @param subsystem The subsystem used by this command. (Intake)
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
+  public stopIntakeMotors(Intake subsystem) {
     m_subsystem = subsystem;
+    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -24,6 +25,8 @@ public class ExampleCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // This will stop the intake
+    m_subsystem.stopIntake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,6 +42,6 @@ public class ExampleCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
