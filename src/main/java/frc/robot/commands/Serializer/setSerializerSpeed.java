@@ -37,7 +37,6 @@ public class setSerializerSpeed extends InstantCommand {
   @Override
   public void end(boolean interrupted) {
     // Stops the serializer
-    subsystem.stopSerializer();
   }
   
 }

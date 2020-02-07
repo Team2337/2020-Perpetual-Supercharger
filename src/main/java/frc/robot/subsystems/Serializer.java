@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
@@ -20,7 +21,7 @@ public class Serializer extends SubsystemBase {
    * Specifies whether or not the Serializer will be in debug mode.
    * @see #periodic()
    */
-  public final boolean serializerDebug = false;
+  public final boolean serializerDebug = true;
   // Sets up posistion stuff (referenced later)
   public double targetPosition;
   final double kP = 0.95;
@@ -33,7 +34,6 @@ public class Serializer extends SubsystemBase {
 
   // Motors
   private TalonFX serializerMotor;
-  private TalonFX agitatorMotor;
   public TalonFXConfiguration FXConfig;
 
   // Current limit configuration
@@ -52,9 +52,6 @@ public class Serializer extends SubsystemBase {
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
     FXConfig = new TalonFXConfiguration();
- // Agitator Motor Setup
-    agitatorMotor = new TalonFX(Constants.AGITATORMOTOR);
-    agitatorMotor.setInverted(false);
     
     // Set up the current configuration
     currentLimitConfigurationSerializerMotor.currentLimit = 50;
@@ -78,9 +75,10 @@ public class Serializer extends SubsystemBase {
      FXConfig.slot0.kF = kF;
      FXConfig.slot0.allowableClosedloopError = (5);
      FXConfig.peakOutputForward = (0.1);
+     FXConfig.peakOutputReverse = (-0.1);
+     serializerMotor.setNeutralMode(NeutralMode.Brake);
      serializerMotor.configAllSettings(FXConfig);
-     agitatorMotor.configAllSettings(FXConfig);
-
+     
   }
 
   @Override
@@ -98,19 +96,13 @@ public class Serializer extends SubsystemBase {
   /**
    * A method that sets the speed of the serializer motor
    * @param speed Sets the speed of the motor as a value -1 through 1
+   * Positive numbers go up
    */
   public void setSerializerSpeed(double speed) {
     // Sets the speed of the serializer motor
     serializerMotor.set(ControlMode.PercentOutput, speed);
   }
-   /**
-   * A method that sets the speed of the agitator motor
-   * @param speed Sets the speed of the motor as a value -1 through 1
-   */
-  public void setAgitatorSpeed(double speed) {
-    // Sets the speed of the agitator motor
-    agitatorMotor.set(ControlMode.PercentOutput, speed);
-  }
+
   /**
    * @return speed
    * Returns the speed of the serializer motor 
@@ -135,12 +127,7 @@ public class Serializer extends SubsystemBase {
   public void stopSerializer() {
     serializerMotor.set(ControlMode.PercentOutput, 0);
   }
-/**
- * Stops the agitator motor
- */ 
-  public void stopAgitator() {
-    agitatorMotor.set(ControlMode.PercentOutput, 0);
-  }
+
 
   /**
    * @return temp
@@ -156,13 +143,11 @@ public class Serializer extends SubsystemBase {
    * This is found by subtracting the position of the motor by the amount to shift by,
    * creating the target position
    */
-    public void positionShift(double position ) {
-      targetPosition = getSerializerPosition()-position;
+    public void setPosition(double position ) {
+      targetPosition = position;
     serializerMotor.set(ControlMode.Position, targetPosition);
 
     }
-    public boolean isAtPosition(double target){
-    return Math.abs(target - getSerializerPosition()) < tolerance;
-    }
     
 }
+    
