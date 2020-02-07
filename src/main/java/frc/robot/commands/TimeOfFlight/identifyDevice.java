@@ -1,29 +1,23 @@
 package frc.robot.commands.TimeOfFlight;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.CanbusDistanceSensor;
+import frc.robot.subsystems.TimeOfFlight;
 
 /**
- * Add your docs here.
+ * Identifies the device by reading the sensor info and checking to make sure that it is correct
  */
 public class identifyDevice extends InstantCommand {
   /**
-   * Add your docs here.
+   * Identifies the device by reading the sensor info and checking to make sure that it is correct
    */
-  private int myDeviceNumber;
+  public identifyDevice() {
 
-  public identifyDevice(int deviceNumber) {
-    super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-
-    myDeviceNumber = deviceNumber;
   }
 
   // Called once when the command executes
   @Override
   public void initialize() {
-    CanbusDistanceSensor.identifyDevice(myDeviceNumber);
+    TimeOfFlight.identifyDevice();
   }
 
 }

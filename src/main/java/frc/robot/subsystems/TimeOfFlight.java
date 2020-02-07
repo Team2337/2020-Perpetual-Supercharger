@@ -3,31 +3,19 @@ package frc.robot.subsystems;
 import java.nio.ByteBuffer;
 
 import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.SendableBase;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-/**
- * IMPORTANT INFORMATION ABOUT THE TIME OF FLIGHT SENSOR DATA
- * ----------------------------------------------------------
- * Field of view is 27 degrees
- * 
- * Short range can measure up to 1.3 meters away (error 20-25)
- * 
- * Long range up to 3.6 meters away in the dark
- * DATA (Source: https://www.st.com/resource/en/datasheet/vl53l1x.pdf page 17):
- * Light values measured in kilo counts per second (kcps)
- * Range is calculated based on reflectivity, white 80% to gray 17%
- *       Dark: 3.60-1.70 meter range (error 20)
- *    50 kcps: 1.66-1.14 meter range (error 25)
- *   200 kcps: 0.73-0.68 meter range (error 25)
- */
+
 
 
 /**
- * Get important information and values and also put them on the dashboard
+ * Read values off of the Time of Flight sensor feedback
  */
-public class CanbusDistanceSensor extends SendableBase implements Sendable {
+public class TimeOfFlight extends SubsystemBase implements Sendable {
 
 
   //////////////////////////////////
@@ -47,16 +35,69 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
   // LiveWindow color update MS maximum interval (milliseconds)
   protected final static int LIVE_WINDOW_UPDATE_INTERVAL = 50;
 
-  private static double lastDistance = 0;//unused
   public static byte[] hwdata = new byte[8];
   private double serialNumber;
   private double partNumber;
   private double firmWare;
 
-  public CanbusDistanceSensor() {
+  private static int deviceID = 0;
 
-    // LiveWindow.add(this);
+  /**
+   * Specifies whether or not the Time of Flight will be in debug mode.
+   * During debug mode, it will put measurements on the SmartDashboard.
+   */
+  private static boolean tofDebug = false;
 
+  private double a;
+  private int b;
+
+  public static double loadSensorSerial;
+  public static double loadSensorPart;
+  public static double loadSensorFirmware;
+  public static byte[] tofdata = new byte[8];
+  public static int[] temp;
+
+
+  public TimeOfFlight() {
+
+    tofdata = TimeOfFlight.readHeartbeat();
+    int[] temp = TimeOfFlight.getSensorInfo(tofdata);
+    loadSensorSerial = temp[0];
+    loadSensorPart = temp[1];
+    loadSensorFirmware = temp[2];
+    TimeOfFlight.configureRange(0);
+
+  }
+
+  @Override
+  public void periodic() {
+    //////////////////////////////////////////////////////////////
+    // -------------------------------------------------------- //
+    // --- PUT TIMEOFFLIGHT SENSOR VALUES ON SMARTDASHBOARD --- //
+    // -------------------------------------------------------- //
+    //////////////////////////////////////////////////////////////
+    
+    CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("TTT", Timer.getFPGATimestamp() - a);
+    a = Timer.getFPGATimestamp();
+    b++;
+    double[] temp = { 0, 0 };
+    if (b >= 10) {
+
+      temp = TimeOfFlight.getDistanceMM();
+      if (temp[0] < 0) {
+        SmartDashboard.putNumber("Read Error", temp[0]);
+        // temp[0] = 0;
+      }
+      temp = TimeOfFlight.readQuality();
+      double distR = TimeOfFlight.getDistanceMM()[0];
+      if (distR < 0) {
+        SmartDashboard.putNumber("Read Error", distR);
+      distR = 0;
+      }
+
+      b = 0;
+    }
   }
 
 
@@ -78,12 +119,13 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
    * <li> 6-7 = Firmware version         </li>
    * </ul>
    */
-  public static byte[] readHeartbeat(int id) {
+  public static byte[] readHeartbeat() {
 
     // Reads the bytes given by the sensor.
     // If the read failed to retrieve data, do not update the results.
-    long read = CANSendReceive.readMessage(HEARTBEAT_MESSAGE, id);
+    long read = CANSendReceive.readMessage(HEARTBEAT_MESSAGE, deviceID);
     if (read != -1){
+      //If it is -1, it did not get a reading and will keep the last result.
       hwdata = CANSendReceive.result;
     }
 
@@ -115,12 +157,12 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
   /**
    * Finds if the sensor of a certain ID exists
    * @param id The ID of the sensor
-   * @return Returns the id if the sensor was found; 999 if not found
+   * @return Returns the 0 if the sensor was found; 999 if not found
    */
-  public static int findSensor(int id) {
-    hwdata = readHeartbeat(id);
+  public static int findSensor() {
+    hwdata = readHeartbeat();
     if (hwdata[4] != 0) {
-      return id;
+      return deviceID;
     } else {
       return 999;
     }
@@ -135,18 +177,17 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
 
   /**
    * Gets the distance in MM
-   * @param id The ID of the sensor
    * @return Returns an array with 2 items containing useful information.
    * <ul>
    * <li> 0 - Measurement in milimieters (divide by 25.4 for inches; 304.8 for feet)</li>
    * <li> 1 - The signal return rate in mega counts per second.</li>
    * </ul>
    */
-  public static double[] getDistanceMM(int id) {
+  public static double[] getDistanceMM() {
     //Set up an array with 2 variables
     double[] temp = { 0, 0 };
     //Retrieve the measured distance from the CAN device
-    long read = CANSendReceive.readMessage(MEASURED_DISTANCE_MESSAGE, id);
+    long read = CANSendReceive.readMessage(MEASURED_DISTANCE_MESSAGE, deviceID);
 
     //If the message retrieval failed:
     if (read == -1) {
@@ -173,26 +214,40 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
         temp[0] = -rangingStatus;
         return temp;
       } else {
-        //Retrieve the measurement in milimeters
-        SmartDashboard.putNumber("D1",Byte.toUnsignedInt(CANSendReceive.result[1]));
-        SmartDashboard.putNumber("D0",Byte.toUnsignedInt(CANSendReceive.result[0]));
-
         //Extract the results in milimeters
         temp[0] = extractValue(CANSendReceive.result, 1, 0);
         //Extract signal return rate in mega counts per second
         //Value is multiplied by 65536, so it must be divided.
         temp[1] = extractValue(CANSendReceive.result, 7, 4) / 65536;
 
-        //Put the value to the SmartDashboard so that it makes sense
-        //(not from original code)
-        SmartDashboard.putNumber("Measurement MM", temp[0]);
+        if(tofDebug){
+          SmartDashboard.putNumber("Measurement MM", temp[0]);
         SmartDashboard.putNumber("Measurement In", temp[0]/25.4);
         SmartDashboard.putNumber("Measurement Ft", temp[0]/304.8);
+        }
 
         //Return the value
         return temp;
       }
     }
+  }
+
+  /**
+   * Gets the distance read by the sensor in milimeters alone.
+   * @return The distance in milimeters
+   */
+  public static double distanceMM() {
+    double a = getDistanceMM()[0];
+    return a;
+  }
+
+  /**
+   * Gets the distance read by the sensor in inches alone.
+   * @return The distance in inches rounded with 4 decimal places after.
+   */
+  public static double distanceIN() {
+    double a = Math.round((getDistanceMM()[0]/25.4)*10000)/10000;
+    return a;
   }
 
 
@@ -204,18 +259,17 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
 
   /**
    * Reads the measurement quality returned with the completed measurement
-   * @param id The ID of the sensor
    * @return Returns the values in an array (2)
    * <ul>
    * <li> 0 = Ambient light in megacounts per second                           </li>
    * <li> 1 = Standard deviation of the measured distance value, in milimeters </li>
    * </ul>
    */
-  public static double[] readQuality(int id) {
+  public static double[] readQuality() {
     //Set up an array temp with 2 items
     double temp[] = { 0, 0 };
     //Read the measurement quality from the CAN device
-    long read = CANSendReceive.readMessage(MEASUREMENT_QUALITY_MESSAGE, id);
+    long read = CANSendReceive.readMessage(MEASUREMENT_QUALITY_MESSAGE, deviceID);
 
     //If the read didn't retrieve nothing:
     if (read != -1) {
@@ -245,11 +299,11 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
    * <li> 2: Range offset in milimeters </li>
    * </ul>
    */
-  public static int[] readCalibrationState(int id) {
+  public static int[] readCalibrationState() {
     //Set up the temp array with 7 items
     int temp[] = { 0, 0, 0, 0, 0, 0, 0 };
     //Read the calibration state from the CAN device
-    long read = CANSendReceive.readMessage(CALIBRATION_STATE_MESSAGE, id);
+    long read = CANSendReceive.readMessage(CALIBRATION_STATE_MESSAGE, deviceID);
 
     //If the read was not an error:
     if (read != -1) {
@@ -270,10 +324,9 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
   // Messages to device
   /**
    * Configures the range of the sensor
-   * @param id ID of the sensor being set
    * @param mode The mode (0-short; 1-medium; 2-long)
    */
-  public static void configureRange(int id, int mode) {
+  public static void configureRange(int mode) {
     //Set up the byte array data with 3 items
     byte[] data = new byte[3];
     //Set the interval variable to 100
@@ -301,6 +354,7 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
         break;
     }
 
+    //Not sure what this does
     ByteBuffer b = ByteBuffer.allocate(4);
     b.putInt(interval);
     byte[] result = b.array();
@@ -308,7 +362,7 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
     data[2] = result[2];
 
     //Send information to the CAN device
-    CANSendReceive.sendMessage(RANGING_CONFIGURATION_MESSAGE | id, data, 3, kSendMessagePeriod);
+    CANSendReceive.sendMessage(RANGING_CONFIGURATION_MESSAGE | deviceID, data, 3, kSendMessagePeriod);
   }
 
 
@@ -319,14 +373,13 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
   //////////////////////////////
 
   /**
-   * 
-   * @param id The ID of the device
+   * Reads the sensor information then sends it to the sensor
    */
-  public static void identifyDevice(int id) {
+  public static void identifyDevice() {
     //Set up the array hwdata with 8 values
     byte[] hwdata = new byte[8];
     //Read the heartbeat data
-    hwdata = readHeartbeat(id);
+    hwdata = readHeartbeat();
     //Set the reversed data
     hwdata[0] = 0x0D;//13
     //Send information to the CAN device
@@ -334,7 +387,7 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
   }
 
   /**
-   * Configures the device. Used in ConfigureDevice.java
+   * Configures the device. Used in configureDevice.java
    * @param oldID Old ID of the device
    * @param newID Current ID of the device
    */
@@ -343,7 +396,7 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
     byte[] hwdata = new byte[8];
     if (newID >= 0 && newID < 33) {
       //Read the heartbeat and set the information to hwdata
-      hwdata = readHeartbeat(oldID);
+      hwdata = readHeartbeat();
       //Translate the information into useful data
       getSensorInfo(hwdata);
       //Set the reversed data
@@ -415,8 +468,8 @@ public class CanbusDistanceSensor extends SendableBase implements Sendable {
     builder.addDoubleProperty("Part Number", () -> (double) partNumber, null);
     builder.addDoubleProperty("Firmware", () -> (double) firmWare, null);
 
-    builder.addDoubleProperty("Distance MM", () -> getDistanceMM(0)[0], null);
-    builder.addDoubleProperty("Distance Inch", () -> getDistanceMM(0)[0] / 25.4, null);
+    builder.addDoubleProperty("Distance MM", () -> getDistanceMM()[0], null);
+    builder.addDoubleProperty("Distance Inch", () -> getDistanceMM()[0] / 25.4, null);
     // builder.addDoubleProperty("Ambient Light", () -> readQuality()[0], null);
     // builder.addDoubleProperty("Std Dev", () -> readQuality()[1], null);
 

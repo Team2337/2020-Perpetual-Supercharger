@@ -16,19 +16,6 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 
-  //Time of Flight Sensor Code
-  private double a;
-  private int b;
-
-  public static int tofsensor = 0;
-  public static double loadSensorSerial;
-  public static double loadSensorPart;
-  public static double loadSensorFirmware;
-  public static byte[] tofdata = new byte[8];
-  public static int[] temp;
-  //End TOF Code
-
-
   private Command m_autonomousCommand;
 
   public static Constants Constants;
@@ -54,16 +41,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
-    //Time Of Flight sensor code
-    tofdata = CanbusDistanceSensor.readHeartbeat(tofsensor);
-    int[] temp = CanbusDistanceSensor.getSensorInfo(tofdata);
-    loadSensorSerial = temp[0];
-    loadSensorPart = temp[1];
-    loadSensorFirmware = temp[2];
-    CanbusDistanceSensor.configureRange(0,0);
-    //End TOF Code
-
     
     // Must go before subsystems
     Constants = new Constants();
@@ -152,35 +129,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
-    //////////////////////////////////////////////////////////////
-    // -------------------------------------------------------- //
-    // --- PUT TIMEOFFLIGHT SENSOR VALUES ON SMARTDASHBOARD --- //
-    // -------------------------------------------------------- //
-    //////////////////////////////////////////////////////////////
     
-    CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("TTT", Timer.getFPGATimestamp() - a);
-    a = Timer.getFPGATimestamp();
-    b++;
-    double[] temp = { 0, 0 };
-    if (b >= 10) {
-
-      temp = CanbusDistanceSensor.getDistanceMM(tofsensor);
-      if (temp[0] < 0) {
-        SmartDashboard.putNumber("Read Error", temp[0]);
-        // temp[0] = 0;
-      }
-      temp = CanbusDistanceSensor.readQuality(tofsensor);
-      double distR = CanbusDistanceSensor.getDistanceMM(tofsensor)[0];
-      if (distR < 0) {
-        SmartDashboard.putNumber("Read Error", distR);
-      distR = 0;
-      }
-
-      b = 0;
-    }
-    //End TOF Code
   }
 
   @Override

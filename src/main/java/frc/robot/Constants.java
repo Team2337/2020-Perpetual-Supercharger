@@ -79,5 +79,5 @@ public final class Constants {
 
     /* --- TIME OF FLIGHT Variables --- */
     /** Configure range mode. 0=short; 1=medium; 2=long */
-    public static int modeTOF = 0;
+    public static int MODETOF = 0;//This number does not need to be changed
 }

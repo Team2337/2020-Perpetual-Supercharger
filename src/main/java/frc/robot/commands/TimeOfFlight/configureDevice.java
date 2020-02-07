@@ -1,30 +1,32 @@
 package frc.robot.commands.TimeOfFlight;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.CanbusDistanceSensor;
+import frc.robot.subsystems.TimeOfFlight;
 
 /**
- * Add your docs here.
+ * Configures the device by sending previously set information to the sensor.
  */
 public class configureDevice extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
+  
   private int myNewDeviceNumber;
   private int myOldDeviceNumber;
 
-  public configureDevice(int oldNumber, int newDeviceNumber) {
+  /**
+   * Configures the device by sending previously set information to the sensor.
+   * This includes getting its information and setting its reversed mode.
+   */
+  public configureDevice() {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    myOldDeviceNumber = oldNumber;
-    myNewDeviceNumber = newDeviceNumber;
+    myOldDeviceNumber = 0;
+    myNewDeviceNumber = 0;
   }
 
   // Called once when the command executes
   @Override
   public void initialize() {
-    CanbusDistanceSensor.configureDevice(myOldDeviceNumber, myNewDeviceNumber);
+    TimeOfFlight.configureDevice(myOldDeviceNumber, myNewDeviceNumber);
   }
 
 }

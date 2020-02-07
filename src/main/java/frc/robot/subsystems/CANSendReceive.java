@@ -4,7 +4,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import edu.wpi.first.hal.can.CANExceptionFactory;
 import edu.wpi.first.hal.can.CANJNI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * ???
@@ -21,7 +20,7 @@ public class CANSendReceive {
     /**
      * Helper routine to get last received message for a given ID. (to be looked into more)
      * @param fullId ???
-     * @param deviceID ???
+     * @param deviceID The ID of the device
      * @return Returns the timestamp as an integer. If it returns -1, it failed.
      */
     public static long readMessage(int fullId, int deviceID) {
