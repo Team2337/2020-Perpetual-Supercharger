@@ -35,8 +35,6 @@ public class startShooter extends CommandBase {
   public void initialize() {
     //Sets the ramp rate. We set them here because in the execute of this command,
     // they are set to another value after a set speed.
-    subsystem.leftShootMotor.configClosedloopRamp(0.5);
-    subsystem.rightShootMotor.configClosedloopRamp(0.5);
     //Sets the speed.
     subsystem.setShooterSpeed(velocity);
   }
@@ -47,7 +45,7 @@ public class startShooter extends CommandBase {
   public void execute() {
     //Once the velocity reaches a certain speed, the closed-loop ramp is turned off.
     //This is to ensure that the motors get up to speed quickly without damaging themselves.
-    if(subsystem.leftShootMotor.getSelectedSensorVelocity() > Constants.SHOOTERRAMPSWITCHVALUE){
+    if(subsystem.rightShootMotor.getSelectedSensorVelocity() > Constants.SHOOTERRAMPSWITCHVALUE){
       subsystem.leftShootMotor.configClosedloopRamp(0);
       subsystem.rightShootMotor.configClosedloopRamp(0);
     }
@@ -56,6 +54,8 @@ public class startShooter extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    subsystem.leftShootMotor.configClosedloopRamp(0.5);
+    subsystem.rightShootMotor.configClosedloopRamp(0.5);
     //Stop the shooter.
     subsystem.stopShooter();
   }

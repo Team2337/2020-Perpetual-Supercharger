@@ -53,6 +53,10 @@ public class Shooter extends SubsystemBase {
     // Configures sensors for PID calculations
     FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
 
+    //Don't allow either motor to run backwards
+    leftShootMotor.configNominalOutputReverse(0);
+    rightShootMotor.configNominalOutputReverse(0);
+
     /** --- SETS UP SETTINGS (Such as current limits) ON MOTORS AND SENSORS --- **/
     // Set up current limits
     currentLimitConfigurationMotor.currentLimit = 50;
