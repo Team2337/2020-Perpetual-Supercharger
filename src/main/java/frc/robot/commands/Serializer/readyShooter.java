@@ -42,7 +42,6 @@ public class readyShooter extends CommandBase {
 
   @Override
   public void execute() {
-    SmartDashboard.putBoolean("Finished", (m_subsystem.getSerializerPosition() < target));
   
   }
 
