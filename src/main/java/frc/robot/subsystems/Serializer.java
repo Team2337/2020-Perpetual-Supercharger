@@ -145,7 +145,7 @@ public class Serializer extends SubsystemBase {
    */
     public void setPosition(double position ) {
       targetPosition = position;
-    serializerMotor.set(ControlMode.Position, targetPosition);
+      serializerMotor.set(ControlMode.Position, targetPosition);
 
     }
     
