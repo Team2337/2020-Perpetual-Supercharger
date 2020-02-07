@@ -48,16 +48,16 @@ public class AdjustRotationAngle extends CommandBase {
     // Goes through 4 times to get the angle of each module
     for(int i = 0; i < 4; i++) {
       // Resests the drive configuration 
-      m_subsystem.getModule(i)._fx.slot0.kP = kP;
-      m_subsystem.getModule(i)._fx.slot0.allowableClosedloopError = 50;
-      m_subsystem.getModule(i).driveMotor.configAllSettings(m_subsystem.getModule(i)._fx, 0);
+      m_subsystem.getModule(i).TalonFXConfigurationDrive.slot0.kP = kP;
+      m_subsystem.getModule(i).TalonFXConfigurationDrive.slot0.allowableClosedloopError = 50;
+      m_subsystem.getModule(i).driveMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfigurationDrive, 0);
       // Checks to see if the modules are rotating
       if (Math.abs(rotationDegree) > 0) {
         // Checks to see if it is module 1 or 2 and inverts their position so they will go in the opposite direction
         if (i > 0 && i < 3) {
-          m_subsystem.getModule(i).setSetpoint(-position);
+          m_subsystem.getModule(i).setAngleSetpoint(-position);
         } else {
-          m_subsystem.getModule(i).setSetpoint(position);
+          m_subsystem.getModule(i).setAngleSetpoint(position);
         }
       } else {
         m_subsystem.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
@@ -71,8 +71,8 @@ public class AdjustRotationAngle extends CommandBase {
   @Override
   public void execute() {
     for (int i = 0; i < 4; i++) {
-    SmartDashboard.putNumber("encoderValue/" + i, m_subsystem.getModule(i).getDriveEncoder());
-    System.out.println("encoderValue" + i + "  " + m_subsystem.getModule(i).getDriveEncoder());
+    SmartDashboard.putNumber("encoderValue/" + i, m_subsystem.getModule(i).getDriveEncoderValue());
+    System.out.println("encoderValue" + i + "  " + m_subsystem.getModule(i).getDriveEncoderValue());
     }
     // Goes through 4 times to set each module to an angle
     for(int i = 0; i < 4; i++) {

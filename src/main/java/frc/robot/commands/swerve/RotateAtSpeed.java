@@ -54,7 +54,7 @@ public class RotateAtSpeed extends CommandBase {
   @Override
   public void execute() {
     for (int i = 0; i < 4; i++) {
-    SmartDashboard.putNumber("encoderValue/" + i, m_subsystem.getModule(i).getDriveEncoder());
+    SmartDashboard.putNumber("encoderValue/" + i, m_subsystem.getModule(i).getDriveEncoderValue());
     //System.out.println("encoderValue" + i + "  " + m_subsystem.getModule(i).getDriveEncoder());
     }
     // Goes through 4 times to set each module to an angle

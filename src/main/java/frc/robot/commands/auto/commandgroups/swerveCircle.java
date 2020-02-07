@@ -7,9 +7,6 @@
 
 package frc.robot.commands.auto.commandgroups;
 
-import frc.robot.Robot;
-import frc.robot.commands.auto.driveToPosition;
-import frc.robot.commands.auto.rotateToAngle;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
