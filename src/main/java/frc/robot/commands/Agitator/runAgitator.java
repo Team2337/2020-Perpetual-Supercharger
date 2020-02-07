@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Sets the agitator speed
  * @author Michael Francis
  */
-public class setAgitatorSpeed extends CommandBase {
+public class runAgitator extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Agitator subsystem;
   /** Agitator motor speed */
@@ -18,7 +18,7 @@ public class setAgitatorSpeed extends CommandBase {
    * @param m_subsystem The subsystem used by this command. (agitator)
    * @param m_speed A double number that sets the speed of the left agitator motor
    */
-  public setAgitatorSpeed(Agitator m_subsystem, double m_speed) {
+  public runAgitator(Agitator m_subsystem, double m_speed) {
     subsystem = m_subsystem;
     speed = m_speed;
     

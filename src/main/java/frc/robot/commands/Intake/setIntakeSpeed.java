@@ -16,7 +16,7 @@ public class setIntakeSpeed extends CommandBase {
   /**
    * Sets the intake speed to a given percent
    * @param m_subsystem The subsystem used by this command. (Intake)
-   * @param m_speed A double number that sets the speed of the left intake motor
+   * @param m_speed A double number that sets the speed of the intake motor
    */
   public setIntakeSpeed(Intake m_subsystem, double m_speed) {
     subsystem = m_subsystem;

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Sets the climber speed
  * @author Michael Francis
  */
-public class setClimberSpeed extends CommandBase {
+public class runClimber extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climber subsystem;
   /** Climber motor speed */
@@ -18,7 +18,7 @@ public class setClimberSpeed extends CommandBase {
    * @param m_subsystem The subsystem used by this command. (climber)
    * @param m_speed A double number that sets the speed of the climber motor
    */
-  public setClimberSpeed(Climber m_subsystem, double m_speed) {
+  public runClimber(Climber m_subsystem, double m_speed) {
     subsystem = m_subsystem;
     speed = m_speed;
     

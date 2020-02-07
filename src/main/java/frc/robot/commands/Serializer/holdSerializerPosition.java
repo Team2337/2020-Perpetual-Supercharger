@@ -31,6 +31,7 @@ public class holdSerializerPosition extends CommandBase {
 
   @Override
   public void execute(){
+    subsystem.setSerializerPosition(subsystem.getSerializerPosition());
   }
 
   // Called once the command ends or is interrupted.

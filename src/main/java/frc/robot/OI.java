@@ -31,10 +31,10 @@ public class OI {
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4));
 
-        operatorJoystick.yellowY     .whenPressed(new setAgitatorSpeed(Robot.Agitator, 0.4));
+        operatorJoystick.yellowY     .whenPressed(new runAgitator(Robot.Agitator, 0.4));
         operatorJoystick.yellowY     .whenReleased(new stopAgitatorMotors(Robot.Agitator));
 
-        operatorJoystick.blueX       .whenPressed(new setClimberSpeed(Robot.Climber, 0.4));
+        operatorJoystick.blueX       .whenPressed(new runClimber(Robot.Climber, 0.4));
         operatorJoystick.blueX       .whenReleased(new stopClimberMotors(Robot.Climber));
 
 

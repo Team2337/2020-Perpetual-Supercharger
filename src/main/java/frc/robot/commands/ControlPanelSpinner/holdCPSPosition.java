@@ -31,6 +31,7 @@ public class holdCPSPosition extends CommandBase {
 
   @Override
   public void execute(){
+    subsystem.setControlPanelSpinnerPosition(subsystem.getControlPanelSpinnerPosition());
   }
 
   // Called once the command ends or is interrupted.
