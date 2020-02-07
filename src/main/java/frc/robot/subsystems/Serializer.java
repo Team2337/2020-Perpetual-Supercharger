@@ -74,8 +74,8 @@ public class Serializer extends SubsystemBase {
      FXConfig.slot0.kD = kD;
      FXConfig.slot0.kF = kF;
      FXConfig.slot0.allowableClosedloopError = (5);
-     FXConfig.peakOutputForward = (0.1);
-     FXConfig.peakOutputReverse = (-0.1);
+     FXConfig.peakOutputForward = (Constants.SERIALIZERSPEED);
+     FXConfig.peakOutputReverse = (-Constants.SERIALIZERSPEED);
      serializerMotor.setNeutralMode(NeutralMode.Brake);
      serializerMotor.configAllSettings(FXConfig);
      
