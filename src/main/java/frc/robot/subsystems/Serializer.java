@@ -75,6 +75,7 @@ public class Serializer extends SubsystemBase {
      FXConfig.slot0.allowableClosedloopError = (5);
      FXConfig.peakOutputForward = (0.1);
      serializerMotor.configAllSettings(FXConfig);
+     agitatorMotor.configAllSettings(FXConfig);
 
   }
 

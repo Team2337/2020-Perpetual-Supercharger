@@ -18,7 +18,7 @@ public class readyShooter extends CommandBase {
    *
    * @param subsystem The subsystem used by this command. (Serializer)
    * @param positionOI What value the command is passed in OI.java
-   * @param position is the value the method uses for shifting
+   * position is the value the method uses for shifting
    */
   public readyShooter(Serializer subsystem,  double positionOI) {
     m_subsystem = subsystem;
@@ -45,7 +45,8 @@ public class readyShooter extends CommandBase {
   
   @Override
   public boolean isFinished() {
-    return false;
+
+    return Math.abs(position - m_subsystem.getSerializerPosition());
   }
 
 }
