@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -10,7 +12,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    */
 public class Vision extends SubsystemBase {
 
+  public TalonSRX LeftWheel;
+  public TalonSRX RightWheel;
+
   public Vision() {
+    LeftWheel = new TalonSRX(0);
+    RightWheel = new TalonSRX(15);
+    RightWheel.setInverted(true);
+    LeftWheel.setInverted(false);
 
   }
 
