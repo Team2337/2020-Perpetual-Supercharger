@@ -79,10 +79,10 @@ public class Pigeon extends SubsystemBase {
 
 		if(pigeonDebug){
 			SmartDashboard.putNumber("FusedHeading", pidgey.getFusedHeading());
-			SmartDashboard.putNumber("yaw", getYaw());
 			SmartDashboard.putNumber("Pitch", getPitch());
 			SmartDashboard.putNumber("Roll", getRoll());
 		}
+			SmartDashboard.putNumber("yaw", getYaw());
 	}
 
 	/**
