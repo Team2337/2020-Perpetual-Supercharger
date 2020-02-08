@@ -77,6 +77,20 @@ public final class Constants {
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
 
+    /* --- Shooter Values --- */
+    /**
+     * This value is the number at which the closed loop ramp rate of the shooter
+     * goes from 0.5 to 0 to increase speed
+     */
+    public static int SHOOTERRAMPSWITCHVALUE = 5000;
+    
+    //These variables are for the shooter function in OI.java.
+    //They are the speeds at which to launch the power cells (balls) at.
+    /** To be used from ~16 feet away */
+    public static int SHOOTSPEEDCLOSE = 14450;
+    /** To be used from ~34 feet away */
+    public static int SHOOTSPEEDFAR = 15295;
+
     /**---Serializer--- */
     public static double SERIALIZERSPEED = 0.2;
 }

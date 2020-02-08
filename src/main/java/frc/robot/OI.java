@@ -37,11 +37,11 @@ public class OI {
         operatorJoystick.povUp .whenPressed(new setSerializerSpeed(Robot.Serializer, 0.5));
         operatorJoystick.povUp . whenReleased(new stopSerializerMotor(Robot.Serializer));
         // Readies the shooter to get the kicker wheel up to speed
-        operatorJoystick.povDown .whenPressed(new readyShooter(Robot.Serializer, 4096));
+        operatorJoystick.povRight .whenPressed(new readyShooter(Robot.Serializer, 4096));
         //Sets the serializer motor to move down and stop when released
-        operatorJoystick.povRight .whenPressed(new setSerializerSpeed(Robot.Serializer, -0.5));
-        operatorJoystick.povRight .whenReleased(new stopSerializerMotor(Robot.Serializer));
-
+        operatorJoystick.povDown .whenPressed(new setSerializerSpeed(Robot.Serializer, -0.5));
+        operatorJoystick.povDown .whenReleased(new stopSerializerMotor(Robot.Serializer));
+        
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here
