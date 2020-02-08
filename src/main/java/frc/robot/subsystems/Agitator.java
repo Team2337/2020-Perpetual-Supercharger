@@ -55,8 +55,8 @@ public class Agitator extends SubsystemBase {
     if(agitatorDebug){
       //If in debug mode, put the agitator speed and temperature on SmartDashboard/Shuffleboard
       SmartDashboard.putNumber("Agitator Motor Speed", getAgitatorSpeed());
-      SmartDashboard.putNumber("Agitator Motor Temperature", getAgitatorTemperature());
     }
+      SmartDashboard.putNumber("Agitator Motor Temperature", getAgitatorTemperature());
   }
 
   /**
