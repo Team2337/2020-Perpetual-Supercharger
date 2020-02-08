@@ -1,6 +1,7 @@
 package frc.robot.commands.MultiSystem;
 
 import frc.robot.Robot;
+import frc.robot.commands.KickerWheel.stopKicker;
 import frc.robot.commands.Shooter.stopShooter;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
@@ -17,10 +18,8 @@ public class ShooterSystemOff extends ParallelCommandGroup {
 public ShooterSystemOff() {
 
     addCommands(
-        new stopShooter(Robot.Shooter)
-
-        //TODO: Add kicker
-
+        new stopShooter(Robot.Shooter),
+        new stopKicker(Robot.KickerWheel)
  );
 }
 

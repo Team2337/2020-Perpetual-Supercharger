@@ -47,7 +47,7 @@ public class OI {
         operatorJoystick.blueX          .whenReleased(new stopClimber(Robot.Climber));
 
         //Sets the kicker wheel's speeed
-        operatorJoystick.greenA         .whenPressed(new setKickerSpeed(Robot.KickerWheel, Constants.KICKERSPEED));
+        operatorJoystick.greenA         .whenPressed(new runKicker(Robot.KickerWheel, Constants.KICKERSPEED));
         //Stops the kicker wheel
         operatorJoystick.redB           .whenPressed(new stopKicker(Robot.KickerWheel));
         //Holds the kicker wheel's position

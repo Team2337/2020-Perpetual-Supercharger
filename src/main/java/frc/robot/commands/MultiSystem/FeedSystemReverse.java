@@ -14,14 +14,11 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 public class FeedSystemReverse extends ParallelCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 
-
-
 public FeedSystemReverse() {
 
     addCommands(
         new runSerializer(Robot.Serializer, Constants.SERIALIZERREVERSESPEED),
         new runAgitator(Robot.Agitator, Constants.AGITATORREVERSESPEED)
-    
  );
 }
 
