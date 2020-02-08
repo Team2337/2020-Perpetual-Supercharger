@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.*;
@@ -22,16 +21,16 @@ public class Robot extends TimedRobot {
   public static Climber Climber;
   public static ClimberExtender ClimberExtender;
   public static ControlPanelSpinner ControlPanelSpinner;
-  public static Serializer Serializer;
   public static Intake Intake;
   public static LEDs LEDs;
   public static Pigeon Pigeon;
+  public static Serializer Serializer;
   public static Shooter Shooter;
   public static ShooterHood ShooterHood;
   public static SwerveDrivetrain SwerveDrivetrain;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
-  public static Feeder Feeder;
+
   public static OI OI;
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -48,15 +47,15 @@ public class Robot extends TimedRobot {
     Climber = new Climber();
     ClimberExtender = new ClimberExtender();
     ControlPanelSpinner = new ControlPanelSpinner();
-    Serializer = new Serializer();
     Intake = new Intake();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
+    Serializer = new Serializer();
     Shooter = new Shooter();
     ShooterHood = new ShooterHood();
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
-    Feeder = new Feeder();
+
     OI = new OI();
 
     // Resets the pigeon to 0    

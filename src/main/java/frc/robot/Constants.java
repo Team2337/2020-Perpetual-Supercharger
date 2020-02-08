@@ -25,13 +25,13 @@ public final class Constants {
     public static int RIGHTFEEDER = 12;
     public static int SHOOTERLEFTMOTOR = 13;
     public static int SHOOTERRIGHTMOTOR = 14;
-    public static int CANID15 = 15;
+    public static int SERIALIZER = 15;
 
-    /* --- PCMs --- */
+    /** --- PCMs --- */
     public static final int PCM0 = 0;
     public static final int PCM1 = 1;
 
-    /* --- PCM Ports --- */
+    /** --- PCM Ports --- */
     public static int PCM0PORT0 = 0;
     public static int PCM0PORT1 = 1;
     public static int PCM0PORT2 = 2;
@@ -41,7 +41,7 @@ public final class Constants {
     public static int PCM0PORT6 = 6;
     public static int PCM0PORT7 = 7;
 
-    /* --- DIO Ports --- */
+    /** --- DIO Ports --- */
     public static int DIOPORT0 = 0;
     public static int DIOPORT1 = 1;
     public static int DIOPORT2 = 2;
@@ -53,19 +53,19 @@ public final class Constants {
     public static int DIOPORT8 = 8;
     public static int DIOPORT9 = 9;
 
-    /* --- Analog Ports --- */
+    /** --- Analog Ports --- */
     public static int ANALOGPORT0 = 0;
     public static int ANALOGPORT1 = 1;
     public static int ANALOGPORT2 = 2;
     public static int ANALOGPORT3 = 3;
 
-    /* --- Relay Ports --- */
+    /** --- Relay Ports --- */
     public static int RELAYPORT0 = 0;
     public static int RELAYPORT1 = 1;
     public static int RELAYPORT2 = 2;
     public static int RELAYPORT3 = 3;
 
-    /* --- PWM Ports --- */
+    /** --- PWM Ports --- */
     public static int PWMPORT0 = 0;
     public static int PWMPORT1 = 1;
     public static int PWMPORT2 = 2;
@@ -90,4 +90,7 @@ public final class Constants {
     public static int SHOOTSPEEDCLOSE = 14450;
     /** To be used from ~34 feet away */
     public static int SHOOTSPEEDFAR = 15295;
+
+    /**---Serializer--- */
+    public static double SERIALIZERPEAKSPEED = 0.2;
 }
