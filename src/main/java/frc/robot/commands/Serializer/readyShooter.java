@@ -1,7 +1,6 @@
 package frc.robot.commands.Serializer;
 
 import frc.robot.subsystems.Serializer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -22,12 +21,12 @@ public class readyShooter extends CommandBase {
    * to speed
    *
    * @param subsystem  The subsystem used by this command. (Serializer)
-   * @param positionOI What value the command is passed in OI.java position is the
+   * @param adjustment What value the command is passed in OI.java position is the
    * position = value the method uses for shifting
    */
-  public readyShooter(Serializer subsystem, double positionOI) {
+  public readyShooter(Serializer subsystem, double adjustment) {
     m_subsystem = subsystem;
-    position = positionOI;
+    position = adjustment;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
