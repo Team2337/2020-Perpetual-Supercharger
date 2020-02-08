@@ -92,5 +92,8 @@ public final class Constants {
     public static int SHOOTSPEEDFAR = 15295;
 
     /**---Serializer--- */
-    public static double SERIALIZERPEAKSPEED = 0.2;
+    public static double SERIALIZERPEAKSPEED = 0.8;
+    public static double SERIALIZERFORWARDSPEED = 0.2;
+    public static double SERIALIZERREVERSESPEED = 0.2;
+    public static double SERIALIZERREGRESSIONDISTANCE = 4096;
 }
