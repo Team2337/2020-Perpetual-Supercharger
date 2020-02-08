@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
     SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
     SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERPEAKSPEED);
+    SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);
   }
 
   /**

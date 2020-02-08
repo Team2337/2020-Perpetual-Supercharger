@@ -47,11 +47,11 @@ public class OI {
         operatorJoystick.blueX          .whenReleased(new stopClimber(Robot.Climber));
 
         //Sets the kicker wheel's speeed
-        operatorJoystick.greenA .whenPressed(new setKickerSpeed(Robot.KickerWheel, Constants.KICKERSPEED));
+        operatorJoystick.greenA         .whenPressed(new setKickerSpeed(Robot.KickerWheel, Constants.KICKERSPEED));
         //Stops the kicker wheel
-        operatorJoystick.redB .whenPressed(new stopKicker(Robot.KickerWheel));
+        operatorJoystick.redB           .whenPressed(new stopKicker(Robot.KickerWheel));
         //Holds the kicker wheel's position
-        operatorJoystick.start .whenPressed(new holdKickerPosition(Robot.KickerWheel));
+        operatorJoystick.start          .whenPressed(new holdKickerPosition(Robot.KickerWheel));
 
         // Sets the serializer motor to move up and stop when released
         operatorJoystick.povUp          .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERPEAKSPEED));
