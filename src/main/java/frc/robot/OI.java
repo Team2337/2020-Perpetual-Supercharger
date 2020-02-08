@@ -4,6 +4,7 @@ import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
@@ -14,11 +15,11 @@ import frc.robot.commands.Shooter.*;
  */
 public class OI {
     public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
-	public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
-    public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2);
-    
-    public OI(){
-        
+    public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
+    public NerdyOperatorStation operatorControls = new NerdyOperatorStation(2);
+
+    public OI() {
+
         /* --- DRIVER JOYSTICK --- */
 
         // Sets the field orientation
@@ -44,6 +45,13 @@ public class OI {
 
         operatorJoystick.blueX          .whenPressed(new runClimber(Robot.Climber, Constants.CLIMBERSPEED));
         operatorJoystick.blueX          .whenReleased(new stopClimber(Robot.Climber));
+
+        //Sets the kicker wheel's speeed
+        operatorJoystick.greenA         .whenPressed(new setKickerSpeed(Robot.KickerWheel, Constants.KICKERSPEED));
+        //Stops the kicker wheel
+        operatorJoystick.redB           .whenPressed(new stopKicker(Robot.KickerWheel));
+        //Holds the kicker wheel's position
+        operatorJoystick.start          .whenPressed(new holdKickerPosition(Robot.KickerWheel));
 
         // Sets the serializer motor to move up and stop when released
         operatorJoystick.povUp          .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERPEAKSPEED));
