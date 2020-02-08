@@ -27,11 +27,11 @@ public final class Constants {
     public static int SHOOTERRIGHTMOTOR = 14;
     public static int SERIALIZER = 15;
 
-    /** --- PCMs --- */
+    /* --- PCMs --- */
     public static final int PCM0 = 0;
     public static final int PCM1 = 1;
 
-    /** --- PCM Ports --- */
+    /* --- PCM Ports --- */
     public static int PCM0PORT0 = 0;
     public static int PCM0PORT1 = 1;
     public static int PCM0PORT2 = 2;
@@ -41,7 +41,7 @@ public final class Constants {
     public static int PCM0PORT6 = 6;
     public static int PCM0PORT7 = 7;
 
-    /** --- DIO Ports --- */
+    /* --- DIO Ports --- */
     public static int DIOPORT0 = 0;
     public static int DIOPORT1 = 1;
     public static int DIOPORT2 = 2;
@@ -53,19 +53,19 @@ public final class Constants {
     public static int DIOPORT8 = 8;
     public static int DIOPORT9 = 9;
 
-    /** --- Analog Ports --- */
+    /* --- Analog Ports --- */
     public static int ANALOGPORT0 = 0;
     public static int ANALOGPORT1 = 1;
     public static int ANALOGPORT2 = 2;
     public static int ANALOGPORT3 = 3;
 
-    /** --- Relay Ports --- */
+    /* --- Relay Ports --- */
     public static int RELAYPORT0 = 0;
     public static int RELAYPORT1 = 1;
     public static int RELAYPORT2 = 2;
     public static int RELAYPORT3 = 3;
 
-    /** --- PWM Ports --- */
+    /* --- PWM Ports --- */
     public static int PWMPORT0 = 0;
     public static int PWMPORT1 = 1;
     public static int PWMPORT2 = 2;
@@ -77,13 +77,13 @@ public final class Constants {
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
 
-    /** --- Agitator --- */
+    /* --- Agitator --- */
     public static double AGITATORSPEED = 0.4;
 
-    /** --- Intake --- */
+    /* --- Intake --- */
     public static double INTAKESPEED = 0.4;
 
-    /** --- Climber --- */
+    /* --- Climber --- */
     public static double CLIMBERSPEED = 0.4;
 
     /** --- Shooter Values --- */
