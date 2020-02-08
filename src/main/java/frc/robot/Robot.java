@@ -24,12 +24,13 @@ public class Robot extends TimedRobot {
   public static Intake Intake;
   public static LEDs LEDs;
   public static Pigeon Pigeon;
+  public static Serializer Serializer;
   public static Shooter Shooter;
   public static ShooterHood ShooterHood;
   public static SwerveDrivetrain SwerveDrivetrain;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
-  public static Serializer Serializer;
+
   public static OI OI;
   /**
    * This function is run when the robot is first started up and should be used for any
