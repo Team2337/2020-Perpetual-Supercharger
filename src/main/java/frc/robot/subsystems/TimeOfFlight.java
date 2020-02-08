@@ -97,6 +97,11 @@ public class TimeOfFlight extends SubsystemBase {
 
       b = 0;
     }
+
+    if(tofDebug){
+      SmartDashboard.putNumber("Measurement MM", distanceMM());
+      SmartDashboard.putNumber("Measurement In", distanceIN());
+    }
   }
 
 
@@ -218,12 +223,6 @@ public class TimeOfFlight extends SubsystemBase {
         //Extract signal return rate in mega counts per second
         //Value is multiplied by 65536, so it must be divided.
         temp[1] = extractValue(CANSendReceive.result, 7, 4) / 65536;
-
-        if(tofDebug){
-          SmartDashboard.putNumber("Measurement MM", temp[0]);
-        SmartDashboard.putNumber("Measurement In", temp[0]/25.4);
-        SmartDashboard.putNumber("Measurement Ft", temp[0]/304.8);
-        }
 
         //Return the value
         return temp;
