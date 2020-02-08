@@ -130,7 +130,7 @@ public class KickerWheel extends SubsystemBase {
    * Method that returns the Kicker motor temperature
    * @return A double of the temperature (in Celsius) of the Kicker motor.
    */
-  public double getKickerTemperatur(){
+  public double getKickerTemperature(){
     double temp = kickerWheelMotor.getMotorTemperature();
     return temp;
   }
