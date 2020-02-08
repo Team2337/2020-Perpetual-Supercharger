@@ -78,5 +78,5 @@ public final class Constants {
     public static int PWMPORT9 = 9;
 
     /**---Variables--- */
-    public static double SERIALIZERSPEED = 0.5;
+    public static double SERIALIZERSPEED = 0.2;
 }
