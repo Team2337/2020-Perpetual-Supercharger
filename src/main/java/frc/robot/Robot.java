@@ -49,11 +49,12 @@ public class Robot extends TimedRobot {
     Intake = new Intake();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
+    Serializer = new Serializer();
     Shooter = new Shooter();
     ShooterHood = new ShooterHood();
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
-    Serializer = new Serializer();
+
     OI = new OI();
 
     // Resets the pigeon to 0    
