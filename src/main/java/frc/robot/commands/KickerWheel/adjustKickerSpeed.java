@@ -4,14 +4,14 @@ import frc.robot.subsystems.KickerWheel;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * A command that decreases the kicker speed using the Kicker subsystem.
+ * A command that adjusts the kicker speed using the Kicker subsystem.
  */
 public class adjustKickerSpeed extends InstantCommand {
   public double kspeed;
   private KickerWheel subsystem;
 
   /**
-   * Decreases the kicker's speed.
+   * Adjusts the kicker's speed.
    * @param subsystem The subsystem used by this command.
    */
   public adjustKickerSpeed(KickerWheel kickerWheel, double kickerspeed) {
