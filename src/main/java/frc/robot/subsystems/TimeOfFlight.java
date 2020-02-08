@@ -98,8 +98,8 @@ public class TimeOfFlight extends SubsystemBase {
       b = 0;
     }
 
+    SmartDashboard.putNumber("Measurement MM", distanceMM());
     if(tofDebug){
-      SmartDashboard.putNumber("Measurement MM", distanceMM());
       SmartDashboard.putNumber("Measurement In", distanceIN());
     }
   }
