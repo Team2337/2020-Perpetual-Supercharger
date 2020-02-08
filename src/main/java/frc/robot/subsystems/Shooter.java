@@ -141,12 +141,11 @@ public class Shooter extends SubsystemBase {
       // Calculate the max speed.
       // Calculations: Maximum value between the average of left and right motors and itself.
       // This was used during testing for reporting values.
-      shooterMaxSpeed = Math.max(shooterMaxSpeed,
-          (Math.max(leftShootMotor.getSelectedSensorVelocity(), rightShootMotor.getSelectedSensorVelocity())
-              + shooterMaxSpeed) / 2);
+      double lsm = leftShootMotor.getSelectedSensorVelocity();
+      double rsm = rightShootMotor.getSelectedSensorVelocity();
+      shooterMaxSpeed = Math.max(shooterMaxSpeed, (Math.max(lsm, rsm) + shooterMaxSpeed) / 2);
       // If either motor's velocity is about 0, reset the max speed variable.
-      if (Math.round(leftShootMotor.getSelectedSensorVelocity()) == 0
-          || Math.round(rightShootMotor.getSelectedSensorVelocity()) == 0) {
+      if (Math.round(lsm) == 0 || Math.round(rsm) == 0) {
         shooterMaxSpeed = 0;
       }
       // Report the max speed variable to SmartDashboard
