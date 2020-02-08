@@ -1,22 +1,20 @@
 package frc.robot.commands.KickerWheel;
 
-
 import frc.robot.subsystems.KickerWheel;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * An example command that uses an example subsystem.
+ * A command that decreases the kicker speed using the Kicker subsystem.
  */
-public class decreaseKickerSpeed extends CommandBase {
+public class adjustKickerSpeed extends InstantCommand {
   public double kspeed;
   private KickerWheel subsystem;
 
   /**
-   * Creates a new ExampleCommand.
-   *
+   * Decreases the kicker's speed.
    * @param subsystem The subsystem used by this command.
    */
-  public decreaseKickerSpeed(KickerWheel kickerWheel, double kickerspeed) {
+  public adjustKickerSpeed(KickerWheel kickerWheel, double kickerspeed) {
     subsystem = kickerWheel;
     kspeed = kickerspeed;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -27,23 +25,11 @@ public class decreaseKickerSpeed extends CommandBase {
   @Override
   public void initialize(){ 
 
-    subsystem.decreaseKickerSpeed(kspeed);
-  }
-
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
+    subsystem.adjustKickerSpeed(kspeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return true;
   }
 }
