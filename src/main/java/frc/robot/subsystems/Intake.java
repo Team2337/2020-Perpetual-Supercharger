@@ -55,8 +55,8 @@ public class Intake extends SubsystemBase {
     if(intakeDebug){
       //If in debug mode, put the intake speed and temperature on SmartDashboard/Shuffleboard
       SmartDashboard.putNumber("Intake Motor Speed", getIntakeSpeed());
-      SmartDashboard.putNumber("Intake Motor Temperature", getIntakeTemperature());
     }
+      SmartDashboard.putNumber("Intake Motor Temperature", getIntakeTemperature());
   }
 
   /**
