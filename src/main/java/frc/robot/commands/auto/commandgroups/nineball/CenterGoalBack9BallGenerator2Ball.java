@@ -18,13 +18,14 @@ public class CenterGoalBack9BallGenerator2Ball extends SequentialCommandGroup {
   public CenterGoalBack9BallGenerator2Ball() {
     addCommands(
       new zeroAngleEncoders(Robot.SwerveDrivetrain).withTimeout(0.04),
-      new turnModulesToDegree(Robot.SwerveDrivetrain, 55, 0.9).withTimeout(2),
-      new driveToPosition(Robot.SwerveDrivetrain, -145, 0, 0.7, 0.05, 1.1).withTimeout(5),
-      new rotateToAngleWithEncoder(Robot.SwerveDrivetrain, "left", -30, 0.3),
-      new turnModulesToDegree(Robot.SwerveDrivetrain, 0, 0.75).withTimeout(2),
-      new driveToPosition(Robot.SwerveDrivetrain, -44, 0, 0.3, 0.05, 1.1).withTimeout(5),
-      new turnModulesToDegree(Robot.SwerveDrivetrain, 90).withTimeout(2),
-      new driveToPosition(Robot.SwerveDrivetrain, 50, 90, 0.5)
+      new turnModulesToDegree(Robot.SwerveDrivetrain, 55, 2.00, 0.25).withTimeout(2),
+      new driveToPosition(Robot.SwerveDrivetrain, -133, 0, 0.7, 0.05, 2.00).withTimeout(5)
+      /*new rotateToAngleWithEncoder(Robot.SwerveDrivetrain, "left", -30, 0.3),
+      new turnModulesToDegree(Robot.SwerveDrivetrain, 0, 1.1, 0.25).withTimeout(2)
+      /* new driveToPosition(Robot.SwerveDrivetrain, -55, 0, 0.3, 0.05, 0.95).withTimeout(5),
+      new turnModulesToDegree(Robot.SwerveDrivetrain, 90, 1.1, 0.25).withTimeout(2),
+      new driveToPosition(Robot.SwerveDrivetrain, 50, 90, 0.5),
+      new turnModulesToDegree(Robot.SwerveDrivetrain, 0, 1.1, 0.25)  */
     /* new turnModulesToDegree(Robot.SwerveDrivetrain, 55).withTimeout(0.5),
     new driveToPosition(Robot.SwerveDrivetrain, -140, 55) */
     /*new turnModulesToDegree(Robot.SwerveDrivetrain, 55).withTimeout(0.5),
