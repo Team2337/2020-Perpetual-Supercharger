@@ -1,13 +1,15 @@
 package frc.robot;
 
-import frc.robot.commands.auto.driveToPosition;
-import frc.robot.commands.auto.turnModulesToDegree;
+import frc.robot.commands.auto.*;
 import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator2Ball;
 import frc.robot.commands.auto.commandgroups.swerveCircle;
 import frc.robot.commands.auto.commandgroups.swerveDiamond;
 import frc.robot.commands.auto.commandgroups.swerveSquare;
 import frc.robot.commands.auto.commandgroups.swerveTriangle;
 import frc.robot.commands.swerve.*;
+import frc.robot.commands.Intake.*;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 
 /**
@@ -41,7 +43,20 @@ public class OI {
         driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, true));
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
+        driverJoystick.greenA.whenPressed(new zeroAngleEncoders(Robot.SwerveDrivetrain));
+
+        driverJoystick.povDown.whileHeld(new turnModulesToDegree(Robot.SwerveDrivetrain, 0, 1.3, 0.3));
+        driverJoystick.povUp.whenPressed(new zeroWithAnalog(Robot.SwerveDrivetrain).withTimeout(0.5));
+
+        driverJoystick.blueX.whileHeld(new RotateAtSpeed(Robot.SwerveDrivetrain, "left", -0.07));
+        driverJoystick.redB.whileHeld(new RotateAtSpeed(Robot.SwerveDrivetrain, "right", 0.07));
+
         /* --- OPERATOR JOYSTICK --- */
+        
+        //Sets the intake motors to intake balls
+        operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
+        //Sets the intake motors to outtake balls (reverse mode)
+        operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
 
         operatorJoystick.blueX.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
         operatorJoystick.redB.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "nearShot"));
@@ -49,7 +64,6 @@ public class OI {
         operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
         operatorJoystick.triggerLeft.whenPressed(new swerveCircle());
         operatorJoystick.triggerRight.whenPressed(new CenterGoalBack9BallGenerator2Ball());
-        operatorJoystick.bumperLeft.whileHeld(new turnModulesToDegree(Robot.SwerveDrivetrain, 0));
 
         /* --- DRIVER STATION CONTROLS --- */
 

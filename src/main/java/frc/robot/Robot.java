@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -26,6 +19,9 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private double average = 0;
+  private double total = 0;
+  private double iteration = 0;
 
   public static Constants Constants;
   public static Utilities Utilities;
@@ -43,19 +39,26 @@ public class Robot extends TimedRobot {
   public static SwerveDrivetrain SwerveDrivetrain;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
+  public static Feeder Feeder;
   public static OI OI;
+<<<<<<< HEAD
   public SendableChooser<String> autonChooser;
 
 
+=======
+>>>>>>> d7e5fa7168597a3b30f640799fd46683172eac28
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
+    iteration = 0;
+    
     // Must go before subsystems
     Constants = new Constants();
     Utilities = new Utilities();
+
     /* --- Subsystems --- */
     Climber = new Climber();
     ClimberExtender = new ClimberExtender();
@@ -69,7 +72,9 @@ public class Robot extends TimedRobot {
     ShooterHood = new ShooterHood();
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
+    Feeder = new Feeder();
     OI = new OI();
+<<<<<<< HEAD
     autonChooser = new SendableChooser<String>();
     SwerveDrivetrain.zeroAllDriveEncoders();
     SwerveDrivetrain.getModule(0).zeroDriveEncoder();
@@ -79,6 +84,12 @@ public class Robot extends TimedRobot {
 
     autonChooser.setDefaultOption("default", "default");
     autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
+=======
+    
+    // Resets the pigeon to 0    
+    Pigeon.resetPidgey();
+    m_autonomousCommand = new CenterGoalBack9BallGenerator2Ball();
+>>>>>>> d7e5fa7168597a3b30f640799fd46683172eac28
   }
 
   /**
@@ -107,6 +118,8 @@ public class Robot extends TimedRobot {
     ((SwerveDrivetrain.getModule(i).getNormalizedAnalogVoltageRadians() - SwerveDrivetrain.angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
     SmartDashboard.putNumber("angleEncoder/" + i, SwerveDrivetrain.getModule(i).getAngleEncoderValue());
     SmartDashboard.putNumber("angleP/" + i, SwerveDrivetrain.getModule(i).TalonFXConfigurationAngle.slot0.kP);
+
+    SwerveDrivetrain.getAverageAnalogValueInRadians(2);
     }
 
   }
@@ -138,7 +151,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    SwerveDrivetrain.zeroAllDriveEncoders();
+    //SwerveDrivetrain.zeroAllDriveEncoders();
   }
 
   /**

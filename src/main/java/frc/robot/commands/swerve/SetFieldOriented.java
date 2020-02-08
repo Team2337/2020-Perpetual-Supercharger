@@ -7,7 +7,6 @@
 
 package frc.robot.commands.swerve;
 
-import frc.robot.Robot;
 import frc.robot.subsystems.SwerveDrivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -21,20 +20,22 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 public class SetFieldOriented extends InstantCommand {
 
   private boolean isFieldOriented;
+  private SwerveDrivetrain subsystem;
  
   /**
    * Sets the field orientation mode
    * @see SwerveDrivetrain
    * @param isFieldOriented - boolean value to set the field orientation mode
    */
-  public SetFieldOriented(boolean isFieldOriented) {
+  public SetFieldOriented(SwerveDrivetrain subsystem, boolean isFieldOriented) {
     this.isFieldOriented = isFieldOriented;
+    this.subsystem = subsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      Robot.SwerveDrivetrain.setFieldOriented(this.isFieldOriented);
+      subsystem.setFieldOriented(this.isFieldOriented);
       SmartDashboard.putBoolean("command field oriented", this.isFieldOriented);
   }
 
