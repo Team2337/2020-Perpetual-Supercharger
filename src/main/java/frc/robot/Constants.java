@@ -9,7 +9,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    /** --- CAN IDs --- */
+    /* --- CAN IDs --- */
     public static int CANID0 = 0;
     public static int MODULE0DRIVEMOTORID = 1;
     public static int MODULE0ANGLEMOTORID = 2;
@@ -77,6 +77,6 @@ public final class Constants {
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
 
-    /**---Variables--- */
+    /**---Serializer--- */
     public static double SERIALIZERSPEED = 0.2;
 }
