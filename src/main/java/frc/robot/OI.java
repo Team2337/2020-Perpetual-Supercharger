@@ -1,6 +1,8 @@
 package frc.robot;
 
 import frc.robot.commands.swerve.*;
+import frc.robot.commands.Agitator.*;
+import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.Serializer.*;
 import frc.robot.Robot;
@@ -30,17 +32,27 @@ public class OI {
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
-        operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
+        operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKESPEED));
+        operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
+
         //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
+        operatorJoystick.triggerLeft    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
+        operatorJoystick.triggerLeft    .whenReleased(new stopIntake(Robot.Intake));
+
+        operatorJoystick.yellowY        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
+        operatorJoystick.yellowY        .whenReleased(new stopAgitator(Robot.Agitator));
+
+        operatorJoystick.blueX          .whenPressed(new runClimber(Robot.Climber, Constants.CLIMBERSPEED));
+        operatorJoystick.blueX          .whenReleased(new stopClimber(Robot.Climber));
+
         // Sets the serializer motor to move up and stop when released
-        operatorJoystick.povUp .whenPressed(new setSerializerSpeed(Robot.Serializer, 0.5));
-        operatorJoystick.povUp . whenReleased(new stopSerializerMotor(Robot.Serializer));
+        operatorJoystick.povUp          .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERPEAKSPEED));
+        operatorJoystick.povUp          .whenReleased(new stopSerializer(Robot.Serializer));
         // Readies the shooter to get the kicker wheel up to speed
-        operatorJoystick.povRight .whenPressed(new readyShooter(Robot.Serializer, 4096));
+        operatorJoystick.povRight       .whenPressed(new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE));
         //Sets the serializer motor to move down and stop when released
-        operatorJoystick.povDown .whenPressed(new setSerializerSpeed(Robot.Serializer, -0.5));
-        operatorJoystick.povDown .whenReleased(new stopSerializerMotor(Robot.Serializer));
+        operatorJoystick.povDown        .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERPEAKSPEED));
+        operatorJoystick.povDown        .whenReleased(new stopSerializer(Robot.Serializer));
         
         /* --- DRIVER STATION CONTROLS --- */
 

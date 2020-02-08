@@ -1,21 +1,21 @@
-package frc.robot.commands.Serializer;
+package frc.robot.commands.Intake;
 
-import frc.robot.subsystems.Serializer;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * Stops the serializer motor.
- * @author Nicholas Stokes
+ * Stops the intake motors.
+ * @author Michael Francis
  */
-public class stopSerializerMotor extends InstantCommand {
+public class stopIntake extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Serializer m_subsystem;
+  private final Intake m_subsystem;
 
   /**
    * Stops the intake motors.
    * @param subsystem The subsystem used by this command. (Intake)
    */
-  public stopSerializerMotor(Serializer subsystem) {
+  public stopIntake(Intake subsystem) {
     m_subsystem = subsystem;
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,7 +26,7 @@ public class stopSerializerMotor extends InstantCommand {
   @Override
   public void initialize() {
     // This will stop the intake
-    m_subsystem.stopSerializer();
+    m_subsystem.stopIntake();
   }
 
   // Called once the command ends or is interrupted.

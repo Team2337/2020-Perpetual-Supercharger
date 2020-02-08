@@ -1,30 +1,28 @@
 package frc.robot.commands.Intake;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the intake speed
  * @author Michael Francis
  */
-public class setIntakeSpeed extends CommandBase {
+public class runIntake extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake subsystem;
-  /** Left intake motor speed */
-  private double lspeed;
-  /** Right intake motor speed */
-  private double rspeed;
+  /** Intake motor speed */
+  private double speed;
 
   /**
    * Sets the intake speed to a given percent
    * @param m_subsystem The subsystem used by this command. (Intake)
-   * @param leftSpeed A double number that sets the speed of the left intake motor
-   * @param rightSpeed A double number that sets the speed of the right intake motor
+   * @param m_speed A double number that sets the speed of the intake motor
    */
-  public setIntakeSpeed(Intake m_subsystem, double leftSpeed, double rightSpeed) {
+  public runIntake(Intake m_subsystem, double m_speed) {
     subsystem = m_subsystem;
-    lspeed = leftSpeed;
-    rspeed = rightSpeed;
+    speed = m_speed;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_subsystem);
@@ -34,22 +32,12 @@ public class setIntakeSpeed extends CommandBase {
   @Override
   public void initialize() {
     // This will set the intake to run at a set speed
-    subsystem.setIntakeSpeed(lspeed, rspeed);
-  }
-
-  @Override
-  public void execute(){
+    speed = SmartDashboard.getNumber("Intake Speed", Constants.INTAKESPEED);
+    subsystem.setIntakeSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops the intake
-    subsystem.stopIntake();
-  }
-
-  @Override
-  public boolean isFinished(){
-    return false;
   }
 }

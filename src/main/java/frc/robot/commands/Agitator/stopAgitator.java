@@ -1,21 +1,21 @@
-package frc.robot.commands.Intake;
+package frc.robot.commands.Agitator;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Agitator;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * Stops the intake motors.
+ * Stops the agitator motors.
  * @author Michael Francis
  */
-public class stopIntakeMotors extends InstantCommand {
+public class stopAgitator extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Intake m_subsystem;
+  private final Agitator m_subsystem;
 
   /**
-   * Stops the intake motors.
-   * @param subsystem The subsystem used by this command. (Intake)
+   * Stops the agitator motor.
+   * @param subsystem The subsystem used by this command. (agitator)
    */
-  public stopIntakeMotors(Intake subsystem) {
+  public stopAgitator(Agitator subsystem) {
     m_subsystem = subsystem;
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,8 +25,8 @@ public class stopIntakeMotors extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will stop the intake
-    m_subsystem.stopIntake();
+    // This will stop the agitator
+    m_subsystem.stopAgitator();
   }
 
   // Called once the command ends or is interrupted.
