@@ -21,7 +21,7 @@ public class Serializer extends SubsystemBase {
    * Specifies whether or not the Serializer will be in debug mode.
    * @see #periodic()
    */
-  public final boolean serializerDebug = true;
+  public final boolean serializerDebug = false;
   // Sets up posistion stuff (referenced later)
   public double targetPosition;
   final double kP = 0.95;
