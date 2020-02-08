@@ -1,40 +1,36 @@
 package frc.robot.commands.Serializer;
 
 import frc.robot.subsystems.Serializer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the serializer speed
- * @author Michael Francis
+ * @author Nicholas Stokes
  */
-public class setSerializerSpeed extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class setSerializerSpeed extends InstantCommand {
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer subsystem;
-  /** Serializer motor speed */
-  private double speed;
+  private double serializerSpeed;
 
   /**
-   * Sets the serializer speed to a given percent
-   * @param m_subsystem The subsystem used by this command. (Intake)
-   * @param m_speed A double number that sets the speed of the left serializer motor
+   * Sets the serializer speed 
+   * @author Nicholas Stokes
+   * @param serializer The subsystem used by this command. (Serializer)
+   * @param speed  A double number that sets what speed the motors move at
    */
-  public setSerializerSpeed(Serializer m_subsystem, double m_speed) {
-    subsystem = m_subsystem;
-    speed = m_speed;
-    
+  public setSerializerSpeed(Serializer serializer, double speed) {
+    subsystem = serializer;
+    serializerSpeed = speed;
+
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_subsystem);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     // This will set the serializer to run at a set speed
-    subsystem.setSerializerSpeed(speed);
-  }
-
-  @Override
-  public void execute(){
+    subsystem.setSerializerSpeed(serializerSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -43,9 +39,5 @@ public class setSerializerSpeed extends CommandBase {
     // Stops the serializer
     subsystem.stopSerializer();
   }
-
-  @Override
-  public boolean isFinished(){
-    return false;
-  }
+  
 }

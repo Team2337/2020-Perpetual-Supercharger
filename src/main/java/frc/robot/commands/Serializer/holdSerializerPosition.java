@@ -4,34 +4,29 @@ import frc.robot.subsystems.Serializer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the serializer speed
- * @author Michael Francis
+ * Holds the serializer position
+ * @author Nicholas Stokes
  */
-public class holdSerializerPosition extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Serializer subsystem;
+public class holdSerializerPosition extends CommandBase{
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+  private final Serializer m_subsystem;
+  public double position;
 
   /**
-   * Sets the serializer speed to a given percent
-   * @param m_subsystem The subsystem used by this command. (serializer)
+   * Holds the serializer position
    */
-  public holdSerializerPosition(Serializer m_subsystem) {
-    subsystem = m_subsystem;
-    
+  public holdSerializerPosition(Serializer subsystem){
+    m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_subsystem);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will set the serializer to stay at a certain position
-    subsystem.setSerializerPosition(subsystem.getSerializerPosition());
-  }
-
-  @Override
-  public void execute(){
-    subsystem.setSerializerPosition(subsystem.getSerializerPosition());
+    //This sets the position to the current position, which causes the position to hold
+    position = m_subsystem.getSerializerPosition();
+    m_subsystem.setPosition(position);
   }
 
   // Called once the command ends or is interrupted.
@@ -39,8 +34,4 @@ public class holdSerializerPosition extends CommandBase {
   public void end(boolean interrupted) {
   }
 
-  @Override
-  public boolean isFinished(){
-    return false;
-  }
 }

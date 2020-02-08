@@ -4,14 +4,15 @@ import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.Serializer.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
+import frc.robot.commands.Shooter.*;
 
 /**
  * OI Class where all controllers and button presses are placed 
  */
 public class OI {
-    
     public NerdyUltimateXboxDriver driverJoystick = new NerdyUltimateXboxDriver(0);
 	public NerdyUltimateXboxOperator operatorJoystick = new NerdyUltimateXboxOperator(1);
     public NerdyOperatorStation	operatorControls = new NerdyOperatorStation(2);
@@ -24,6 +25,10 @@ public class OI {
         driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
         driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
 
+        //Run the shooter
+        driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
+        driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
+
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
@@ -35,12 +40,20 @@ public class OI {
         operatorJoystick.triggerLeft    .whenReleased(new stopIntake(Robot.Intake));
 
         operatorJoystick.yellowY        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
-        operatorJoystick.yellowY        .whenReleased(new stopAgitatorMotors(Robot.Agitator));
+        operatorJoystick.yellowY        .whenReleased(new stopAgitator(Robot.Agitator));
 
         operatorJoystick.blueX          .whenPressed(new runClimber(Robot.Climber, Constants.CLIMBERSPEED));
-        operatorJoystick.blueX          .whenReleased(new stopClimberMotors(Robot.Climber));
+        operatorJoystick.blueX          .whenReleased(new stopClimber(Robot.Climber));
 
-
+        // Sets the serializer motor to move up and stop when released
+        operatorJoystick.povUp .whenPressed(new setSerializerSpeed(Robot.Serializer, 0.5));
+        operatorJoystick.povUp . whenReleased(new stopSerializerMotor(Robot.Serializer));
+        // Readies the shooter to get the kicker wheel up to speed
+        operatorJoystick.povRight .whenPressed(new readyShooter(Robot.Serializer, 4096));
+        //Sets the serializer motor to move down and stop when released
+        operatorJoystick.povDown .whenPressed(new setSerializerSpeed(Robot.Serializer, -0.5));
+        operatorJoystick.povDown .whenReleased(new stopSerializerMotor(Robot.Serializer));
+        
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here

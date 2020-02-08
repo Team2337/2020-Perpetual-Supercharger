@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Stops the serializer motor.
- * @author Michael Francis
+ * @author Michael Francis & Nicholas Stokes
  */
 public class stopSerializerMotor extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

@@ -9,7 +9,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    /** --- CAN IDs --- */
+    /* --- CAN IDs --- */
     public static int CANID0 = 0;
     public static int MODULE0DRIVEMOTORID = 1;
     public static int MODULE0ANGLEMOTORID = 2;
@@ -23,9 +23,9 @@ public final class Constants {
     public static int AGITATOR = 10;
     public static int CLIMBER = 11;
     public static int CONTROLPANELSPINNER = 12;
-    public static int SERIALIZER = 13;
-    public static int CANID14 = 14;
-    public static int CANID15 = 15;
+    public static int SHOOTERLEFTMOTOR = 13;
+    public static int SHOOTERRIGHTMOTOR = 14;
+    public static int SERIALIZER = 15;
 
     /** --- PCMs --- */
     public static final int PCM0 = 0;
@@ -86,4 +86,20 @@ public final class Constants {
     /** --- Climber --- */
     public static double CLIMBERSPEED = 0.4;
 
+    /* --- Shooter Values --- */
+    /**
+     * This value is the number at which the closed loop ramp rate of the shooter
+     * goes from 0.5 to 0 to increase speed
+     */
+    public static int SHOOTERRAMPSWITCHVALUE = 5000;
+    
+    //These variables are for the shooter function in OI.java.
+    //They are the speeds at which to launch the power cells (balls) at.
+    /** To be used from ~16 feet away */
+    public static int SHOOTSPEEDCLOSE = 14450;
+    /** To be used from ~34 feet away */
+    public static int SHOOTSPEEDFAR = 15295;
+
+    /**---Serializer--- */
+    public static double SERIALIZERPEAKSPEED = 0.2;
 }

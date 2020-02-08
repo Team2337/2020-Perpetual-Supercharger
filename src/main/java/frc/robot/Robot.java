@@ -22,15 +22,16 @@ public class Robot extends TimedRobot {
   public static Agitator Agitator;
   public static Climber Climber;
   public static ControlPanelSpinner ControlPanelSpinner;
-  public static Serializer Serializer;
   public static Intake Intake;
   public static LEDs LEDs;
   public static Pigeon Pigeon;
+  public static Serializer Serializer;
   public static Shooter Shooter;
   public static SwerveDrivetrain SwerveDrivetrain;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static OI OI;
+  
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -46,13 +47,14 @@ public class Robot extends TimedRobot {
     Agitator = new Agitator();
     Climber = new Climber();
     ControlPanelSpinner = new ControlPanelSpinner();
-    Serializer = new Serializer();
     Intake = new Intake();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
+    Serializer = new Serializer();
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
+    
     OI = new OI();
 
     // Resets the pigeon to 0    
@@ -62,6 +64,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Intake Speed", Constants.INTAKESPEED);
     SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
     SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
+    SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERPEAKSPEED);
   }
 
   /**
