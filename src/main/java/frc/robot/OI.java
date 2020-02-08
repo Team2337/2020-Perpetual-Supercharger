@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.KickerWheel.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
@@ -32,6 +33,13 @@ public class OI {
         operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4, 0.4));
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4, -0.4));
+
+        //Sets the kicker wheel's speeed
+        operatorJoystick.greenA .whenPressed(new setKickerSpeed(Robot.KickerWheel, 3000));
+        //Stops the kicker wheel
+        operatorJoystick.redB .whenPressed(new stopKicker(Robot.KickerWheel));
+        //Holds the kicker wheel's position
+        operatorJoystick.start .whenPressed(new holdKickerPosition(Robot.KickerWheel));
 
         /* --- DRIVER STATION CONTROLS --- */
 

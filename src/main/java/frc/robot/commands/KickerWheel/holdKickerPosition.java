@@ -4,20 +4,18 @@ import frc.robot.subsystems.KickerWheel;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * A command that stops the kicker wheel using the kicker subsystem.
+ * A command that sets the kicker position using the Kicker subsystem.
  */
-public class stopKickerSpeed extends InstantCommand {
-  public double kspeed;
+public class holdKickerPosition extends InstantCommand {
   private KickerWheel subsystem;
 
   /**
-   * Stops the kicker wheel.
-   *
-   * @param subsystem The subsystem used by this command.
+   * Sets the kicker's position to what it currently is set to.
+   * 
+   * @param subsystem The subsystem used by this command. (Kicker)
    */
-  public stopKickerSpeed(KickerWheel kickerWheel, double kickerspeed) {
+  public holdKickerPosition(KickerWheel kickerWheel) {
     subsystem = kickerWheel;
-    kspeed = kickerspeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -26,7 +24,7 @@ public class stopKickerSpeed extends InstantCommand {
   @Override
   public void initialize(){ 
 
-    subsystem.stopKicker();
+    subsystem.setKickerPosition(subsystem.getKickerPosition());
   }
 
   // Called once the command ends or is interrupted.

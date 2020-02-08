@@ -32,9 +32,9 @@ public class KickerWheel extends SubsystemBase {
   private CANPIDController kickerPIDController;
 
   /* --- PID SETTINGS --- */
-  double kP = 0.01;
+  double kP = 0.0005;
   double kI = 0;
-  double kD = 0;
+  double kD = 0.01;
   double kFF = 0;
   double kMinOutput = -1;
   double kMaxOutput = 1;
@@ -56,6 +56,8 @@ public class KickerWheel extends SubsystemBase {
     kickerPIDController.setFF(kFF);
     kickerPIDController.setOutputRange(kMinOutput, kMaxOutput);
 
+    kickerWheelMotor.setClosedLoopRampRate(0.5);
+
   }
  
   @Override
@@ -76,7 +78,7 @@ public class KickerWheel extends SubsystemBase {
    */
   public void adjustKickerSpeed(double speedChange){
     kspeed = kspeed + speedChange;
-    kickerWheelMotor.set(kspeed);
+    kickerPIDController.setReference(kspeed, ControlType.kVelocity);
   }
 
   /**
@@ -92,8 +94,20 @@ public class KickerWheel extends SubsystemBase {
    * @param speed The speed to set the kicker wheel to (in velocity)
    */
   public void setKickerSpeed(double speed) {
+    kP = 0.0005;
+    kickerPIDController.setP(kP);
     kspeed = speed;
     kickerPIDController.setReference(speed, ControlType.kVelocity);
+  }
+
+  /**
+   * Sets the Kicker position to a certain position
+   * @param pos The position to set the position to
+   */
+  public void setKickerPosition(double pos){
+    kP = 0.9;
+    kickerPIDController.setP(kP);
+    kickerPIDController.setReference(pos, ControlType.kPosition);
   }
 
   /**
@@ -102,6 +116,14 @@ public class KickerWheel extends SubsystemBase {
    */
   public double getKickerSpeed() {
     return kickerWheelMotor.getEncoder().getVelocity();
+  }
+
+  /**
+   * Gets the current Kicker position
+   * @return The kicker's position
+   */
+  public double getKickerPosition() {
+    return kickerWheelMotor.getEncoder().getPosition();
   }
 
 }
