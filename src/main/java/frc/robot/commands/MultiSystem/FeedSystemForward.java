@@ -2,7 +2,8 @@ package frc.robot.commands.MultiSystem;
 
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Serializer.setSerializerSpeed;
+import frc.robot.commands.Agitator.runAgitator;
+import frc.robot.commands.Serializer.runSerializer;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 /**
@@ -18,11 +19,9 @@ public class FeedSystemForward extends ParallelCommandGroup {
 public FeedSystemForward() {
 
     addCommands(
-        new setSerializerSpeed(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED)
-
-        
-    
-    
+        new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED),
+        new runAgitator(Robot.Agitator, Constants.AGITATORSPEED)
+        //TODO:  Are We holding Kicker Here?
  );
 }
 

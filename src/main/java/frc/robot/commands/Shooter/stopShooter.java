@@ -1,8 +1,6 @@
 package frc.robot.commands.Shooter;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
