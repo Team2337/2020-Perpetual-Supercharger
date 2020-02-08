@@ -6,7 +6,7 @@ import edu.wpi.first.hal.can.CANExceptionFactory;
 import edu.wpi.first.hal.can.CANJNI;
 
 /**
- * ???
+ * Receives and sends information to the device
  */
 public class CANSendReceive {
 
@@ -19,7 +19,7 @@ public class CANSendReceive {
 
     /**
      * Helper routine to get last received message for a given ID. (to be looked into more)
-     * @param fullId ???
+     * @param fullId The message ID being read.
      * @param deviceID The ID of the device
      * @return Returns the timestamp as an integer. If it returns -1, it failed.
      */
@@ -55,7 +55,7 @@ public class CANSendReceive {
      * @param messageID The message ID
      * @param data The data being sent
      * @param dataSize The size of the data
-     * @param period ???
+     * @param period The send message period (kSendMessagePeriod)
      */
     public static void sendMessage(int messageID, byte[] data, int dataSize, int period) {
 

@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import java.nio.ByteBuffer;
 
-import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /**
  * Read values off of the Time of Flight sensor feedback
  */
-public class TimeOfFlight extends SubsystemBase implements Sendable {
+public class TimeOfFlight extends SubsystemBase {
 
 
   //////////////////////////////////
@@ -203,7 +202,7 @@ public class TimeOfFlight extends SubsystemBase implements Sendable {
        *   2 - Return signal value is below the internal defined threshold
        *   4 - Return signal phase is out of bounds
        *   5 - Hardware failure
-       *   7 - Wrapped target, non-matching phases
+       *   7 - Wrapped target, non-matching phases (probably means more than one target found)
        *   8 - Internal algorithm underflow or overflow
        *  14 - The measured distance is invalid
        */
@@ -266,7 +265,8 @@ public class TimeOfFlight extends SubsystemBase implements Sendable {
    * </ul>
    */
   public static double[] readQuality() {
-    //Set up an array temp with 2 items
+    //Set up an array temp with 2 items.
+    /** Holds items temporarily to be returned */
     double temp[] = { 0, 0 };
     //Read the measurement quality from the CAN device
     long read = CANSendReceive.readMessage(MEASUREMENT_QUALITY_MESSAGE, deviceID);
@@ -301,6 +301,7 @@ public class TimeOfFlight extends SubsystemBase implements Sendable {
    */
   public static int[] readCalibrationState() {
     //Set up the temp array with 7 items
+    /** Holds the items to be returned */
     int temp[] = { 0, 0, 0, 0, 0, 0, 0 };
     //Read the calibration state from the CAN device
     long read = CANSendReceive.readMessage(CALIBRATION_STATE_MESSAGE, deviceID);
@@ -328,6 +329,7 @@ public class TimeOfFlight extends SubsystemBase implements Sendable {
    */
   public static void configureRange(int mode) {
     //Set up the byte array data with 3 items
+    /** Holds the data to be sent to the CAN device to set up the range of the device */
     byte[] data = new byte[3];
     //Set the interval variable to 100
     int interval = 100;
@@ -377,6 +379,7 @@ public class TimeOfFlight extends SubsystemBase implements Sendable {
    */
   public static void identifyDevice() {
     //Set up the array hwdata with 8 values
+    /** Holds the data to be sent to the CAN device */
     byte[] hwdata = new byte[8];
     //Read the heartbeat data
     hwdata = readHeartbeat();
@@ -393,6 +396,7 @@ public class TimeOfFlight extends SubsystemBase implements Sendable {
    */
   public static void configureDevice(int oldID, int newID) {
     //Set up the array hwdata with 8 values
+    /** Holds the data to be sent to the CAN device */
     byte[] hwdata = new byte[8];
     if (newID >= 0 && newID < 33) {
       //Read the heartbeat and set the information to hwdata
@@ -451,6 +455,8 @@ public class TimeOfFlight extends SubsystemBase implements Sendable {
   // --- ADD DOUBLE PROPERTIES --- //
   // ----------------------------- //
   ///////////////////////////////////
+
+  //Not sure what any of this does
 
   // https://www.chiefdelphi.com/t/creating-custom-smartdashboard-types-like-pidcommand/162737/8
   @Override
