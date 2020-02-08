@@ -46,13 +46,13 @@ public class OI {
         operatorJoystick.blueX          .whenReleased(new stopClimber(Robot.Climber));
 
         // Sets the serializer motor to move up and stop when released
-        operatorJoystick.povUp .whenPressed(new setSerializerSpeed(Robot.Serializer, 0.5));
-        operatorJoystick.povUp . whenReleased(new stopSerializerMotor(Robot.Serializer));
+        operatorJoystick.povUp          .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERPEAKSPEED));
+        operatorJoystick.povUp          .whenReleased(new stopSerializer(Robot.Serializer));
         // Readies the shooter to get the kicker wheel up to speed
-        operatorJoystick.povRight .whenPressed(new readyShooter(Robot.Serializer, 4096));
+        operatorJoystick.povRight       .whenPressed(new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE));
         //Sets the serializer motor to move down and stop when released
-        operatorJoystick.povDown .whenPressed(new setSerializerSpeed(Robot.Serializer, -0.5));
-        operatorJoystick.povDown .whenReleased(new stopSerializerMotor(Robot.Serializer));
+        operatorJoystick.povDown        .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERPEAKSPEED));
+        operatorJoystick.povDown        .whenReleased(new stopSerializer(Robot.Serializer));
         
         /* --- DRIVER STATION CONTROLS --- */
 

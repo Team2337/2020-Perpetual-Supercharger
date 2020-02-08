@@ -86,20 +86,22 @@ public final class Constants {
     /** --- Climber --- */
     public static double CLIMBERSPEED = 0.4;
 
-    /* --- Shooter Values --- */
+    /** --- Shooter Values --- */
     /**
      * This value is the number at which the closed loop ramp rate of the shooter
      * goes from 0.5 to 0 to increase speed
      */
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
-    //These variables are for the shooter function in OI.java.
-    //They are the speeds at which to launch the power cells (balls) at.
-    /** To be used from ~16 feet away */
+    // Speed to shoot at from ~16 feet away
     public static int SHOOTSPEEDCLOSE = 14450;
-    /** To be used from ~34 feet away */
+    // Speed to shoot at from ~34 feet away
     public static int SHOOTSPEEDFAR = 15295;
 
     /**---Serializer--- */
-    public static double SERIALIZERPEAKSPEED = 0.2;
+    //Maximum speed of the serializer
+    public static double SERIALIZERPEAKSPEED = 0.8;
+
+    //Amount of ticks to reverse the serializer by when readying the kicker wheel
+    public static int SERIALIZERREGRESSIONDISTANCE = 4096;
 }

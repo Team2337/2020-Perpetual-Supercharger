@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * Stops the agitator motors.
  * @author Michael Francis
  */
-public class stopAgitatorMotors extends InstantCommand {
+public class stopAgitator extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Agitator m_subsystem;
 
@@ -15,7 +15,7 @@ public class stopAgitatorMotors extends InstantCommand {
    * Stops the agitator motor.
    * @param subsystem The subsystem used by this command. (agitator)
    */
-  public stopAgitatorMotors(Agitator subsystem) {
+  public stopAgitator(Agitator subsystem) {
     m_subsystem = subsystem;
     
     // Use addRequirements() here to declare subsystem dependencies.

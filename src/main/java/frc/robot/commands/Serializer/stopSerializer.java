@@ -1,21 +1,21 @@
-package frc.robot.commands.Climber;
+package frc.robot.commands.Serializer;
 
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Serializer;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * Stops the climber motors.
- * @author Michael Francis
+ * Stops the serializer motor.
+ * @author Michael Francis & Nicholas Stokes
  */
-public class stopClimberMotors extends InstantCommand {
+public class stopSerializer extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Climber m_subsystem;
+  private final Serializer m_subsystem;
 
   /**
-   * Stops the climber motors.
-   * @param subsystem The subsystem used by this command. (climber)
+   * Stops the serializer motor.
+   * @param subsystem The subsystem used by this command. (Serializer)
    */
-  public stopClimberMotors(Climber subsystem) {
+  public stopSerializer(Serializer subsystem) {
     m_subsystem = subsystem;
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,8 +25,8 @@ public class stopClimberMotors extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will stop the climber
-    m_subsystem.stopClimber();
+    // This will stop the serializer
+    m_subsystem.stopSerializer();
   }
 
   // Called once the command ends or is interrupted.
