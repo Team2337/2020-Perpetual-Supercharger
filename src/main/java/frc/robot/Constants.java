@@ -22,7 +22,7 @@ public final class Constants {
     public static int INTAKE = 9;
     public static int AGITATOR = 10;
     public static int CLIMBER = 11;
-    public static int CONTROLPANELSPINNER = 12;
+    public static int KICKER = 12;
     public static int SHOOTERLEFTMOTOR = 13;
     public static int SHOOTERRIGHTMOTOR = 14;
     public static int SERIALIZER = 15;
@@ -77,14 +77,18 @@ public final class Constants {
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
 
+
     /* --- Agitator --- */
     public static double AGITATORSPEED = 0.4;
+
 
     /* --- Intake --- */
     public static double INTAKESPEED = 0.4;
 
+
     /* --- Climber --- */
     public static double CLIMBERSPEED = 0.4;
+
 
     /* --- Shooter Values --- */
     /**
@@ -98,10 +102,15 @@ public final class Constants {
     // Speed to shoot at from ~34 feet away
     public static int SHOOTSPEEDFAR = 15295;
 
+
     /* ---Serializer--- */
     //Maximum speed of the serializer
     public static double SERIALIZERPEAKSPEED = 0.8;
 
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
     public static int SERIALIZERREGRESSIONDISTANCE = 4096;
+
+
+    /* --- Kicker --- */
+    public static int KICKERSPEED = 3000;
 }

@@ -11,7 +11,7 @@ import frc.robot.subsystems.*;
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
  * the package after creating this project, you must also update the build.gradle file in the
- * project.
+ * project.  
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -21,8 +21,8 @@ public class Robot extends TimedRobot {
 
   public static Agitator Agitator;
   public static Climber Climber;
-  public static ControlPanelSpinner ControlPanelSpinner;
   public static Intake Intake;
+  public static KickerWheel KickerWheel;
   public static LEDs LEDs;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
@@ -46,8 +46,8 @@ public class Robot extends TimedRobot {
     /* --- Subsystems --- */
     Agitator = new Agitator();
     Climber = new Climber();
-    ControlPanelSpinner = new ControlPanelSpinner();
     Intake = new Intake();
+    KickerWheel = new KickerWheel();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
     Serializer = new Serializer();
@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
     SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
     SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERPEAKSPEED);
+    SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);
   }
 
   /**
@@ -78,8 +79,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
+    // and running subsystem periodic() methods.  This must be called from the robot's periodic.
     CommandScheduler.getInstance().run();
   }
 
