@@ -37,7 +37,7 @@ public class Shooter extends SubsystemBase {
   private StatorCurrentLimitConfiguration currentLimitConfigurationMotor = new StatorCurrentLimitConfiguration();
 
   /**
-   * Creates a new ExampleSubsystem.
+   * Shoots the ball with a certain strength
    */
   public Shooter() {
     leftShootMotor = new TalonFX(Constants.SHOOTERLEFTMOTOR);
