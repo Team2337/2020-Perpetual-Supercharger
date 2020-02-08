@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 /**
- * Shoots the power cells (balls) at a certain speed. It sets up the mechanical and electrical
- * components of the shoooter portion of the robot.
+ * Shoots the power cells (balls) at a certain speed.
  * @author Michael F, Sean L
  */
 public class Shooter extends SubsystemBase {
