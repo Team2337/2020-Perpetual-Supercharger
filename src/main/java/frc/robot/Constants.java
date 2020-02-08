@@ -86,7 +86,7 @@ public final class Constants {
     /* --- Climber --- */
     public static double CLIMBERSPEED = 0.4;
 
-    /** --- Shooter Values --- */
+    /* --- Shooter Values --- */
     /**
      * This value is the number at which the closed loop ramp rate of the shooter
      * goes from 0.5 to 0 to increase speed
@@ -98,7 +98,7 @@ public final class Constants {
     // Speed to shoot at from ~34 feet away
     public static int SHOOTSPEEDFAR = 15295;
 
-    /**---Serializer--- */
+    /* ---Serializer--- */
     //Maximum speed of the serializer
     public static double SERIALIZERPEAKSPEED = 0.8;
 
