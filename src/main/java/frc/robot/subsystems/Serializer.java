@@ -85,11 +85,11 @@ public class Serializer extends SubsystemBase {
   public void periodic() {
 
     if (serializerDebug) {
-      SmartDashboard.putNumber("CurrentPosisition", getSerializerPosition());
-      SmartDashboard.putNumber("TargetPosition", targetPosition);
-      SmartDashboard.putNumber("Error", getSerializerPosition() - targetPosition);
-      SmartDashboard.putNumber("Feeder Motor Speed", getSerializerSpeed());
-      SmartDashboard.putNumber("Feeder Motor Temperature", getSerializerTemperature());
+      SmartDashboard.putNumber("Serializer CurrentPosisition", getSerializerPosition());
+      SmartDashboard.putNumber("Serializer TargetPosition", targetPosition);
+      SmartDashboard.putNumber("Serializer Error", getSerializerPosition() - targetPosition);
+      SmartDashboard.putNumber("Serializer Motor Speed", getSerializerSpeed());
+      SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
     }
   }
 
