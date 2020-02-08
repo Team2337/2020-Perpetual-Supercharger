@@ -1,10 +1,7 @@
 package frc.robot.commands.swerve;
 
 import frc.robot.Robot;
-import frc.robot.Constants.Swerve;
 import frc.robot.subsystems.SwerveDrivetrain;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -16,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class RotateAtSpeed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SwerveDrivetrain m_subsystem;
-  /* --- Integers --- */
   /* --- Doubles --- */
   private double rotationDegree = 45;
   private double kP = 1;
   private double speed;
+  /* --- Booleans --- */
   private boolean finished = false;
 /**
  * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
@@ -55,7 +52,6 @@ public class RotateAtSpeed extends CommandBase {
   public void execute() {
     for (int i = 0; i < 4; i++) {
     SmartDashboard.putNumber("encoderValue/" + i, m_subsystem.getModule(i).getDriveEncoderValue());
-    //System.out.println("encoderValue" + i + "  " + m_subsystem.getModule(i).getDriveEncoder());
     }
     // Goes through 4 times to set each module to an angle
     for(int i = 0; i < 4; i++) {
@@ -76,7 +72,6 @@ public class RotateAtSpeed extends CommandBase {
     }
     finished = speed == 0 ? true: false;
     finished = Robot.OI.driverJoystick.getRawButtonReleased(2) || Robot.OI.driverJoystick.getRawButtonReleased(3) ? true: false;
-    //System.out.println(finished);
   }
 
   @Override

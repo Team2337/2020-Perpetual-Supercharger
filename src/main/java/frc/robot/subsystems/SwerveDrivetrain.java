@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.commands.auto.setAllDriveEncoders;
 import frc.robot.commands.swerve.*;
 import frc.robot.nerdyfiles.swerve.*;
 

@@ -77,47 +77,29 @@ public class SwerveDriveCommand extends CommandBase {
     SmartDashboard.putNumber("Rotation", rotation);
 
     if (Math.abs(rotation) > rotationDeadband) {
-      //lastAngle = Robot.Utilities.getYawMod();
       lastRotation = rotation;
     } else {
       if (Math.abs(lastRotation) > rotationDeadband && Math.abs(rotation) <= rotationDeadband) {
-        // stoppedRotating = true;
-        // System.out.println("fdijkfdisjiffdsjkhnserdtcyuvbiokoiuuies" + -Robot.Utilities.getYawMod());
         Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod());
         rotation = 0;
         lastRotation = rotation;
       }
-      /* Robot.Utilities.calculateDerivative(error, lastError, dt)
-      if (Math.abs(rotationVelocity) > velocityDeadband) {
-        lastVelocity  = rotationVelocity;
-      } else {
-        if (Math.abs(lastVelocity) > velocityDeadband && Math.abs(velocity) <= velocityDeadband) {
-          Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod());
-          velocity = 0;
-          lastVelocity = 0;
-        }
-      } */
       if (Robot.OperatorAngleAdjustment.getIsChangingGyroAngle()) {
         Robot.OperatorAngleAdjustment.setOffsetAngle(Robot.OperatorAngleAdjustment.getFutureOffsetAngle());
       }
       error = Robot.OperatorAngleAdjustment.getGyroAngleOffset() + Robot.Utilities.getYawMod();
-      // System.out.println("error: " + error + " offsetAngle: " + Robot.OperatorAngleAdjustment.getGyroAngleOffset());
       kP = forward == 0 && strafe == 0 ? stationaryP : movingP;
-      // System.out.println("error: " + error + " rotation: " + rotation);
       if(error > 180) {
         error -= 360;
       } else if(error < -180) {
         error += 360;
       }
-      // System.out.println("error: " + error + " rotation: " + rotation + " offsetangle: " + Robot.OperatorAngleAdjustment.getGyroAngleOffset());
       rotation = Robot.OperatorAngleAdjustment.calculateGyroOffset(error, rotation, kP);
-      // System.out.println("rotation4" + rotation);
     }
     if (Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
       rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * 0.85);
     }
     // Pass on joystick values to be calculated into angles and speeds
-    // System.out.println("forawrd: " + forward + " strafe: " + strafe+  " rotation: "+ rotation);
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
   }
 

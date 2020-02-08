@@ -1,13 +1,10 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator2Ball;
 import frc.robot.subsystems.*;
 
 /**
@@ -17,7 +14,6 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
   private double average = 0;
   private double total = 0;
   private double iteration = 0;
@@ -40,6 +36,7 @@ public class Robot extends TimedRobot {
   public static PowerDistributionPanel PDP;
   public static Feeder Feeder;
   public static OI OI;
+  
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -70,7 +67,6 @@ public class Robot extends TimedRobot {
     
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
-    m_autonomousCommand = new CenterGoalBack9BallGenerator2Ball();
   }
 
   /**
@@ -122,11 +118,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
     //SwerveDrivetrain.zeroAllDriveEncoders();
   }
 
@@ -143,9 +134,6 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
     for(int i = 0; i < 4; i++)
     SwerveDrivetrain.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
     Pigeon.resetPidgey();
