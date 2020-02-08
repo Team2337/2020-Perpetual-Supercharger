@@ -14,11 +14,11 @@ public class limelightPipeline extends InstantCommand {
   /* --- Integers --- */
   private int pipe;
 
-/**
- * Switches to the different conigurations of the limelight
- * @param subsystem - Vision subsystem object
- * @param pipe - Chamnges to the different configurations 
- */
+  /**
+  * Switches to the different conigurations of the limelight
+  * @param subsystem - Vision subsystem object
+  * @param pipe - Chamnges to the different configurations 
+  */
   public limelightPipeline(Vision subsystem, int pipe) {
     this.subsystem = subsystem;
     addRequirements(subsystem);
