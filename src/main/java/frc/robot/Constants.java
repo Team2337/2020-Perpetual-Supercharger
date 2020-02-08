@@ -21,11 +21,11 @@ public final class Constants {
     public static int MODULE3ANGLEMOTORID = 8;
     public static int LEFTINTAKE = 9;
     public static int RIGHTINTAKE = 10;
-    public static int CANID11 = 11;
-    public static int CANID12 = 12;
-    public static int SERIALIZER = 13;
-    public static int AGITATORMOTOR = 14;
-    public static int CANID15 = 15;
+    public static int LEFTFEEDER = 11;
+    public static int RIGHTFEEDER = 12;
+    public static int SHOOTERLEFTMOTOR = 13;
+    public static int SHOOTERRIGHTMOTOR = 14;
+    public static int SERIALIZER = 15;
 
     /** --- PCMs --- */
     public static final int PCM0 = 0;
