@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.*;
@@ -18,21 +19,19 @@ public class Robot extends TimedRobot {
   public static Constants Constants;
   public static Utilities Utilities;
 
+  public static Agitator Agitator;
   public static Climber Climber;
-  public static ClimberExtender ClimberExtender;
-  public static ControlPanelSpinner ControlPanelSpinner;
-  public static Serializer Serializer;
   public static Intake Intake;
+  public static KickerWheel KickerWheel;
   public static LEDs LEDs;
   public static Pigeon Pigeon;
+  public static Serializer Serializer;
   public static Shooter Shooter;
-  public static ShooterHood ShooterHood;
   public static SwerveDrivetrain SwerveDrivetrain;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
-  public static Feeder Feeder;
-  public static KickerWheel KickerWheel;
   public static OI OI;
+  
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -45,23 +44,27 @@ public class Robot extends TimedRobot {
     Utilities = new Utilities();
 
     /* --- Subsystems --- */
+    Agitator = new Agitator();
     Climber = new Climber();
-    ClimberExtender = new ClimberExtender();
-    ControlPanelSpinner = new ControlPanelSpinner();
-    Serializer = new Serializer();
     Intake = new Intake();
+    KickerWheel = new KickerWheel();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
+    Serializer = new Serializer();
     Shooter = new Shooter();
-    ShooterHood = new ShooterHood();
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
-    Feeder = new Feeder();
-    KickerWheel = new KickerWheel();
+    
     OI = new OI();
 
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
+    
+    //** --- Allows the speed of these subsystems to be changed on SmarDashboard --- */
+    SmartDashboard.putNumber("Intake Speed", Constants.INTAKESPEED);
+    SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
+    SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
+    SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERPEAKSPEED);
   }
 
   /**

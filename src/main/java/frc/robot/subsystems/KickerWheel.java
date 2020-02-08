@@ -44,7 +44,7 @@ public class KickerWheel extends SubsystemBase {
    */
   public KickerWheel() {
     // Sets up the motor (NEO 550) using the number specified in the Constants file.
-    kickerWheelMotor = new CANSparkMax(Constants.KICKERMOTOR, MotorType.kBrushless);
+    kickerWheelMotor = new CANSparkMax(Constants.KICKER, MotorType.kBrushless);
    
     // Sets up the PID controller
     kickerPIDController = kickerWheelMotor.getPIDController();
@@ -124,6 +124,15 @@ public class KickerWheel extends SubsystemBase {
    */
   public double getKickerPosition() {
     return kickerWheelMotor.getEncoder().getPosition();
+  }
+
+  /**
+   * Method that returns the Kicker motor temperature
+   * @return A double of the temperature (in Celsius) of the Kicker motor.
+   */
+  public double getKickerTemperatur(){
+    double temp = kickerWheelMotor.getMotorTemperature();
+    return temp;
   }
 
 }

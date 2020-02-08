@@ -19,13 +19,13 @@ public final class Constants {
     public static int MODULE2ANGLEMOTORID = 6;
     public static int MODULE3DRIVEMOTORID = 7;
     public static int MODULE3ANGLEMOTORID = 8;
-    public static int LEFTINTAKE = 9;
-    public static int RIGHTINTAKE = 10;
-    public static int LEFTFEEDER = 11;
-    public static int RIGHTFEEDER = 12;
+    public static int INTAKE = 9;
+    public static int AGITATOR = 10;
+    public static int CLIMBER = 11;
+    public static int KICKER = 12;
     public static int SHOOTERLEFTMOTOR = 13;
     public static int SHOOTERRIGHTMOTOR = 14;
-    public static int KICKERMOTOR = 15;
+    public static int SERIALIZER = 15;
 
     /* --- PCMs --- */
     public static final int PCM0 = 0;
@@ -77,6 +77,15 @@ public final class Constants {
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
 
+    /* --- Agitator --- */
+    public static double AGITATORSPEED = 0.4;
+
+    /* --- Intake --- */
+    public static double INTAKESPEED = 0.4;
+
+    /* --- Climber --- */
+    public static double CLIMBERSPEED = 0.4;
+
     /* --- Shooter Values --- */
     /**
      * This value is the number at which the closed loop ramp rate of the shooter
@@ -84,10 +93,15 @@ public final class Constants {
      */
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
-    //These variables are for the shooter function in OI.java.
-    //They are the speeds at which to launch the power cells (balls) at.
-    /** To be used from ~16 feet away */
+    // Speed to shoot at from ~16 feet away
     public static int SHOOTSPEEDCLOSE = 14450;
-    /** To be used from ~34 feet away */
+    // Speed to shoot at from ~34 feet away
     public static int SHOOTSPEEDFAR = 15295;
+
+    /* ---Serializer--- */
+    //Maximum speed of the serializer
+    public static double SERIALIZERPEAKSPEED = 0.8;
+
+    //Amount of ticks to reverse the serializer by when readying the kicker wheel
+    public static int SERIALIZERREGRESSIONDISTANCE = 4096;
 }

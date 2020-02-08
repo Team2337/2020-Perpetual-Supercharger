@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * Stops the intake motors.
  * @author Michael Francis
  */
-public class stopIntakeMotors extends InstantCommand {
+public class stopIntake extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_subsystem;
 
@@ -15,7 +15,7 @@ public class stopIntakeMotors extends InstantCommand {
    * Stops the intake motors.
    * @param subsystem The subsystem used by this command. (Intake)
    */
-  public stopIntakeMotors(Intake subsystem) {
+  public stopIntake(Intake subsystem) {
     m_subsystem = subsystem;
     
     // Use addRequirements() here to declare subsystem dependencies.
