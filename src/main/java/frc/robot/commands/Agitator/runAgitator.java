@@ -39,7 +39,5 @@ public class runAgitator extends InstantCommand {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops the agitator
-    subsystem.stopAgitator();
   }
 }
