@@ -76,4 +76,14 @@ public final class Constants {
     public static int PWMPORT7 = 7;
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
+
+    /** --- Agitator --- */
+    public static double AGITATORSPEED = 0.4;
+
+    /** --- Intake --- */
+    public static double INTAKESPEED = 0.4;
+
+    /** --- Climber --- */
+    public static double CLIMBERSPEED = 0.4;
+
 }

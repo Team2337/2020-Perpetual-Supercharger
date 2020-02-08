@@ -27,15 +27,18 @@ public class OI {
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
-        operatorJoystick.triggerRight .whileHeld(new setIntakeSpeed(Robot.Intake, 0.4));
+        operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKESPEED));
+        operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
+
         //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.triggerLeft .whileHeld(new setIntakeSpeed(Robot.Intake, -0.4));
+        operatorJoystick.triggerLeft    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
+        operatorJoystick.triggerLeft    .whenReleased(new stopIntake(Robot.Intake));
 
-        operatorJoystick.yellowY     .whenPressed(new runAgitator(Robot.Agitator, 0.4));
-        operatorJoystick.yellowY     .whenReleased(new stopAgitatorMotors(Robot.Agitator));
+        operatorJoystick.yellowY        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
+        operatorJoystick.yellowY        .whenReleased(new stopAgitatorMotors(Robot.Agitator));
 
-        operatorJoystick.blueX       .whenPressed(new runClimber(Robot.Climber, 0.4));
-        operatorJoystick.blueX       .whenReleased(new stopClimberMotors(Robot.Climber));
+        operatorJoystick.blueX          .whenPressed(new runClimber(Robot.Climber, Constants.CLIMBERSPEED));
+        operatorJoystick.blueX          .whenReleased(new stopClimberMotors(Robot.Climber));
 
 
         /* --- DRIVER STATION CONTROLS --- */

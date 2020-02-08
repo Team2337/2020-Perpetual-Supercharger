@@ -1,13 +1,15 @@
 package frc.robot.commands.Climber;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Climber;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the climber speed
  * @author Michael Francis
  */
-public class runClimber extends CommandBase {
+public class runClimber extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climber subsystem;
   /** Climber motor speed */
@@ -30,22 +32,12 @@ public class runClimber extends CommandBase {
   @Override
   public void initialize() {
     // This will set the climber to run at a set speed
+    speed = SmartDashboard.getNumber("Climber Speed", Constants.CLIMBERSPEED);
     subsystem.setClimberSpeed(speed);
-  }
-
-  @Override
-  public void execute(){
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops the climber
-    subsystem.stopClimber();
-  }
-
-  @Override
-  public boolean isFinished(){
-    return false;
   }
 }

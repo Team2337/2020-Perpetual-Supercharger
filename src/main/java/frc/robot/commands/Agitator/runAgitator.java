@@ -1,13 +1,15 @@
 package frc.robot.commands.Agitator;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Agitator;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the agitator speed
  * @author Michael Francis
  */
-public class runAgitator extends CommandBase {
+public class runAgitator extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Agitator subsystem;
   /** Agitator motor speed */
@@ -30,22 +32,14 @@ public class runAgitator extends CommandBase {
   @Override
   public void initialize() {
     // This will set the agitator to run at a set speed
+    speed = SmartDashboard.getNumber("Agitator Speed", Constants.AGITATORSPEED);
     subsystem.setAgitatorSpeed(speed);
   }
-
-  @Override
-  public void execute(){
-  }
-
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     // Stops the agitator
     subsystem.stopAgitator();
-  }
-
-  @Override
-  public boolean isFinished(){
-    return false;
   }
 }

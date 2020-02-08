@@ -1,13 +1,15 @@
 package frc.robot.commands.Intake;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the intake speed
  * @author Michael Francis
  */
-public class setIntakeSpeed extends CommandBase {
+public class runIntake extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake subsystem;
   /** Intake motor speed */
@@ -18,7 +20,7 @@ public class setIntakeSpeed extends CommandBase {
    * @param m_subsystem The subsystem used by this command. (Intake)
    * @param m_speed A double number that sets the speed of the intake motor
    */
-  public setIntakeSpeed(Intake m_subsystem, double m_speed) {
+  public runIntake(Intake m_subsystem, double m_speed) {
     subsystem = m_subsystem;
     speed = m_speed;
     
@@ -30,22 +32,12 @@ public class setIntakeSpeed extends CommandBase {
   @Override
   public void initialize() {
     // This will set the intake to run at a set speed
+    speed = SmartDashboard.getNumber("Intake Speed", Constants.INTAKESPEED);
     subsystem.setIntakeSpeed(speed);
-  }
-
-  @Override
-  public void execute(){
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops the intake
-    subsystem.stopIntake();
-  }
-
-  @Override
-  public boolean isFinished(){
-    return false;
   }
 }
