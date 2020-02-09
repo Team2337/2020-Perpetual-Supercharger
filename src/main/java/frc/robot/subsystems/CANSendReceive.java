@@ -18,7 +18,7 @@ public class CANSendReceive {
 
 
     /**
-     * Helper routine to get last received message for a given ID. (to be looked into more)
+     * Helper routine to get last received message for a given ID.
      * @param fullId The message ID being read.
      * @param deviceID The ID of the device
      * @return Returns the timestamp as an integer. If it returns -1, it failed.
@@ -51,7 +51,7 @@ public class CANSendReceive {
     }
 
     /**
-     * Sends a message to the sensor (???)
+     * Sends a message to the sensor
      * @param messageID The message ID
      * @param data The data being sent
      * @param dataSize The size of the data
@@ -61,8 +61,6 @@ public class CANSendReceive {
 
         CANJNI.FRCNetCommCANSessionMuxSendMessage(messageID, data, period);
         CANExceptionFactory.checkStatus(status, messageID);
-
-        return;
 
     }
 

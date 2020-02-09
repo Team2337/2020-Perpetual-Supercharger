@@ -28,14 +28,16 @@ public class findSensor extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-
-    foundId = TimeOfFlight.findSensor();
-
+    //Uses the findSensor method to find if the sensor is there
+    foundId = TimeOfFlight.findSensor(currentId);
+    //Checks if the sensor was found
     if(foundId != 999) {
+      //If the sensor was found
       temp = TimeOfFlight.getSensorInfo(TimeOfFlight.hwdata);
       SmartDashboard.putNumber("FoundSerial", temp[0]);
       SmartDashboard.putNumber("SensorFound", currentId);
     } else {
+      //Raise the id being checked
       currentId++;
     }
   }

@@ -1,13 +1,11 @@
 package frc.robot.subsystems;
 
 import java.nio.ByteBuffer;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-
+import frc.robot.Constants;
 
 
 /**
@@ -46,9 +44,6 @@ public class TimeOfFlight extends SubsystemBase {
    */
   private static boolean tofDebug = false;
 
-  private double a;
-  private int b;
-
   public static double loadSensorSerial;
   public static double loadSensorPart;
   public static double loadSensorFirmware;
@@ -59,13 +54,16 @@ public class TimeOfFlight extends SubsystemBase {
 
 
   public TimeOfFlight() {
-
-    tofdata = TimeOfFlight.readHeartbeat();
+    //Reads the raw heartbeat data
+    tofdata = TimeOfFlight.readHeartbeat(deviceID);
+    //Converts the data into useful information
     int[] temp = TimeOfFlight.getSensorInfo(tofdata);
+    //Puts the corresponding information on the array
     loadSensorSerial = temp[0];
     loadSensorPart = temp[1];
     loadSensorFirmware = temp[2];
-    TimeOfFlight.configureRange(0);
+    //Configures the range
+    TimeOfFlight.configureRange(Constants.TOFMODE);
 
   }
 
@@ -76,27 +74,6 @@ public class TimeOfFlight extends SubsystemBase {
     // --- PUT TIMEOFFLIGHT SENSOR VALUES ON SMARTDASHBOARD --- //
     // -------------------------------------------------------- //
     //////////////////////////////////////////////////////////////
-    
-    // SmartDashboard.putNumber("TTT", Timer.getFPGATimestamp() - a);
-    a = Timer.getFPGATimestamp();
-    b++;
-    double[] temp = { 0, 0 };
-    if (b >= 10) {
-
-      temp = TimeOfFlight.getDistanceMM();
-      if (temp[0] < 0) {
-        SmartDashboard.putNumber("Read Error", temp[0]);
-        // temp[0] = 0;
-      }
-      temp = TimeOfFlight.readQuality();
-      double distR = TimeOfFlight.getDistanceMM()[0];
-      if (distR < 0) {
-        SmartDashboard.putNumber("Read Error", distR);
-      distR = 0;
-      }
-
-      b = 0;
-    }
 
     SmartDashboard.putNumber("Measurement MM", distanceMM());
     if(tofDebug){
@@ -117,17 +94,17 @@ public class TimeOfFlight extends SubsystemBase {
    * @param id The ID of the sensor
    * @return Returns the bytes in an array (8).
    * <ul>
-   * <li>   0 = Reversed?                </li>
+   * <li>   0 = Is reversed?             </li>
    * <li> 1-3 = Hardware serial number   </li>
    * <li> 4-5 = Manufacturer part number </li>
    * <li> 6-7 = Firmware version         </li>
    * </ul>
    */
-  public static byte[] readHeartbeat() {
+  public static byte[] readHeartbeat(int id) {
 
     // Reads the bytes given by the sensor.
     // If the read failed to retrieve data, do not update the results.
-    long read = CANSendReceive.readMessage(HEARTBEAT_MESSAGE, deviceID);
+    long read = CANSendReceive.readMessage(HEARTBEAT_MESSAGE, id);
     if (read != -1){
       //If it is -1, it did not get a reading and will keep the last result.
       hwdata = CANSendReceive.result;
@@ -163,8 +140,8 @@ public class TimeOfFlight extends SubsystemBase {
    * @param id The ID of the sensor
    * @return Returns the 0 if the sensor was found; 999 if not found
    */
-  public static int findSensor() {
-    hwdata = readHeartbeat();
+  public static int findSensor(int id) {
+    hwdata = readHeartbeat(id);
     if (hwdata[4] != 0) {
       return deviceID;
     } else {
@@ -324,7 +301,6 @@ public class TimeOfFlight extends SubsystemBase {
     return temp;
   }
 
-  // Messages to device
   /**
    * Configures the range of the sensor
    * @param mode The mode (0-short; 1-medium; 2-long)
@@ -358,7 +334,7 @@ public class TimeOfFlight extends SubsystemBase {
         break;
     }
 
-    //Not sure what this does
+    //Sets up an array of bytes to send to the device
     ByteBuffer b = ByteBuffer.allocate(4);
     b.putInt(interval);
     byte[] result = b.array();
@@ -384,7 +360,7 @@ public class TimeOfFlight extends SubsystemBase {
     /** Holds the data to be sent to the CAN device */
     byte[] hwdata = new byte[8];
     //Read the heartbeat data
-    hwdata = readHeartbeat();
+    hwdata = readHeartbeat(deviceID);
     //Set the reversed data
     hwdata[0] = 0x0D;//13
     //Send information to the CAN device
@@ -392,7 +368,7 @@ public class TimeOfFlight extends SubsystemBase {
   }
 
   /**
-   * Configures the device. Used in configureDevice.java
+   * Changes the ID of the device
    * @param oldID Old ID of the device
    * @param newID Current ID of the device
    */
@@ -402,7 +378,7 @@ public class TimeOfFlight extends SubsystemBase {
     byte[] hwdata = new byte[8];
     if (newID >= 0 && newID < 33) {
       //Read the heartbeat and set the information to hwdata
-      hwdata = readHeartbeat();
+      hwdata = readHeartbeat(oldID);
       //Translate the information into useful data
       getSensorInfo(hwdata);
       //Set the reversed data
@@ -449,38 +425,6 @@ public class TimeOfFlight extends SubsystemBase {
     }
     //Return the result
     return temp;
-  }
-
-
-  ///////////////////////////////////
-  // ----------------------------- //
-  // --- ADD DOUBLE PROPERTIES --- //
-  // ----------------------------- //
-  ///////////////////////////////////
-
-  //Not sure what any of this does
-
-  // https://www.chiefdelphi.com/t/creating-custom-smartdashboard-types-like-pidcommand/162737/8
-  @Override
-  public void initSendable(SendableBuilder builder) {
-
-    //This has some things that could probably be used but currently aren't.
-    //Keep them in case
-
-    builder.setSmartDashboardType("ColorProx");
-    // builder.addDoubleProperty("Range Offset", () -> readCalibrationState()[2], null);
-    // builder.addDoubleProperty("X Position", () -> readCalibrationState()[0], null);
-    // builder.addDoubleProperty("Y Position", () -> readCalibrationState()[1], null);
-
-    builder.addDoubleProperty("Serial Number", () -> serialNumber, null);
-    builder.addDoubleProperty("Part Number", () -> (double) partNumber, null);
-    builder.addDoubleProperty("Firmware", () -> (double) firmWare, null);
-
-    builder.addDoubleProperty("Distance MM", () -> getDistanceMM()[0], null);
-    builder.addDoubleProperty("Distance Inch", () -> getDistanceMM()[0] / 25.4, null);
-    // builder.addDoubleProperty("Ambient Light", () -> readQuality()[0], null);
-    // builder.addDoubleProperty("Std Dev", () -> readQuality()[1], null);
-
   }
 
 }
