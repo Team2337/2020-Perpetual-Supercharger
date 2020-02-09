@@ -55,7 +55,6 @@ public class turnModulesToDegree extends CommandBase {
     addRequirements(subsystem);
     /* --- Parameters Being Set to Global Variables --- */
     this.desiredModuleAngle = (int) (-moduleAngle * Swerve.TICKSPERDEGREE);
-    this.moduleAngle = moduleAngle;
     this.angleP = angleP;
     this.maxSpeed = maxSpeed;
   }
