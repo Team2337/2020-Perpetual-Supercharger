@@ -51,9 +51,8 @@ public class Robot extends TimedRobot {
     try {
       //Gets the stuff needed to get the MAC address
       NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-
       byte[] address = network.getHardwareAddress();
-     // NERD stuff
+     // This is a bunch of NERD Stuff that parses through the byte array and turns it into a readable MAC Address
       StringBuilder sb = new StringBuilder();
       for (int i = 0; i < address.length; i++) {
         sb.append(String.format("%02X%s", address[i], (i < address.length - 1) ? ":" : ""));
