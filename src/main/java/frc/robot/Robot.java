@@ -49,10 +49,10 @@ public class Robot extends TimedRobot {
     mac = "xx:xx:xx:xx:xx:xx";
     // Attempt to get the MAC address of the robot
     try {
-      //Gets the stuff needed to get the MAC address
+      //Gets the raw data for the MAC address
       NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
       byte[] address = network.getHardwareAddress();
-     // This is a bunch of NERD Stuff that parses through the byte array and turns it into a readable MAC Address
+     // This parses through the byte array and turns it into a readable MAC Address
       StringBuilder sb = new StringBuilder();
       for (int i = 0; i < address.length; i++) {
         sb.append(String.format("%02X%s", address[i], (i < address.length - 1) ? ":" : ""));
@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
     }
     // Determines what robot we are using based on the MAC adress
     // (make sure to change mac address for 2020 season)
-    
+
     if (mac.equals("00:80:2F:17:89:85")) {
       System.out.println("PracticeBot " + mac);
       isComp = false;
