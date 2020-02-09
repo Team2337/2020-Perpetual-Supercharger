@@ -1,14 +1,19 @@
 package frc.robot.commands.Hopper;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Hopper;
 
-//A command that uses the hopper subsystem to move the right flipper
-public class rightHopperExtension extends CommandBase {
+/**A command that uses the hopper subsystem to move the right flipper
+ * 
+ * @author John.R
+ */
+public class rightHopperExtension extends InstantCommand {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Hopper subsystem;
 
-//A command that uses the hopper subsystem to move the right flipper
+/**
+ * A command that uses the hopper subsystem to move the right flipper
+ */
   public rightHopperExtension(Hopper m_subsystem) {
     subsystem = m_subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,12 +33,6 @@ public class rightHopperExtension extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    subsystem.extendRightFlipper(false);
   }
 
-  @Override
-  // Retracts right flipper
-  public boolean isFinished() {
-    return false;
-  }
 }

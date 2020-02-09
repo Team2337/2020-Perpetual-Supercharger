@@ -2,19 +2,18 @@ package frc.robot.commands.Hopper;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Hopper;
-
 /**A command that uses the hopper subsystem to move the left flipper
  * 
- * @author John.R
+ * @author Nicholas.S
  */
-public class leftHopperExtension extends InstantCommand {
+public class leftHopperRetraction extends InstantCommand {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Hopper subsystem;
 
   /**
    * A command that uses the hopper subsystem to move the left flipper
    */
-    public leftHopperExtension(Hopper m_subsystem) {
+  public leftHopperRetraction(Hopper m_subsystem) {
     subsystem = m_subsystem;
     
     addRequirements(m_subsystem);
@@ -23,8 +22,8 @@ public class leftHopperExtension extends InstantCommand {
   @Override
   public void initialize() {
 
-    // Extends left flipper
-    subsystem.extendLeftFlipper(true);
+    // retracts left flipper
+    subsystem.extendLeftFlipper(false);
   }
 
   /*
