@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
+ * Sets the module angles to the desired rotation angle and adjusts our rotation
  * @author Madison J.
  * @category AUTON
  */
@@ -22,11 +22,9 @@ public class AdjustRotationAngle extends CommandBase {
   private double kP = 1;
 
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
+ * Sets the module angles to the desired rotation angle and adjusts our rotation
  * @param subsystem - SwerveDrivetrain subsystem object
- * @param position - The desired distance to rotate in inches (49 inches = 180 degrees)
- * @param rotationDegree - The angle each module is being set to
- * @param kP - The value that the error is multiplied by to get our speed
+ * @param direction - The direction we want to rotate, left or right
  */
   public AdjustRotationAngle(SwerveDrivetrain subsystem, String direction) {
     m_subsystem = subsystem;
@@ -41,14 +39,14 @@ public class AdjustRotationAngle extends CommandBase {
     }
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Goes through 4 times to get the angle of each module
+    // Goes through 4 times to configure and set the module angles to either a positive position or a negative position
     for(int i = 0; i < 4; i++) {
-      // Resests the drive configuration 
       m_subsystem.getModule(i).TalonFXConfigurationDrive.slot0.kP = kP;
+      // Sets our allowable error equal to 50
       m_subsystem.getModule(i).TalonFXConfigurationDrive.slot0.allowableClosedloopError = 50;
+      // Configures the drive motors
       m_subsystem.getModule(i).driveMotor.configAllSettings(m_subsystem.getModule(i).TalonFXConfigurationDrive, 0);
       // Checks to see if the modules are rotating
       if (Math.abs(rotationDegree) > 0) {
@@ -59,6 +57,7 @@ public class AdjustRotationAngle extends CommandBase {
           m_subsystem.getModule(i).setAngleSetpoint(position);
         }
       } else {
+        // Sets coast mode
         m_subsystem.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
       }
     }
@@ -66,18 +65,18 @@ public class AdjustRotationAngle extends CommandBase {
       m_subsystem.zeroAllDriveEncoders();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Goes through 4 times and prints the enocder value to smart dashboard
     for (int i = 0; i < 4; i++) {
     SmartDashboard.putNumber("encoderValue/" + i, m_subsystem.getModule(i).getDriveEncoderValue());
     System.out.println("encoderValue" + i + "  " + m_subsystem.getModule(i).getDriveEncoderValue());
     }
-    // Goes through 4 times to set each module to an angle
+    // Goes through 4 times to rotate the modules either in a positive direction or a negative one
     for(int i = 0; i < 4; i++) {
-      // Checks to see if the module is rotated
+      // Checks to see if the modules are rotating
       if (Math.abs(rotationDegree) > 0) {
-        // If the module is even then the angle is inverted
+        // If the module is even then rotation degree is set to negative
         if (i % 2 == 0) {
           m_subsystem.getModule(i).setModuleAngle(Math.toRadians(-rotationDegree));
         } else {

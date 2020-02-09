@@ -5,7 +5,7 @@ import frc.robot.subsystems.OperatorAngleAdjustment;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * Sets the mode of the robot
+ * Sets the future angle offset
  * @author Madison J.
  * @category AUTON
  */
@@ -16,7 +16,7 @@ public class SetGyroAngleOffset extends InstantCommand {
   private String mode;
 
 /**
- * Sets the mode of the robot
+ * Sets the future angle offset
  * @param subsystem - OperatorAngleAdjustment subsystem object
  * @param mode - Changes the angle of the robot depending on the mode selected (modes may do more than change robot angles)
  * @see OperatorAngleAdjustment 
@@ -30,6 +30,7 @@ public class SetGyroAngleOffset extends InstantCommand {
 
   @Override
   public void initialize() {
+    // Sets the future angle offset
     Robot.OperatorAngleAdjustment.setFutureOffsetAngle(mode);
   }
 

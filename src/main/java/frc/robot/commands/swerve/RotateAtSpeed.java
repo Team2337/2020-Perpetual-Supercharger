@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
+ * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees at a certain speed
  * @author Madison J.
  * @category AUTON
  */
@@ -19,12 +19,12 @@ public class RotateAtSpeed extends CommandBase {
   private double speed;
   /* --- Booleans --- */
   private boolean finished = false;
+
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
+ * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees at a certain speed
  * @param subsystem - SwerveDrivetrain subsystem object
- * @param position - The desired distance to rotate in inches (49 inches = 180 degrees)
- * @param rotationDegree - The angle each module is being set to
- * @param kP - The value that the error is multiplied by to get our speed
+ * @param direction - The direction we want to rotate, left or right
+ * @param speed - The speed of the robot that we set
  */
   public RotateAtSpeed(SwerveDrivetrain subsystem, String direction, double speed) {
     m_subsystem = subsystem;
@@ -40,29 +40,27 @@ public class RotateAtSpeed extends CommandBase {
     }
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      // Zeros all of the drive encoders
-     // m_subsystem.zeroAllDriveEncoders();
+
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Goes through 4 times to put our encoder values on smart dashboard
     for (int i = 0; i < 4; i++) {
     SmartDashboard.putNumber("encoderValue/" + i, m_subsystem.getModule(i).getDriveEncoderValue());
     }
-    // Goes through 4 times to set each module to an angle
+    // Goes through 4 times and sets modules 1 and 2 to negative speed and modules 0 and 3 to positive speed
     for(int i = 0; i < 4; i++) {
       if (i > 0 && i < 3) {
         m_subsystem.getModule(i).setDriveSpeed(-speed);
       } else {
         m_subsystem.getModule(i).setDriveSpeed(speed);
       }
-      // Checks to see if the module is rotated
+      // Checks to see if the modules are rotating
       if (Math.abs(rotationDegree) > 0) {
-        // If the module is even then the angle is inverted
+        // If the module is even then the rotation degree is negative otherwise it is positive
         if (i % 2 == 0) {
           m_subsystem.getModule(i).setModuleAngle(Math.toRadians(-rotationDegree));
         } else {
@@ -76,7 +74,9 @@ public class RotateAtSpeed extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-   Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod()); //-Robot.Utilities.getYawMod()
+    // Sets the offset angle to a negative yaw
+   Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod()); 
+    // Goes through 4 times and sets the modules speed to zero
     for (int i = 0; i < 4; i++) {
       Robot.SwerveDrivetrain.getModule(i).setDriveSpeed(0);
       System.out.println("**********************************************************************************");

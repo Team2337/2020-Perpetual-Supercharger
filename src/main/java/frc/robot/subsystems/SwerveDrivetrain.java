@@ -280,6 +280,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     return swerveModules[module];
   }
 
+  /**
+   * Gets the angle encoder offsets
+   * @return - Returns the angle encoder offsets
+   */
   public int[] getAngleEncoderOffsets() {
     return angleEncoderOffsets;
   }
@@ -341,7 +345,11 @@ public class SwerveDrivetrain extends SubsystemBase {
     setAllModuleDriveEncoders(0);
   }
 
+  /**
+   * Offsets all of the angle offsets
+   */
   public void offsetAllAngleOffsets() {
+    // Goes through 4 times and sets the angle offset for each module
     for (int i = 0; i < 4; i++) {
       getModule(i).setAngleOffset(angleEncoderOffsets[i]);
     }
