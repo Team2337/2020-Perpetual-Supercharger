@@ -9,6 +9,7 @@ import frc.robot.commands.Serializer.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
+import frc.robot.commands.ShooterSystem.*;
 
 /**
  * OI Class where all controllers and button presses are placed 
@@ -46,10 +47,13 @@ public class OI {
         operatorJoystick.blueX          .whenPressed(new runClimber(Robot.Climber, Constants.CLIMBERSPEED));
         operatorJoystick.blueX          .whenReleased(new stopClimber(Robot.Climber));
 
-        //Sets the kicker wheel's speeed
+        //Sets the kicker wheel's speed
         operatorJoystick.greenA         .whenPressed(new runKicker(Robot.KickerWheel, Constants.KICKERSPEED));
-        //Stops the kicker wheel
-        operatorJoystick.redB           .whenPressed(new stopKicker(Robot.KickerWheel));
+        operatorJoystick.greenA         .whenReleased(new stopKicker(Robot.KickerWheel));
+
+        operatorJoystick.redB           .whenPressed(new longShooterSystemOn());
+        operatorJoystick.redB           .whenReleased(new shooterSystemOff());
+        
         //Holds the kicker wheel's position
         operatorJoystick.start          .whenPressed(new holdKickerPosition(Robot.KickerWheel));
 
@@ -58,10 +62,14 @@ public class OI {
         operatorJoystick.povUp          .whenReleased(new stopSerializer(Robot.Serializer));
         // Readies the shooter to get the kicker wheel up to speed
         operatorJoystick.povRight       .whenPressed(new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE));
+        
         //Sets the serializer motor to move down and stop when released
         operatorJoystick.povDown        .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERPEAKSPEED));
         operatorJoystick.povDown        .whenReleased(new stopSerializer(Robot.Serializer));
         
+        operatorJoystick.povLeft        .whenPressed(new feedSystemForward());
+        operatorJoystick.povLeft        .whenReleased(new feedSystemStop());
+
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here

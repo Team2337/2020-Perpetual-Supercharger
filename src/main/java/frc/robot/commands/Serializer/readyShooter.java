@@ -51,7 +51,7 @@ public class readyShooter extends CommandBase {
 
   @Override
   public boolean isFinished() {
-  return (m_subsystem.getSerializerPosition() < target);
+    return (m_subsystem.getSerializerPosition() < target);
   }
 
 }

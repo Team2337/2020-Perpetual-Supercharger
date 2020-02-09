@@ -1,4 +1,4 @@
-package frc.robot.commands.MultiSystem;
+package frc.robot.commands.ShooterSystem;
 
 import frc.robot.Robot;
 import frc.robot.commands.Agitator.stopAgitator;
@@ -6,21 +6,15 @@ import frc.robot.commands.Serializer.stopSerializer;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 /**
- * Holds the serializer position
+ * Stops the movement of balls in the robot
  * 
  * @author Nicholas Stokes
  */
-public class FeedSystemStop extends ParallelCommandGroup {
+public class feedSystemStop extends ParallelCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-
-
-
-public FeedSystemStop() {
-
-    addCommands(
-        new stopSerializer(Robot.Serializer),
-        new stopAgitator(Robot.Agitator)
- );
-}
-
+    public feedSystemStop() {
+        addCommands(
+            new stopSerializer(Robot.Serializer),
+            new stopAgitator(Robot.Agitator));
+    }
 }

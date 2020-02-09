@@ -24,7 +24,7 @@ public class Serializer extends SubsystemBase {
   public final boolean serializerDebug = false;
   // Sets up posistion stuff (referenced later)
   public double targetPosition;
-  final double kP = 0.95;
+  final double kP = 0.3;
   final double kI = 0;
   final double kD = 0;
   final double kF = 0;
