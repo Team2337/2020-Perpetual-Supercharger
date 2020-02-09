@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
   /**
@@ -13,12 +15,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Vision extends SubsystemBase {
 
   public TalonSRX LeftWheel;
-  public TalonSRX RightWheel;
+  public VictorSPX RightWheel;
 
   public Vision() {
-    LeftWheel = new TalonSRX(0);
-    RightWheel = new TalonSRX(15);
-    RightWheel.setInverted(true);
+    LeftWheel = new TalonSRX(15);
+    RightWheel = new VictorSPX(1);
+    RightWheel.setInverted(false);
     LeftWheel.setInverted(false);
 
   }
@@ -63,28 +65,16 @@ public class Vision extends SubsystemBase {
      */
     public double getDoubleValue(String output) {
       return NetworkTableInstance.getDefault().getTable("limelight").getEntry(output).getDouble(0);
-  }
-    /**
-     * This will get the X coordinte from Opensight
-     * @return - returns the x-coordinate value, which will show how far we need to rotate
-     */
-    public double getOpenSightXCoordinateValue() {
-      return NetworkTableInstance.getDefault().getTable("PutCoordinate").getEntry("coord-x").getDouble(0);
+    }
+    
+    public double getChameleonVisionXDistance() {
+      return NetworkTableInstance.getDefault().getTable("chameleon-vision").getSubTable("Logitech, Inc. Webcam C270").getEntry("targetYaw").getDouble(0);
 
-  }
-    /**
-     * This will get the Y coordinate from Opensight
-     * @return - returns the y-coordinate value, which will show how far the robot needs to drive
-     */
-    public double getOpenSightYCoordinateValue() {
-      return NetworkTableInstance.getDefault().getTable("PutCoordinate").getEntry("coord-y").getDouble(0);
-  }
-  /**
-   * Receives the NetworkTable values from Opensight
-   * @return - returns the opensight networktable which will return a true/false value
-   */
-  public boolean getOpenSightNTValue() {
-    return NetworkTableInstance.getDefault().getTable("PutNT").getEntry("succ").getBoolean(false);
+    }
+
+  public double calculateMotorSpeed(double current, double previous, double target, double p) {
+    
+    return p * current;
   }
 
   @Override

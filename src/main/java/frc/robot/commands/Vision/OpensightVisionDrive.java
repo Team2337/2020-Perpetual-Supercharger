@@ -7,6 +7,7 @@ import frc.robot.subsystems.Vision;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -16,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
   private final Vision m_subsystem;
   public double forward;
   public double rotation;
+  double current = 0;
+  double previous = 0;
 
   /**
    * Opensight's camera blocks will create a center on the ball and identify the coordinates
@@ -38,15 +41,22 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    forward = Robot.Vision.getOpenSightYCoordinateValue()*.01;
-    rotation = Robot.Vision.getOpenSightXCoordinateValue()*.01;
-    Robot.Vision.LeftWheel.set(ControlMode.PercentOutput, forward - rotation);
-    Robot.Vision.RightWheel.set(ControlMode.PercentOutput, forward + rotation);
+    // forward = Robot.Vision.getOpenSightYCoordinateValue()*.01;
+    current = Robot.Vision.getChameleonVisionXDistance();
+    double p = 0.01; 
+    double target = 130; 
+    rotation = Robot.Vision.calculateMotorSpeed(current, 0, target, p);
+    previous = Robot.Vision.getChameleonVisionXDistance();
+    SmartDashboard.putNumber("Rotation", rotation);
+    Robot.Vision.LeftWheel.set(ControlMode.PercentOutput, rotation);
+    Robot.Vision.RightWheel.set(ControlMode.PercentOutput, rotation);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.Vision.LeftWheel.set(ControlMode.PercentOutput, 0);
+    Robot.Vision.RightWheel.set(ControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.
