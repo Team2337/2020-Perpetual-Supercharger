@@ -1,13 +1,13 @@
 package frc.robot.commands.Intake;
 
 import frc.robot.subsystems.Intake;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Stops the intake motors.
  * @author Michael Francis
  */
-public class stopIntakeMotors extends CommandBase {
+public class stopIntake extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_subsystem;
 
@@ -15,7 +15,7 @@ public class stopIntakeMotors extends CommandBase {
    * Stops the intake motors.
    * @param subsystem The subsystem used by this command. (Intake)
    */
-  public stopIntakeMotors(Intake subsystem) {
+  public stopIntake(Intake subsystem) {
     m_subsystem = subsystem;
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,19 +29,8 @@ public class stopIntakeMotors extends CommandBase {
     m_subsystem.stopIntake();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-  }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return true;
   }
 }

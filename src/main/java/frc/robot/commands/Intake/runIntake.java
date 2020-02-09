@@ -1,40 +1,43 @@
 package frc.robot.commands.Intake;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * Adjusts the intake speed
+ * Sets the intake speed
  * @author Michael Francis
  */
-public class adjustIntakeSpeed extends InstantCommand {
+public class runIntake extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake subsystem;
-  private double modifier;
+  /** Intake motor speed */
+  private double speed;
 
   /**
-   * Increases the intake speed by a given amount. The motors do not stop after.
+   * Sets the intake speed to a given percent
    * @param m_subsystem The subsystem used by this command. (Intake)
-   * @param m_modifier A double that the robot changes the speed of the motors by.
+   * @param m_speed A double number that sets the speed of the intake motor
    */
-  public adjustIntakeSpeed(Intake m_subsystem, double m_modifier) {
+  public runIntake(Intake m_subsystem, double m_speed) {
     subsystem = m_subsystem;
-    modifier = m_modifier;
+    speed = m_speed;
     
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will change the intake speed by a set amount
-    subsystem.setIntakeSpeed(subsystem.getIntakeSpeed() + modifier);
+    // This will set the intake to run at a set speed
+    speed = SmartDashboard.getNumber("Intake Speed", Constants.INTAKESPEED);
+    subsystem.setIntakeSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //Because this command is for testing purposes, the motors do not stop. Use stopIntakeMotors to stop.
   }
 }
