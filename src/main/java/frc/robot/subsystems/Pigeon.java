@@ -1,11 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
-
-//Used for calibration
-import com.ctre.phoenix.sensors.PigeonIMUConfiguration;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -16,6 +12,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * Must be initiated after Subsystems
  */
 public class Pigeon extends SubsystemBase {
+
+	/**
+	 * Specifies whether or not the Pigeon will be in configuration mode.
+	 */
+	private final boolean configMode = false;
+
+	/**
+	 * Specifies whether or not the Pigeon will be in debug mode.
+	 * @see #periodic()
+	 */
+	private final boolean pigeonDebug = false;
 
 	/**
 	 * Pigeon IMU object
@@ -47,8 +54,12 @@ public class Pigeon extends SubsystemBase {
 	 */
 	public Pigeon() {
 		pidgey = new PigeonIMU(0);
-		//Put this line in, in order to calibrate the pigeon to the correct degree mode
-		pidgey.enterCalibrationMode(CalibrationMode.BootTareGyroAccel, 10);
+
+		//Change the configMode variable to true to calibrate the pigeon to the correct degree mode
+		if(configMode){
+			pidgey.enterCalibrationMode(CalibrationMode.BootTareGyroAccel, 10);
+		}
+
 		gyrofusionStatus = new PigeonIMU.FusionStatus();
 		gyroGenStatus = new PigeonIMU.GeneralStatus();
 		ypr_deg = new double[3];
@@ -66,10 +77,12 @@ public class Pigeon extends SubsystemBase {
 		pidgey.getYawPitchRoll(ypr_deg);
 		pidgey.getRawGyro(xyz_dps);
 
-		//SmartDashboard.putNumber("FusedHeading", pidgey.getFusedHeading());
-		SmartDashboard.putNumber("yaw", getYaw());
-		//SmartDashboard.putNumber("Pitch", getPitch());
-		//SmartDashboard.putNumber("Roll", getRoll());
+		if(pigeonDebug){
+			SmartDashboard.putNumber("FusedHeading", pidgey.getFusedHeading());
+			SmartDashboard.putNumber("Pitch", getPitch());
+			SmartDashboard.putNumber("Roll", getRoll());
+		}
+			SmartDashboard.putNumber("yaw", getYaw());
 	}
 
 	/**
