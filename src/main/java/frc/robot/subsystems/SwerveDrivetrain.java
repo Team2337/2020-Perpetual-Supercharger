@@ -429,6 +429,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     //getAverageAnalogValueInRadians(2);
     for(int i = 0; i < 4; i++) {
     getModule(i).periodic();
+    SmartDashboard.putNumber("swerveDriveMotorTemperature/" + i, getModule(i).getDriveTemperature());
+    SmartDashboard.putNumber("swerveAngleMotorTemperature/" + i, getModule(i).getAngleTemperature());
+
     }
   }
 }

@@ -414,11 +414,19 @@ public class FXSwerveModule {
         angleMotor.configAllSettings(TalonFXConfigurationAngle);
     }
 
+    public double getAngleTemperature() {
+        return angleMotor.getTemperature();
+    }
+
     /*************************/
     /* --------------------- */
     /* --- Drive Methods --- */
     /* --------------------- */
     /*************************/
+
+    public double getDriveTemperature() {
+        return driveMotor.getTemperature();
+    }
 
     /**
      * Sets the drive to be inverted 
