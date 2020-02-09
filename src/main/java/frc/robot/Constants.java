@@ -22,7 +22,7 @@ public final class Constants {
     public static int INTAKE = 9;
     public static int AGITATOR = 10;
     public static int CLIMBER = 11;
-    public static int CONTROLPANELSPINNER = 12;
+    public static int KICKER = 12;
     public static int SHOOTERLEFTMOTOR = 13;
     public static int SHOOTERRIGHTMOTOR = 14;
     public static int SERIALIZER = 15;
@@ -81,15 +81,19 @@ public final class Constants {
     /** Configure range mode. 0=short; 1=medium; 2=long */
     public static int MODETOF = 0;//This number does not need to be changed
 
-    
+
     /* --- Agitator --- */
     public static double AGITATORSPEED = 0.4;
+    public static double AGITATORREVERSESPEED = -0.4;
+
 
     /* --- Intake --- */
     public static double INTAKESPEED = 0.4;
 
+
     /* --- Climber --- */
     public static double CLIMBERSPEED = 0.4;
+
 
     /* --- Shooter Values --- */
     /**
@@ -105,8 +109,13 @@ public final class Constants {
 
     /* ---Serializer--- */
     //Maximum speed of the serializer
-    public static double SERIALIZERPEAKSPEED = 0.8;
-
+    public static double SERIALIZERPEAKSPEED = 0.3;
+    public static double SERIALIZERFORWARDSPEED = 0.2;
+    public static double SERIALIZERREVERSESPEED = -0.2;
+    
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
-    public static int SERIALIZERREGRESSIONDISTANCE = 4096;
+    public static double SERIALIZERREGRESSIONDISTANCE = 4096;
+
+    /* --- Kicker --- */
+    public static int KICKERSPEED = 3000;
 }
