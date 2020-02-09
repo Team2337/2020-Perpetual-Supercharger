@@ -45,21 +45,6 @@ public class turnModulesToDegree extends CommandBase {
     this.maxSpeed = maxSpeed;
   }
 
-    /**
-   * Sets the desired module angle in degrees with our set P value
-   * @param subsystem - SwerveDrivetrain subsystem object
-   * @param moduleAngle - The desired angle of the modules in degrees
-   * @param angleP - The P value we set to the angle motot
-   */
-  public turnModulesToDegree(SwerveDrivetrain subsystem, double moduleAngle, double angleP, double maxSpeed) {
-    m_subsystem = subsystem;
-    addRequirements(subsystem);
-    /* --- Parameters Being Set to Global Variables --- */
-    this.desiredModuleAngle = (int) (-moduleAngle * Swerve.TICKSPERDEGREE);
-    this.moduleAngle = moduleAngle;
-    this.angleP = angleP;
-    this.maxSpeed = maxSpeed;
-  }
 
   @Override
   public void initialize() {

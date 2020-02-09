@@ -41,12 +41,9 @@ public class Robot extends TimedRobot {
   public static PowerDistributionPanel PDP;
   public static Feeder Feeder;
   public static OI OI;
-<<<<<<< HEAD
   public SendableChooser<String> autonChooser;
 
 
-=======
->>>>>>> d7e5fa7168597a3b30f640799fd46683172eac28
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -74,7 +71,6 @@ public class Robot extends TimedRobot {
     Vision = new Vision();
     Feeder = new Feeder();
     OI = new OI();
-<<<<<<< HEAD
     autonChooser = new SendableChooser<String>();
     SwerveDrivetrain.zeroAllDriveEncoders();
     SwerveDrivetrain.getModule(0).zeroDriveEncoder();
@@ -84,12 +80,6 @@ public class Robot extends TimedRobot {
 
     autonChooser.setDefaultOption("default", "default");
     autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
-=======
-    
-    // Resets the pigeon to 0    
-    Pigeon.resetPidgey();
-    m_autonomousCommand = new CenterGoalBack9BallGenerator2Ball();
->>>>>>> d7e5fa7168597a3b30f640799fd46683172eac28
   }
 
   /**
