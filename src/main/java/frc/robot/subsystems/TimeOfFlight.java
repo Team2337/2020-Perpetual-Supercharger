@@ -5,7 +5,6 @@ import java.nio.ByteBuffer;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -56,6 +55,8 @@ public class TimeOfFlight extends SubsystemBase {
   public static byte[] tofdata = new byte[8];
   public static int[] temp;
 
+  public static double[] temp2 = new double[2];
+
 
   public TimeOfFlight() {
 
@@ -76,8 +77,7 @@ public class TimeOfFlight extends SubsystemBase {
     // -------------------------------------------------------- //
     //////////////////////////////////////////////////////////////
     
-    CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("TTT", Timer.getFPGATimestamp() - a);
+    // SmartDashboard.putNumber("TTT", Timer.getFPGATimestamp() - a);
     a = Timer.getFPGATimestamp();
     b++;
     double[] temp = { 0, 0 };
@@ -195,8 +195,8 @@ public class TimeOfFlight extends SubsystemBase {
 
     //If the message retrieval failed:
     if (read == -1) {
-      //Return nothing
-      return temp;
+      //Return the last returned values
+      return temp2;
     //Otherwise:
     } else {
       //Create a variable with the status of the CAN device
@@ -224,6 +224,9 @@ public class TimeOfFlight extends SubsystemBase {
         //Value is multiplied by 65536, so it must be divided.
         temp[1] = extractValue(CANSendReceive.result, 7, 4) / 65536;
 
+        //Store the last values
+        temp2 = temp;
+
         //Return the value
         return temp;
       }
@@ -244,7 +247,7 @@ public class TimeOfFlight extends SubsystemBase {
    * @return The distance in inches rounded with 4 decimal places after.
    */
   public static double distanceIN() {
-    double a = Math.round((getDistanceMM()[0]/25.4)*10000)/10000;
+    double a = getDistanceMM()[0]/25.4;
     return a;
   }
 
