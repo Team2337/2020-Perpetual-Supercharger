@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
   public static Shooter Shooter;
   public static SwerveDrivetrain SwerveDrivetrain;
   public static Vision Vision;
+  public static MusicPlayer MusicPlayer;
   public static PowerDistributionPanel PDP;
   public static OI OI;
   
@@ -54,6 +55,7 @@ public class Robot extends TimedRobot {
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
+    MusicPlayer = new MusicPlayer();
     
     OI = new OI();
 
@@ -124,6 +126,8 @@ public class Robot extends TimedRobot {
     }
     
     Pigeon.resetPidgey();
+
+    MusicPlayer.playSong(3);
   }
 
   /**
