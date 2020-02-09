@@ -4,6 +4,7 @@ import java.util.function.BooleanSupplier;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.commands.swerve.*;
@@ -64,6 +65,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
+  private boolean swerveDebug = true;
 
   public boolean fineRotateOn = false;
   public BooleanSupplier fineRotation = new BooleanSupplier(){
@@ -414,7 +416,20 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    for(int i = 0; i < 4; i++)
+    if (swerveDebug) {
+    SmartDashboard.putNumber("Debug/getAverageEncoderDistance", getAverageDriveEncoderDistance());
+    for(int i = 0; i < 4; i++) {
+    SmartDashboard.putNumber("getModuleDriveEncoder/" + i, getModule(i).getDriveEncoderValue());
+    SmartDashboard.putNumber("ModuleAngle/" + i, 
+    ((getModule(i).getNormalizedAnalogVoltageRadians() - angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
+    SmartDashboard.putNumber("angleEncoder/" + i, getModule(i).getAngleEncoderValue());
+    SmartDashboard.putNumber("angleP/" + i, getModule(i).TalonFXConfigurationAngle.slot0.kP);
+    }
+  }
+    //getAverageAnalogValueInRadians(2);
+    for(int i = 0; i < 4; i++) {
     getModule(i).periodic();
+    }
   }
 }
+  

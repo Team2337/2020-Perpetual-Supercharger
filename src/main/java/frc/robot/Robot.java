@@ -87,19 +87,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Yaw", -Pigeon.getYaw());
-    SmartDashboard.putNumber("getAverageEncoderDistance", SwerveDrivetrain.getAverageDriveEncoderDistance());
-    SmartDashboard.putNumber("getModuleDriveEncoder0", SwerveDrivetrain.getModule(0).getDriveEncoderValue());
-    SmartDashboard.putNumber("getModuleDriveEncoder1", SwerveDrivetrain.getModule(1).getDriveEncoderValue());
-    SmartDashboard.putNumber("getModuleDriveEncoder2", SwerveDrivetrain.getModule(2).getDriveEncoderValue());
-    SmartDashboard.putNumber("getModuleDriveEncoder3", SwerveDrivetrain.getModule(3).getDriveEncoderValue());
-    for(int i = 0; i < 4; i++) {
-    SmartDashboard.putNumber("ModuleAngle/" + i, 
-    ((SwerveDrivetrain.getModule(i).getNormalizedAnalogVoltageRadians() - SwerveDrivetrain.angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
-    SmartDashboard.putNumber("angleEncoder/" + i, SwerveDrivetrain.getModule(i).getAngleEncoderValue());
-    SmartDashboard.putNumber("angleP/" + i, SwerveDrivetrain.getModule(i).TalonFXConfigurationAngle.slot0.kP);
-
-    SwerveDrivetrain.getAverageAnalogValueInRadians(2);
-    }
+    
+    
 
   }
 
