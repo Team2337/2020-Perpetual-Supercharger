@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -40,6 +41,12 @@ public class Robot extends TimedRobot {
   public static PowerDistributionPanel PDP;
   public static Feeder Feeder;
   public static OI OI;
+<<<<<<< HEAD
+  public SendableChooser<String> autonChooser;
+
+
+=======
+>>>>>>> d7e5fa7168597a3b30f640799fd46683172eac28
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -67,10 +74,22 @@ public class Robot extends TimedRobot {
     Vision = new Vision();
     Feeder = new Feeder();
     OI = new OI();
+<<<<<<< HEAD
+    autonChooser = new SendableChooser<String>();
+    SwerveDrivetrain.zeroAllDriveEncoders();
+    SwerveDrivetrain.getModule(0).zeroDriveEncoder();
+
+    // Resets the pigeon to 0    
+    Pigeon.resetPidgey();
+
+    autonChooser.setDefaultOption("default", "default");
+    autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
+=======
     
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
     m_autonomousCommand = new CenterGoalBack9BallGenerator2Ball();
+>>>>>>> d7e5fa7168597a3b30f640799fd46683172eac28
   }
 
   /**
@@ -87,6 +106,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putData("Auton Selector", autonChooser);
     SmartDashboard.putNumber("Yaw", -Pigeon.getYaw());
     SmartDashboard.putNumber("getAverageEncoderDistance", SwerveDrivetrain.getAverageDriveEncoderDistance());
     SmartDashboard.putNumber("getModuleDriveEncoder0", SwerveDrivetrain.getModule(0).getDriveEncoderValue());
@@ -122,7 +142,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    
+    switch (autonChooser.getSelected()) {
+      case "CenterGoalBack9BallGenerator3Ball":
+      m_autonomousCommand = new CenterGoalBack9BallGenerator2Ball();
+      
+    }
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

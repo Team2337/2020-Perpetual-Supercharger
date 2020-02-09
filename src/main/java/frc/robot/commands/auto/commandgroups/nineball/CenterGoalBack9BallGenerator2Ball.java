@@ -17,6 +17,7 @@ public class CenterGoalBack9BallGenerator2Ball extends SequentialCommandGroup {
  */
   public CenterGoalBack9BallGenerator2Ball() {
     addCommands(
+
       new zeroWithAnalog(Robot.SwerveDrivetrain).withTimeout(1),
       new zeroAngleEncoders(Robot.SwerveDrivetrain).withTimeout(0.04),
       new turnModulesToDegree(Robot.SwerveDrivetrain, 47, 1.1, 0.3).withTimeout(2), // 0.9
@@ -26,9 +27,6 @@ public class CenterGoalBack9BallGenerator2Ball extends SequentialCommandGroup {
       new driveToPosition(Robot.SwerveDrivetrain, -27, 0, 0.3, 0.05, 1.1).withTimeout(3),
       new turnModulesToDegree(Robot.SwerveDrivetrain, 90, 1.1, 0.3).withTimeout(2),
       new driveToPosition(Robot.SwerveDrivetrain, 50, 90, 0.5, 0.05, 1.1) */
- 
-
-
     /* new turnModulesToDegree(Robot.SwerveDrivetrain, 55).withTimeout(0.5),
     new driveToPosition(Robot.SwerveDrivetrain, -140, 55) */
     /*new turnModulesToDegree(Robot.SwerveDrivetrain, 55).withTimeout(0.5),
