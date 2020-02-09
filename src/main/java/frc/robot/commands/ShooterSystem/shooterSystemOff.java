@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 public class shooterSystemOff extends ParallelCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public shooterSystemOff() {
-        addCommands(new stopShooter(Robot.Shooter), new stopKicker(Robot.KickerWheel));
+        addCommands(
+            new stopShooter(Robot.Shooter),
+            new stopKicker(Robot.KickerWheel));
     }
 }

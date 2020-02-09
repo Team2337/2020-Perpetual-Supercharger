@@ -41,25 +41,29 @@ public class OI {
         operatorJoystick.triggerLeft    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
         operatorJoystick.triggerLeft    .whenReleased(new stopIntake(Robot.Intake));
 
+        // Run the agitator leftwards
         operatorJoystick.yellowY        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
         operatorJoystick.yellowY        .whenReleased(new stopAgitator(Robot.Agitator));
 
+        // Move the climber upwards
         operatorJoystick.blueX          .whenPressed(new runClimber(Robot.Climber, Constants.CLIMBERSPEED));
         operatorJoystick.blueX          .whenReleased(new stopClimber(Robot.Climber));
 
-        //Sets the kicker wheel's speed
+        // Sets the kicker wheel's speed
         operatorJoystick.greenA         .whenPressed(new runKicker(Robot.KickerWheel, Constants.KICKERSPEED));
         operatorJoystick.greenA         .whenReleased(new stopKicker(Robot.KickerWheel));
 
+        // Prepare the shooter to fire long range
         operatorJoystick.redB           .whenPressed(new longShooterSystemOn());
         operatorJoystick.redB           .whenReleased(new shooterSystemOff());
         
-        //Holds the kicker wheel's position
+        // Holds the kicker wheel's position
         operatorJoystick.start          .whenPressed(new holdKickerPosition(Robot.KickerWheel));
 
         // Sets the serializer motor to move up and stop when released
         operatorJoystick.povUp          .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERPEAKSPEED));
         operatorJoystick.povUp          .whenReleased(new stopSerializer(Robot.Serializer));
+        
         // Readies the shooter to get the kicker wheel up to speed
         operatorJoystick.povRight       .whenPressed(new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE));
         
@@ -67,6 +71,7 @@ public class OI {
         operatorJoystick.povDown        .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERPEAKSPEED));
         operatorJoystick.povDown        .whenReleased(new stopSerializer(Robot.Serializer));
         
+        // Run the feeding system towards the shooter
         operatorJoystick.povLeft        .whenPressed(new feedSystemForward());
         operatorJoystick.povLeft        .whenReleased(new feedSystemStop());
 

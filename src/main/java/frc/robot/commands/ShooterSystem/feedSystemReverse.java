@@ -7,7 +7,7 @@ import frc.robot.commands.Serializer.runSerializer;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 /**
- * Moves balls away from the shooter
+ * Moves balls downwards, away from the shooter
  * 
  * @author Sean Lynch
  */
