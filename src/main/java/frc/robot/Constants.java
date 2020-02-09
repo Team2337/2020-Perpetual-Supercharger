@@ -80,6 +80,7 @@ public final class Constants {
 
     /* --- Agitator --- */
     public static double AGITATORSPEED = 0.4;
+    public static double AGITATORREVERSESPEED = -0.4;
 
 
     /* --- Intake --- */
@@ -102,14 +103,14 @@ public final class Constants {
     // Speed to shoot at from ~34 feet away
     public static int SHOOTSPEEDFAR = 15295;
 
-
     /* ---Serializer--- */
     //Maximum speed of the serializer
-    public static double SERIALIZERPEAKSPEED = 0.8;
-
+    public static double SERIALIZERPEAKSPEED = 0.3;
+    public static double SERIALIZERFORWARDSPEED = 0.2;
+    public static double SERIALIZERREVERSESPEED = -0.2;
+    
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
-    public static int SERIALIZERREGRESSIONDISTANCE = 4096;
-
+    public static double SERIALIZERREGRESSIONDISTANCE = 4096;
 
     /* --- Kicker --- */
     public static int KICKERSPEED = 3000;
