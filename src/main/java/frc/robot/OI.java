@@ -32,10 +32,6 @@ public class OI {
         driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
         driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
 
-        driverJoystick.greenA .whenPressed(new rightHopperExtension(Robot.Hopper));
-        driverJoystick.greenA .whenReleased(new rightHopperRetraction(Robot.Hopper));
-        driverJoystick.redB.whenPressed(new leftHopperExtension(Robot.Hopper));
-        driverJoystick.redB .whenReleased(new leftHopperRetraction(Robot.Hopper));
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
