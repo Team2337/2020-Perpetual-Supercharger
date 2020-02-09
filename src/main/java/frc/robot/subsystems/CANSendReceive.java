@@ -24,7 +24,7 @@ public class CANSendReceive {
      * @return Returns the timestamp as an integer. If it returns -1, it failed.
      */
     public static long readMessage(int fullId, int deviceID) {
-
+        //Keep the try/catch loop so that we can handle the exception
         try {
             // This code was copied from 
             // https://www.programcreek.com/java-api-examples/index.php?api=edu.wpi.first.wpilibj.can.CANJNI
