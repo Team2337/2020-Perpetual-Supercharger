@@ -67,9 +67,9 @@ public class KickerWheel extends SubsystemBase {
     // Debug mode: if on, put numbers on the SmartDashboard
     if(kickerWheelDebug){
       SmartDashboard.putNumber("Kicker wheel velocity", getKickerSpeed());
-      
       SmartDashboard.putNumber("Kicker wheel target", kspeed);
     }
+      SmartDashboard.putNumber("Kicker Temperature", getKickerTemperature());
   }
 
   /**
