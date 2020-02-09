@@ -26,10 +26,6 @@ public class leftHopperRetraction extends InstantCommand {
     subsystem.extendLeftFlipper(false);
   }
 
-  /*
-   * Called once the command ends or is interrupted. When interupted, retract
-   * the left hopper
-   */
   @Override
   public void end(boolean interrupted) {
     

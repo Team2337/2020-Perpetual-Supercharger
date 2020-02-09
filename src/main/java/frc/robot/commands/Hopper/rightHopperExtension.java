@@ -27,10 +27,6 @@ public class rightHopperExtension extends InstantCommand {
     subsystem.extendRightFlipper(true);
   }
 
-  /*
-   * Called once the command ends or is interrupted. When interupted, retract
-   * the right hopper
-   */
   @Override
   public void end(boolean interrupted) {
   }
