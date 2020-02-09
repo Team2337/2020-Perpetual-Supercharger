@@ -3,8 +3,8 @@ package frc.robot.commands.Hopper;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Hopper;
 
-/**A command that uses the hopper subsystem to move the right flipper
- * 
+/**
+ * A command that uses the hopper subsystem to retract the right flipper
  * @author Nicholas.S
  */
 public class rightHopperRetraction extends InstantCommand {
@@ -12,7 +12,7 @@ public class rightHopperRetraction extends InstantCommand {
   private final Hopper subsystem;
 
   /**
-   * A command that uses the hopper subsystem to move the right flipper
+   * A command that uses the hopper subsystem to retract the right flipper
    */
   public rightHopperRetraction(Hopper m_subsystem) {
     subsystem = m_subsystem;
@@ -23,7 +23,7 @@ public class rightHopperRetraction extends InstantCommand {
   @Override
   public void initialize() {
 
-    // retracts right flipper
+    // Retracts right flipper
     subsystem.extendRightFlipper(false);
   }
 

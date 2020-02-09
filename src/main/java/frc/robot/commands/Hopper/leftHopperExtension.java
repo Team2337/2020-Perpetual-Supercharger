@@ -3,8 +3,8 @@ package frc.robot.commands.Hopper;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Hopper;
 
-/**A command that uses the hopper subsystem to move the left flipper
- * 
+/**
+ * A command that uses the hopper subsystem to extend the left flipper
  * @author John.R
  */
 public class leftHopperExtension extends InstantCommand {
@@ -12,7 +12,7 @@ public class leftHopperExtension extends InstantCommand {
   private final Hopper subsystem;
 
   /**
-   * A command that uses the hopper subsystem to move the left flipper
+   * A command that uses the hopper subsystem to extend the left flipper
    */
     public leftHopperExtension(Hopper m_subsystem) {
     subsystem = m_subsystem;

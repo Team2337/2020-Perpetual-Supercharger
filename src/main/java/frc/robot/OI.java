@@ -6,7 +6,6 @@ import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
-import frc.robot.commands.Hopper.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
@@ -76,10 +75,6 @@ public class OI {
         operatorJoystick.povLeft        .whenPressed(new feedSystemForward());
         operatorJoystick.povLeft        .whenReleased(new feedSystemStop());
 
-        /* Extends and retracts left flipper on hopper to grab power cells and feed them into the intake
-        operatorJoystick.macroOne   .whileHeld(new leftHopperExtension(Robot.Hopper));
-        // Extends and retracts right flipper on hopper to grab power cells and feed them into the intake
-        operatorJoystick.macroTwo  .whileHeld(new rightHopperExtension(Robot.Hopper));
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here

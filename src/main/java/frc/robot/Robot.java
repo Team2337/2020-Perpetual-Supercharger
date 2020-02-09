@@ -54,7 +54,6 @@ public class Robot extends TimedRobot {
     LEDs = new LEDs();
     Serializer = new Serializer();
     Pigeon = new Pigeon();
-    Serializer = new Serializer();
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
     Vision = new Vision();
