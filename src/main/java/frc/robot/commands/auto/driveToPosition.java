@@ -112,7 +112,6 @@ public class driveToPosition extends CommandBase {
       m_subsystem.getModule(i).setAngleSetpoint(m_subsystem.getModule(i).getAngleEncoderValue()); //angleSetpoint[i]
     }
     // Zeros all drive encoders
-    m_subsystem.zeroAllDriveEncoders();
   }
 
   @Override

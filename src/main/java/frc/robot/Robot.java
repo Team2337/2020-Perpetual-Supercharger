@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -8,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator2Ball;
+import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
 import frc.robot.subsystems.*;
 
 /**
@@ -22,6 +24,13 @@ public class Robot extends TimedRobot {
   private double average = 0;
   private double total = 0;
   private double iteration = 0;
+  public static boolean isComp = false;
+  public static BooleanSupplier isCompRobot = new BooleanSupplier(){
+    @Override
+    public boolean getAsBoolean() {
+      return isComp;
+    }
+  };
 
   public static Constants Constants;
   public static Utilities Utilities;
@@ -137,7 +146,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     switch (autonChooser.getSelected()) {
       case "CenterGoalBack9BallGenerator3Ball":
-      m_autonomousCommand = new CenterGoalBack9BallGenerator2Ball();
+      m_autonomousCommand = new CenterGoalBack9BallGenerator3Ball();
       
     }
     // schedule the autonomous command (example)

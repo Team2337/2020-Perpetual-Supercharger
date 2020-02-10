@@ -1,7 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.auto.*;
-import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator2Ball;
+import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
 import frc.robot.commands.auto.commandgroups.swerveCircle;
 import frc.robot.commands.auto.commandgroups.swerveDiamond;
 import frc.robot.commands.auto.commandgroups.swerveSquare;
@@ -109,7 +109,7 @@ public class OI {
         operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
         operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
         operatorJoystick.triggerLeft.whenPressed(new swerveCircle());
-        operatorJoystick.triggerRight.whenPressed(new CenterGoalBack9BallGenerator2Ball());
+        operatorJoystick.triggerRight.whenPressed(new CenterGoalBack9BallGenerator3Ball());
 
         /* --- DRIVER STATION CONTROLS --- */
 

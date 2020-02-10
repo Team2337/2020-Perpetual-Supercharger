@@ -224,4 +224,8 @@ public class Shooter extends SubsystemBase {
     int rpm = rps * 60;
     return rpm;
   }
+
+  public double getAverageVelocity() {
+    return (Math.abs(rightShootMotor.getSelectedSensorVelocity()) + Math.abs(leftShootMotor.getSelectedSensorVelocity())) / 2;
+  }
 }
