@@ -36,20 +36,6 @@ public class turnModulesToDegree extends CommandBase {
    * @param moduleAngle - The desired angle of the modules in degrees
    * @param angleP - The P value we set to the angle motor
    */
-  public turnModulesToDegree(SwerveDrivetrain subsystem, double moduleAngle, double angleP) {
-    m_subsystem = subsystem;
-    addRequirements(subsystem);
-    /* --- Parameters Being Set to Global Variables --- */
-    this.desiredModuleAngle = (int) (-moduleAngle * Swerve.TICKSPERDEGREE);
-    this.angleP = angleP;
-  }
-
-    /**
-   * Sets the desired module angle in degrees with our set P value
-   * @param subsystem - SwerveDrivetrain subsystem object
-   * @param moduleAngle - The desired angle of the modules in degrees
-   * @param angleP - The P value we set to the angle motot
-   */
   public turnModulesToDegree(SwerveDrivetrain subsystem, double moduleAngle, double angleP, double maxSpeed) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
@@ -59,6 +45,7 @@ public class turnModulesToDegree extends CommandBase {
     this.maxSpeed = maxSpeed;
   }
 
+
   @Override
   public void initialize() {
     for(int i = 0; i < 4; i++) {
@@ -66,9 +53,12 @@ public class turnModulesToDegree extends CommandBase {
      * Goes through 4 times and sets the desired angle setpoint, sets the angle modules to our P value,
      * and configures all our angle modules
      */
-      
-      int wantedModuleAngle = desiredModuleAngle + m_subsystem.getAngleEncoderOffsets()[i];
-        m_subsystem.getModule(i).setAngleSetpoint(wantedModuleAngle);
+    if (maxSpeed > 0) {
+     m_subsystem.getModule(i).TalonFXConfigurationAngle.peakOutputForward = maxSpeed;
+     m_subsystem.getModule(i).TalonFXConfigurationAngle.peakOutputReverse = -maxSpeed;
+    }
+     // int wantedModuleAngle = desiredModuleAngle + m_subsystem.getAngleEncoderOffsets()[i];
+        m_subsystem.getModule(i).setAngleSetpoint(desiredModuleAngle);
       if (angleP > 0) {
         m_subsystem.getModule(i).TalonFXConfigurationAngle.slot0.kP = angleP;
       }

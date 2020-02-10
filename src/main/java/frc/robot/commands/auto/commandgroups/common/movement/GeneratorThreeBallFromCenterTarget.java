@@ -5,6 +5,7 @@ import frc.robot.Robot;
 import frc.robot.commands.auto.driveToPosition;
 import frc.robot.commands.auto.turnModulesToDegree;
 import frc.robot.commands.auto.zeroAngleEncoders;
+import frc.robot.commands.auto.zeroWithAnalog;
 
 /**
  * The chassis rotates in a circle command group
@@ -19,15 +20,15 @@ public class GeneratorThreeBallFromCenterTarget extends SequentialCommandGroup {
   */
   public GeneratorThreeBallFromCenterTarget() {
     addCommands(
+      new zeroWithAnalog(Robot.SwerveDrivetrain).withTimeout(1),
       new zeroAngleEncoders(Robot.SwerveDrivetrain).withTimeout(0.04),
-      new turnModulesToDegree(Robot.SwerveDrivetrain, 55, 2.00, 0.25).withTimeout(2),
-      new driveToPosition(Robot.SwerveDrivetrain, -133, 0, 0.7, 0.05, 2.00).withTimeout(5)
-      /*new rotateToAngleWithEncoder(Robot.SwerveDrivetrain, "left", -30, 0.3),
-      new turnModulesToDegree(Robot.SwerveDrivetrain, 0, 1.1, 0.25).withTimeout(2)
-      /* new driveToPosition(Robot.SwerveDrivetrain, -55, 0, 0.3, 0.05, 0.95).withTimeout(5),
-      new turnModulesToDegree(Robot.SwerveDrivetrain, 90, 1.1, 0.25).withTimeout(2),
-      new driveToPosition(Robot.SwerveDrivetrain, 50, 90, 0.5),
-      new turnModulesToDegree(Robot.SwerveDrivetrain, 0, 1.1, 0.25)  */
+      new turnModulesToDegree(Robot.SwerveDrivetrain, 47, 1.1, 0.3).withTimeout(2), // 0.9
+      new driveToPosition(Robot.SwerveDrivetrain, -140, 0, 0.7, 0.04, 1.1).withTimeout(3)
+      /* new rotateToAngleWithEncoder(Robot.SwerveDrivetrain, "left", -30, 0.3),
+      new turnModulesToDegree(Robot.SwerveDrivetrain, 0, 0.75, 0.3).withTimeout(2),
+      new driveToPosition(Robot.SwerveDrivetrain, -27, 0, 0.3, 0.05, 1.1).withTimeout(3),
+      new turnModulesToDegree(Robot.SwerveDrivetrain, 90, 1.1, 0.3).withTimeout(2),
+      new driveToPosition(Robot.SwerveDrivetrain, 50, 90, 0.5, 0.05, 1.1) */
     /* new turnModulesToDegree(Robot.SwerveDrivetrain, 55).withTimeout(0.5),
     new driveToPosition(Robot.SwerveDrivetrain, -140, 55) */
     /*new turnModulesToDegree(Robot.SwerveDrivetrain, 55).withTimeout(0.5),
