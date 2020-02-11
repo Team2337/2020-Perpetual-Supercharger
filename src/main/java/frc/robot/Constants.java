@@ -33,7 +33,7 @@ public final class Constants {
     public static int INTAKE = 9;
     public static int AGITATOR = 10;
     public static int CLIMBER = 11;
-    public static int KICKER = 12;
+    public static int KICKER = 33;
     public static int SHOOTERLEFTMOTOR = 13;
     public static int SHOOTERRIGHTMOTOR = 14;
     public static int SERIALIZER = 15;
@@ -95,7 +95,7 @@ public final class Constants {
 
 
     /* --- Intake --- */
-    public static double INTAKESPEED = 0.4;
+    public static double INTAKESPEED = 0.5;
 
 
     /* --- Climber --- */
