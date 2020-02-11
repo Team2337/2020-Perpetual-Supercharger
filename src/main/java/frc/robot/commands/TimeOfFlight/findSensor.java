@@ -12,12 +12,15 @@ public class findSensor extends CommandBase {
   private int currentId;
   private int highestId = 32;
   private int[] temp;
+  private TimeOfFlight subsystem;
 
   /**
    * Finds the sensor and returns the ID. It then proceeds to put this on the SmartDashboard.
    * Possibly useful if we have more than one sensor, but otherwise can be ignored.
    */
-  public findSensor() {
+  public findSensor(TimeOfFlight m_subsystem) {
+    subsystem = m_subsystem;
+    addRequirements(m_subsystem);
   }
 
   // Called just before this Command runs the first time
@@ -34,8 +37,11 @@ public class findSensor extends CommandBase {
     if(foundId != 999) {
       //If the sensor was found
       temp = TimeOfFlight.getSensorInfo(TimeOfFlight.hwdata);
-      SmartDashboard.putNumber("FoundSerial", temp[0]);
-      SmartDashboard.putNumber("SensorFound", currentId);
+      if(subsystem.tofDebug){
+        SmartDashboard.putNumber("FoundSerial", temp[0]);
+        SmartDashboard.putNumber("SensorFound", currentId);
+      }
+      
     } else {
       //Raise the id being checked
       currentId++;

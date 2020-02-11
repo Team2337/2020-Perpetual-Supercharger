@@ -1,8 +1,6 @@
 package frc.robot.subsystems;
 
 import java.nio.ByteBuffer;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,20 +19,15 @@ public class TimeOfFlight extends SubsystemBase {
   //////////////////////////////////
   
   // Message IDs
-  private static final int HEARTBEAT_MESSAGE = 0x1F0B01FF;//520815103
-  private static final int CALIBRATION_STATE_MESSAGE = 0x060B0300;//101384960
-  private static final int MEASURED_DISTANCE_MESSAGE = 0x060B0100;//101384448
-  private static final int MEASUREMENT_QUALITY_MESSAGE = 0x060B0200;//101384704
-  private static final int RANGING_CONFIGURATION_MESSAGE = 0x060B0400;//101385216
-  private static final int DEVICE_CONFIGURATION_MESSAGE = 0x1F0B03FF;//520815615
+  private static final int HEARTBEAT_MESSAGE = 0x1F0B01FF;
+  private static final int CALIBRATION_STATE_MESSAGE = 0x060B0300;
+  private static final int MEASURED_DISTANCE_MESSAGE = 0x060B0100;
+  private static final int MEASUREMENT_QUALITY_MESSAGE = 0x060B0200;
+  private static final int RANGING_CONFIGURATION_MESSAGE = 0x060B0400;
+  private static final int DEVICE_CONFIGURATION_MESSAGE = 0x1F0B03FF;
   private static final int kSendMessagePeriod = 0;
-  // LiveWindow color update MS maximum interval (milliseconds)
-  protected final static int LIVE_WINDOW_UPDATE_INTERVAL = 50;
 
   public static byte[] hwdata = new byte[8];
-  private double serialNumber;
-  private double partNumber;
-  private double firmWare;
 
   private static int deviceID = 0;
 
@@ -42,7 +35,7 @@ public class TimeOfFlight extends SubsystemBase {
    * Specifies whether or not the Time of Flight will be in debug mode.
    * During debug mode, it will put measurements on the SmartDashboard.
    */
-  private static boolean tofDebug = false;
+  public static boolean tofDebug = false;
 
   public static double loadSensorSerial;
   public static double loadSensorPart;
@@ -53,6 +46,9 @@ public class TimeOfFlight extends SubsystemBase {
   public static double[] temp2 = new double[2];
 
 
+  /**
+   * Code for the TimeOfFlight sensor
+   */
   public TimeOfFlight() {
     //Reads the raw heartbeat data
     tofdata = TimeOfFlight.readHeartbeat(deviceID);
@@ -75,9 +71,9 @@ public class TimeOfFlight extends SubsystemBase {
     // -------------------------------------------------------- //
     //////////////////////////////////////////////////////////////
 
-    SmartDashboard.putNumber("Measurement MM", distanceMM());
+    SmartDashboard.putNumber("Measurement MM", getDistanceMM());
     if(tofDebug){
-      SmartDashboard.putNumber("Measurement In", distanceIN());
+      SmartDashboard.putNumber("Measurement In", getDistanceIN());
     }
   }
 
@@ -163,7 +159,7 @@ public class TimeOfFlight extends SubsystemBase {
    * <li> 1 - The signal return rate in mega counts per second.</li>
    * </ul>
    */
-  public static double[] getDistanceMM() {
+  public static double[] readDistance() {
     //Set up an array with 2 variables
     double[] temp = { 0, 0 };
     //Retrieve the measured distance from the CAN device
@@ -213,8 +209,8 @@ public class TimeOfFlight extends SubsystemBase {
    * Gets the distance read by the sensor in milimeters alone.
    * @return The distance in milimeters
    */
-  public static double distanceMM() {
-    double a = getDistanceMM()[0];
+  public static double getDistanceMM() {
+    double a = readDistance()[0];
     return a;
   }
 
@@ -222,8 +218,8 @@ public class TimeOfFlight extends SubsystemBase {
    * Gets the distance read by the sensor in inches alone.
    * @return The distance in inches rounded with 4 decimal places after.
    */
-  public static double distanceIN() {
-    double a = getDistanceMM()[0]/25.4;
+  public static double getDistanceIN() {
+    double a = readDistance()[0]/25.4;
     return a;
   }
 
@@ -319,7 +315,7 @@ public class TimeOfFlight extends SubsystemBase {
       case 0:
         interval = 100;
         break;
-      //Medium range
+      //Medium range (range unknown, nothing listed anywhere)
       case 1:// 150ms in 2 byte format
         interval = 150;
         break;
