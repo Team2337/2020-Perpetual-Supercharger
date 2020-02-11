@@ -88,7 +88,6 @@ public class TimeOfFlight extends SubsystemBase {
   // ---------------------------------------- //
   //////////////////////////////////////////////
 
-  // Messages from device
   /**
    * Reads the information from the device.
    * @param id The ID of the sensor
