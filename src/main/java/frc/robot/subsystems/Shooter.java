@@ -7,6 +7,9 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -33,6 +36,8 @@ public class Shooter extends SubsystemBase {
   public TalonFX leftShootMotor;
   public TalonFX rightShootMotor;
   public TalonFXConfiguration FXConfig;
+  public DigitalInput ballShooterSensor;
+  public Counter counter;
   // Creates a new current limit configuration for putting current limits onto motors
   private StatorCurrentLimitConfiguration currentLimitConfigurationMotor = new StatorCurrentLimitConfiguration();
 
@@ -42,6 +47,11 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     leftShootMotor = new TalonFX(Constants.SHOOTERLEFTMOTOR);
     rightShootMotor = new TalonFX(Constants.SHOOTERRIGHTMOTOR);
+    ballShooterSensor = new DigitalInput(0);
+    counter = new Counter(1);
+    counter.setUpDownCounterMode();
+    counter.setUpSource(ballShooterSensor);
+    counter.setMaxPeriod(2);
 
     FXConfig = new TalonFXConfiguration();
 
