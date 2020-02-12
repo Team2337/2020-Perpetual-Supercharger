@@ -106,11 +106,12 @@ public final class Constants {
     /* ---Serializer--- */
     //Maximum speed of the serializer
     public static double SERIALIZERPEAKSPEED = 0.3;
+    public static double SERIALIZERPOSITIONSPEED = 0.1;
     public static double SERIALIZERFORWARDSPEED = 0.2;
     public static double SERIALIZERREVERSESPEED = -0.2;
     
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
-    public static double SERIALIZERREGRESSIONDISTANCE = 4096;
+    public static double SERIALIZERREGRESSIONDISTANCE = 4096 * 2;
 
     /* --- Kicker --- */
     public static int KICKERSPEED = 3000;

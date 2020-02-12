@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * 
  * @author Nicholas Stokes
  */
-public class readyShooter extends CommandBase {
+public class backUpSerializer extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer m_subsystem;
   public double position;
@@ -24,7 +24,7 @@ public class readyShooter extends CommandBase {
    * @param adjustment What value the command is passed in OI.java position is the
    * position = value the method uses for shifting
    */
-  public readyShooter(Serializer subsystem, double adjustment) {
+  public backUpSerializer(Serializer subsystem, double adjustment) {
     m_subsystem = subsystem;
     position = adjustment;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,9 +34,7 @@ public class readyShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This calls the Subsystem method positionShift with a value designated in OI
-    target = m_subsystem.getSerializerPosition() - position;
-    m_subsystem.setPosition(target);
+    m_subsystem.setPosition(m_subsystem.getSerializerPosition() - position);
   }
 
   @Override
