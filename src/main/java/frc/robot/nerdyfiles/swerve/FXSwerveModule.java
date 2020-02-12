@@ -133,7 +133,7 @@ public class FXSwerveModule {
     public TalonFXConfiguration TalonFXConfigurationAngle;
 
 
-    public final double maxSpeed = 0.5;
+    public final double maxSpeed = 1.0;
 
     private int angleAllowableClosedloopError = 5;
     private double talonAngleP = 2.5;
@@ -182,7 +182,7 @@ public class FXSwerveModule {
         //angleMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
                 
         angleMotor.setNeutralMode(NeutralMode.Coast);
-        angleMotor.configOpenloopRamp(0.1); 
+        //angleMotor.configOpenloopRamp(0.1); 
         angleMotor.setSensorPhase(false);
         angleMotor.setInverted(false);
         
@@ -194,6 +194,7 @@ public class FXSwerveModule {
         TalonFXConfigurationAngle.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
         TalonFXConfigurationAngle.feedbackNotContinuous = true;
         TalonFXConfigurationAngle.integratedSensorOffsetDegrees = angleEncoderOffset / 5.6888;
+        TalonFXConfigurationAngle.closedloopRamp = 0.15;
 
         angleMotor.configAllSettings(TalonFXConfigurationAngle);
 
@@ -204,7 +205,7 @@ public class FXSwerveModule {
         /*****************************/
 
         driveMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
-        driveMotor.configClosedloopRamp(0.1);
+        //driveMotor.configClosedloopRamp(0.1);
         driveMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
         driveMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 
@@ -228,8 +229,11 @@ public class FXSwerveModule {
         TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
         TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
         TalonFXConfigurationDrive.slot0.allowableClosedloopError = 100;
+        TalonFXConfigurationDrive.closedloopRamp = 0.55;
 
         driveMotor.configAllSettings(TalonFXConfigurationDrive);
+
+
 
 
 

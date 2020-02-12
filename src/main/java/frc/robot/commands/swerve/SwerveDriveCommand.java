@@ -69,7 +69,9 @@ public class SwerveDriveCommand extends CommandBase {
     // Set Deadband
     forward = Robot.Utilities.deadband(forward, 0.1);
     strafe = Robot.Utilities.deadband(strafe, 0.1);
-    rotation = Robot.Utilities.deadband(rotation, 0.1);
+    rotation = Robot.Utilities.deadband(rotation, 0.05);
+
+    rotation /= 2;
 
     // Smartdashboard prints
     SmartDashboard.putNumber("Forward", forward);
@@ -96,9 +98,9 @@ public class SwerveDriveCommand extends CommandBase {
       }
       rotation = Robot.OperatorAngleAdjustment.calculateGyroOffset(error, rotation, kP);
     }
-    if (Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
+   /*  if (Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
       rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * 0.85);
-    }
+    } */
     // Pass on joystick values to be calculated into angles and speeds
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
   }

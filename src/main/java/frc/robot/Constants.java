@@ -116,7 +116,7 @@ public final class Constants {
 
     /* ---Serializer--- */
     //Maximum speed of the serializer
-    public static double SERIALIZERPEAKSPEED = 0.3;
+    public static double SERIALIZERPEAKSPEED = 0.4;
     public static double SERIALIZERFORWARDSPEED = 0.2;
     public static double SERIALIZERREVERSESPEED = -0.2;
     

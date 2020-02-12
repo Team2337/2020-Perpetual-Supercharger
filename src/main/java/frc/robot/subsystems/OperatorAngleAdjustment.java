@@ -16,7 +16,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
  * @return 
    */
 
-   public double gyroOffset;
+   public double gyroOffset = 0;
    public double farShot;
    public double nearShot;
    public double climbing;

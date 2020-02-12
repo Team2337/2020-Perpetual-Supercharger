@@ -52,9 +52,9 @@ public class AdjustRotationAngle extends CommandBase {
       if (Math.abs(rotationDegree) > 0) {
         // Checks to see if it is module 1 or 2 and inverts their position so they will go in the opposite direction
         if (i > 0 && i < 3) {
-          m_subsystem.getModule(i).setAngleSetpoint(-position);
+          m_subsystem.getModule(i).setDriveSetpoint(-position);
         } else {
-          m_subsystem.getModule(i).setAngleSetpoint(position);
+          m_subsystem.getModule(i).setDriveSetpoint(position);
         }
       } else {
         // Sets coast mode
