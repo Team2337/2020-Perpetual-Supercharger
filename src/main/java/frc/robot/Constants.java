@@ -77,6 +77,10 @@ public final class Constants {
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
 
+    /* --- TIME OF FLIGHT Variables --- */
+    /** Configure range mode. 0=short; 1=medium; 2=long */
+    public static int TOFMODE = 0;
+
 
     /* --- Agitator --- */
     public static double AGITATORSPEED = 0.4;
