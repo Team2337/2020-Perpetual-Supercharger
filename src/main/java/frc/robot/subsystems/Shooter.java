@@ -177,6 +177,13 @@ public class Shooter extends SubsystemBase {
     rightShootMotor.set(ControlMode.Velocity, velocity);
   }
 
+  /**
+   * Resets the counter to 0.
+   */
+  public void resetCounter(){
+    counter.reset();
+  }
+
   //////////////////////////////////
   /* ---------------------------- */
   /* --- STOPPING THE SHOOTER --- */

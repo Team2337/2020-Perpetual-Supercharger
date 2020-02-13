@@ -9,14 +9,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class shooterDoNothing extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Shooter m_subsystem;
 
   /**
    * Stops the agitator motor.
    * @param subsystem The subsystem used by this command. (agitator)
    */
   public shooterDoNothing(Shooter subsystem) {
-    m_subsystem = subsystem;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);

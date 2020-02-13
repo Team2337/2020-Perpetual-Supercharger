@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Counts balls and stops at 1
  * @author Nicholas Stokes
  */
-public class shooterShootABall extends CommandBase {
+public class shooterShoot1Ball extends CommandBase {
 
   private final Shooter subsystem;
   private double velocity;
@@ -20,7 +20,7 @@ public class shooterShootABall extends CommandBase {
    * @param m_velocity  The velocity (in encoder ticks per 100ms) in which the
    *                    shooter will shoot at.
    */
-  public shooterShootABall(Shooter m_subsystem, double m_velocity) {
+  public shooterShoot1Ball(Shooter m_subsystem, double m_velocity) {
     //Puts the parameters in the command's variables to be used around as a shortcut.
     subsystem = m_subsystem;
     velocity = m_velocity;
@@ -67,6 +67,6 @@ public class shooterShootABall extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return subsystem.counter.get() >= 1 ;
+    return subsystem.counter.get() >= 1;
   }
 }

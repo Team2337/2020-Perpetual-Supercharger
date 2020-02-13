@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Shoots the ball
  * @author Michael Francis
  */
-public class startShooter extends CommandBase {
+public class shooterShoot5Balls extends CommandBase {
   
   private final Shooter subsystem;
   private double velocity;
@@ -20,7 +20,7 @@ public class startShooter extends CommandBase {
    * @param m_velocity
    * The velocity (in encoder ticks per 100ms) in which the shooter will shoot at.
    */
-  public startShooter(Shooter m_subsystem, double m_velocity) {
+  public shooterShoot5Balls(Shooter m_subsystem, double m_velocity) {
     //Puts the parameters in the command's variables to be used around as a shortcut.
     subsystem = m_subsystem;
     velocity = m_velocity;
@@ -67,6 +67,6 @@ public class startShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return subsystem.counter.get() >= 5;
   }
 }
