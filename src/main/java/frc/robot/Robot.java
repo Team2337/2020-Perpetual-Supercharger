@@ -20,9 +20,8 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 // Variables for finding the Mac Address of the robot
-  public static boolean isComp = false;  
-  public String mac;
-
+public static boolean isComp = false;  
+public String mac;
   private Command m_autonomousCommand;
   public static Constants Constants;
   public static Utilities Utilities;
@@ -36,6 +35,7 @@ public class Robot extends TimedRobot {
   public static Serializer Serializer;
   public static Shooter Shooter;
   public static SwerveDrivetrain SwerveDrivetrain;
+  public static TimeOfFlight TimeOfFlight;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static OI OI;
@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
     Serializer = new Serializer();
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
+    TimeOfFlight = new TimeOfFlight();
     Vision = new Vision();
     
     OI = new OI();
@@ -171,6 +172,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
   }
 
   @Override
