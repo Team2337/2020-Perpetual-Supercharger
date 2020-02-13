@@ -63,5 +63,13 @@ public class Utilities {
           default:
           return 0;
       }
-  }
+    }
+
+    /**
+     * Gets the yaw value from the Pigeon between -360 & +360
+     * @return - gyro double value between -360 & +360
+     */
+    public double getPigeonYawMod() {
+      return getYaw("pigeon") % 360;
+    }
 }

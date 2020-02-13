@@ -23,9 +23,9 @@ public class OI {
 
         /* --- DRIVER JOYSTICK --- */
 
-        // Sets the field orientation
-        driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
-        driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
+        // Sets the robots rotation angle offset, while the button is being pressed
+        driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, true));
+        driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
         //Run the shooter
         driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
@@ -74,6 +74,13 @@ public class OI {
         // Run the feeding system towards the shooter
         operatorJoystick.povLeft        .whenPressed(new feedSystemForward());
         operatorJoystick.povLeft        .whenReleased(new feedSystemStop());
+
+        // Buttons to queue the robot's angle offset 
+        //TODO: Switch buttons above so that they don't conflict
+        operatorJoystick.blueX.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
+        operatorJoystick.redB.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "nearShot"));
+        operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
+        operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
 
         /* --- DRIVER STATION CONTROLS --- */
 
