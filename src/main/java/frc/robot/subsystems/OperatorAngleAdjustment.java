@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
 /**
  * Class to change the robot's angle based on an offset. 
@@ -12,13 +13,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class OperatorAngleAdjustment extends SubsystemBase {
 
-   public double gyroOffset;
+   public double gyroOffset = 0;
    public double farShot;
    public double nearShot;
    public double climbing;
    public double futureOffsetAngle;
    public boolean isFieldOrientend;
    public boolean isChangingGyroAngle;
+   public boolean limelightRotationMode = false;
+   public String mode = "";
 
  /**
   * Class to change the robot's angle based on an offset. 
@@ -46,6 +49,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    * </ul>
    */
   public void setFutureOffsetAngle(String mode) {
+    this.mode = mode;
     switch(mode) {
       case "farShot": 
       futureOffsetAngle = farShot;
@@ -56,8 +60,13 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       case "climbing":
       futureOffsetAngle = climbing;
       break;
+      case "targetLimelightOn":
+      Robot.Vision.setRotateLimelight(true);
+      break;
       default:
       futureOffsetAngle = 0;
+      Robot.Vision.setRotateLimelight(false);
+
     }
   }
 
@@ -120,6 +129,30 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     }
     rotation = error * kP;
     return (Math.abs(rotation) > 0.6) ? Math.copySign(0.6, rotation) : rotation;
+  }
+
+  /**
+   * Tells if the limelight mode is queued 
+   * @param limelightRotationMode - Boolean value (limelightRotationMode: true | limelightRotationMode: false)
+   */
+  public void setLimelightRotationMode(boolean limelightRotationMode) {
+    this.limelightRotationMode = limelightRotationMode;
+  }
+
+  /**
+   * Gets the limelight mode
+   * @return - Boolean value limelight mode
+   */
+  public boolean getLimelightRotationMode() {
+    return limelightRotationMode;
+  }
+
+  /**
+   * Gets the mode for the future offset angle
+   * @return - String value currently set future mode
+   */
+  public String getMode() {
+    return mode;
   }
 
   @Override

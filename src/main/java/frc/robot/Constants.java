@@ -9,6 +9,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public final class Vision {
+        public final static double VISIONROTATIONP = 0.85;
+    }
     /* --- CAN IDs --- */
     public static int CANID0 = 0;
     public static int MODULE0DRIVEMOTORID = 1;
