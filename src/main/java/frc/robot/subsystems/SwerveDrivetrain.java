@@ -53,7 +53,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
-  private boolean swerveDebug = true;
+  private boolean swerveDebug = false;
 
   public boolean fineRotateOn = false;
   public BooleanSupplier fineRotation = new BooleanSupplier(){
@@ -277,7 +277,6 @@ public class SwerveDrivetrain extends SubsystemBase {
       iteration++;
     } 
     average = total / iteration;
-    System.out.println("iteration: " + iteration + " average: " + average);
     return average;
   }
 
