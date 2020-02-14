@@ -45,6 +45,7 @@ public class KickerWheel extends SubsystemBase {
   public KickerWheel() {
     // Sets up the motor (NEO 550) using the number specified in the Constants file.
     kickerWheelMotor = new CANSparkMax(Constants.KICKER, MotorType.kBrushless);
+    kickerWheelMotor.setInverted(true);
    
     // Sets up the PID controller
     kickerPIDController = kickerWheelMotor.getPIDController();

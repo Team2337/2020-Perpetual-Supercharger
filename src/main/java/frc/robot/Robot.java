@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    Robot.Vision.setLEDMode(1);
   }
 
   @Override
