@@ -40,11 +40,13 @@ public class runSerializerFor1Ball extends CommandBase {
 
   @Override
   public void execute() {
+    SmartDashboard.putNumber("Counter", subsystem.counter.get());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    subsystem.stopSerializer();
   }
 
   @Override

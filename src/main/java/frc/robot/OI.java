@@ -75,6 +75,8 @@ public class OI {
         operatorJoystick.povLeft        .whenPressed(new feedSystemForward());
         operatorJoystick.povLeft        .whenReleased(new feedSystemStop());
 
+        operatorJoystick.leftStickButton .whileHeld(new CGSerializerReadyOrphan(Constants.SERIALIZERFORWARDSPEED));
+
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here
