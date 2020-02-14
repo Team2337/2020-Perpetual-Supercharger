@@ -108,7 +108,7 @@ public final class Constants {
     // Speed to shoot at from ~16 feet away
     public static int SHOOTSPEEDCLOSE = 14450;
     // Speed to shoot at from ~34 feet away
-    public static int SHOOTSPEEDFAR = 15295;
+    public static int SHOOTSPEEDFAR = 15700; //15295
 
     /* ---Serializer--- */
     //Maximum speed of the serializer

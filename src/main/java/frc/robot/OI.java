@@ -32,7 +32,8 @@ public class OI {
         driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
 
         // Prepare the shooter to fire long range
-        driverJoystick.redB           .whenPressed(new longShooterSystemOn());
+        driverJoystick.blueX           .whenPressed(new shortShooterSystemOn());
+        
         driverJoystick.redB           .whenReleased(new shooterSystemOff()); 
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));

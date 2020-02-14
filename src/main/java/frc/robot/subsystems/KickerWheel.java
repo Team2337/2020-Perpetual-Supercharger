@@ -22,7 +22,7 @@ public class KickerWheel extends SubsystemBase {
    * Specifies whether or not the Feeder will be in debug mode.
    * @see #periodic()
    */
-  private boolean kickerWheelDebug = false;
+  private boolean kickerWheelDebug = true;
 
   /** The speed the motors are currently set to. Changed in methods. */
   public double kspeed;
@@ -32,9 +32,9 @@ public class KickerWheel extends SubsystemBase {
   private CANPIDController kickerPIDController;
 
   /* --- PID SETTINGS --- */
-  double kP = 0.0005;
+  double kP = 0.0001;
   double kI = 0;
-  double kD = 0.01;
+  double kD = 0;
   double kFF = 0;
   double kMinOutput = -1;
   double kMaxOutput = 1;
@@ -45,6 +45,9 @@ public class KickerWheel extends SubsystemBase {
   public KickerWheel() {
     // Sets up the motor (NEO 550) using the number specified in the Constants file.
     kickerWheelMotor = new CANSparkMax(Constants.KICKER, MotorType.kBrushless);
+
+    kickerWheelMotor.restoreFactoryDefaults();
+
     kickerWheelMotor.setInverted(true);
    
     // Sets up the PID controller
@@ -57,7 +60,7 @@ public class KickerWheel extends SubsystemBase {
     kickerPIDController.setFF(kFF);
     kickerPIDController.setOutputRange(kMinOutput, kMaxOutput);
 
-    kickerWheelMotor.setClosedLoopRampRate(0.5);
+    kickerWheelMotor.setClosedLoopRampRate(0.0);
 
   }
  
@@ -95,9 +98,6 @@ public class KickerWheel extends SubsystemBase {
    * @param speed The speed to set the kicker wheel to (in velocity)
    */
   public void setKickerSpeed(double speed) {
-    kP = 0.0005;
-    kickerPIDController.setP(kP);
-    kspeed = speed;
     kickerPIDController.setReference(speed, ControlType.kVelocity);
   }
 

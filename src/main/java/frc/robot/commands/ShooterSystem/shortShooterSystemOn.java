@@ -16,7 +16,7 @@ public class shortShooterSystemOn extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public shortShooterSystemOn() {
         addCommands(
-            new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(2),
+            // new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(2),
             new runKicker(Robot.KickerWheel, Constants.KICKERSPEED),
             new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
     }
