@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.*;
@@ -24,7 +23,7 @@ public class Robot extends TimedRobot {
   public static Climber Climber;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
-  public static LEDs LEDs;
+  public static LED LED;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
   public static Shooter Shooter;
@@ -50,7 +49,7 @@ public class Robot extends TimedRobot {
     Climber = new Climber();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
-    LEDs = new LEDs();
+    LED = new LED();
     Pigeon = new Pigeon();
     Serializer = new Serializer();
     Shooter = new Shooter();
@@ -64,11 +63,11 @@ public class Robot extends TimedRobot {
     Pigeon.resetPidgey();
     
     //** --- Allows the speed of these subsystems to be changed on SmarDashboard --- */
-    SmartDashboard.putNumber("Intake Speed", Constants.INTAKESPEED);
-    SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
-    SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
-    SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERFORWARDSPEED);
-    SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);
+   /** SmartDashboard.putNumber("Intake Speed", Constants.INTAKESPEED);
+       SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
+       SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
+       SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERFORWARDSPEED);
+       SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);*/
   }
 
   /**
