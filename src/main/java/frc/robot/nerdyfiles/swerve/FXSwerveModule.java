@@ -108,7 +108,12 @@ public class FXSwerveModule {
     /* --- Current Limit Stator --- */
     private StatorCurrentLimitConfiguration currentLimitConfigurationAngle = new StatorCurrentLimitConfiguration();
     private StatorCurrentLimitConfiguration currentLimitConfigurationDrive = new StatorCurrentLimitConfiguration();
-    
+
+    private TalonFXConfiguration TalonFXConfigurationAngle;
+    private TalonFXConfiguration TalonFXConfigurationDrive;
+
+    public final double maxSpeed = 1.0;
+
     /**
      * Swerve Module Object used to run the calculations for the swerve drive
      * The swerve module uses joystick values from the command to change the 
@@ -128,7 +133,9 @@ public class FXSwerveModule {
         this.angleMotor = angleMotor;
         this.angleMotorOffset = angleMotorOffset;
         this.analogAngleSensor = analogAngleSensor;
-        
+        TalonFXConfigurationDrive = new TalonFXConfiguration();
+        TalonFXConfigurationAngle = new TalonFXConfiguration();
+
         /* --- Set Factory Default --- */
 
         // Resets the angle motor to its factory default
@@ -149,7 +156,11 @@ public class FXSwerveModule {
         angleMotor.configOpenloopRamp(0.1); 
         angleMotor.setSensorPhase(false);
         angleMotor.setInverted(false);
-        
+
+        TalonFXConfigurationAngle.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
+        TalonFXConfigurationAngle.openloopRamp = 0.15;
+
+        angleMotor.configAllSettings(TalonFXConfigurationAngle); 
         /*****************************/
         /* ------------------------- */
         /* --- Drive Motor Setup --- */
@@ -166,6 +177,18 @@ public class FXSwerveModule {
         driveMotor.config_kI(0, driveI, 0);
         driveMotor.config_kD(0, driveD, 0);
         driveMotor.config_kF(0, driveF, 0);
+
+        TalonFXConfigurationDrive.slot0.kP = driveP;
+        TalonFXConfigurationDrive.slot0.kI = driveI;
+        TalonFXConfigurationDrive.slot0.kD = driveD;
+        TalonFXConfigurationDrive.slot0.kF = driveF;
+        TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
+        TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
+        TalonFXConfigurationDrive.slot0.allowableClosedloopError = 100;
+        TalonFXConfigurationDrive.closedloopRamp = 0.55;
+        TalonFXConfigurationDrive.openloopRamp = 0.2;
+
+        driveMotor.configAllSettings(TalonFXConfigurationDrive);
 
         /* --- Motion Magic --- */
         // Sets the velocity & accelaration for the motion magic mode 
