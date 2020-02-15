@@ -21,7 +21,7 @@ public class Serializer extends SubsystemBase {
    * Specifies whether or not the Serializer will be in debug mode.
    * @see #periodic()
    */
-  public final boolean serializerDebug = true;
+  public final boolean serializerDebug = false;
   // Sets up posistion stuff (referenced later)
   public double targetPosition;
   final double kP = 3;
@@ -64,7 +64,6 @@ public class Serializer extends SubsystemBase {
       * All of the PID values are configured here as well
       * as allowable error and the speed of the motor during the PID
       */
-
      FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
      FXConfig.slot0.kP = kP;
      FXConfig.slot0.kI = kI;

@@ -74,11 +74,12 @@ public class Utilities {
     }
 
   /**
-   * Determines whether or not the current is within a tolerence of a target
+   * Determines whether or not the given value is within a certain amount of a target
    * 
+   * @param target The desired value
    * @param current The current value
-   * @param tolerance An acceptable range the current can be within the target
-   * @return Whether or not the current value is within a tolerance of its target
+   * @param tolerance A range that the given value can be within the target value before returning true
+   * @return Whether or not the current value is within a tolerance of the target
    */
   public boolean atPosition(double target, double current, double tolerance) {
     return Math.abs(target - current) <= tolerance;

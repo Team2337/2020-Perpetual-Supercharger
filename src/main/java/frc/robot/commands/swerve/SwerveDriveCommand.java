@@ -3,7 +3,6 @@ package frc.robot.commands.swerve;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveDrivetrain;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -69,7 +68,7 @@ public class SwerveDriveCommand extends CommandBase {
     // Set Deadband
     forward = Robot.Utilities.deadband(forward, 0.1);
     strafe = Robot.Utilities.deadband(strafe, 0.1);
-    rotation = Robot.Utilities.deadband(rotation, 0.9);
+    rotation = Robot.Utilities.deadband(rotation, 0.1);
 
     // Smartdashboard prints  
     //TODO:  fix me  debug
