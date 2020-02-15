@@ -71,14 +71,6 @@ public class SwerveDriveCommand extends CommandBase {
     strafe = Robot.Utilities.deadband(strafe, 0.1);
     rotation = Robot.Utilities.deadband(rotation, 0.1);
 
-    // Smartdashboard prints  
-    //TODO:  fix me  debug
-    /*
-    SmartDashboard.putNumber("Forward", forward);
-    SmartDashboard.putNumber("Strafe", strafe);
-    SmartDashboard.putNumber("Rotation", rotation);
-    */
-
     if (Math.abs(rotation) > rotationDeadband) {
       lastRotation = rotation;
     } else {
@@ -113,6 +105,13 @@ public class SwerveDriveCommand extends CommandBase {
     }
     // Pass on joystick values to be calculated into angles and speeds
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
+
+    if(Constants.Swerve.SWERVEDEBUG) {
+      SmartDashboard.putNumber("Forward", forward);
+      SmartDashboard.putNumber("Strafe", strafe);
+      SmartDashboard.putNumber("Rotation", rotation);
+    }
+
   }
 
   @Override
