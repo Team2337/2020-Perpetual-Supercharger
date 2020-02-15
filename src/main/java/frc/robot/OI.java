@@ -21,7 +21,11 @@ public class OI {
 
     public OI() {
 
+        /////////////////////////////
+        /* ----------------------- */
         /* --- DRIVER JOYSTICK --- */
+        /* ----------------------- */
+        /////////////////////////////
 
         // Sets the field orientation
         driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
@@ -31,7 +35,11 @@ public class OI {
         driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
         driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
 
+        ///////////////////////////////
+        /* ------------------------- */
         /* --- OPERATOR JOYSTICK --- */
+        /* ------------------------- */
+        ///////////////////////////////
         
         //Sets the intake motors to intake balls
         operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKESPEED));
@@ -79,7 +87,11 @@ public class OI {
         operatorJoystick.leftStickButton .whenReleased(new serializerDoNothing(Robot.Serializer));
         operatorJoystick.rightStickButton .whenPressed(new runSerializerFor5Balls(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
 
+        /////////////////////////////////////
+        /* ------------------------------- */
         /* --- DRIVER STATION CONTROLS --- */
+        /* ------------------------------- */
+        /////////////////////////////////////
 
         //insert code here
         
