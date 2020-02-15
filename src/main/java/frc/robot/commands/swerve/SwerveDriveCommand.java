@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class SwerveDriveCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 
+  private boolean swerveDebug = false;
+
   private final SwerveDrivetrain swerveDrivetrain;
 
   /**
@@ -70,14 +72,6 @@ public class SwerveDriveCommand extends CommandBase {
     strafe = Robot.Utilities.deadband(strafe, 0.1);
     rotation = Robot.Utilities.deadband(rotation, 0.1);
 
-    // Smartdashboard prints  
-    //TODO:  fix me  debug
-    /*
-    SmartDashboard.putNumber("Forward", forward);
-    SmartDashboard.putNumber("Strafe", strafe);
-    SmartDashboard.putNumber("Rotation", rotation);
-    */
-
     if (Math.abs(rotation) > rotationDeadband) {
       lastRotation = rotation;
     } else {
@@ -99,14 +93,30 @@ public class SwerveDriveCommand extends CommandBase {
       } else if(error < -180) {
         error += 360;
       }
-      rotation = Robot.OperatorAngleAdjustment.calculateGyroOffset(error, rotation, kP);
+      rotation = Robot.OperatorAngleAdjustment.calculateGyroOffset(error, kP);
     }
-
+    
     if (Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
       rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.Vision.VISIONROTATIONP);
-     }  
+    }  
+    
+    // Checks to see if we are in slow rotate mode, then directly sets the rotation to the given speed
+    if(Robot.OperatorAngleAdjustment.getSlowRotateMode()) {
+      rotation = Robot.OperatorAngleAdjustment.getSlowRotateSpeed();
+      if(Math.abs(error) >= 25) {
+        Robot.OperatorAngleAdjustment.setSlowRotateMode(false);
+        Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
+      }
+    }
     // Pass on joystick values to be calculated into angles and speeds
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
+    
+    if(swerveDebug) {
+      SmartDashboard.putNumber("Forward", forward);
+      SmartDashboard.putNumber("Strafe", strafe);
+      SmartDashboard.putNumber("Rotation", rotation);
+    }
+
   }
 
   @Override

@@ -29,8 +29,8 @@ public class runKicker extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize(){ 
-    kspeed = SmartDashboard.getNumber("Kicker Speed", Constants.KICKERSPEED);
-    subsystem.setKickerSpeed(kspeed);
+    // kspeed = SmartDashboard.getNumber("Kicker Speed", Constants.KICKERSPEED);
+    subsystem.setKickerSpeed(Constants.KICKERSPEED);
   }
 
   // Called once the command ends or is interrupted.

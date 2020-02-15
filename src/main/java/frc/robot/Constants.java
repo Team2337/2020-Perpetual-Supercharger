@@ -9,6 +9,10 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public final class Swerve {
+        public final static double SLOWROTATESPEED = 0.05;
+        public final static boolean SWERVEDEBUG = false;
+    }
     public final class Vision {
         public final static double VISIONROTATIONP = 0.85;
     }
@@ -108,7 +112,7 @@ public final class Constants {
     // Speed to shoot at from ~16 feet away
     public static int SHOOTSPEEDCLOSE = 14450;
     // Speed to shoot at from ~34 feet away
-    public static int SHOOTSPEEDFAR = 15295;
+    public static int SHOOTSPEEDFAR = 15700; //15295
 
     /* ---Serializer--- */
     //Maximum speed of the serializer
