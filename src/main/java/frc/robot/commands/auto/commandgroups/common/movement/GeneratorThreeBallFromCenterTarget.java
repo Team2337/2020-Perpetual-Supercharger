@@ -8,7 +8,7 @@ import frc.robot.commands.auto.zeroAngleEncoders;
 import frc.robot.commands.auto.zeroWithAnalog;
 
 /**
- * The chassis rotates in a circle command group
+ * Drives from the initiation line to the generator command group
  * @author Madison J. 
  * @category AUTON 
  */
@@ -16,8 +16,8 @@ public class GeneratorThreeBallFromCenterTarget extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
  /**
-  * The chassis rotates in a circle command group
-  */
+ * Drives from the initiation line to the generator command group
+ */
   public GeneratorThreeBallFromCenterTarget() {
     addCommands(
       new zeroWithAnalog(Robot.SwerveDrivetrain).withTimeout(1),
