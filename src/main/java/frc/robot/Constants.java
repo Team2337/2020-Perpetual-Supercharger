@@ -10,7 +10,7 @@ package frc.robot;
  */
 public final class Constants {
     /* --- CAN IDs --- */
-    public static int CANID0 = 0;
+    //public static int CANID0 = 0;
     public static int MODULE0DRIVEMOTORID = 1;
     public static int MODULE0ANGLEMOTORID = 2;
     public static int MODULE1DRIVEMOTORID = 3;

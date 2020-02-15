@@ -1,6 +1,7 @@
 package frc.robot.commands.Serializer;
 
 import frc.robot.subsystems.Serializer;
+import frc.robot.subsystems.KickerWheel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -8,9 +9,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Do Nothing
  * @author Nicholas Stokes
  */
-public class serializerDoNothing extends CommandBase {
+public class doNothing extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer m_subsystem;
+  private final KickerWheel m_suubsystem;
   
 
   /**
@@ -18,10 +20,11 @@ public class serializerDoNothing extends CommandBase {
    *
    * @param subsystem  The subsystem used by this command. (Serializer)
    */
-  public serializerDoNothing(final Serializer subsystem) {
+  public doNothing(final Serializer subsystem, final KickerWheel suubsystem) {
     m_subsystem = subsystem;
+    m_suubsystem = suubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(subsystem,suubsystem);
   }
 
   // Called when the command is initially scheduled.
