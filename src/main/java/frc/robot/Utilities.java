@@ -72,4 +72,15 @@ public class Utilities {
     public double getPigeonYawMod() {
       return getYaw("pigeon") % 360;
     }
+
+  /**
+   * Determines whether or not the current is within a tolerence of a target
+   * 
+   * @param current The current value
+   * @param tolerance An acceptable range the current can be within the target
+   * @return Whether or not the current value is within a tolerance of its target
+   */
+  public boolean atPosition(double target, double current, double tolerance) {
+    return Math.abs(target - current) <= tolerance;
+  }
 }

@@ -69,7 +69,7 @@ public class SwerveDriveCommand extends CommandBase {
     // Set Deadband
     forward = Robot.Utilities.deadband(forward, 0.1);
     strafe = Robot.Utilities.deadband(strafe, 0.1);
-    rotation = Robot.Utilities.deadband(rotation, 0.1);
+    rotation = Robot.Utilities.deadband(rotation, 0.9);
 
     // Smartdashboard prints  
     //TODO:  fix me  debug

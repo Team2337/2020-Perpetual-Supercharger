@@ -21,16 +21,13 @@ public class Serializer extends SubsystemBase {
    * Specifies whether or not the Serializer will be in debug mode.
    * @see #periodic()
    */
-  public final boolean serializerDebug = false;
+  public final boolean serializerDebug = true;
   // Sets up posistion stuff (referenced later)
   public double targetPosition;
-  final double kP = 0.3;
+  final double kP = 3;
   final double kI = 0;
   final double kD = 0;
   final double kF = 0;
-
-  //Variables
-  final double tolerance = 5;
 
   // Motors
   private TalonFX serializerMotor;
@@ -76,6 +73,8 @@ public class Serializer extends SubsystemBase {
      FXConfig.slot0.allowableClosedloopError = (5);
      FXConfig.peakOutputForward = (Constants.SERIALIZERPEAKSPEED);
      FXConfig.peakOutputReverse = (-Constants.SERIALIZERPEAKSPEED);
+     FXConfig.nominalOutputForward = 0.01;
+     FXConfig.nominalOutputReverse = -0.01;
      serializerMotor.setNeutralMode(NeutralMode.Brake);
      serializerMotor.configAllSettings(FXConfig);
      
