@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.nerdyfiles.subsystems.NerdySubsystem;
 
 public class SubsystemShutdown {
-    private ArrayList<SubsystemBase> subsystems = new ArrayList<>();
+    private ArrayList<NerdySubsystem> subsystems = new ArrayList<>();
 
     private double maxRobotCurrentLimit;
     private double totalRobotCurrent = 0;
@@ -16,7 +17,7 @@ public class SubsystemShutdown {
     private int iterations = 0;
     private int shutDownIteration = 0;
 
-    public SubsystemShutdown(ArrayList<SubsystemBase> subsystems) {
+    public SubsystemShutdown(ArrayList<NerdySubsystem> subsystems) {
         this.subsystems = subsystems;
     }
 
@@ -43,6 +44,20 @@ public class SubsystemShutdown {
             shutDownSubsystems(iterations);
         } else {
             shutDownSubsystems(shutDownIteration);
+        }
+    }
+
+    /**
+     * Looks at each individual subsystem with smart current enabled
+     * and individually disables subsystems, if they are over the max current
+     */
+    public void smartCurrentWatch() {
+        for(int i=0; i<subsystems.size(); i++) {
+            if(subsystems.get(i).smartCurrentShutdownEnabled()) {
+                if(subsystems.get(i).totalMotorCurrent() >= subsystems.get(i).maxSubsystemCurrent()) {
+                    shutDownSubsystems(i);
+                }
+            }
         }
     }
 
