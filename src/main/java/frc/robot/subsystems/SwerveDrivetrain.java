@@ -31,7 +31,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   /* --- Private Double Values --- */
   private double deadband = 0.1;
-  private double lastAngle;
+  private double lastAngle[] = new double[4];
   private double total;
   private double average;
   private double iteration;
@@ -197,11 +197,11 @@ public class SwerveDrivetrain extends SubsystemBase {
       // otherwise drive stops and the modules are sent to their last angle
       if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband) {
       //  SmartDashboard.putNumberArray("Angles", angles);
-        lastAngle = angles[i];
+        lastAngle[i] = angles[i];
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {
-        getModule(i).setModuleAngle(lastAngle);
+        getModule(i).setModuleAngle(lastAngle[i]);
         getModule(i).setDriveSpeed(0);
       }
       //Sets the drive speed for each drive motor

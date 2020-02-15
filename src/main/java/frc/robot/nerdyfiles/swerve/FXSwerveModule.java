@@ -251,6 +251,9 @@ public class FXSwerveModule {
     /* --- Angle Methods --- */
     /* --------------------- */
     /*************************/
+    public double adjustAngleWithOffset() {
+        return (getNormalizedAnalogVoltageRadians() + this.angleMotorOffset) % (2 * Math.PI);
+    }
     
     /**
      * Takes the desired angle, and the current angle and computes the delta (current - target)
