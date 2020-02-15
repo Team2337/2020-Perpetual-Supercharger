@@ -70,29 +70,9 @@ public class OI {
         operatorJoystick.leftStickButton          .whenPressed(new runClimber(Robot.Climber, Constants.CLIMBERSPEED));
         operatorJoystick.leftStickButton          .whenReleased(new stopClimber(Robot.Climber));
 
-        // Sets the kicker wheel's speed
-        operatorJoystick.back         .whenPressed(new runKicker(Robot.KickerWheel, Constants.KICKERSPEED));
-        operatorJoystick.back         .whenReleased(new stopKicker(Robot.KickerWheel));
-
-        
-        
         // Holds the kicker wheel's position
-        operatorJoystick.start          .whenPressed(new holdKickerPosition(Robot.KickerWheel));
-
-        // Sets the serializer motor to move up and stop when released
-        operatorJoystick.povUp          .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERPEAKSPEED));
-        operatorJoystick.povUp          .whenReleased(new stopSerializer(Robot.Serializer));
-        
-        // Readies the shooter to get the kicker wheel up to speed
-        operatorJoystick.povRight       .whenPressed(new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE));
-        
-        //Sets the serializer motor to move down and stop when released
-        operatorJoystick.povDown        .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERPEAKSPEED));
-        operatorJoystick.povDown        .whenReleased(new stopSerializer(Robot.Serializer));
-        
-        // Run the feeding system towards the shooter
-        operatorJoystick.povLeft        .whenPressed(new feedSystemForward());
-        operatorJoystick.povLeft        .whenReleased(new feedSystemStop());
+        operatorJoystick.start          .whenPressed(new shortShooterSystemOn());
+        operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));
 
         // Buttons to queue the robot's angle offset 
         operatorJoystick.blueX.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
