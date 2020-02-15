@@ -1,7 +1,6 @@
 package frc.robot.commands.Serializer;
 
 import frc.robot.subsystems.Serializer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -18,8 +17,7 @@ public class serializerDoNothing extends CommandBase {
    *
    * @param subsystem  The subsystem used by this command. (Serializer)
    */
-  public serializerDoNothing(final Serializer subsystem) {
-    m_subsystem = subsystem;
+  public serializerDoNothing(Serializer subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -38,7 +36,7 @@ public class serializerDoNothing extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(final boolean interrupted) {
+  public void end(boolean interrupted) {
   }
 
   @Override
