@@ -76,13 +76,16 @@ public class FXSwerveModule {
      * This is used to scale the error to a funcitonal speed for the motors
      */
     private double angleP = 0.63;
-
+    
     /**
      * Derivative value for the angle motor speed
      * This is added to the speed of the motors to increase power at 
      * smaller errors
      */
     private double angleD = 0.02;
+    
+    /** Sets the max speed for the drive motors */
+    private double driveMaxSpeed = 1.0;
 
     /* --- Booleans --- */
 
@@ -109,10 +112,10 @@ public class FXSwerveModule {
     private StatorCurrentLimitConfiguration currentLimitConfigurationAngle = new StatorCurrentLimitConfiguration();
     private StatorCurrentLimitConfiguration currentLimitConfigurationDrive = new StatorCurrentLimitConfiguration();
 
+    /* --- Talon FX Configurations --- */
     private TalonFXConfiguration TalonFXConfigurationAngle;
     private TalonFXConfiguration TalonFXConfigurationDrive;
 
-    public final double maxSpeed = 1.0;
 
     /**
      * Swerve Module Object used to run the calculations for the swerve drive
@@ -178,12 +181,13 @@ public class FXSwerveModule {
         driveMotor.config_kD(0, driveD, 0);
         driveMotor.config_kF(0, driveF, 0);
 
+        /* --- Talon Drive Configurations --- */
         TalonFXConfigurationDrive.slot0.kP = driveP;
         TalonFXConfigurationDrive.slot0.kI = driveI;
         TalonFXConfigurationDrive.slot0.kD = driveD;
         TalonFXConfigurationDrive.slot0.kF = driveF;
-        TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
-        TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
+        TalonFXConfigurationDrive.peakOutputForward = driveMaxSpeed;
+        TalonFXConfigurationDrive.peakOutputReverse = -driveMaxSpeed;
         TalonFXConfigurationDrive.slot0.allowableClosedloopError = 100;
         TalonFXConfigurationDrive.closedloopRamp = 0.55;
         TalonFXConfigurationDrive.openloopRamp = 0.2;
@@ -251,6 +255,11 @@ public class FXSwerveModule {
     /* --- Angle Methods --- */
     /* --------------------- */
     /*************************/
+
+    /**
+     * Adds the offset to the angle motors
+     * @return - Double value adds the angle offset 
+     */
     public double adjustAngleWithOffset() {
         return (getNormalizedAnalogVoltageRadians() + this.angleMotorOffset) % (2 * Math.PI);
     }
@@ -300,8 +309,6 @@ public class FXSwerveModule {
         lastError = errorRad;
         double speed = (errorRad * angleP) + (d * angleD);
         setAngleMotorSpeed(speed);
-        SmartDashboard.putNumber("ErrorRad " + moduleNumber, errorRad);
-        SmartDashboard.putNumber("Power Output" + moduleNumber, errorRad*angleP);
     }
 
     /**
@@ -328,7 +335,7 @@ public class FXSwerveModule {
 
     /**
      * Sets the drive to be inverted 
-     * @param isDriveInverted - boolean value stating the drive inversion mode (True: invered | False: not inverted)
+     * @param isDriveInverted - boolean value stating the drive inversion mode (True: inverted | False: not inverted)
      */
     public void setDriveInverted(boolean isDriveInverted) {
         this.isDriveInverted = isDriveInverted;
