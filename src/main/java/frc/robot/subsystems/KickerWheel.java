@@ -38,7 +38,7 @@ public class KickerWheel extends SubsystemBase {
   double velocityFF = 0;
   double kMinOutput = -1;
   double kMaxOutput = 1;
-  double positionalP;
+  double positionalP = 0.9;
    
   /**
    * Creates a new Kicker subsystem and sets up the motors to their corresponding ports.
