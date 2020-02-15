@@ -1,5 +1,6 @@
 package frc.robot.commands.swerve;
 
+import frc.robot.Robot;
 import frc.robot.subsystems.OperatorAngleAdjustment;
 import frc.robot.subsystems.SwerveDrivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,7 +17,7 @@ public class setSlowRotateMode extends InstantCommand {
 
   private boolean slowRotateMode;
   private double slowRotateSpeed;
-  private OperatorAngleAdjustment subsystem;
+  private OperatorAngleAdjustment OperatorAngleAdjustment;
 
   /**
    * Sets the slow rotation mode and speed for slow rotation. 
@@ -26,16 +27,20 @@ public class setSlowRotateMode extends InstantCommand {
    * @param slowRotateSpeed
    * @see SwerveDriveCommand
    */
-  public setSlowRotateMode(OperatorAngleAdjustment subsystem, boolean slowRotateMode, double slowRotateSpeed) {
+  public setSlowRotateMode(OperatorAngleAdjustment OperatorAngleAdjustment, boolean slowRotateMode, double slowRotateSpeed) {
     this.slowRotateMode = slowRotateMode;
     this.slowRotateSpeed = slowRotateSpeed;
-    this.subsystem = subsystem;
+    this.OperatorAngleAdjustment = OperatorAngleAdjustment;
   }
 
   @Override
   public void initialize() {
-      subsystem.setSlowRotateMode(slowRotateMode);
-      subsystem.setSlowRotateSpeed(slowRotateSpeed);
+    // Sets the slow rotate mode and slow rotate speed
+    OperatorAngleAdjustment.setSlowRotateMode(slowRotateMode);
+    OperatorAngleAdjustment.setSlowRotateSpeed(slowRotateSpeed);
+      if(!slowRotateMode) {
+        OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
+      }
   }
 
   @Override
