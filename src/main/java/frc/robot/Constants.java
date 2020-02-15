@@ -9,6 +9,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public final class Swerve {
+        public final static double SLOWROTATESPEED = 0.15;
+    }
     public final class Vision {
         public final static double VISIONROTATIONP = 0.85;
     }

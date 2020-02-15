@@ -106,6 +106,11 @@ public class SwerveDriveCommand extends CommandBase {
     if (Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
       rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.Vision.VISIONROTATIONP);
      }  
+
+    // Checks to see if we are in slow rotate mode, then directly sets the rotation to the given speed
+    if(swerveDrivetrain.getSlowRotateMode() && !(swerveDrivetrain.getSlowRotateSpeed() == 0)) {
+      rotation = swerveDrivetrain.getSlowRotateSpeed();
+    }
     // Pass on joystick values to be calculated into angles and speeds
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
   }
