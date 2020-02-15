@@ -132,7 +132,6 @@ public class FXSwerveModule {
     public TalonFXConfiguration TalonFXConfigurationDrive;
     public TalonFXConfiguration TalonFXConfigurationAngle;
 
-
     public final double maxSpeed = 0.5;
 
     private int angleAllowableClosedloopError = 5;
@@ -194,6 +193,7 @@ public class FXSwerveModule {
         TalonFXConfigurationAngle.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
         TalonFXConfigurationAngle.feedbackNotContinuous = true;
         TalonFXConfigurationAngle.integratedSensorOffsetDegrees = angleEncoderOffset / 5.6888;
+        TalonFXConfigurationAngle.openloopRamp = 0.15;
 
         angleMotor.configAllSettings(TalonFXConfigurationAngle);
 
@@ -232,6 +232,18 @@ public class FXSwerveModule {
         driveMotor.configAllSettings(TalonFXConfigurationDrive);
 
 
+
+        TalonFXConfigurationDrive.slot0.kP = driveP;
+        TalonFXConfigurationDrive.slot0.kI = driveI;
+        TalonFXConfigurationDrive.slot0.kD = driveD;
+        TalonFXConfigurationDrive.slot0.kF = driveF;
+        TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
+        TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
+        TalonFXConfigurationDrive.slot0.allowableClosedloopError = 100;
+        TalonFXConfigurationDrive.closedloopRamp = 0.55;
+        TalonFXConfigurationDrive.openloopRamp = 0.2;
+
+        driveMotor.configAllSettings(TalonFXConfigurationDrive);
 
         /* --- Motion Magic --- */
         // Sets the velocity & accelaration for the motion magic mode 

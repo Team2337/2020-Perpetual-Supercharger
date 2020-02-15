@@ -1,5 +1,6 @@
 package frc.robot.commands.swerve;
 
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveDrivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,16 +33,15 @@ public class SwerveDriveCommand extends CommandBase {
    */
   private double rotation = 0;
   private double error;
-  private double kP = 0.007;
-  private double lastAngle;
-  private double lastRotation;
-  private double rotationDeadband = 0.1;
-  private double lastError;
-  private double rotationVelocity;
-  private double velocityDeadband = 1;
-  private double lastVelocity;
+  private double kP;
   
+  /** Rotation value of the previous iteration */
+  private double lastRotation;
+  /** Deadband for the rotational input  */
+  private double rotationDeadband = 0.1;
+  /** Rotational P while not rotating */
   private double stationaryP = 0.015;
+  /** Rotational P while rotating */
   private double movingP = 0.007;
 
   /**
@@ -71,50 +71,42 @@ public class SwerveDriveCommand extends CommandBase {
     strafe = Robot.Utilities.deadband(strafe, 0.1);
     rotation = Robot.Utilities.deadband(rotation, 0.1);
 
-    // Smartdashboard prints
+    // Smartdashboard prints  
+    //TODO:  fix me  debug
+    /*
     SmartDashboard.putNumber("Forward", forward);
     SmartDashboard.putNumber("Strafe", strafe);
     SmartDashboard.putNumber("Rotation", rotation);
+    */
 
     if (Math.abs(rotation) > rotationDeadband) {
-      //lastAngle = Robot.Utilities.getYawMod();
       lastRotation = rotation;
     } else {
+      // Checks to see if we were rotating in the previous iteration, but are not currently rotating 
       if (Math.abs(lastRotation) > rotationDeadband && Math.abs(rotation) <= rotationDeadband) {
-        // stoppedRotating = true;
-        // System.out.println("fdijkfdisjiffdsjkhnserdtcyuvbiokoiuuies" + -Robot.Utilities.getYawMod());
-        Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod());
+        Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
         rotation = 0;
         lastRotation = rotation;
       }
-      /* Robot.Utilities.calculateDerivative(error, lastError, dt)
-      if (Math.abs(rotationVelocity) > velocityDeadband) {
-        lastVelocity  = rotationVelocity;
-      } else {
-        if (Math.abs(lastVelocity) > velocityDeadband && Math.abs(velocity) <= velocityDeadband) {
-          Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod());
-          velocity = 0;
-          lastVelocity = 0;
-        }
-      } */
+      // Checks to see if the Driver's button is being pressed, and sets the current offset angle
       if (Robot.OperatorAngleAdjustment.getIsChangingGyroAngle()) {
         Robot.OperatorAngleAdjustment.setOffsetAngle(Robot.OperatorAngleAdjustment.getFutureOffsetAngle());
       }
-      error = Robot.OperatorAngleAdjustment.getGyroAngleOffset() + Robot.Utilities.getYawMod();
-      // System.out.println("error: " + error + " offsetAngle: " + Robot.OperatorAngleAdjustment.getGyroAngleOffset());
+      // Sets the error of the robot's angle offset & current gyro angle 
+      error = Robot.OperatorAngleAdjustment.getGyroAngleOffset() + Robot.Utilities.getPigeonYawMod();
       kP = forward == 0 && strafe == 0 ? stationaryP : movingP;
-      // System.out.println("error: " + error + " rotation: " + rotation);
       if(error > 180) {
         error -= 360;
       } else if(error < -180) {
         error += 360;
       }
-      // System.out.println("error: " + error + " rotation: " + rotation + " offsetangle: " + Robot.OperatorAngleAdjustment.getGyroAngleOffset());
       rotation = Robot.OperatorAngleAdjustment.calculateGyroOffset(error, rotation, kP);
-      // System.out.println("rotation4" + rotation);
     }
+
+    if (Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
+      rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.Vision.VISIONROTATIONP);
+     }  
     // Pass on joystick values to be calculated into angles and speeds
-    // System.out.println("forawrd: " + forward + " strafe: " + strafe+  " rotation: "+ rotation);
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
   }
 

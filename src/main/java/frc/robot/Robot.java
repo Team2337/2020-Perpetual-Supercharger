@@ -20,6 +20,7 @@ import frc.robot.subsystems.*;
  * project.  
  */
 public class Robot extends TimedRobot {
+
   private Command m_autonomousCommand;
   private double average = 0;
   private double total = 0;
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
   public static Serializer Serializer;
   public static Shooter Shooter;
   public static SwerveDrivetrain SwerveDrivetrain;
+  public static TimeOfFlight TimeOfFlight;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static OI OI;
@@ -71,9 +73,11 @@ public class Robot extends TimedRobot {
     LEDs = new LEDs();
     OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Pigeon = new Pigeon();
+    OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Serializer = new Serializer();
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
+    TimeOfFlight = new TimeOfFlight();
     Vision = new Vision();
     
     OI = new OI();
@@ -133,6 +137,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     for(int i = 0; i < 4; i++)
     SwerveDrivetrain.getModule(i).driveMotor.setNeutralMode(NeutralMode.Coast);
+    Robot.Vision.setLEDMode(1);
   }
 
   @Override
@@ -182,6 +187,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
   }
 
   @Override

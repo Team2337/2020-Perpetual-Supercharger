@@ -4,6 +4,7 @@ import java.util.function.BooleanSupplier;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.commands.auto.setAllDriveEncoders;
@@ -32,8 +33,6 @@ public class SwerveDrivetrain extends SubsystemBase {
   /* --- Private Double Values --- */
   private double deadband = 0.1;
   private double lastAngle;
-  private double averageDriveEncoderDistanceValue = 0;
-  private double kP = 1;
   private double total;
   private double average;
   private double iteration;
@@ -51,20 +50,12 @@ public class SwerveDrivetrain extends SubsystemBase {
    * 2 is Back Left, 
    * 3 is Back Right
    */
-  public double angleOffsets[]; //TODO: change to private 
-
-  /**
-   * <p>Array for module angle offsets when using the <b>integrated encoder</b></p>
-   * <br/>
-   * 0 is Front Right,
-   * 1 is Front Left, 
-   * 2 is Back Left, 
-   * 3 is Back Right
-   */
   private int angleEncoderOffsets[];
+  public double angleOffsets[]; //TODO: change to private 
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
+  private boolean swerveDebug = false;
 
   public boolean fineRotateOn = false;
   public BooleanSupplier fineRotation = new BooleanSupplier(){
@@ -99,6 +90,8 @@ public class SwerveDrivetrain extends SubsystemBase {
   public double fieldOrientedAngle;
 
   private double averageVelocity;
+
+  private double averageDriveEncoderDistanceValue = 0;
 
   /**
    * Subsystem where swerve modules are configured, 
@@ -136,11 +129,6 @@ public class SwerveDrivetrain extends SubsystemBase {
       new FXSwerveModule(2, new TalonFX(5), new TalonFX(6), angleOffsets[2], angleEncoderOffsets[2], analogAngleSensors[2]), // Module 2
       new FXSwerveModule(3, new TalonFX(7), new TalonFX(8), angleOffsets[3], angleEncoderOffsets[3], analogAngleSensors[3])  // Module 3
     };
-    //offsetAllAngleOffsets();
-    for (int i = 0; i < 4; i++) {
-      getModule(i).setAngleOffset(angleEncoderOffsets[i]);
-    }
-    
     // Setup for drive motor inversion (They may not need to be inverted)
     // (True: invered | False: not inverted)
     swerveModules[0].setDriveInverted(false);
@@ -176,7 +164,6 @@ public class SwerveDrivetrain extends SubsystemBase {
       strafe = -forward * Math.sin(angleRad) + strafe * Math.cos(angleRad);
       forward = temp;
     } 
-    // lastRotation = rotation;
 
     /*
      * a -> d adds the rotational value to the robot, then adjusts for the dimensions of the robot
@@ -391,7 +378,6 @@ public class SwerveDrivetrain extends SubsystemBase {
       iteration++;
     } 
     average = total / iteration;
-    System.out.println("iteration: " + iteration + " average: " + average);
     return average;
   }
 
@@ -407,7 +393,11 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    for(int i = 0; i < 4; i++)
-    getModule(i).periodic();
+    if (swerveDebug) {
+      for(int i = 0; i < 4; i++) {
+      SmartDashboard.putNumber("ModuleAngle/" + i, 
+      ((getModule(i).getNormalizedAnalogVoltageRadians() - angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
+      }
+    }
   }
 }

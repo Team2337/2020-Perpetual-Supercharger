@@ -96,8 +96,8 @@ public class Shooter extends SubsystemBase {
     leftShootMotor.setNeutralMode(NeutralMode.Coast);
     rightShootMotor.setNeutralMode(NeutralMode.Coast);
     // Sets up inversions
-    leftShootMotor.setInverted(true);
-    rightShootMotor.setInverted(false);
+    leftShootMotor.setInverted(false);
+    rightShootMotor.setInverted(true);
   }
 
   //////////////////////////////////////
