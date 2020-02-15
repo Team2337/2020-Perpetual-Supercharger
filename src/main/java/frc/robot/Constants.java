@@ -9,6 +9,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public final class Vision {
+        public final static double VISIONROTATIONP = 0.85;
+    }
     /* --- CAN IDs --- */
     public static int CANID0 = 0;
     public static int MODULE0DRIVEMOTORID = 1;
@@ -76,6 +79,10 @@ public final class Constants {
     public static int PWMPORT7 = 7;
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
+
+    /* --- TIME OF FLIGHT Variables --- */
+    /** Configure range mode. 0=short; 1=medium; 2=long */
+    public static int TOFMODE = 0;
 
 
     /* --- Agitator --- */

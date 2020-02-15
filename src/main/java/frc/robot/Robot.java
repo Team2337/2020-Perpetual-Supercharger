@@ -14,6 +14,7 @@ import frc.robot.subsystems.*;
  * project.  
  */
 public class Robot extends TimedRobot {
+
   private Command m_autonomousCommand;
 
   public static Constants Constants;
@@ -24,10 +25,12 @@ public class Robot extends TimedRobot {
   public static Intake Intake;
   public static KickerWheel KickerWheel;
   public static LEDs LEDs;
+  public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
   public static Shooter Shooter;
   public static SwerveDrivetrain SwerveDrivetrain;
+  public static TimeOfFlight TimeOfFlight;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static OI OI;
@@ -50,9 +53,11 @@ public class Robot extends TimedRobot {
     KickerWheel = new KickerWheel();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
+    OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Serializer = new Serializer();
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
+    TimeOfFlight = new TimeOfFlight();
     Vision = new Vision();
     
     OI = new OI();
@@ -88,6 +93,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    Robot.Vision.setLEDMode(1);
   }
 
   @Override
@@ -131,6 +137,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
   }
 
   @Override
