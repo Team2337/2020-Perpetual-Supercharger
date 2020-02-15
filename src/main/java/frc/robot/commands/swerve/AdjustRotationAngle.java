@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
+ * Sets the module angles to the desired rotation angle and rotates the robot for a specified
+ * number of degrees using the drive encoders
  * @author Madison J.
  * @category AUTON
  */
@@ -23,7 +24,8 @@ public class AdjustRotationAngle extends CommandBase {
   private double kP = 1;
 
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot for a specified number of degrees
+ * Sets the module angles to the desired rotation angle and rotates the robot for a specified 
+ * number of degrees using the drive encoders
  * @param subsystem - SwerveDrivetrain subsystem object
  * @param position - The desired distance to rotate in inches (49 inches = 180 degrees)
  * @param rotationDegree - The angle each module is being set to
@@ -91,7 +93,7 @@ public class AdjustRotationAngle extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getYawMod());
+    Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
   }
 
   @Override
