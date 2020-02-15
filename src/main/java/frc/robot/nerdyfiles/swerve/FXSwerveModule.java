@@ -178,6 +178,7 @@ public class FXSwerveModule {
         driveMotor.config_kD(0, driveD, 0);
         driveMotor.config_kF(0, driveF, 0);
 
+        /* --- Talon FX Drive Configurations --- */
         TalonFXConfigurationDrive.slot0.kP = driveP;
         TalonFXConfigurationDrive.slot0.kI = driveI;
         TalonFXConfigurationDrive.slot0.kD = driveD;
@@ -325,7 +326,7 @@ public class FXSwerveModule {
 
     /**
      * Sets the drive to be inverted 
-     * @param isDriveInverted - boolean value stating the drive inversion mode (True: invered | False: not inverted)
+     * @param isDriveInverted - boolean value stating the drive inversion mode (True: inverted | False: not inverted)
      */
     public void setDriveInverted(boolean isDriveInverted) {
         this.isDriveInverted = isDriveInverted;
