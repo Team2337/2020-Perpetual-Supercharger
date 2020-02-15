@@ -75,7 +75,9 @@ public class OI {
         operatorJoystick.povLeft        .whenPressed(new feedSystemForward());
         operatorJoystick.povLeft        .whenReleased(new feedSystemStop());
 
-        operatorJoystick.leftStickButton .whileHeld(new CGSerializerReadyOrphan(Constants.SERIALIZERFORWARDSPEED));
+        operatorJoystick.leftStickButton .whenHeld(new CGSerializerReadyOrphan(Constants.SERIALIZERFORWARDSPEED));
+        operatorJoystick.leftStickButton .whenReleased(new serializerDoNothing(Robot.Serializer));
+        operatorJoystick.rightStickButton .whenPressed(new runSerializerFor5Balls(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
 
         /* --- DRIVER STATION CONTROLS --- */
 
