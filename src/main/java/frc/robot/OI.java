@@ -28,8 +28,8 @@ public class OI {
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
         //Run the shooter
-        driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
-        driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
+        driverJoystick.triggerRight .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
+        driverJoystick.triggerRight.whenReleased(new runSerializer(Robot.Serializer, 0));
 
         // Prepare the shooter to fire long range
         driverJoystick.yellowY           .whenPressed(new longShooterSystemOn());
@@ -53,8 +53,14 @@ public class OI {
         operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
 
         //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.triggerLeft    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
-        operatorJoystick.triggerLeft    .whenReleased(new stopIntake(Robot.Intake));
+        operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
+        operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake));
+
+        operatorJoystick.triggerLeft.whenPressed(new feedSystemForward());
+        operatorJoystick.triggerLeft.whenReleased(new feedSystemStop());
+
+        operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
+        operatorJoystick.bumperLeft.whenReleased(new feedSystemStop());
 
          // Run the agitator leftwards
         operatorJoystick.rightStickButton        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
