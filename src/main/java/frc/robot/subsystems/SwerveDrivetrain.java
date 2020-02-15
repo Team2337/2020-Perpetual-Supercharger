@@ -195,9 +195,11 @@ public class SwerveDrivetrain extends SubsystemBase {
 
       // Sets the angles and speeds if a joystick is beyond zero,
       // otherwise drive stops and the modules are sent to their last angle
-      if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband) {
+      if(Math.abs(forward) > deadband || Math.abs(strafe) > 0.15 || Math.abs(rotation) > deadband) {
       //  SmartDashboard.putNumberArray("Angles", angles);
-        lastAngle[i] = angles[i];
+        if(Math.abs((lastAngle[i] - angles[i])) < Math.PI / 2) {
+          lastAngle[i] = angles[i];
+        }
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {

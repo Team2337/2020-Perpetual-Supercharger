@@ -273,12 +273,12 @@ public class FXSwerveModule {
     public void setModuleAngle(double targetAngle) {
         /* --- Local Variables --- */
         double errorRad;
-        double currentAngle = adjustAngleWithOffset();
+        double currentAngle = getNormalizedAnalogVoltageRadians();
 
         SmartDashboard.putNumber("CurrentAngle " + moduleNumber, getNormalizedAnalogVoltageRadians());
 
         // Adds angle offset to target angle
-        //targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
+        targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
 
         // Calculates error
         errorRad = (currentAngle - targetAngle + (2*Math.PI)) % (2*Math.PI);
