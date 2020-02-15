@@ -254,7 +254,7 @@ public class FXSwerveModule {
     public double adjustAngleWithOffset() {
         return (getNormalizedAnalogVoltageRadians() + this.angleMotorOffset) % (2 * Math.PI);
     }
-    
+
     /**
      * Takes the desired angle, and the current angle and computes the delta (current - target)
      * to set the speed to the angle motors to move the module to the 
@@ -264,12 +264,12 @@ public class FXSwerveModule {
     public void setModuleAngle(double targetAngle) {
         /* --- Local Variables --- */
         double errorRad;
-        double currentAngle = getNormalizedAnalogVoltageRadians();
+        double currentAngle = adjustAngleWithOffset();
 
         SmartDashboard.putNumber("CurrentAngle " + moduleNumber, getNormalizedAnalogVoltageRadians());
 
         // Adds angle offset to target angle
-        targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
+        //targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
 
         // Calculates error
         errorRad = (currentAngle - targetAngle + (2*Math.PI)) % (2*Math.PI);
