@@ -32,12 +32,13 @@ public class KickerWheel extends SubsystemBase {
   private CANPIDController kickerPIDController;
 
   /* --- PID SETTINGS --- */
-  double kP = 0.0001;
-  double kI = 0;
-  double kD = 0;
-  double kFF = 0;
+  double velocityP = 0.0001;
+  double velocityI = 0;
+  double velocityD = 0;
+  double velocityFF = 0;
   double kMinOutput = -1;
   double kMaxOutput = 1;
+  double positionalP;
    
   /**
    * Creates a new Kicker subsystem and sets up the motors to their corresponding ports.
@@ -54,10 +55,10 @@ public class KickerWheel extends SubsystemBase {
     kickerPIDController = kickerWheelMotor.getPIDController();
   
     // Sets up the PIDs
-    kickerPIDController.setP(kP);
-    kickerPIDController.setI(kI);
-    kickerPIDController.setD(kD);
-    kickerPIDController.setFF(kFF);
+    kickerPIDController.setP(velocityP);
+    kickerPIDController.setI(velocityI);
+    kickerPIDController.setD(velocityD);
+    kickerPIDController.setFF(velocityFF);
     kickerPIDController.setOutputRange(kMinOutput, kMaxOutput);
 
     kickerWheelMotor.setClosedLoopRampRate(0.0);
@@ -106,8 +107,7 @@ public class KickerWheel extends SubsystemBase {
    * @param pos The position to set the position to
    */
   public void setKickerPosition(double pos){
-    kP = 0.9;
-    kickerPIDController.setP(kP);
+    kickerPIDController.setP(positionalP);
     kickerPIDController.setReference(pos, ControlType.kPosition);
   }
 
