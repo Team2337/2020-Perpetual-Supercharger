@@ -32,9 +32,16 @@ public class OI {
         driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
 
         // Prepare the shooter to fire long range
-        driverJoystick.blueX           .whenPressed(new shortShooterSystemOn());
+        driverJoystick.yellowY           .whenPressed(new longShooterSystemOn());
+        driverJoystick.yellowY           .whenReleased(new shooterSystemOff()); 
+
+        // Slow rotates to the right
+        driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, Constants.Swerve.SLOWROTATESPEED));
+        driverJoystick.redB         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
         
-        driverJoystick.redB           .whenReleased(new shooterSystemOff()); 
+        // Slow rotates to the left
+        driverJoystick.blueX         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
+        driverJoystick.blueX         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
