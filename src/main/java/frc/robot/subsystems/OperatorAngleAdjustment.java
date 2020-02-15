@@ -13,15 +13,21 @@ import frc.robot.Robot;
  */
 public class OperatorAngleAdjustment extends SubsystemBase {
 
-   public double gyroOffset = 0;
-   public double farShot;
-   public double nearShot;
-   public double climbing;
-   public double futureOffsetAngle;
-   public boolean isFieldOrientend;
-   public boolean isChangingGyroAngle;
-   public boolean limelightRotationMode = false;
-   public String mode = "";
+   private double gyroOffset = 0;
+   private double farShot;
+   private double nearShot;
+   private double climbing;
+   private double futureOffsetAngle;
+   private boolean isFieldOrientend;
+   private boolean isChangingGyroAngle;
+   private boolean limelightRotationMode = false;
+   private String mode = "";
+
+   
+  private double slowRotateSpeed = 0;
+
+  /* --- Private Boolean Values --- */
+  private boolean slowRotateMode = false;
 
  /**
   * Class to change the robot's angle based on an offset. 
@@ -153,6 +159,39 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    */
   public String getMode() {
     return mode;
+  }
+
+  
+  /**
+   * Sets the slow rotate mode on the robot to on or off
+   * @param slowRotateMode - boolean value indicating the slow rotate mode (slow rotate on: true | slow rotate off: false)
+   */
+  public void setSlowRotateMode(boolean slowRotateMode) {
+    this.slowRotateMode = slowRotateMode; 
+  }
+
+  /**
+   * Gets the slow rotate mode boolean indicating whether slow rotate is occurring or not
+   * @return - boolean value indicating the slow rotate mode (slow rotate on: true | slow rotate off: false)
+   */
+  public boolean getSlowRotateMode() {
+    return slowRotateMode;
+  }
+
+  /**
+   * Sets the speed of the slow rotation 
+   * @param speed - double value for the slow rotation speed (-1 -> 1)
+   */
+  public void setSlowRotateSpeed(double speed) {
+    this.slowRotateSpeed = speed;
+  }
+
+  /**
+   * Gets the speed for slow rotation 
+   * @return - double speed value for slow rotation (-1 -> 1)
+   */
+  public double getSlowRotateSpeed() {
+    return this.slowRotateSpeed;
   }
 
   @Override

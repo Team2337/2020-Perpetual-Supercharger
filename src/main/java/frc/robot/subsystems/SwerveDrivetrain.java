@@ -35,10 +35,6 @@ public class SwerveDrivetrain extends SubsystemBase {
   private double total;
   private double average;
   private double iteration;
-  private double slowRotateSpeed = 0;
-
-  /* --- Private Boolean Values --- */
-  private boolean slowRotateMode = false;
 
   /**
    * Offsets the current gyro position to allow for 
@@ -284,7 +280,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     return average;
   }
 
-
   /**
    * Gets the current field orientation mode
    * (True: robot is field oriented | False: robot is robot oriented)
@@ -292,38 +287,6 @@ public class SwerveDrivetrain extends SubsystemBase {
    */
   public boolean getFieldOriented() {
       return this.isFieldOriented;
-  }
-
-  /**
-   * Sets the slow rotate mode on the robot to on or off
-   * @param slowRotateMode - boolean value indicating the slow rotate mode (slow rotate on: true | slow rotate off: false)
-   */
-  public void setSlowRotateMode(boolean slowRotateMode) {
-    this.slowRotateMode = slowRotateMode; 
-  }
-
-  /**
-   * Gets the slow rotate mode boolean indicating whether slow rotate is occurring or not
-   * @return - boolean value indicating the slow rotate mode (slow rotate on: true | slow rotate off: false)
-   */
-  public boolean getSlowRotateMode() {
-    return slowRotateMode;
-  }
-
-  /**
-   * Sets the speed of the slow rotation 
-   * @param speed - double value for the slow rotation speed (-1 -> 1)
-   */
-  public void setSlowRotateSpeed(double speed) {
-    this.slowRotateSpeed = speed;
-  }
-
-  /**
-   * Gets the speed for slow rotation 
-   * @return - double speed value for slow rotation (-1 -> 1)
-   */
-  public double getSlowRotateSpeed() {
-    return this.slowRotateSpeed;
   }
 
   @Override

@@ -45,7 +45,7 @@ public class CANSendReceive {
 
         } catch (Exception e) {
 
-            System.out.println(e);
+            //System.out.println(e);
             return -1;
         }
     }

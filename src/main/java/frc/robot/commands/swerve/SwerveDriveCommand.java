@@ -100,8 +100,8 @@ public class SwerveDriveCommand extends CommandBase {
      }  
 
     // Checks to see if we are in slow rotate mode, then directly sets the rotation to the given speed
-    if(swerveDrivetrain.getSlowRotateMode() && !(swerveDrivetrain.getSlowRotateSpeed() == 0)) {
-      rotation = swerveDrivetrain.getSlowRotateSpeed();
+    if(Robot.OperatorAngleAdjustment.getSlowRotateMode() && !(Robot.OperatorAngleAdjustment.getSlowRotateSpeed() == 0)) {
+      rotation = Robot.OperatorAngleAdjustment.getSlowRotateSpeed();
     }
     // Pass on joystick values to be calculated into angles and speeds
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
