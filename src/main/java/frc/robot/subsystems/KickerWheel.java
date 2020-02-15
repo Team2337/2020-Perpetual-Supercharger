@@ -22,7 +22,7 @@ public class KickerWheel extends SubsystemBase {
    * Specifies whether or not the Feeder will be in debug mode.
    * @see #periodic()
    */
-  private boolean kickerWheelDebug = true;
+  private boolean kickerWheelDebug = false;
 
   /** The speed the motors are currently set to. Changed in methods. */
   public double kspeed;
