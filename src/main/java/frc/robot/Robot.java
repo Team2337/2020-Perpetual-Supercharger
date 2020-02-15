@@ -58,8 +58,6 @@ public String mac;
         sb.append(String.format("%02X%s", address[i], (i < address.length - 1) ? ":" : ""));
       }
       mac = sb.toString();
-      // Print the address to see if it works
-      System.out.println(mac);
       // If there are any errors, continue with the code instead of crashing the robot
     } catch (UnknownHostException e) {
       System.out.println("Unknown Host Exception - " + e);
