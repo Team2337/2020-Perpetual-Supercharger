@@ -31,6 +31,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   /* --- Private Double Values --- */
   private double deadband = 0.1;
+  private double rotationDeadband = 0.05;
   private double lastAngle;
   private double total;
   private double average;
@@ -195,7 +196,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
       // Sets the angles and speeds if a joystick is beyond zero,
       // otherwise drive stops and the modules are sent to their last angle
-      if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband) {
+      if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband || Robot.OperatorAngleAdjustment.getSlowRotateMode()) {
       //  SmartDashboard.putNumberArray("Angles", angles);
         lastAngle = angles[i];
         getModule(i).setModuleAngle(angles[i]);
@@ -279,7 +280,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     average = total / iteration;
     return average;
   }
-
 
   /**
    * Gets the current field orientation mode
