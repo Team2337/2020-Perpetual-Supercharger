@@ -16,6 +16,9 @@ public final class Constants {
     public final class Vision {
         public final static double VISIONROTATIONP = 0.85;
     }
+    public final class KickerWheel {
+        public final static double SHORTVELOCITYP = 0.0001;
+    }
     /* --- CAN IDs --- */
     public static int CANID0 = 0;
     public static int MODULE0DRIVEMOTORID = 1;

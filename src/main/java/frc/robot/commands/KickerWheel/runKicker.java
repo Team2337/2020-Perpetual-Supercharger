@@ -30,7 +30,7 @@ public class runKicker extends InstantCommand {
   @Override
   public void initialize(){ 
     // kspeed = SmartDashboard.getNumber("Kicker Speed", Constants.KICKERSPEED);
-    subsystem.setKickerSpeed(Constants.KICKERSPEED);
+    subsystem.setKickerSpeed(Constants.KICKERSPEED, Constants.KickerWheel.SHORTVELOCITYP);
   }
 
   // Called once the command ends or is interrupted.

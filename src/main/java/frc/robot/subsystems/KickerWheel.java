@@ -98,7 +98,8 @@ public class KickerWheel extends SubsystemBase {
    * Sets the speed of the kicker wheel.
    * @param speed The speed to set the kicker wheel to (in velocity)
    */
-  public void setKickerSpeed(double speed) {
+  public void setKickerSpeed(double speed, double kP) {
+    kickerPIDController.setP(kP);
     kickerPIDController.setReference(speed, ControlType.kVelocity);
   }
 
@@ -135,5 +136,4 @@ public class KickerWheel extends SubsystemBase {
     double temp = kickerWheelMotor.getMotorTemperature();
     return temp;
   }
-
 }
