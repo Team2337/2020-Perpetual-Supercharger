@@ -27,7 +27,7 @@ public class serializerDoNothing extends CommandBase {
   @Override
   public void initialize() {
     // This calls the Subsystem method positionShift with a value designated in OI
-  
+
   }
 
   @Override
