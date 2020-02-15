@@ -181,7 +181,7 @@ public class FXSwerveModule {
         driveMotor.config_kD(0, driveD, 0);
         driveMotor.config_kF(0, driveF, 0);
 
-        /* --- Talon Drive Configurations --- */
+        /* --- Talon FX Drive Configurations --- */
         TalonFXConfigurationDrive.slot0.kP = driveP;
         TalonFXConfigurationDrive.slot0.kI = driveI;
         TalonFXConfigurationDrive.slot0.kD = driveD;
