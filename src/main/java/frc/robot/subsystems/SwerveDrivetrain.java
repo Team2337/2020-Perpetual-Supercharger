@@ -1,14 +1,8 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import java.util.function.BooleanSupplier;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -38,19 +32,38 @@ public class SwerveDrivetrain extends SubsystemBase {
   /* --- Private Double Values --- */
   private double deadband = 0.1;
   private double lastAngle;
+  private double total;
+  private double average;
+  private double iteration;
 
   /**
-   * Array for module angle offsets refering to the offset 
-   * from the sensor's zero point on each module
+   * Offsets the current gyro position to allow for 
+   * rotational adjustments during the match
+   */
+  private double gyroOffset = 0; 
+
+  /**
+   * Array for module angle offsets
    * 0 is Front Right,
    * 1 is Front Left, 
    * 2 is Back Left, 
    * 3 is Back Right
    */
-  private double angleOffsets[];
+  public double angleOffsets[]; //TODO: change to private 
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
+  private boolean swerveDebug = false;
+
+  public boolean fineRotateOn = false;
+  public BooleanSupplier fineRotation = new BooleanSupplier(){
+  
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return fineRotateOn;
+    }
+  };
 
   /**
    * Array for swerve module Analog sensors, sorted by AnalogInput ports
@@ -68,7 +81,11 @@ public class SwerveDrivetrain extends SubsystemBase {
 	 * 2 is Back Left, 
 	 * 3 is Back Right
 	 */
-	private FXSwerveModule[] swerveModules;
+  private FXSwerveModule[] swerveModules;
+  
+  /* --- Public Double Values --- */
+  public double lastRotation;
+  public double fieldOrientedAngle;
 
   /**
    * Subsystem where swerve modules are configured, 
@@ -79,10 +96,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     setDefaultCommand(new SwerveDriveCommand(this));
 
     angleOffsets = new double[] {
-      4.57,  // Module 0 
-      1.3,   // Module 1 
-      -0.60, // Module 2 
-      -5.95  // Module 3
+      4.5611,  // Module 0 //4.57
+      1.278353,   // Module 1 //1.3
+      -0.666697, // Module 2 //-0.678327
+      -5.90436  // Module 3 -5.95
     };
 
     analogAngleSensors = new AnalogInput[] {
@@ -94,12 +111,12 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     /* --- Array for modules --- */
     swerveModules = new FXSwerveModule[] {
-      new FXSwerveModule(0, new TalonFX(Constants.module0DriveMotorID), new TalonFX(Constants.module0AngleMotorID), angleOffsets[0], analogAngleSensors[0]), // Module 0
-      new FXSwerveModule(1, new TalonFX(Constants.module1DriveMotorID), new TalonFX(Constants.module1AngleMotorID), angleOffsets[1], analogAngleSensors[1]), // Module 1
-      new FXSwerveModule(2, new TalonFX(Constants.module2DriveMotorID), new TalonFX(Constants.module2AngleMotorID), angleOffsets[2], analogAngleSensors[2]), // Module 2
-      new FXSwerveModule(3, new TalonFX(Constants.module3DriveMotorID), new TalonFX(Constants.module3AngleMotorID), angleOffsets[3], analogAngleSensors[3])  // Module 3
+      new FXSwerveModule(0, new TalonFX(Constants.MODULE0DRIVEMOTORID), new TalonFX(Constants.MODULE0ANGLEMOTORID), angleOffsets[0], analogAngleSensors[0]), // Module 0
+      new FXSwerveModule(1, new TalonFX(Constants.MODULE1DRIVEMOTORID), new TalonFX(Constants.MODULE1ANGLEMOTORID), angleOffsets[1], analogAngleSensors[1]), // Module 1
+      new FXSwerveModule(2, new TalonFX(Constants.MODULE2DRIVEMOTORID), new TalonFX(Constants.MODULE2ANGLEMOTORID), angleOffsets[2], analogAngleSensors[2]), // Module 2
+      new FXSwerveModule(3, new TalonFX(Constants.MODULE3DRIVEMOTORID), new TalonFX(Constants.MODULE3ANGLEMOTORID), angleOffsets[3], analogAngleSensors[3])  // Module 3
     };
-    
+
     // Setup for drive motor inversion (They may not need to be inverted)
     // (True: invered | False: not inverted)
     swerveModules[0].setDriveInverted(false);
@@ -125,7 +142,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       double temp = forward * Math.cos(angleRad) + strafe * Math.sin(angleRad);
       strafe = -forward * Math.sin(angleRad) + strafe * Math.cos(angleRad);
       forward = temp;
-  } 
+    } 
 
     /*
      * a -> d adds the rotational value to the robot, then adjusts for the dimensions of the robot
@@ -179,7 +196,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       // Sets the angles and speeds if a joystick is beyond zero,
       // otherwise drive stops and the modules are sent to their last angle
       if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband) {
-        SmartDashboard.putNumberArray("Angles", angles);
+      //  SmartDashboard.putNumberArray("Angles", angles);
         lastAngle = angles[i];
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
@@ -188,7 +205,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         getModule(i).setDriveSpeed(0);
       }
       //Sets the drive speed for each drive motor
-      SmartDashboard.putNumberArray("Drive Speeds", speeds);
+     //SmartDashboard.putNumberArray("Drive Speeds", speeds);
     }
   }
 
@@ -239,6 +256,32 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   /**
+   * Sets the offset angle for each of the modules
+   * @param angle - The angle we want to offset in radians
+   */
+  public void setGyroOffsetAngle(double angle) {
+    this.gyroOffset = angle;
+  }
+
+  /**
+   * Gets the offset angle for each of the modules
+   * @return - Gyro angle offset in radians
+   */
+  public double getGyroOffsetAngle() {
+    return gyroOffset;
+  }
+
+  public double getAverageAnalogValueInRadians(int module) {
+    if(iteration < 200) {
+      total += getModule(module).getNormalizedAnalogVoltageRadians();
+      iteration++;
+    } 
+    average = total / iteration;
+    return average;
+  }
+
+
+  /**
    * Gets the current field orientation mode
    * (True: robot is field oriented | False: robot is robot oriented)
    * @return - boolean value of current field orientation mode
@@ -247,4 +290,13 @@ public class SwerveDrivetrain extends SubsystemBase {
       return this.isFieldOriented;
   }
 
+  @Override
+  public void periodic() {
+    if (swerveDebug) {
+      for(int i = 0; i < 4; i++) {
+      SmartDashboard.putNumber("ModuleAngle/" + i, 
+      ((getModule(i).getNormalizedAnalogVoltageRadians() - angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
+      }
+    }
+  }
 }

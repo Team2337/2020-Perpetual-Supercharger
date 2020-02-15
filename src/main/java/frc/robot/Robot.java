@@ -15,24 +15,26 @@ import frc.robot.subsystems.*;
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
  * the package after creating this project, you must also update the build.gradle file in the
- * project.
+ * project.  
  */
 public class Robot extends TimedRobot {
+
   private Command m_autonomousCommand;
 
   public static Constants Constants;
   public static Utilities Utilities;
 
+  public static Agitator Agitator;
   public static Climber Climber;
-  public static ClimberExtender ClimberExtender;
-  public static ControlPanelSpinner ControlPanelSpinner;
-  public static Serializer Serializer;
   public static Intake Intake;
+  public static KickerWheel KickerWheel;
   public static LEDs LEDs;
+  public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
+  public static Serializer Serializer;
   public static Shooter Shooter;
-  public static ShooterHood ShooterHood;
   public static SwerveDrivetrain SwerveDrivetrain;
+  public static TimeOfFlight TimeOfFlight;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static OI OI;
@@ -53,17 +55,19 @@ public class Robot extends TimedRobot {
     Utilities = new Utilities();
 
     /* --- Subsystems --- */
+    Agitator = new Agitator();
     Climber = new Climber();
-    ClimberExtender = new ClimberExtender();
-    ControlPanelSpinner = new ControlPanelSpinner();
-    Serializer = new Serializer();
     Intake = new Intake();
+    KickerWheel = new KickerWheel();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
+    OperatorAngleAdjustment = new OperatorAngleAdjustment();
+    Serializer = new Serializer();
     Shooter = new Shooter();
-    ShooterHood = new ShooterHood();
     SwerveDrivetrain = new SwerveDrivetrain();
+    TimeOfFlight = new TimeOfFlight();
     Vision = new Vision();
+    
     OI = new OI();
 
 
@@ -73,7 +77,6 @@ public class Robot extends TimedRobot {
     subsystems.add(SwerveDrivetrain);  
     subsystems.add(Shooter);  
     subsystems.add(Climber);
-    subsystems.add(ControlPanelSpinner);
     subsystems.add(Serializer);
     subsystems.add(Intake);
 
@@ -81,6 +84,13 @@ public class Robot extends TimedRobot {
 
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
+    
+    //** --- Allows the speed of these subsystems to be changed on SmarDashboard --- */
+    SmartDashboard.putNumber("Intake Speed", Constants.INTAKESPEED);
+    SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
+    SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
+    SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERFORWARDSPEED);
+    SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);
   }
 
   /**
@@ -94,10 +104,8 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
+    // and running subsystem periodic() methods.  This must be called from the robot's periodic.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("getAbsoluteCompassHeading", Pigeon.getAbsoluteCompassHeading());
   }
 
   /**
@@ -105,6 +113,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    Robot.Vision.setLEDMode(1);
   }
 
   @Override
@@ -148,6 +157,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
   }
 
   @Override
