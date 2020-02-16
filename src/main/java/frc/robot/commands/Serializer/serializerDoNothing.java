@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class serializerDoNothing extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer m_subsystem;
-  
 
   /**
    * Reset the Serializer's internal encoder
@@ -18,6 +17,7 @@ public class serializerDoNothing extends CommandBase {
    * @param subsystem  The subsystem used by this command. (Serializer)
    */
   public serializerDoNothing(Serializer subsystem) {
+    m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -36,7 +36,7 @@ public class serializerDoNothing extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
   }
 
   @Override
