@@ -9,6 +9,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final class Auton {
+        public static final double INCHESTOJOYSTICKVALUE = 1;
+    }
     public static final class Swerve {
         public static final double GEARRATIO = 8.31;
         public static final double WHEELDIAMETER = 4;

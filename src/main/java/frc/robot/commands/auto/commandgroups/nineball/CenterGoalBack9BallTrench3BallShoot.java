@@ -1,8 +1,9 @@
 package frc.robot.commands.auto.commandgroups.nineball;
 
-import frc.robot.commands.auto.commandgroups.common.movement.GeneratorThreeBallFromCenterTarget;
-import frc.robot.commands.auto.commandgroups.common.ShootNineBall;
-import frc.robot.commands.auto.commandgroups.common.systemactions.AutonInit;
+import frc.robot.commands.auto.commandgroups.common.movement.*;
+import frc.robot.commands.auto.commandgroups.common.*;
+import frc.robot.commands.auto.commandgroups.common.systemactions.*;
+import frc.robot.commands.auto.commandgroups.common.vision.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
@@ -19,7 +20,9 @@ public class CenterGoalBack9BallTrench3BallShoot extends SequentialCommandGroup 
   public CenterGoalBack9BallTrench3BallShoot() {
     addCommands(
       new AutonInit(),
-      new ShootNineBall()
+      new ShootNineBall(), 
+      new Trench3Ball(),
+      new Vision3ShootBall()
     );
   
   }

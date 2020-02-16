@@ -19,11 +19,14 @@ public class GeneratorThreeBallFromCenterTarget extends SequentialCommandGroup {
  * Drives from the initiation line to the generator command group
  */
   public GeneratorThreeBallFromCenterTarget() {
+    /* --- Driving to Generator Left --- */
+    int firstDriveDist = -140, firstDriveModuleAngles = 47;
+    double firstDriveMaxSpeed = 0.7, firstDriveDriveP = 0.04, firstDriveAngleP = 1.1;
     addCommands(
       new zeroWithAnalog(Robot.SwerveDrivetrain).withTimeout(1),
       new zeroAngleEncoders(Robot.SwerveDrivetrain).withTimeout(0.04),
       new turnModulesToDegree(Robot.SwerveDrivetrain, 47, 1.1, 0.3).withTimeout(2), // 0.9
-      new driveToPosition(Robot.SwerveDrivetrain, -140, 0, 0.7, 0.04, 1.1).withTimeout(3)
+      new driveToPosition(Robot.SwerveDrivetrain, firstDriveDist, firstDriveModuleAngles, firstDriveMaxSpeed, firstDriveDriveP, firstDriveAngleP).withTimeout(3)
       /* new rotateToAngleWithEncoder(Robot.SwerveDrivetrain, "left", -30, 0.3),
       new turnModulesToDegree(Robot.SwerveDrivetrain, 0, 0.75, 0.3).withTimeout(2),
       new driveToPosition(Robot.SwerveDrivetrain, -27, 0, 0.3, 0.05, 1.1).withTimeout(3),

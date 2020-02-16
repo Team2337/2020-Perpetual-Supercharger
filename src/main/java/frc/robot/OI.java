@@ -1,11 +1,5 @@
 package frc.robot;
 
-import frc.robot.commands.auto.*;
-import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
-import frc.robot.commands.auto.commandgroups.swerveCircle;
-import frc.robot.commands.auto.commandgroups.swerveDiamond;
-import frc.robot.commands.auto.commandgroups.swerveSquare;
-import frc.robot.commands.auto.commandgroups.swerveTriangle;
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
