@@ -1,4 +1,4 @@
-package frc.robot.commands.auto.commandgroups;
+package frc.robot.commands.auto.commandgroups.testergroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
