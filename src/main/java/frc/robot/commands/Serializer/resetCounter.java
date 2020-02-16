@@ -29,6 +29,7 @@ public class resetCounter extends InstantCommand {
     //This will reset the counter in the serializer.
     subsystem.resetCounter();
   }
+      
 
   // Called once the command ends or is interrupted.
   @Override

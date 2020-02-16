@@ -148,7 +148,7 @@ public class KickerWheel extends SubsystemBase {
     return kcs;
   }
 
-  public void checkKickerSpeed(int target){
+  public void checkKickerSpeed(double target){
     kickerAtTargetSpeed = kickerCompareSpeed(target);
   }
 }
