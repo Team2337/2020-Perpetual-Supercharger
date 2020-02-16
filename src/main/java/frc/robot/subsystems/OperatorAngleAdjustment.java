@@ -15,8 +15,8 @@ import frc.robot.Robot;
  */
 public class OperatorAngleAdjustment extends SubsystemBase {
 
-   private double gyroOffset = 0;
-   private double farShot;
+  private double gyroOffset = 0;
+  private double farShot;
   private double nearShot;
   private double climbing;
   private double futureOffsetAngle;
@@ -57,14 +57,19 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    * will take affect when the driver button is pressed
    * 
    * @param mode - String designating the mode
-   *             <p>
-   *             List of modes:
-   *             </p>
-   *             <ul>
-   *             <li>farShot
-   *             <li>nearShot
-   *             <li>climbing
-   *             </ul>
+   * <p>
+   * List of modes:
+   * </p>
+   * <ul>
+   * <li>farShot
+   * <li>nearShot
+   * <li>climbing
+   * <li>targetLimelightOn
+   * <li>0
+   * <li>90
+   * <li>180
+   * <li>270
+   * </ul>
    */
   public void setFutureOffsetAngle(String mode) {
     this.mode = mode;
