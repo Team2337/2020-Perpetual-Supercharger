@@ -4,7 +4,6 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -15,14 +14,17 @@ import frc.robot.Constants;
  * the ball when it enters the shooter mechanism.
  * 
  * <p>Methods include go faster, stop, or decrease in speed
- * @author Hunter B, John R
+ * @author Hunter B, John R, Michael F
  */
 public class KickerWheel extends SubsystemBase {
   /**
-   * Specifies whether or not the Feeder will be in debug mode.
+   * Specifies whether or not the kicker will be in debug mode.
    * @see #periodic()
    */
   private boolean kickerWheelDebug = false;
+
+  /** Specifies whether or not the kicker is at or above a target speed. */
+  public static boolean kickerAtTargetSpeed;
 
   /** The speed the motors are currently set to. Changed in methods. */
   public double kspeed;
@@ -136,4 +138,17 @@ public class KickerWheel extends SubsystemBase {
     return temp;
   }
 
+  /**
+   * Checks if the kicker is up to a certain speed
+   * @param target The speed to be compared with the current kicker speed (in RPM)
+   * @return Whether or not the kicker is above the requested speed
+   */
+  public boolean kickerCompareSpeed(double target){
+    boolean kcs = getKickerSpeed() >= target;
+    return kcs;
+  }
+
+  public void checkKickerSpeed(int target){
+    kickerAtTargetSpeed = kickerCompareSpeed(target);
+  }
 }

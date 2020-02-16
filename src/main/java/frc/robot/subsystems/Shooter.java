@@ -24,6 +24,9 @@ public class Shooter extends SubsystemBase {
    */
   private final boolean shooterDebug = false;
 
+  /** Specifies whether or not the shooter is at or above a target speed. */
+  public static boolean shooterAtTargetSpeed;
+
   //////////////////////////
   /* -------------------- */
   /* --- MOTOR SET-UP --- */
@@ -223,5 +226,36 @@ public class Shooter extends SubsystemBase {
     // Convert rps into revolutions per minute
     int rpm = rps * 60;
     return rpm;
+  }
+
+  /////////////////////////////////
+  /* --------------------------- */
+  /* --- CHECK SHOOTER SPEED --- */
+  /* --------------------------- */
+  /////////////////////////////////
+
+  /**
+   * Checks to see if the shooter's speed is up to a certain speed
+   * @param target The target speed to check
+   * @return True if the shooter speed is above the requested target
+   */
+  public boolean shooterCompareSpeed(int target){
+
+    //The velocity of the left motor
+    int lsm = leftShootMotor.getSelectedSensorVelocity();
+    //The velocity of the right motor
+    int rsm = rightShootMotor.getSelectedSensorVelocity();
+
+    //The max speed between the two motors, in case only one is being tested
+    int speed = Math.max(lsm, rsm);
+
+    //Shooter check speed: is the speed >= the target speed?
+    boolean scs = speed >= target;
+    return scs;
+
+  }
+
+  public void checkShooterSpeed(int target){
+    shooterAtTargetSpeed = shooterCompareSpeed(target);
   }
 }

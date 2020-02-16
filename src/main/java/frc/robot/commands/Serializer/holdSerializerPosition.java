@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * Holds the serializer position
- * @author Nicholas Stokes
+ * @author Nicholas S
  */
 public class holdSerializerPosition extends CommandBase{
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })

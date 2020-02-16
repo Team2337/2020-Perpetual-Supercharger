@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
- /** 
- * Subsystem for the Serializer 
- * The Serializer is a mechanism to feed balls up to the shooter
- * For more information, see the wiki 
- * @author Nicholas Stokes
+/**
+ * Subsystem for the Serializer The Serializer is a mechanism to feed balls up
+ * to the shooter. For more information, see the wiki
+ * 
+ * @author Nicholas S, Michael F
  */
 public class Serializer extends SubsystemBase {
   /**
@@ -25,6 +25,7 @@ public class Serializer extends SubsystemBase {
    * @see #periodic()
    */
   public final boolean serializerDebug = false;
+
   // Sets up posistion stuff (referenced later)
   public double targetPosition;
   final double kP = 3;
@@ -41,27 +42,29 @@ public class Serializer extends SubsystemBase {
   // Current limit configuration
   private StatorCurrentLimitConfiguration currentLimitConfigurationSerializerMotor = new StatorCurrentLimitConfiguration();
   TalonFXConfiguration config = new TalonFXConfiguration();
-public Object resetCounter;
-  
-  /** 
- * Subsystem for the Serializer 
- * The Serializer is a mechanism to feed balls up to the shooter
- * For more information, see the wiki 
- * @author Nicholas Stokes
- */
+  public Object resetCounter;
+
+  /**
+   * Subsystem for the Serializer The Serializer is a mechanism to feed balls up
+   * to the shooter For more information, see the wiki
+   * 
+   * @author Nicholas Stokes
+   */
   public Serializer() {
-  // The configuration, ramp rate, and inversion are set here as well as the ports.
+    // The configuration, ramp rate, and inversion are set here as well as the
+    // ports.
     serializerMotor = new TalonFX(Constants.SERIALIZER);
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
     FXConfig = new TalonFXConfiguration();
     sensor = new DigitalInput(0);
     counter = new Counter(1);
-    //These lines set the counter mode(Up-Down of a pulse), sets it to count on the up of the pulse 
-    counter.setUpDownCounterMode(); 
+    // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
+    // up of the pulse
+    counter.setUpDownCounterMode();
     counter.setUpSource(sensor);
     counter.setMaxPeriod(2);
-    
+
     // Set up the current configuration
     currentLimitConfigurationSerializerMotor.currentLimit = 50;
     currentLimitConfigurationSerializerMotor.enable = true;
@@ -71,24 +74,23 @@ public Object resetCounter;
     // Set amperage limits
     serializerMotor.configStatorCurrentLimit(currentLimitConfigurationSerializerMotor, 0);
 
-     /*
-      * This is where the Talon FX is configured
-      * All of the PID values are configured here as well
-      * as allowable error and the speed of the motor during the PID
-      */
-     FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
-     FXConfig.slot0.kP = kP;
-     FXConfig.slot0.kI = kI;
-     FXConfig.slot0.kD = kD;
-     FXConfig.slot0.kF = kF;
-     FXConfig.slot0.allowableClosedloopError = (5);
-     FXConfig.peakOutputForward = (Constants.SERIALIZERPEAKSPEED);
-     FXConfig.peakOutputReverse = (-Constants.SERIALIZERPEAKSPEED);
-     FXConfig.nominalOutputForward = 0.01;
-     FXConfig.nominalOutputReverse = -0.01;
-     serializerMotor.setNeutralMode(NeutralMode.Brake);
-     serializerMotor.configAllSettings(FXConfig);
-     
+    /*
+     * This is where the Talon FX is configured All of the PID values are configured
+     * here as well as allowable error and the speed of the motor during the PID
+     */
+    FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
+    FXConfig.slot0.kP = kP;
+    FXConfig.slot0.kI = kI;
+    FXConfig.slot0.kD = kD;
+    FXConfig.slot0.kF = kF;
+    FXConfig.slot0.allowableClosedloopError = (5);
+    FXConfig.peakOutputForward = (Constants.SERIALIZERPEAKSPEED);
+    FXConfig.peakOutputReverse = (-Constants.SERIALIZERPEAKSPEED);
+    FXConfig.nominalOutputForward = 0.01;
+    FXConfig.nominalOutputReverse = -0.01;
+    serializerMotor.setNeutralMode(NeutralMode.Brake);
+    serializerMotor.configAllSettings(FXConfig);
+
   }
 
   @Override
@@ -105,8 +107,9 @@ public Object resetCounter;
 
   /**
    * A method that sets the speed of the serializer motor
-   * @param speed Sets the speed of the motor as a value -1 through 1
-   * Positive numbers go up
+   * 
+   * @param speed Sets the speed of the motor as a value -1 through 1 Positive
+   *              numbers go up
    */
   public void setSerializerSpeed(double speed) {
     // Sets the speed of the serializer motor
@@ -116,8 +119,7 @@ public Object resetCounter;
   }
 
   /**
-   * @return speed
-   * Returns the speed of the serializer motor 
+   * @return speed Returns the speed of the serializer motor
    */
   public double getSerializerSpeed() {
     double speed = serializerMotor.getMotorOutputPercent();
@@ -149,13 +151,12 @@ public Object resetCounter;
   }
 
   /**
-   * @return temp
-   * Returns the temperature of the serializer motor 
+   * @return temp Returns the temperature of the serializer motor
    */
-  public double getSerializerTemperature() { 
+  public double getSerializerTemperature() {
     return serializerMotor.getTemperature();
   }
-  
+
   /**
    * @param position
    * This is the amount to shift by
@@ -168,12 +169,13 @@ public Object resetCounter;
     serializerMotor.configPeakOutputReverse(-Constants.SERIALIZERPOSITIONSPEED);
     targetPosition = position;
     serializerMotor.set(ControlMode.Position, targetPosition);
+  }
 
+  /**
+   * Resets the counter
+   */
   public void resetCounter(){
-    counter.reset;
+    counter.reset();
   }
 
-  }
-    
 }
-    

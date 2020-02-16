@@ -1,28 +1,23 @@
 package frc.robot.commands.Serializer;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Serializer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the serializer speed
- * @author Nicholas Stokes
+ * @author Nicholas S
  */
-public class runSerializer extends InstantCommand {
+public class resetCounter extends InstantCommand {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer subsystem;
-  private double serializerSpeed;
 
   /**
-   * Sets the serializer speed 
-   * @author Nicholas Stokes
+   * Resets the serializer counter
+   * @author Michael Francis
    * @param serializer The subsystem used by this command. (Serializer)
-   * @param speed  A double number that sets what speed the motors move at
    */
-  public runSerializer(Serializer serializer, double speed) {
+  public resetCounter(Serializer serializer) {
     subsystem = serializer;
-    serializerSpeed = speed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -31,9 +26,8 @@ public class runSerializer extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // This will set the serializer to run at a set speed
-    // serializerSpeed = SmartDashboard.getNumber("Serializer Speed", Constants.SERIALIZERPEAKSPEED);
-    subsystem.setSerializerSpeed(serializerSpeed);
+    //This will reset the counter in the serializer.
+    subsystem.resetCounter();
   }
 
   // Called once the command ends or is interrupted.
