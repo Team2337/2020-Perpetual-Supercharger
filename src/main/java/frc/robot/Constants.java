@@ -93,16 +93,16 @@ public final class Constants {
 
 
     /* --- Agitator --- */
-    public static double AGITATORSPEED = 0.4;
-    public static double AGITATORREVERSESPEED = -0.4;
+    public static double AGITATORSPEED = 0.2;
+    public static double AGITATORREVERSESPEED = -0.2;
 
 
     /* --- Intake --- */
-    public static double INTAKESPEED = 0.4;
+    public static double INTAKESPEED = 0.7;
 
 
     /* --- Climber --- */
-    public static double CLIMBERSPEED = 0.4;
+    public static double CLIMBERSPEED = 0.7;
 
 
     /* --- Shooter Values --- */
@@ -113,7 +113,7 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     // Speed to shoot at from ~16 feet away
-    public static int SHOOTSPEEDCLOSE = 13000; //14450
+    public static int SHOOTSPEEDCLOSE = 11500; //14450
     // Speed to shoot at from ~34 feet away
     public static int SHOOTSPEEDFAR = 14800; //15295 ///14800
 
@@ -128,5 +128,5 @@ public final class Constants {
     public static double SERIALIZERREGRESSIONDISTANCE = 768;
 
     /* --- Kicker --- */
-    public static int KICKERSPEED = 750; //3000 ///750
+    public static int KICKERSPEED = 500; //3000 ///750
 }

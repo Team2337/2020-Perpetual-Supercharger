@@ -10,14 +10,13 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 /**
  * Ready the shooter system to fire from long distance
  * 
- * @author Sean Lynch
+ * @author Team2337
  */
-public class longShooterSystemOn extends SequentialCommandGroup {
+public class shooterSystemOn extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-    public longShooterSystemOn() {
+    public shooterSystemOn() {
         addCommands(
-            //new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE),
-            new runKicker(Robot.KickerWheel, Constants.KICKERSPEED),
-            new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
+            new runKicker(Robot.KickerWheel),
+            new startShooter(Robot.Shooter));
     }
 }

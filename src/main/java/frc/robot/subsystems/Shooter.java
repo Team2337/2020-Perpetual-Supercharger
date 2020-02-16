@@ -27,6 +27,7 @@ public class Shooter extends SubsystemBase {
   private final boolean shooterDebug = false;
 
   private boolean shooterAtVelocity = false;
+  private int m_FutureSpeed = Constants.SHOOTSPEEDCLOSE;
   public BooleanSupplier shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
         
     @Override
@@ -79,8 +80,8 @@ public class Shooter extends SubsystemBase {
     rightShootMotor.configStatorCurrentLimit(currentLimitConfigurationMotor, 0);
 
     // Set a closed-loop ramp rate on the motors
-    leftShootMotor.configClosedloopRamp(0.5);
-    rightShootMotor.configClosedloopRamp(0.5);
+    leftShootMotor.configClosedloopRamp(0.2);
+    rightShootMotor.configClosedloopRamp(0.2);
     // Enable voltage compensation for all control modes on the motors
     leftShootMotor.enableVoltageCompensation(true);
     rightShootMotor.enableVoltageCompensation(true);
@@ -255,5 +256,23 @@ public class Shooter extends SubsystemBase {
    */
   public double getAverageVelocity() {
     return (Math.abs(rightShootMotor.getSelectedSensorVelocity()) + Math.abs(leftShootMotor.getSelectedSensorVelocity())) / 2;
+  }
+
+  /**
+   * Gets the future speed of the shooter
+   * @return - The future speed of the shooter
+   */
+  public int getFutureSpeed() {
+    System.out.println(m_FutureSpeed);
+    return m_FutureSpeed;
+  }
+  
+  /**
+   * Sets the future speed of the shooter
+   * @param futureSpeed - The future speed of the shooter
+   */
+  public void setFutureSpeed(int futureSpeed) {
+    System.out.println(futureSpeed);
+    m_FutureSpeed = futureSpeed;
   }
 }

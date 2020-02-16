@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 /**
@@ -19,7 +20,11 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   private double nearShot;
   private double climbing;
   private double futureOffsetAngle;
-  private boolean isFieldOrientend;
+  private double field0;
+  private double field90; 
+  private double field180;
+  private double field270;
+  private boolean isFieldOriented;
   private boolean isChangingGyroAngle;
   private boolean limelightRotationMode = false;
   private String mode = "";
@@ -37,10 +42,14 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   public OperatorAngleAdjustment() {
     // Sets all the gyro offsets
     gyroOffset = 0;
-    farShot = 33;
-    nearShot = 90;
-    climbing = 180;
-    isFieldOrientend = true;
+    farShot = 0;
+    nearShot = 0;
+    climbing = 0;
+    field0 = 0;
+    field90 = 90;
+    field180 = 180;
+    field270 = 270;
+    isFieldOriented = true;
   }
 
   /**
@@ -62,15 +71,33 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     switch(mode) {
     case "farShot":
       futureOffsetAngle = farShot;
+      Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDFAR);
+      Robot.Vision.setRotateLimelight(true);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEED);
       break;
     case "nearShot":
       futureOffsetAngle = nearShot;
+      Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
+      Robot.Vision.setRotateLimelight(true);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEED);
       break;
     case "climbing":
       futureOffsetAngle = climbing;
       break;
     case "targetLimelightOn":
       Robot.Vision.setRotateLimelight(true);
+      break;
+    case "0":
+      futureOffsetAngle = field0;
+      break;
+    case "90":
+      futureOffsetAngle = field90;
+      break;
+    case "180":
+      futureOffsetAngle = field180;
+      break;
+    case "270":
+      futureOffsetAngle = field270;
       break;
     default:
       futureOffsetAngle = 0;
