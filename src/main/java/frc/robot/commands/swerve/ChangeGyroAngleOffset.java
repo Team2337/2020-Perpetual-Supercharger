@@ -9,7 +9,6 @@ package frc.robot.commands.swerve;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.OperatorAngleAdjustment;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**

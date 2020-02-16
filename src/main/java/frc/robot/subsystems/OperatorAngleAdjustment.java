@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
@@ -13,21 +14,26 @@ import frc.robot.Robot;
  */
 public class OperatorAngleAdjustment extends SubsystemBase {
 
-   public double gyroOffset = 0;
-   public double farShot;
-   public double nearShot;
-   public double climbing;
-   public double futureOffsetAngle;
-   public boolean isFieldOrientend;
-   public boolean isChangingGyroAngle;
-   public boolean limelightRotationMode = false;
-   public String mode = "";
+   private double gyroOffset = 0;
+   private double farShot;
+  private double nearShot;
+  private double climbing;
+  private double futureOffsetAngle;
+  private boolean isFieldOrientend;
+  private boolean isChangingGyroAngle;
+  private boolean limelightRotationMode = false;
+  private String mode = "";
 
- /**
-  * Class to change the robot's angle based on an offset. 
-  * These offsets will be queued on the operator's controller
-  * and then put into action on the driver's controller
-  */
+  private double slowRotateSpeed = 0;
+
+  /* --- Private Boolean Values --- */
+  private boolean slowRotateMode = false;
+
+  /**
+   * Class to change the robot's angle based on an offset. These offsets will be
+   * queued on the operator's controller and then put into action on the driver's
+   * controller
+   */
   public OperatorAngleAdjustment() {
     // Sets all the gyro offsets
     gyroOffset = 0;
@@ -38,32 +44,35 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   }
 
   /**
-   * Sets the future offset angle. Used on operator joystick. 
-   * The future offset will take affect when the driver button is pressed
+   * Sets the future offset angle. Used on operator joystick. The future offset
+   * will take affect when the driver button is pressed
+   * 
    * @param mode - String designating the mode
-   * <p>List of modes:</p>
-   * <ul>
-   *    <li>farShot
-   *    <li>nearShot
-   *    <li>climbing
-   * </ul>
+   *             <p>
+   *             List of modes:
+   *             </p>
+   *             <ul>
+   *             <li>farShot
+   *             <li>nearShot
+   *             <li>climbing
+   *             </ul>
    */
   public void setFutureOffsetAngle(String mode) {
     this.mode = mode;
     switch(mode) {
-      case "farShot": 
+    case "farShot":
       futureOffsetAngle = farShot;
       break;
-      case "nearShot":
+    case "nearShot":
       futureOffsetAngle = nearShot;
       break;
-      case "climbing":
+    case "climbing":
       futureOffsetAngle = climbing;
       break;
-      case "targetLimelightOn":
+    case "targetLimelightOn":
       Robot.Vision.setRotateLimelight(true);
       break;
-      default:
+    default:
       futureOffsetAngle = 0;
       Robot.Vision.setRotateLimelight(false);
 
@@ -79,8 +88,8 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   }
 
   /**
-   * Sets the current robot angle offset that the 
-   * robot will actively attempt to hold
+   * Sets the current robot angle offset that the robot will actively attempt to
+   * hold
    * @param offsetAngle - double value in degrees
    */
   public void setOffsetAngle(double offsetAngle) {
@@ -92,7 +101,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    * @return - double yaw value in degrees
    */
   public double getGyroAngleOffset() {
-   return gyroOffset;
+    return gyroOffset;
   }
 
   /**
@@ -112,27 +121,27 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   }
 
   /**
-   * Calculates the robot's angle offset by intaking error, rotation
-   * and kP from the swerve drive command to adjust the rotation 
-   * of the entire robot. 
+   * Calculates the robot's angle offset by intaking error, rotation and kP from
+   * the swerve drive command to adjust the rotation of the entire robot.
    * @param error - double degree value (current angle - desired angle)
-   * @param rotation - double rotation joystick value 
+   * @param rotation - double rotation joystick value
    * @param kP - double proportion value used to scale the error to match the rotational units (-1 -> 1)
    * @return - adjusted rotation value acting as a joystick input
    */
-  public double calculateGyroOffset( double error, double rotation, double kP) {
+  public double calculateGyroOffset(double error, double kP) {
     error %= 360;
     if (error > 180) {
       error -= 360;
     } else if (error < -180) {
       error += 360;
     }
-    rotation = error * kP;
+
+    double rotation = error * kP;
     return (Math.abs(rotation) > 0.6) ? Math.copySign(0.6, rotation) : rotation;
   }
 
   /**
-   * Tells if the limelight mode is queued 
+   * Tells if the limelight mode is queued
    * @param limelightRotationMode - Boolean value (limelightRotationMode: true | limelightRotationMode: false)
    */
   public void setLimelightRotationMode(boolean limelightRotationMode) {
@@ -155,8 +164,42 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     return mode;
   }
 
+  /**
+   * Sets the slow rotate mode on the robot to on or off
+   * @param slowRotateMode - boolean value indicating the slow rotate mode (slow rotate on: true | slow rotate off: false)
+   */
+  public void setSlowRotateMode(boolean slowRotateMode) {
+    this.slowRotateMode = slowRotateMode;
+  }
+
+  /**
+   * Gets the slow rotate mode boolean indicating whether slow rotate is occurring
+   * or not
+   * @return - boolean value indicating the slow rotate mode (slow rotate on: true | slow rotate off: false)
+   */
+  public boolean getSlowRotateMode() {
+    return slowRotateMode;
+  }
+
+  /**
+   * Sets the speed of the slow rotation
+   * @param speed - double value for the slow rotation speed (-1 -> 1)
+   */
+  public void setSlowRotateSpeed(double speed) {
+    this.slowRotateSpeed = speed;
+  }
+
+  /**
+   * Gets the speed for slow rotation 
+   * @return - double speed value for slow rotation (-1 -> 1)
+   */
+  public double getSlowRotateSpeed() {
+    return this.slowRotateSpeed;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("SlowRotate", getSlowRotateMode());
   }
 }

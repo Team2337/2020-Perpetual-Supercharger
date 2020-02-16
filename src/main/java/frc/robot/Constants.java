@@ -18,6 +18,7 @@ public final class Constants {
         public static final double INCHESPERDEGREE = 0.2722;
         public static final double MINVELOCITY = 1;
         public static final double TICKSPERDEGREE = 102;
+        public final static double SLOWROTATESPEED = 0.05;
     }
     public final class Vision {
         public final static double VISIONROTATIONP = 0.85;
@@ -118,16 +119,17 @@ public final class Constants {
     // Speed to shoot at from ~16 feet away
     public static int SHOOTSPEEDCLOSE = 14450;
     // Speed to shoot at from ~34 feet away
-    public static int SHOOTSPEEDFAR = 15295;
+    public static int SHOOTSPEEDFAR = 15700; //15295
 
     /* ---Serializer--- */
     //Maximum speed of the serializer
     public static double SERIALIZERPEAKSPEED = 0.3;
+    public static double SERIALIZERPOSITIONSPEED = 0.1;
     public static double SERIALIZERFORWARDSPEED = 0.2;
     public static double SERIALIZERREVERSESPEED = -0.2;
     
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
-    public static double SERIALIZERREGRESSIONDISTANCE = 4096;
+    public static double SERIALIZERREGRESSIONDISTANCE = 768;
 
     /* --- Kicker --- */
     public static int KICKERSPEED = 3000;

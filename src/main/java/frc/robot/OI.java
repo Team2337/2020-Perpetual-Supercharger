@@ -51,8 +51,16 @@ public class OI {
         driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
 
         // Prepare the shooter to fire long range
-        driverJoystick.redB           .whenPressed(new longShooterSystemOn());
-        driverJoystick.redB           .whenReleased(new shooterSystemOff()); 
+        driverJoystick.yellowY           .whenPressed(new longShooterSystemOn());
+        driverJoystick.yellowY           .whenReleased(new shooterSystemOff()); 
+
+        // Slow rotates to the right
+        driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, Constants.Swerve.SLOWROTATESPEED));
+        driverJoystick.redB         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
+        
+        // Slow rotates to the left
+        driverJoystick.blueX         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
+        driverJoystick.blueX         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
@@ -89,7 +97,7 @@ public class OI {
         operatorJoystick.povUp          .whenReleased(new stopSerializer(Robot.Serializer));
         
         // Readies the shooter to get the kicker wheel up to speed
-        operatorJoystick.povRight       .whenPressed(new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE));
+        operatorJoystick.povRight       .whenPressed(new backUpSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE));
         
         //Sets the serializer motor to move down and stop when released
         operatorJoystick.povDown        .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERPEAKSPEED));

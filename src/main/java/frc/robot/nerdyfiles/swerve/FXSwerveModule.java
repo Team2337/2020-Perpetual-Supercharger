@@ -87,6 +87,9 @@ public class FXSwerveModule {
      */
     private double angleD = 0; //0.02
 
+    /** Sets the max speed for the drive motors */
+    private double driveMaxSpeed = 1.0;
+
     /* --- Booleans --- */
 
     /** Sets the inversion mode on the drive motors (True: invered | False: not inverted) */
@@ -233,12 +236,13 @@ public class FXSwerveModule {
 
 
 
+        /* --- Talon FX Drive Configurations --- */
         TalonFXConfigurationDrive.slot0.kP = driveP;
         TalonFXConfigurationDrive.slot0.kI = driveI;
         TalonFXConfigurationDrive.slot0.kD = driveD;
         TalonFXConfigurationDrive.slot0.kF = driveF;
-        TalonFXConfigurationDrive.peakOutputForward = maxSpeed;
-        TalonFXConfigurationDrive.peakOutputReverse = -maxSpeed;
+        TalonFXConfigurationDrive.peakOutputForward = driveMaxSpeed;
+        TalonFXConfigurationDrive.peakOutputReverse = -driveMaxSpeed;
         TalonFXConfigurationDrive.slot0.allowableClosedloopError = 100;
         TalonFXConfigurationDrive.closedloopRamp = 0.55;
         TalonFXConfigurationDrive.openloopRamp = 0.2;
@@ -306,7 +310,15 @@ public class FXSwerveModule {
     /* --- Angle Methods --- */
     /* --------------------- */
     /*************************/
-    
+
+    /**
+     * Adds the offset to the angle motors
+     * @return - Double value adds the angle offset 
+     */
+    public double adjustAngleWithOffset() {
+        return (getNormalizedAnalogVoltageRadians() + this.angleMotorOffset) % (2 * Math.PI);
+    }
+
     /**
      * Takes the desired angle, and the current angle and computes the delta (current - target)
      * to set the speed to the angle motors to move the module to the 
@@ -352,8 +364,6 @@ public class FXSwerveModule {
         lastError = errorRad;
         double speed = (errorRad * angleP) + (d * angleD);
         setAngleMotorSpeed(speed);
-        SmartDashboard.putNumber("ErrorRad " + moduleNumber, errorRad);
-        SmartDashboard.putNumber("Power Output" + moduleNumber, errorRad*angleP);
     }
 
     public void setAutonModuleAngle(double targetAngle) {
@@ -434,7 +444,7 @@ public class FXSwerveModule {
 
     /**
      * Sets the drive to be inverted 
-     * @param isDriveInverted - boolean value stating the drive inversion mode (True: invered | False: not inverted)
+     * @param isDriveInverted - boolean value stating the drive inversion mode (True: inverted | False: not inverted)
      */
     public void setDriveInverted(boolean isDriveInverted) {
         this.isDriveInverted = isDriveInverted;
