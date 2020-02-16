@@ -37,6 +37,7 @@ public final class Constants {
     /* --- PCMs --- */
     public static final int PCM0 = 0;
     public static final int PCM1 = 1;
+	
 
     /* --- PCM Ports --- */
     public static int PCM0PORT0 = 0;
@@ -124,6 +125,8 @@ public final class Constants {
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
     public static double SERIALIZERREGRESSIONDISTANCE = 768;
 
+    //Amount of seconds before counter reset
+    public static int TIMEBEFORESERIALIZERCOUNTERRESET = 4;
     /* --- Kicker --- */
     public static int KICKERSPEED = 3000;
 }

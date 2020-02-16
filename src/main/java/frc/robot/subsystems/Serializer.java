@@ -32,7 +32,7 @@ public class Serializer extends SubsystemBase {
   final double kI = 0;
   final double kD = 0;
   final double kF = 0;
-
+  public int reset = 0;
   // Motors
   private TalonFX serializerMotor;
   public TalonFXConfiguration FXConfig;
@@ -103,6 +103,13 @@ public class Serializer extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
+    /*
+    If the time since last reset is over 4, reset the counter
+    */
+    if (reset > 50 * Constants.TIMEBEFORESERIALIZERCOUNTERRESET) {
+      counter.reset();
+    }
+    reset++;
   }
 
   /**
