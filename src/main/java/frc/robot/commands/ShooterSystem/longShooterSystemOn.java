@@ -16,7 +16,7 @@ public class longShooterSystemOn extends ParallelCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public longShooterSystemOn() {
         addCommands(
-            new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE),
+            //new readyShooter(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE),
             new runKicker(Robot.KickerWheel, Constants.KICKERSPEED),
             new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
     }

@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -23,6 +25,16 @@ public class Shooter extends SubsystemBase {
    * @see #periodic()
    */
   private final boolean shooterDebug = false;
+
+  private boolean shooterAtVelocity = false;
+  public BooleanSupplier shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
+        
+    @Override
+    public boolean getAsBoolean() {
+        // TODO Auto-generated method stub
+        return shooterAtVelocity;
+    }
+};
 
   //////////////////////////
   /* -------------------- */
@@ -114,6 +126,18 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
 
+    if(getAverageVelocity() > 1000) {
+      shooterAtVelocity = true;
+      shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
+        
+        @Override
+        public boolean getAsBoolean() {
+            // TODO Auto-generated method stub
+            return shooterAtVelocity;
+        }
+    };
+
+    }
     /* --- DASHBOARD VALUES --- */
     // VELOCITY VALUES
     SmartDashboard.putNumber("Left Shooter Velocity", leftShootMotor.getSelectedSensorVelocity());
@@ -223,5 +247,13 @@ public class Shooter extends SubsystemBase {
     // Convert rps into revolutions per minute
     int rpm = rps * 60;
     return rpm;
+  }
+
+  /**
+   * Gets the average velocity of the shooter
+   * @return - The velocity of the right shooter motor added to the velocity of the left shooter motor
+   */
+  public double getAverageVelocity() {
+    return (Math.abs(rightShootMotor.getSelectedSensorVelocity()) + Math.abs(leftShootMotor.getSelectedSensorVelocity())) / 2;
   }
 }

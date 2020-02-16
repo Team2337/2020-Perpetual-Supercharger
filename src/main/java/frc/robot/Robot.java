@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
 
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
+    Vision.switchPipeLine(1);
     
     //** --- Allows the speed of these subsystems to be changed on SmarDashboard --- */
     SmartDashboard.putNumber("Intake Speed", Constants.INTAKESPEED);

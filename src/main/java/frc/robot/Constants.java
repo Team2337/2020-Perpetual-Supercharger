@@ -113,9 +113,9 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     // Speed to shoot at from ~16 feet away
-    public static int SHOOTSPEEDCLOSE = 14450;
+    public static int SHOOTSPEEDCLOSE = 13000; //14450
     // Speed to shoot at from ~34 feet away
-    public static int SHOOTSPEEDFAR = 15700; //15295
+    public static int SHOOTSPEEDFAR = 14800; //15295 ///14800
 
     /* ---Serializer--- */
     //Maximum speed of the serializer
@@ -127,5 +127,5 @@ public final class Constants {
     public static double SERIALIZERREGRESSIONDISTANCE = 4096;
 
     /* --- Kicker --- */
-    public static int KICKERSPEED = 3000;
+    public static int KICKERSPEED = 750; //3000 ///750
 }

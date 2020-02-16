@@ -6,10 +6,15 @@ import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
+
+import java.util.function.BooleanSupplier;
+
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
 import frc.robot.commands.ShooterSystem.*;
+import frc.robot.commands.Vision.limeLightLEDBlink;
 
 /**
  * OI Class where all controllers and button presses are placed 
@@ -28,8 +33,8 @@ public class OI {
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
         //Run the shooter
-        driverJoystick.triggerRight .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
-        driverJoystick.triggerRight.whenReleased(new runSerializer(Robot.Serializer, 0));
+        driverJoystick.triggerRight .whenPressed(new feedSystemForward());
+        driverJoystick.triggerRight.whenReleased(new feedSystemStop());
 
         // Prepare the shooter to fire long range
         driverJoystick.yellowY           .whenPressed(new longShooterSystemOn());
@@ -56,7 +61,7 @@ public class OI {
         operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
         operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake));
 
-        operatorJoystick.triggerLeft.whenPressed(new feedSystemForward());
+        operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new feedSystemForward(), new limeLightLEDBlink(Robot.Vision), Robot.Shooter.shooterAtVelocityBooleanSupplier));
         operatorJoystick.triggerLeft.whenReleased(new feedSystemStop());
 
         operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
@@ -71,7 +76,7 @@ public class OI {
         operatorJoystick.leftStickButton          .whenReleased(new stopClimber(Robot.Climber));
 
         // Holds the kicker wheel's position
-        operatorJoystick.start          .whenPressed(new shortShooterSystemOn());
+        operatorJoystick.start          .whenPressed(new longShooterSystemOn());
         operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));
 
         // Buttons to queue the robot's angle offset 
