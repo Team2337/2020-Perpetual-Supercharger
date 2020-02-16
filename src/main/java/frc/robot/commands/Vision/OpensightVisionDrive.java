@@ -43,10 +43,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
   public void execute() {
     // forward = Robot.Vision.getOpenSightYCoordinateValue()*.01;
     current = Robot.Vision.getChameleonVisionXDistance();
-    double p = 0.01; 
-    double target = 130; 
-    rotation = Robot.Vision.calculateMotorSpeed(current, 0, target, p);
-    previous = Robot.Vision.getChameleonVisionXDistance();
+    double p = 0.05; 
+    rotation = Robot.Vision.calculateMotorSpeed(current, p);
     SmartDashboard.putNumber("Rotation", rotation);
     Robot.Vision.LeftWheel.set(ControlMode.PercentOutput, rotation);
     Robot.Vision.RightWheel.set(ControlMode.PercentOutput, rotation);

@@ -16,6 +16,8 @@ public class Vision extends SubsystemBase {
 
   public TalonSRX LeftWheel;
   public VictorSPX RightWheel;
+  public double total = 0;
+  public double average;
 
   public Vision() {
     LeftWheel = new TalonSRX(15);
@@ -72,14 +74,23 @@ public class Vision extends SubsystemBase {
 
     }
 
-  public double calculateMotorSpeed(double current, double previous, double target, double p) {
-    
+  public double calculateMotorSpeed(double current, double p) {
     return p * current;
+  }
+
+  public void calculateLimelightDistance() {
+    System.out.println("Starting");
+    for (int i = 0; i < 200; i++) {
+      total += getDoubleValue("ta");
+    } 
+    average = total / 200;
+    System.out.println("average" + average);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
   }
 
 }
