@@ -24,7 +24,8 @@ public class Robot extends TimedRobot {
   public static Climber Climber;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
-  public static LED LED;
+  public static LEDs LEDs;
+  public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
   public static Shooter Shooter;
@@ -52,6 +53,7 @@ public class Robot extends TimedRobot {
     KickerWheel = new KickerWheel();
     LED = new LED();
     Pigeon = new Pigeon();
+    OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Serializer = new Serializer();
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
@@ -92,6 +94,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    Robot.Vision.setLEDMode(1);
   }
 
   @Override
