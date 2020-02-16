@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * 
  * @author Nicholas Stokes
  */
-public class backUpSerializer extends CommandBase {
+public class checkKickerIfUpToSpeed extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer m_subsystem;
   public double position;
@@ -26,9 +26,9 @@ public class backUpSerializer extends CommandBase {
    * @param adjustment What value the command is passed in OI.java position is the
    * position = value the method uses for shifting
    */
-  public backUpSerializer(Serializer subsystem, double adjustment) {
+  public checkKickerIfUpToSpeed(Serializer subsystem) {
     m_subsystem = subsystem;
-    position = adjustment;
+  
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
