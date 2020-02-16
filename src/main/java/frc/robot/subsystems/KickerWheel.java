@@ -30,6 +30,8 @@ public class KickerWheel extends SubsystemBase {
   public CANSparkMax kickerWheelMotor;
   /** PID controller of the Kicker wheel motor */
   private CANPIDController kickerPIDController;
+  /** This is the variable taht determines weather or not to turn on the LEDs */
+  public boolean kickerUpToSpeed = false;
 
   /* --- PID SETTINGS --- */
   double kP = 0.0005;
@@ -79,6 +81,9 @@ public class KickerWheel extends SubsystemBase {
   public void adjustKickerSpeed(double speedChange){
     kspeed = kspeed + speedChange;
     kickerPIDController.setReference(kspeed, ControlType.kVelocity);
+    if(kspeed == 1.0){
+     kickerUpToSpeed = true;
+    }
   }
 
   /**
@@ -98,6 +103,9 @@ public class KickerWheel extends SubsystemBase {
     kickerPIDController.setP(kP);
     kspeed = speed;
     kickerPIDController.setReference(speed, ControlType.kVelocity);
+    if (kspeed == 1){
+    kickerUpToSpeed = true;
+    }
   }
 
   /**

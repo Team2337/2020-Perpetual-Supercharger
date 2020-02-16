@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.*;
@@ -68,6 +69,7 @@ public class Robot extends TimedRobot {
        SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
        SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERFORWARDSPEED);
        SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);*/
+       SmartDashboard.putBoolean("Kicker LED Test", Robot.KickerWheel.kickerUpToSpeed);
   }
 
   /**

@@ -18,7 +18,7 @@ public class LEDRuntime extends CommandBase {
 	}
 
 	public  void initialize() {
-		LED.setColor(LED.off);
+		LED.setColor(LED.blue);
 	}
 
 	public void execute() {

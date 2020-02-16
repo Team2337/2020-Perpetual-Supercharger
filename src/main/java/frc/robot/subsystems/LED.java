@@ -7,7 +7,7 @@ import frc.robot.commands.LED.LEDRuntime;
 /**
  * Where all the LEDs are controlled
  * 
- * @author Zayd A.
+ * @author Hunter B.
  */
 
 public class LED extends SubsystemBase {
@@ -16,10 +16,10 @@ public class LED extends SubsystemBase {
 	 * http://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf#page=14
 	 */
 	public static double green = 0.75;
-	public static double off = 0.99;// When the robot is enabled
-	public static double rainbow = -0.99; // When the robot is disabled
+	public static double off = 0.99;
+	public static double rainbow = -0.99;
 	public static double red = 0.61;
-	public static double strobeWhite = -0.05; // When the cargo intake is running
+	public static double strobeWhite = -0.05;
 	public static double white = 0.92;
 	public static double blue = 0.97;
 	public static double purple = 0.96;
@@ -41,7 +41,7 @@ public class LED extends SubsystemBase {
 	 * @param pwm The PWM port that the blinkin is plugged into
 	 */
 	public LED() {
-		//blinkin = new Spark(Robot.Constants.blinkinPWM);
+		blinkin = new Spark(1);
 	//	blinkin.setSafetyEnabled(false);
 	}
 
