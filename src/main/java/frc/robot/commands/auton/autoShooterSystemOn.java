@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
- * Ready the shooter system to fire from long distance
+ * Nine ball auto
  * 
  * @author Team2337
  */
