@@ -168,12 +168,12 @@ public Object resetCounter;
     serializerMotor.configPeakOutputReverse(-Constants.SERIALIZERPOSITIONSPEED);
     targetPosition = position;
     serializerMotor.set(ControlMode.Position, targetPosition);
+  }
 
   public void resetCounter(){
-    counter.reset;
+    counter.reset();
   }
 
   }
     
-}
     
