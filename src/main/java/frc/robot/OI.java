@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
+import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
@@ -71,7 +72,7 @@ public class OI {
 
         // Move the climber upwards
         operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERFORWARDSPEED));
-        operatorJoystick.leftStickButton          .whenReleased(new stopClimber(Robot.Climber));
+        operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
         
 
         // Backs the seri
@@ -92,6 +93,16 @@ public class OI {
         operatorJoystick.povLeft.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "270"));
 
         /* --- DRIVER STATION CONTROLS --- */
+        operatorControls.BlackSwitch.whenPressed(new activateClimber(Robot.Climber, true));
+        operatorControls.BlackSwitch.whenReleased(new activateClimber(Robot.Climber, false));
+
+        operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 20000, false));
+        operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 20000, true));
+
+        operatorControls.BlueButton.whenPressed(new runClimber(Robot.Climber, 0, false));
+        operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 0, true));
+
+        operatorControls.YellowButton.whenPressed(new engageBrake(Robot.ClimberBrake));
 
         //insert code here
         

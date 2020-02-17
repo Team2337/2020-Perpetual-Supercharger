@@ -11,22 +11,24 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * Sets the climber speed
  * @author Michael Francis
  */
-public class runClimber extends CommandBase {
+public class runClimberJoystick extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climber Climber;
 
-  private int setpoint;
-  private boolean isInstantCommand;
+  private double climberSpeed;
+  private double deadband = 0.1;
+  private double maxSpeed = 0.3;
+  private boolean positionNotSet = false;
+
 
   /**
    * Sets the climber speed to a given percent
    * @param m_subsystem The subsystem used by this command. (climber)
    * @param m_speed A double number that sets the speed of the climber motor
    */
-  public runClimber(Climber climber, int setpoint, boolean isInstantCommand) {
+  public runClimberJoystick(Climber climber) {
     Climber = climber;
-    this.setpoint = setpoint;
-    this.isInstantCommand = isInstantCommand;
+
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climber);
@@ -35,12 +37,24 @@ public class runClimber extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.ClimberBrake.disengageBrake();
+
+  }
+
+  @Override
+  public void execute() {
     if(Climber.getClimberActivated()) {
-      if(isInstantCommand) {
-        setpoint = Climber.getCurrentPosition();
+      climberSpeed = Robot.OI.operatorJoystick.getRightStickY();
+      climberSpeed = Robot.Utilities.deadband(climberSpeed, deadband);
+      if(Math.abs(climberSpeed) > deadband) {
+        Robot.ClimberBrake.disengageBrake();
+        Climber.setClimberSpeed(climberSpeed * maxSpeed);
+        positionNotSet = true;
+      } else {
+        if(positionNotSet) {
+          Climber.setSetpoint(Climber.getCurrentPosition());
+          positionNotSet = false;
+        }
       }
-      Climber.setSetpoint(setpoint);
     }
   }
 
@@ -51,6 +65,6 @@ public class runClimber extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return isInstantCommand;
+    return false;
   }
 }

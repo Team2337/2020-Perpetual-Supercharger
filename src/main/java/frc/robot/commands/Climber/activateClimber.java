@@ -1,56 +1,41 @@
 package frc.robot.commands.Climber;
 
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.subsystems.Climber;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the climber speed
  * @author Michael Francis
  */
-public class runClimber extends CommandBase {
+public class activateClimber extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Climber Climber;
+  private final Climber subsystem;
 
-  private int setpoint;
-  private boolean isInstantCommand;
+  private boolean isActivated;
 
   /**
    * Sets the climber speed to a given percent
    * @param m_subsystem The subsystem used by this command. (climber)
    * @param m_speed A double number that sets the speed of the climber motor
    */
-  public runClimber(Climber climber, int setpoint, boolean isInstantCommand) {
-    Climber = climber;
-    this.setpoint = setpoint;
-    this.isInstantCommand = isInstantCommand;
-    
+  public activateClimber(Climber m_subsystem, boolean isActivated) {
+    subsystem = m_subsystem;
+  this.isActivated = isActivated;    
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(climber);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.ClimberBrake.disengageBrake();
-    if(Climber.getClimberActivated()) {
-      if(isInstantCommand) {
-        setpoint = Climber.getCurrentPosition();
-      }
-      Climber.setSetpoint(setpoint);
-    }
+    // This will set the climber to run at a set speed
+    subsystem.setClimberActivated(isActivated);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  }
-
-  @Override
-  public boolean isFinished() {
-    return isInstantCommand;
   }
 }
