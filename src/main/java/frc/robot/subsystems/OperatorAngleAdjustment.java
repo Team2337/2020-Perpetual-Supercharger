@@ -79,12 +79,14 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDFAR);
       Robot.Vision.setRotateLimelight(true);
       Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEED);
+      Robot.Vision.switchPipeLine(1);
       break;
     case "nearShot":
       futureOffsetAngle = nearShot;
       Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
       Robot.Vision.setRotateLimelight(true);
       Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEED);
+      Robot.Vision.switchPipeLine(0);
       break;
     case "climbing":
       futureOffsetAngle = climbing;
