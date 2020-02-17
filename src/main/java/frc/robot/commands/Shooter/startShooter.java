@@ -1,6 +1,7 @@
 package frc.robot.commands.Shooter;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -11,16 +12,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class startShooter extends CommandBase {
   
   private final Shooter subsystem;
-  private double velocity;
+  private int velocity;
 
   /**
    * Shoots the ball at a specified speed.
    * @param m_subsystem
    * The subsystem that the command uses (Shooter)
-   * @param m_velocity
-   * The velocity (in encoder ticks per 100ms) in which the shooter will shoot at.
    */
-  public startShooter(Shooter m_subsystem, double m_velocity) {
+  public startShooter(Shooter m_subsystem, int m_velocity) {
     //Puts the parameters in the command's variables to be used around as a shortcut.
     subsystem = m_subsystem;
     velocity = m_velocity;

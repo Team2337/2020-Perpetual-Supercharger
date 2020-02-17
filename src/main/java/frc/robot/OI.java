@@ -1,10 +1,11 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
@@ -28,19 +29,15 @@ public class OI {
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
         //Run the shooter
-        driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
-        driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
-
-        // Prepare the shooter to fire long range
-        driverJoystick.yellowY           .whenPressed(new longShooterSystemOn());
-        driverJoystick.yellowY           .whenReleased(new shooterSystemOff()); 
+        driverJoystick.triggerRight .whenPressed(new feedSystemForward());
+        driverJoystick.triggerRight.whenReleased(new feedSystemStop());
 
         // Slow rotates to the right
-        driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, Constants.Swerve.SLOWROTATESPEED));
+        driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
         driverJoystick.redB         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
         
         // Slow rotates to the left
-        driverJoystick.blueX         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
+        driverJoystick.blueX         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, Constants.Swerve.SLOWROTATESPEED));
         driverJoystick.blueX         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
         
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
@@ -56,25 +53,24 @@ public class OI {
         operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
 
         //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.triggerLeft    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
-        operatorJoystick.triggerLeft    .whenReleased(new stopIntake(Robot.Intake));
+        operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
+        operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake));
+
+        operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
+        }, new feedSystemForward(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
+        operatorJoystick.triggerLeft.whenReleased(new feedSystemStop());
+
+        operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
+        operatorJoystick.bumperLeft.whenReleased(new feedSystemStop());
 
          // Run the agitator leftwards
         operatorJoystick.rightStickButton        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
         operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator));
 
         // Move the climber upwards
-        operatorJoystick.leftStickButton          .whenPressed(new runClimber(Robot.Climber, Constants.CLIMBERSPEED));
+        operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERFORWARDSPEED));
         operatorJoystick.leftStickButton          .whenReleased(new stopClimber(Robot.Climber));
-
-        // Sets the kicker wheel's speed
-        operatorJoystick.back         .whenPressed(new runKicker(Robot.KickerWheel, Constants.KICKERSPEED));
-        operatorJoystick.back         .whenReleased(new stopKicker(Robot.KickerWheel));
-
         
-        
-        // Holds the kicker wheel's position
-        operatorJoystick.start          .whenPressed(new holdKickerPosition(Robot.KickerWheel));
 
         // Sets the serializer motor to move up and stop when released
         operatorJoystick.povUp          .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERPEAKSPEED));
@@ -90,13 +86,23 @@ public class OI {
         // Run the feeding system towards the shooter
         operatorJoystick.povLeft        .whenPressed(new feedSystemForward());
         operatorJoystick.povLeft        .whenReleased(new feedSystemStop());
+        
+        // Backs the serializer
+        operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
+        operatorJoystick.start          .whenReleased(new shooterSystemOn());
+
+        operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));
 
         // Buttons to queue the robot's angle offset 
-        operatorJoystick.blueX.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
+        operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
         operatorJoystick.redB.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "nearShot"));
-        operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "targetLimelightOn"));
+        operatorJoystick.blueX.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "targetLimelightOn"));
         operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
-
+        
+        operatorJoystick.povUp.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "0"));
+        operatorJoystick.povRight.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "90"));
+        operatorJoystick.povDown.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "180"));
+        operatorJoystick.povLeft.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "270"));
 
         /* --- DRIVER STATION CONTROLS --- */
 

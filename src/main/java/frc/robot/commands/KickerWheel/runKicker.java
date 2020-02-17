@@ -1,26 +1,25 @@
 package frc.robot.commands.KickerWheel;
 
-import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.subsystems.KickerWheel;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * A command that sets the kicker speed using the Kicker subsystem.
  */
 public class runKicker extends InstantCommand {
-  public double kspeed;
   private KickerWheel subsystem;
+  private double velocity;
 
   /**
    * Sets the kicker's speed.
    * 
    * @param subsystem The subsystem used by this command. (Kicker)
-   * @param kickerspeed The speed (in velocity) the kicker wheel is set to.
+   * @param m_velocity The velocity being used
    */
-  public runKicker(KickerWheel kickerWheel, double kickerspeed) {
+  public runKicker(KickerWheel kickerWheel, double m_velocity) {
     subsystem = kickerWheel;
-    kspeed = kickerspeed;
+    velocity = m_velocity;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -29,8 +28,7 @@ public class runKicker extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize(){ 
-    // kspeed = SmartDashboard.getNumber("Kicker Speed", Constants.KICKERSPEED);
-    subsystem.setKickerSpeed(Constants.KICKERSPEED);
+    subsystem.setKickerSpeed(Robot.KickerWheel.getFutureSpeed(), velocity);
   }
 
   // Called once the command ends or is interrupted.
