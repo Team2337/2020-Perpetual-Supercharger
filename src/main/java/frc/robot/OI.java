@@ -42,10 +42,13 @@ public class OI {
         // Slow rotates to the left
         driverJoystick.blueX         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
         driverJoystick.blueX         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
-
+        
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
-
-
+        
+        driverJoystick.bumperLeft. whenPressed(new runSerializerComplex(Robot.Serializer, 0.2));
+        driverJoystick.bumperLeft. whenReleased(new doNothing(Robot.Serializer));
+        driverJoystick.bumperRight. whenPressed(new adjustSerializer(Robot.Serializer, -1024));
+        
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
@@ -95,9 +98,6 @@ public class OI {
         operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
 
 
-        operatorJoystick.bumperLeft. whenPressed(new runSerializerComplex(Robot.Serializer,0.1));
-        operatorJoystick.bumperLeft. whenReleased(new doNothing(Robot.Serializer));
-        operatorJoystick.bumperRight. whenPressed(new adjustSerializer(Robot.Serializer, 1024));
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here

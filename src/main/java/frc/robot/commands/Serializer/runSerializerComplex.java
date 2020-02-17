@@ -3,7 +3,6 @@ package frc.robot.commands.Serializer;
 import frc.robot.subsystems.Serializer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-
 /**
  * Runs the serializer forever in a single command
  * 
@@ -36,57 +35,48 @@ public class runSerializerComplex extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Sets up the reset value and the sensorValue boolean needed for the execute command
+    // Sets up the reset value and the sensorValue boolean needed for the execute
+    // command
     sensorValue = false;
     resetti = 0;
 
-    
   }
 
   @Override
   public void execute() {
     /*
-     This command is pretty simple but also complex
-    If the sensor value is false, the serializer runs until it turns true
-    which then flips a boolean to true, which then locks the command inside a wait,
-    After one second, the boolean turns false and then the cycle continues.
-    */
-    if (sensorValue == true){
+     * This command is pretty simple but also complex If the sensor value is false,
+     * the serializer runs until it turns true which then flips a boolean to true,
+     * which then locks the command inside a wait, After one second, the boolean
+     * turns false and then the cycle continues.
+     */
+    if (sensorValue == true) {
 
-      if (resetti >= 50*1) {
+      if (resetti >= 50 *0.01) {
         resetti = 0;
         sensorValue = false;
-      } 
-      else {
+      } else {
         resetti++;
         subsystem.stopSerializer();
-      } 
-    }
-    else{
-    if (subsystem.sensor.get() == false){
-      subsystem.setSerializerSpeed(serializerSpeed);
-    }
-     else if (subsystem.sensor.get() == true){
-      sensorValue = true;
-        }
       }
+    } else {
+      if (subsystem.sensor.get() == true) {
+        subsystem.setSerializerSpeed(serializerSpeed);
+      } else if (subsystem.sensor.get() == false) {
+        sensorValue = true;
       }
-    
-      
-      
-      
-
-  
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-subsystem.stopSerializer();
+    subsystem.stopSerializer();
   }
 
   @Override
   public boolean isFinished() {
     return false;
   }
-  
+
 }
