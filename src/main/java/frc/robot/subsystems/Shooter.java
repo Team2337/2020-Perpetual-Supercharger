@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -23,6 +25,17 @@ public class Shooter extends SubsystemBase {
    * @see #periodic()
    */
   private final boolean shooterDebug = false;
+
+  private boolean shooterAtVelocity = false;
+  private int m_FutureSpeed = Constants.SHOOTSPEEDCLOSE;
+  public BooleanSupplier shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
+        
+    @Override
+    public boolean getAsBoolean() {
+        // TODO Auto-generated method stub
+        return shooterAtVelocity;
+    }
+};
 
   //////////////////////////
   /* -------------------- */
@@ -67,8 +80,8 @@ public class Shooter extends SubsystemBase {
     rightShootMotor.configStatorCurrentLimit(currentLimitConfigurationMotor, 0);
 
     // Set a closed-loop ramp rate on the motors
-    leftShootMotor.configClosedloopRamp(0.5);
-    rightShootMotor.configClosedloopRamp(0.5);
+    leftShootMotor.configClosedloopRamp(0.2);
+    rightShootMotor.configClosedloopRamp(0.2);
     // Enable voltage compensation for all control modes on the motors
     leftShootMotor.enableVoltageCompensation(true);
     rightShootMotor.enableVoltageCompensation(true);
@@ -114,6 +127,18 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
 
+    if(getAverageVelocity() > 1000) {
+      shooterAtVelocity = true;
+      shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
+        
+        @Override
+        public boolean getAsBoolean() {
+            // TODO Auto-generated method stub
+            return shooterAtVelocity;
+        }
+    };
+
+    }
     /* --- DASHBOARD VALUES --- */
     // VELOCITY VALUES
     SmartDashboard.putNumber("Left Shooter Velocity", leftShootMotor.getSelectedSensorVelocity());
@@ -223,5 +248,29 @@ public class Shooter extends SubsystemBase {
     // Convert rps into revolutions per minute
     int rpm = rps * 60;
     return rpm;
+  }
+
+  /**
+   * Gets the average velocity of the shooter
+   * @return - The velocity of the right shooter motor added to the velocity of the left shooter motor
+   */
+  public double getAverageVelocity() {
+    return (Math.abs(rightShootMotor.getSelectedSensorVelocity()) + Math.abs(leftShootMotor.getSelectedSensorVelocity())) / 2;
+  }
+
+  /**
+   * Gets the future speed of the shooter
+   * @return - The future speed of the shooter
+   */
+  public int getFutureSpeed() {
+    return m_FutureSpeed;
+  }
+  
+  /**
+   * Sets the future speed of the shooter
+   * @param futureSpeed - The future speed of the shooter
+   */
+  public void setFutureSpeed(int futureSpeed) {
+    m_FutureSpeed = futureSpeed;
   }
 }
