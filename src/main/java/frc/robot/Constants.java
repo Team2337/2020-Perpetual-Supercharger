@@ -9,6 +9,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public final class Swerve {
+        public final static double SLOWROTATESPEED = 0.05;
+        public final static boolean SWERVEDEBUG = false;
+    }
+    public final class Vision {
+        public final static double VISIONROTATIONP = 0.85;
+    }
     /* --- CAN IDs --- */
     public static int CANID0 = 0;
     public static int MODULE0DRIVEMOTORID = 1;
@@ -77,6 +84,10 @@ public final class Constants {
     public static int PWMPORT8 = 8;
     public static int PWMPORT9 = 9;
 
+    /* --- TIME OF FLIGHT Variables --- */
+    /** Configure range mode. 0=short; 1=medium; 2=long */
+    public static int TOFMODE = 0;
+
 
     /* --- Agitator --- */
     public static double AGITATORSPEED = 0.4;
@@ -101,16 +112,17 @@ public final class Constants {
     // Speed to shoot at from ~16 feet away
     public static int SHOOTSPEEDCLOSE = 14450;
     // Speed to shoot at from ~34 feet away
-    public static int SHOOTSPEEDFAR = 15295;
+    public static int SHOOTSPEEDFAR = 15700; //15295
 
     /* ---Serializer--- */
     //Maximum speed of the serializer
     public static double SERIALIZERPEAKSPEED = 0.3;
+    public static double SERIALIZERPOSITIONSPEED = 0.1;
     public static double SERIALIZERFORWARDSPEED = 0.2;
     public static double SERIALIZERREVERSESPEED = -0.2;
     
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
-    public static double SERIALIZERREGRESSIONDISTANCE = 4096;
+    public static double SERIALIZERREGRESSIONDISTANCE = 768;
 
     /* --- Kicker --- */
     public static int KICKERSPEED = 3000;
