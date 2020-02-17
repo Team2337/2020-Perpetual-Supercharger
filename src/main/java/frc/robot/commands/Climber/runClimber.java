@@ -35,8 +35,8 @@ public class runClimber extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.ClimberBrake.disengageBrake();
     if(Climber.getClimberActivated()) {
+      Robot.ClimberBrake.disengageBrake();
       if(isInstantCommand) {
         setpoint = Climber.getCurrentPosition();
       }
