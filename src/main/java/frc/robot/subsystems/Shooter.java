@@ -263,7 +263,6 @@ public class Shooter extends SubsystemBase {
    * @return - The future speed of the shooter
    */
   public int getFutureSpeed() {
-    System.out.println(m_FutureSpeed);
     return m_FutureSpeed;
   }
   
@@ -272,7 +271,6 @@ public class Shooter extends SubsystemBase {
    * @param futureSpeed - The future speed of the shooter
    */
   public void setFutureSpeed(int futureSpeed) {
-    System.out.println(futureSpeed);
     m_FutureSpeed = futureSpeed;
   }
 }
