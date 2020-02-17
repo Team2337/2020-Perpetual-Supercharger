@@ -9,20 +9,20 @@ import frc.robot.subsystems.AirCompressor;
  */
 public class compressorTurnOff extends InstantCommand {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final AirCompressor subsystem;
+  private final AirCompressor compressor;
 
   /**
    * Disables the compressor
    */
-  public compressorTurnOff(AirCompressor m_subsystem) {
-    subsystem = m_subsystem;
+  public compressorTurnOff(AirCompressor m_compressor) {
+    compressor = m_compressor;
     addRequirements(Robot.AirCompressor);
   }
 
   // Disables the compressor
   @Override
   public void initialize() {
-    subsystem.disable();
+    compressor.disable();
   }
 
   @Override
