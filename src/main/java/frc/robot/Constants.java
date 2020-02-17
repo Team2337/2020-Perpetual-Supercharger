@@ -19,23 +19,62 @@ public final class Constants {
     public final class KickerWheel {
         public final static double SHORTVELOCITYP = 0.0001;
     }
+
+    public Constants() {
+        if(Robot.isComp) {
+            CANID0 = 0;
+            MODULE0DRIVEMOTORID = 0;
+            MODULE1DRIVEMOTORID = 1;
+            MODULE0ANGLEMOTORID = 4;
+            MODULE1ANGLEMOTORID = 5;
+            INTAKE = 8;
+            AGITATOR = 9;
+            MODULE2ANGLEMOTORID = 10;
+            MODULE3ANGLEMOTORID = 11;
+            SERIALIZER = 12;
+            CLIMBER = 13;
+            MODULE2DRIVEMOTORID = 14;
+            MODULE3DRIVEMOTORID = 15;
+            SHOOTERLEFTMOTOR = 13;
+            SHOOTERRIGHTMOTOR = 14;
+            KICKER = 12;
+        } else {
+            CANID0 = 0;
+            MODULE0DRIVEMOTORID = 1;
+            MODULE0ANGLEMOTORID = 2;
+            MODULE1DRIVEMOTORID = 3;
+            MODULE1ANGLEMOTORID = 4;
+            MODULE2DRIVEMOTORID = 5;
+            MODULE2ANGLEMOTORID = 6;
+            MODULE3DRIVEMOTORID = 7;
+            MODULE3ANGLEMOTORID = 8;
+            INTAKE = 9;
+            AGITATOR = 10;
+            CLIMBER = 11;
+            KICKER = 12;
+            SHOOTERLEFTMOTOR = 13;
+            SHOOTERRIGHTMOTOR = 14;
+            SERIALIZER = 15;
+        }
+    }
+
     /* --- CAN IDs --- */
-    public static int CANID0 = 0;
-    public static int MODULE0DRIVEMOTORID = 1;
-    public static int MODULE0ANGLEMOTORID = 2;
-    public static int MODULE1DRIVEMOTORID = 3;
-    public static int MODULE1ANGLEMOTORID = 4;
-    public static int MODULE2DRIVEMOTORID = 5;
-    public static int MODULE2ANGLEMOTORID = 6;
-    public static int MODULE3DRIVEMOTORID = 7;
-    public static int MODULE3ANGLEMOTORID = 8;
-    public static int INTAKE = 9;
-    public static int AGITATOR = 10;
-    public static int CLIMBER = 11;
-    public static int KICKER = 12;
-    public static int SHOOTERLEFTMOTOR = 13;
-    public static int SHOOTERRIGHTMOTOR = 14;
-    public static int SERIALIZER = 15;
+    public static int CANID0;
+    public static int MODULE0DRIVEMOTORID;
+    public static int MODULE0ANGLEMOTORID;
+    public static int MODULE1DRIVEMOTORID;
+    public static int MODULE1ANGLEMOTORID;
+    public static int MODULE2DRIVEMOTORID;
+    public static int MODULE2ANGLEMOTORID;
+    public static int MODULE3DRIVEMOTORID;
+    public static int MODULE3ANGLEMOTORID;
+    public static int INTAKE;
+    public static int AGITATOR;
+    public static int CLIMBER;
+    public static int KICKER;
+    public static int SHOOTERLEFTMOTOR;
+    public static int SHOOTERRIGHTMOTOR;
+    public static int SERIALIZER;
 
     /* --- PCMs --- */
     public static final int PCM0 = 0;

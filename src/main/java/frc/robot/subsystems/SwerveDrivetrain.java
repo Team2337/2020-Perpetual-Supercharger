@@ -95,12 +95,21 @@ public class SwerveDrivetrain extends SubsystemBase {
   public SwerveDrivetrain() {
     setDefaultCommand(new SwerveDriveCommand(this));
 
-    angleOffsets = new double[] {
-      4.5611,  // Module 0 //4.57
-      1.278353,   // Module 1 //1.3
-      -0.666697, // Module 2 //-0.678327
-      -5.90436  // Module 3 -5.95
-    };
+    if(Robot.isComp) {
+      angleOffsets = new double[] {
+        0,   // Module 0 
+        0,   // Module 1 
+        0,   // Module 2 
+        0    // Module 3 
+      };
+    } else {
+      angleOffsets = new double[] {
+        4.5611,  // Module 0 //4.57
+        1.278353,   // Module 1 //1.3
+        -0.666697, // Module 2 //-0.678327
+        -5.90436  // Module 3 -5.95
+      };
+    }
 
     analogAngleSensors = new AnalogInput[] {
       new AnalogInput(0), // Module 0 
@@ -273,6 +282,11 @@ public class SwerveDrivetrain extends SubsystemBase {
     return gyroOffset;
   }
 
+  /**
+   * Only used in robot periodic to reset the angle offsets
+   * @param module - The module number we are reading
+   * @return - The average encoder value over 200 iterations
+   */
   public double getAverageAnalogValueInRadians(int module) {
     if(iteration < 200) {
       total += getModule(module).getNormalizedAnalogVoltageRadians();
