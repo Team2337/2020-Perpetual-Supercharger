@@ -27,7 +27,7 @@ public final class Constants {
     public static int MODULE3DRIVEMOTORID = 7;
     public static int MODULE3ANGLEMOTORID = 8;
     public static int INTAKE = 9;
-    public static int AGITATOR = 10;
+    public static int AGITATOR = 0;
     public static int CLIMBER = 11;
     public static int KICKER = 12;
     public static int SHOOTERLEFTMOTOR = 13;

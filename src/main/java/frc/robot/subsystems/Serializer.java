@@ -108,6 +108,7 @@ public class Serializer extends SubsystemBase {
     */
     if (reset > 50 * Constants.TIMEBEFORESERIALIZERCOUNTERRESET) {
       counter.reset();
+      reset = 0;
     }
     reset++;
   }

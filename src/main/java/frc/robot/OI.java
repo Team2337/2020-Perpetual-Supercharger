@@ -95,6 +95,8 @@ public class OI {
         operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
 
 
+        operatorJoystick.bumperLeft. whenPressed(new runSerializerComplex(Robot.Serializer,0.1));
+operatorJoystick.bumperLeft. whenReleased(new commandGroupDoNothing(Robot.Serializer));
         /* --- DRIVER STATION CONTROLS --- */
 
         //insert code here
