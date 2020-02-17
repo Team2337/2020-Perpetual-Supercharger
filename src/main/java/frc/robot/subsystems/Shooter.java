@@ -129,16 +129,19 @@ public class Shooter extends SubsystemBase {
 
     if(getAverageVelocity() > 1000) {
       shooterAtVelocity = true;
-      shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
+    } else {
+      shooterAtVelocity = false;
+    }
+    SmartDashboard.putBoolean("Shooter At Velocity", shooterAtVelocity);
+    shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
         
-        @Override
-        public boolean getAsBoolean() {
-            // TODO Auto-generated method stub
-            return shooterAtVelocity;
-        }
+      @Override
+      public boolean getAsBoolean() {
+          // TODO Auto-generated method stub
+          return shooterAtVelocity;
+      }
     };
 
-    }
     /* --- DASHBOARD VALUES --- */
     // VELOCITY VALUES
     SmartDashboard.putNumber("Left Shooter Velocity", leftShootMotor.getSelectedSensorVelocity());

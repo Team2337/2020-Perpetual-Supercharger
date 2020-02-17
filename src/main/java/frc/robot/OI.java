@@ -35,8 +35,11 @@ public class OI {
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
         //Run the shooter
-        driverJoystick.triggerRight .whenPressed(new feedSystemForward());
-        driverJoystick.triggerRight.whenReleased(new feedSystemStop());
+        // If the shooter is not running then feed system forward cannot run. If the shooter is running then feed system forward can run
+        driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new feedSystemForward(), 
+        new CommandBase(){}, Robot.Shooter.shooterAtVelocityBooleanSupplier));
+        driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new feedSystemStop(),
+        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
         // Slow rotates to the right
         driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
@@ -61,7 +64,8 @@ public class OI {
 
         operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
         }, new feedSystemForward(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
-        operatorJoystick.triggerLeft.whenReleased(new feedSystemStop());
+        operatorJoystick.triggerLeft.whenReleased(new ConditionalCommand(new CommandBase() {
+        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
         operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
         operatorJoystick.bumperLeft.whenReleased(new feedSystemStop());
@@ -75,7 +79,7 @@ public class OI {
         operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
         
 
-        // Backs the seri
+        // Backs the serializer up
         operatorJoystick.start          .whenPressed(new backUpSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
         operatorJoystick.start          .whenReleased(new shooterSystemOn());
 
