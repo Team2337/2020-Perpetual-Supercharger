@@ -34,15 +34,15 @@ public class OI {
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
-        operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKESPEED));
+        operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
         operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
 
         //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.triggerLeft    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
+        operatorJoystick.triggerLeft    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKEFORWARDSPEED));
         operatorJoystick.triggerLeft    .whenReleased(new stopIntake(Robot.Intake));
 
         // Run the agitator leftwards
-        operatorJoystick.yellowY        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
+        operatorJoystick.yellowY        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORFORWARDSPEED));
         operatorJoystick.yellowY        .whenReleased(new stopAgitator(Robot.Agitator));
 
         // Move the climber upwards
