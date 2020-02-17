@@ -1,21 +1,16 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
-
-import java.util.function.BooleanSupplier;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
 import frc.robot.commands.ShooterSystem.*;
-import frc.robot.commands.Vision.limeLightLEDBlink;
 
 /**
  * OI Class where all controllers and button presses are placed 
@@ -90,7 +85,7 @@ public class OI {
         operatorJoystick.povLeft        .whenReleased(new feedSystemStop());
         
         // Backs the serializer
-        operatorJoystick.start          .whenPressed(new backUpSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
+        operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
         operatorJoystick.start          .whenReleased(new shooterSystemOn());
 
         operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));

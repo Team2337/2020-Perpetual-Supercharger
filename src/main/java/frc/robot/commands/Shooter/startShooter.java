@@ -12,15 +12,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class startShooter extends CommandBase {
   
   private final Shooter subsystem;
+  private int velocity;
 
   /**
    * Shoots the ball at a specified speed.
    * @param m_subsystem
    * The subsystem that the command uses (Shooter)
    */
-  public startShooter(Shooter m_subsystem) {
+  public startShooter(Shooter m_subsystem, int m_velocity) {
     //Puts the parameters in the command's variables to be used around as a shortcut.
     subsystem = m_subsystem;
+    velocity = m_velocity;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_subsystem);
@@ -33,7 +35,7 @@ public class startShooter extends CommandBase {
     //Sets the ramp rate. We set them here because in the execute of this command,
     // they are set to another value after a set speed.
     //Sets the speed.
-    subsystem.setShooterSpeed(Robot.Shooter.getFutureSpeed());
+    subsystem.setShooterSpeed(velocity);
   }
 
 

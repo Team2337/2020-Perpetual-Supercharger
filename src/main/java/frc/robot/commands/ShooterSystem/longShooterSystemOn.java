@@ -2,9 +2,9 @@ package frc.robot.commands.ShooterSystem;
 
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.KickerWheel.runKicker;
+import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.adjustSerializer;
-import frc.robot.commands.Shooter.startShooter;
+import frc.robot.commands.Shooter.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**

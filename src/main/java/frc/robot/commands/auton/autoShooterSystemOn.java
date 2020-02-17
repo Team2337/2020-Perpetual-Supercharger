@@ -19,7 +19,7 @@ public class autoShooterSystemOn extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public autoShooterSystemOn() {
         addCommands(
-            new runKicker(Robot.KickerWheel),
+            new runKicker(Robot.KickerWheel, Constants.KickerWheel.SHORTVELOCITYP),
             new autoStartShooter(Robot.Shooter),
             new WaitCommand(0.2).withTimeout(0.2), 
             new autoResetRampRate(Robot.OperatorAngleAdjustment),

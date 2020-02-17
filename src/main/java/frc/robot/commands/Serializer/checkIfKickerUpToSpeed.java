@@ -28,7 +28,7 @@ public class checkIfKickerUpToSpeed extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    subsystem.checkKickerSpeed(target);
+    
   }
 
   // Called once the command ends or is interrupted.
