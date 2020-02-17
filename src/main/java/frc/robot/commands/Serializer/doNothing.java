@@ -4,21 +4,19 @@ import frc.robot.subsystems.Serializer;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * Checks if the shooter is up to speed
- * @author Michael F
+ * Does Nothing
+ * @author Nicholas Stokes
  */
-public class commandGroupDoNothing extends InstantCommand {
+public class doNothing extends InstantCommand {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer subsystem;
   public int target;
 
   /**
-   * Checks if the shooter is up to speed.
-   * <p>Check the variable shooterAtTargetSpeed to check the result of the calculation.
-   * @param subsystem  The subsystem used by this command. (Shooter)
-   * @param target What the target value for the shooter speed is
+   * Does Nothing
+   * @author Nicholas Stokes
    */
-  public commandGroupDoNothing(Serializer m_subsystem) {
+  public doNothing(Serializer m_subsystem) {
     subsystem = m_subsystem;
     
     // Use addRequirements() here to declare subsystem dependencies.

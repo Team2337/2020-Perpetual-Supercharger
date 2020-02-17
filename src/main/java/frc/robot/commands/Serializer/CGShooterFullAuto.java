@@ -14,9 +14,8 @@ public class CGShooterFullAuto extends SequentialCommandGroup {
             new resetCounter(Robot.Serializer),
             new checkIfKickerUpToSpeed(Robot.KickerWheel, kickerTarget),
             new checkIfShooterUpToSpeed(Robot.Shooter, shooterTarget),
-            new onlyMoveOneBall(Robot.Serializer, -1024),
-            
-            new commandGroupDoNothing(Robot.Serializer)
+            new adjustSerializer(Robot.Serializer, 1024),
+            new runSerializerComplex(Robot.Serializer, 0.1)
         );
 
     }

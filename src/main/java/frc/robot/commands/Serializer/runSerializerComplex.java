@@ -1,14 +1,12 @@
 package frc.robot.commands.Serializer;
 
 import frc.robot.subsystems.Serializer;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+
 
 /**
- * Sets the serializer speed
+ * Runs the serializer forever in a single command
+ * 
  * @author Nicholas S
  */
 public class runSerializerComplex extends CommandBase {
@@ -19,7 +17,7 @@ public class runSerializerComplex extends CommandBase {
   public boolean sensorValue;
 
   /**
-   * Sets the serializer speed
+   * Runs the serializer forever in a single command
    * 
    * @author Nicholas Stokes
    * @param serializer The subsystem used by this command. (Serializer)
@@ -38,9 +36,7 @@ public class runSerializerComplex extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-    // This will set the serializer to run at a set speed
-    // serializerSpeed = SmartDashboard.getNumber("Serializer Speed", Constants.SERIALIZERPEAKSPEED);
+    // Sets up the reset value and the sensorValue boolean needed for the execute command
     sensorValue = false;
     resetti = 0;
 
@@ -49,9 +45,15 @@ public class runSerializerComplex extends CommandBase {
 
   @Override
   public void execute() {
-    if (sensorValue = true){
+    /*
+     This command is pretty simple but also complex
+    If the sensor value is false, the serializer runs until it turns true
+    which then flips a boolean to true, which then locks the command inside a wait,
+    After one second, the boolean turns false and then the cycle continues.
+    */
+    if (sensorValue == true){
 
-      if (resetti >= 50*0.25) {
+      if (resetti >= 50*1) {
         resetti = 0;
         sensorValue = false;
       } 
@@ -60,16 +62,16 @@ public class runSerializerComplex extends CommandBase {
         subsystem.stopSerializer();
       } 
     }
+    else{
     if (subsystem.sensor.get() == false){
       subsystem.setSerializerSpeed(serializerSpeed);
     }
-    if (subsystem.sensor.get() == true){
+     else if (subsystem.sensor.get() == true){
       sensorValue = true;
         }
-      SmartDashboard.putNumber("Resetti", resetti);
-      SmartDashboard.putBoolean("SensorValue", sensorValue);
       }
-
+      }
+    
       
       
       
@@ -79,7 +81,7 @@ public class runSerializerComplex extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+subsystem.stopSerializer();
   }
 
   @Override

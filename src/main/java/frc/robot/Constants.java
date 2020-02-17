@@ -123,7 +123,7 @@ public final class Constants {
     public static double SERIALIZERREVERSESPEED = -0.2;
     
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
-    public static double SERIALIZERREGRESSIONDISTANCE = 768;
+    public static double SERIALIZERREGRESSIONDISTANCE = -768;
 
     //Amount of seconds before counter reset
     public static int TIMEBEFORESERIALIZERCOUNTERRESET = 4;
