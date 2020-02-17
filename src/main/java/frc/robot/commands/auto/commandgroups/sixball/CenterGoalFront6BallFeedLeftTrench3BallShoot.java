@@ -1,8 +1,13 @@
 package frc.robot.commands.auto.commandgroups.sixball;
 
 import frc.robot.commands.auto.commandgroups.common.movement.GeneratorThreeBallFromCenterTarget;
+import frc.robot.commands.auto.commandgroups.common.movement.Trench3Ball;
+import frc.robot.Robot;
+import frc.robot.commands.Serializer.stopSerializer;
+import frc.robot.commands.Shooter.stopShooter;
 import frc.robot.commands.auto.commandgroups.common.ShootNineBall;
 import frc.robot.commands.auto.commandgroups.common.systemactions.AutonInit;
+import frc.robot.commands.auto.commandgroups.common.systemactions.FireNineBalls;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
@@ -18,7 +23,9 @@ public class CenterGoalFront6BallFeedLeftTrench3BallShoot extends SequentialComm
  */
   public CenterGoalFront6BallFeedLeftTrench3BallShoot() {
     addCommands(
-      new AutonInit()
+      new FireNineBalls(),
+      new stopSerializer(Robot.Serializer),
+      new Trench3Ball()
     );
   
   }

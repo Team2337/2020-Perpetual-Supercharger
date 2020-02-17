@@ -245,7 +245,7 @@ public class FXSwerveModule {
         TalonFXConfigurationDrive.peakOutputReverse = -driveMaxSpeed;
         TalonFXConfigurationDrive.slot0.allowableClosedloopError = 100;
         TalonFXConfigurationDrive.closedloopRamp = 0.55;
-        TalonFXConfigurationDrive.openloopRamp = 0.2;
+        TalonFXConfigurationDrive.openloopRamp = 0.2; //0.2
 
         driveMotor.configAllSettings(TalonFXConfigurationDrive);
 

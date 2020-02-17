@@ -26,8 +26,8 @@ public class AutoDriveWithJoystickInput extends CommandBase {
   private double currentGyro;
   private double rotationError;
 
-  private double rotationP = 0.01; 
-  private double maxRotationSpeed = 0.2;
+  private double rotationP = 0.009; 
+  private double maxRotationSpeed = 0.15;
   private double encoderDist = 0;
 
   /**
@@ -48,7 +48,7 @@ public class AutoDriveWithJoystickInput extends CommandBase {
   
   @Override
   public void initialize() {
-
+    
   }
 
   @Override
@@ -65,6 +65,9 @@ public class AutoDriveWithJoystickInput extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
+    System.out.println("Encoder Ticks: " + SwerveDrivetrain.getModule(3).getDriveEncoderValue());
+    SwerveDrivetrain.zeroAllDriveEncoders();
+
 
   }
 

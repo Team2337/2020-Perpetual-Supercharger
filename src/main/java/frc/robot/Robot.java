@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.auto.AutoDriveWithJoystickInput;
 import frc.robot.commands.auto.commandgroups.common.movement.Trench3Ball;
 import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
+import frc.robot.commands.auto.commandgroups.sixball.CenterGoalFront6BallFeedLeftTrench3BallShoot;
 import frc.robot.subsystems.*;
 
 /**
@@ -157,7 +158,7 @@ public class Robot extends TimedRobot {
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball();
         break;
       case "TEST":
-        autonomousCommand = new Trench3Ball();
+        autonomousCommand = new CenterGoalFront6BallFeedLeftTrench3BallShoot();
         break;
       
     }
