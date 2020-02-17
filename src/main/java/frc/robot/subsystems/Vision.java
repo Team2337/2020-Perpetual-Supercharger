@@ -9,9 +9,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    * @category VISION
    */
 public class Vision extends SubsystemBase {
+  private boolean rotateLimelight = false;
 
   public Vision() {
-
+    
   }
 
  /**
@@ -76,6 +77,22 @@ public class Vision extends SubsystemBase {
    */
   public boolean getOpenSightNTValue() {
     return NetworkTableInstance.getDefault().getTable("PutNT").getEntry("succ").getBoolean(false);
+  }
+
+  /**
+   * Lets us know if we are in the limelight mode, we are rotating using the limelight
+   * @param rotateLimelight - Boolean value (limelight mode: true | not limelight mode: false)
+   */
+  public void setRotateLimelight(boolean rotateLimelight) {
+    this.rotateLimelight = rotateLimelight;
+  }
+
+  /**
+   * Lets us know if we are in the limelight mode, we are rotating using the limelight
+   * @return - Boolean value limelight mode
+   */
+  public boolean getRotateLimelight() {
+    return rotateLimelight;
   }
 
   @Override

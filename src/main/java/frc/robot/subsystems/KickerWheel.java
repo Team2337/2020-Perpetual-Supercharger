@@ -31,13 +31,16 @@ public class KickerWheel extends SubsystemBase {
   /** PID controller of the Kicker wheel motor */
   private CANPIDController kickerPIDController;
 
+  private int futureSpeed = Constants.KICKERSPEED;
+
   /* --- PID SETTINGS --- */
-  double kP = 0.0005;
-  double kI = 0;
-  double kD = 0.01;
-  double kFF = 0;
+  double velocityP = 0.0001;
+  double velocityI = 0;
+  double velocityD = 0;
+  double velocityFF = 0;
   double kMinOutput = -1;
   double kMaxOutput = 1;
+  double positionalP = 0.9;
    
   /**
    * Creates a new Kicker subsystem and sets up the motors to their corresponding ports.
@@ -45,18 +48,22 @@ public class KickerWheel extends SubsystemBase {
   public KickerWheel() {
     // Sets up the motor (NEO 550) using the number specified in the Constants file.
     kickerWheelMotor = new CANSparkMax(Constants.KICKER, MotorType.kBrushless);
+
+    kickerWheelMotor.restoreFactoryDefaults();
+
+    kickerWheelMotor.setInverted(true);
    
     // Sets up the PID controller
     kickerPIDController = kickerWheelMotor.getPIDController();
   
     // Sets up the PIDs
-    kickerPIDController.setP(kP);
-    kickerPIDController.setI(kI);
-    kickerPIDController.setD(kD);
-    kickerPIDController.setFF(kFF);
+    kickerPIDController.setP(velocityP);
+    kickerPIDController.setI(velocityI);
+    kickerPIDController.setD(velocityD);
+    kickerPIDController.setFF(velocityFF);
     kickerPIDController.setOutputRange(kMinOutput, kMaxOutput);
 
-    kickerWheelMotor.setClosedLoopRampRate(0.5);
+    kickerWheelMotor.setClosedLoopRampRate(0.0);
 
   }
  
@@ -93,10 +100,8 @@ public class KickerWheel extends SubsystemBase {
    * Sets the speed of the kicker wheel.
    * @param speed The speed to set the kicker wheel to (in velocity)
    */
-  public void setKickerSpeed(double speed) {
-    kP = 0.0005;
+  public void setKickerSpeed(double speed, double kP) {
     kickerPIDController.setP(kP);
-    kspeed = speed;
     kickerPIDController.setReference(speed, ControlType.kVelocity);
   }
 
@@ -105,8 +110,7 @@ public class KickerWheel extends SubsystemBase {
    * @param pos The position to set the position to
    */
   public void setKickerPosition(double pos){
-    kP = 0.9;
-    kickerPIDController.setP(kP);
+    kickerPIDController.setP(positionalP);
     kickerPIDController.setReference(pos, ControlType.kPosition);
   }
 
@@ -135,4 +139,19 @@ public class KickerWheel extends SubsystemBase {
     return temp;
   }
 
+  /**
+   * Gets the future speed of the kicker wheel
+   * @return - The future speed of the kicker wheel
+   */
+  public int getFutureSpeed() {
+    return futureSpeed;
+  }
+
+  /**
+   * Sets the future speed of the kicker wheel
+   * @param futureSpeed - The future speed of the kicker wheel
+   */
+  public void setFutureSpeed(int futureSpeed) {
+    this.futureSpeed = futureSpeed;
+  }
 }
