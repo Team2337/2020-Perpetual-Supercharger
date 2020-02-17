@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.auto.AutoDriveWithJoystickInput;
+import frc.robot.commands.auto.commandgroups.common.movement.GeneratorThreeBallFromCenterTarget;
 import frc.robot.commands.auto.commandgroups.common.movement.Trench3Ball;
 import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
 import frc.robot.commands.auto.commandgroups.sixball.CenterGoalFront6BallFeedLeftTrench3BallShoot;
@@ -93,7 +94,7 @@ public class Robot extends TimedRobot {
 
     autonChooser.setDefaultOption("default", "default");
     autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
-    autonChooser.addOption("TEST", "TEST");
+    autonChooser.addOption("CenterGoalFront6BallFeedLeftTrench3BallShoot", "CenterGoalFront6BallFeedLeftTrench3BallShoot");
     
     //** --- Allows the speed of these subsystems to be changed on SmarDashboard --- */
     SmartDashboard.putNumber("Intake Speed", Constants.INTAKESPEED);
@@ -157,7 +158,7 @@ public class Robot extends TimedRobot {
       case "CenterGoalBack9BallGenerator3Ball":
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball();
         break;
-      case "TEST":
+      case "CenterGoalFront6BallFeedLeftTrench3BallShoot":
         autonomousCommand = new CenterGoalFront6BallFeedLeftTrench3BallShoot();
         break;
       

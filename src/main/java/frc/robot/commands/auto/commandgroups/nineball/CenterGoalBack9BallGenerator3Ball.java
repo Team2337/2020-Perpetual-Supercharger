@@ -18,8 +18,7 @@ public class CenterGoalBack9BallGenerator3Ball extends SequentialCommandGroup {
  */
   public CenterGoalBack9BallGenerator3Ball() {
     addCommands(
-      new AutonInit(),
-      new ShootNineBall(),
+      //new FireNineBall(),
       new GeneratorThreeBallFromCenterTarget()
     );
   
