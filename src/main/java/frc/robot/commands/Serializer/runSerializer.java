@@ -32,7 +32,7 @@ public class runSerializer extends InstantCommand {
   @Override
   public void initialize() {
     // This will set the serializer to run at a set speed
-    serializerSpeed = SmartDashboard.getNumber("Serializer Speed", Constants.SERIALIZERPEAKSPEED);
+    // serializerSpeed = SmartDashboard.getNumber("Serializer Speed", Constants.SERIALIZERPEAKSPEED);
     subsystem.setSerializerSpeed(serializerSpeed);
   }
 

@@ -36,7 +36,7 @@ public class Agitator extends SubsystemBase {
     //Reset the motor to its factory settings each boot
     agitatorMotor.configFactoryDefault();
 
-    agitatorMotor.setInverted(false);
+    agitatorMotor.setInverted(true);
 
     //Sets up current limits on variables
     currentLimitConfigIntake .currentLimit = 50;
@@ -46,7 +46,7 @@ public class Agitator extends SubsystemBase {
     //Pushes current limits to motors
     agitatorMotor.configStatorCurrentLimit(currentLimitConfigIntake, 0);
     //Set up ramp rate
-    agitatorMotor.configClosedloopRamp(0.5);
+    agitatorMotor.configClosedloopRamp(0.1);
   }
 
   @Override
