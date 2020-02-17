@@ -4,10 +4,11 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.commands.KickerWheel.kickerCoOp;
 
 
 /**
@@ -25,7 +26,7 @@ public class KickerWheel extends SubsystemBase {
   private boolean kickerWheelDebug = false;
 
   /** The speed the motors are currently set to. Changed in methods. */
-  public double kspeed;
+  public double kSpeed;
   /** Kicker wheel motor */
   public CANSparkMax kickerWheelMotor;
   /** PID controller of the Kicker wheel motor */
@@ -39,11 +40,18 @@ public class KickerWheel extends SubsystemBase {
   double kMinOutput = -1;
   double kMaxOutput = 1;
   double positionalP = 0.9;
+
+  // If the driver is currently controlling the kicker wheel, lock out the operators control of it
+  public boolean driverIsControlling = false;
+
+  // If the driver is currently controlling the kicker wheel, lock out the operators control of it
+  public boolean operatorIsControlling = false;
    
   /**
    * Creates a new Kicker subsystem and sets up the motors to their corresponding ports.
    */
   public KickerWheel() {
+    setDefaultCommand(new kickerCoOp(this));
     // Sets up the motor (NEO 550) using the number specified in the Constants file.
     kickerWheelMotor = new CANSparkMax(Constants.KICKER, MotorType.kBrushless);
 
@@ -63,6 +71,7 @@ public class KickerWheel extends SubsystemBase {
 
     kickerWheelMotor.setClosedLoopRampRate(0.0);
 
+    //
   }
  
   @Override
@@ -72,7 +81,7 @@ public class KickerWheel extends SubsystemBase {
     // Debug mode: if on, put numbers on the SmartDashboard
     if(kickerWheelDebug){
       SmartDashboard.putNumber("Kicker wheel velocity", getKickerSpeed());
-      SmartDashboard.putNumber("Kicker wheel target", kspeed);
+      SmartDashboard.putNumber("Kicker wheel target", kSpeed);
     }
       SmartDashboard.putNumber("Kicker Temperature", getKickerTemperature());
   }
@@ -82,16 +91,16 @@ public class KickerWheel extends SubsystemBase {
    * @param speedChange The amount that the speed should increase or decrease by.
    */
   public void adjustKickerSpeed(double speedChange){
-    kspeed = kspeed + speedChange;
-    kickerPIDController.setReference(kspeed, ControlType.kVelocity);
+    kSpeed = kSpeed + speedChange;
+    kickerPIDController.setReference(kSpeed, ControlType.kVelocity);
   }
 
   /**
    * Stops the kicker wheel.
    */
   public void stopKicker(){
-    kspeed = 0;
-    kickerWheelMotor.set(kspeed);
+    kSpeed = 0;
+    kickerWheelMotor.set(kSpeed);
   }
 
   /**
@@ -134,6 +143,14 @@ public class KickerWheel extends SubsystemBase {
   public double getKickerTemperature(){
     double temp = kickerWheelMotor.getMotorTemperature();
     return temp;
+  }
+
+  public void setCoOp(boolean isDriver, boolean isControlling){
+    if(isDriver){
+      driverIsControlling = isControlling;
+    } else {
+      operatorIsControlling = isControlling;
+    }
   }
 
 }

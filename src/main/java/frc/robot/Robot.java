@@ -50,11 +50,11 @@ public class Robot extends TimedRobot {
     Agitator = new Agitator();
     Climber = new Climber();
     Intake = new Intake();
+    Serializer = new Serializer();
     KickerWheel = new KickerWheel();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
     OperatorAngleAdjustment = new OperatorAngleAdjustment();
-    Serializer = new Serializer();
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
     TimeOfFlight = new TimeOfFlight();

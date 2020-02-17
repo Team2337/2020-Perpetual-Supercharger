@@ -122,8 +122,8 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Left Shooter Temperature", leftShootMotor.getTemperature());
     SmartDashboard.putNumber("Right Shooter Temperature", rightShootMotor.getTemperature());
     // RPM VALUES
-    SmartDashboard.putNumber("Left Motor RPM", calculateLeftRPM());
-    SmartDashboard.putNumber("Right Motor RPM", calculateRightRPM());
+    SmartDashboard.putNumber("Left Motor RPM", getLeftRPM());
+    SmartDashboard.putNumber("Right Motor RPM", getRightRPM());
 
     /* --- BOOLEAN VALUES --- */
     /** Sets the value to true if either motor's temperature is over 70 degrees Celsius */
@@ -196,7 +196,7 @@ public class Shooter extends SubsystemBase {
    * 
    * @return The revolutions per minute of the left motor
    */
-  public int calculateLeftRPM() {
+  public int getLeftRPM() {
     // Encoder ticks per 100 ms
     int speed = leftShootMotor.getSelectedSensorVelocity();
     // Encoder ticks per second
@@ -213,7 +213,7 @@ public class Shooter extends SubsystemBase {
    * 
    * @return The revolutions per minute of the right motor
    */
-  public int calculateRightRPM() {
+  public int getRightRPM() {
     // Encoder ticks per 100 ms
     int speed = rightShootMotor.getSelectedSensorVelocity();
     // Encoder ticks per second
@@ -223,5 +223,14 @@ public class Shooter extends SubsystemBase {
     // Convert rps into revolutions per minute
     int rpm = rps * 60;
     return rpm;
+  }
+
+  /**
+   * Calculates the average revolutions per minute of both motors
+   * 
+   * @return The average revolutions per minute of both motors
+   */
+  public int getAvgRPM() {
+    return (getLeftRPM() + getRightRPM()) / 2;
   }
 }

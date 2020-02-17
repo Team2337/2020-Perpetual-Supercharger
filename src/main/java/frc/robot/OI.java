@@ -45,6 +45,9 @@ public class OI {
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
+        driverJoystick.start.whenPressed(new setController(Robot.Serializer, Robot.KickerWheel, true, true));
+        driverJoystick.start.whenReleased(new setController(Robot.Serializer, Robot.KickerWheel, true, false));
+
 
         /* --- OPERATOR JOYSTICK --- */
         
@@ -71,7 +74,13 @@ public class OI {
         
         
         // Holds the kicker wheel's position
-        operatorJoystick.start          .whenPressed(new holdKickerPosition(Robot.KickerWheel));
+        // operatorJoystick.start          .whenPressed(new holdKickerPosition(Robot.KickerWheel));
+
+        
+        operatorJoystick.start.whenPressed(new setController(Robot.Serializer, Robot.KickerWheel, false, true));
+        operatorJoystick.start.whenReleased(new setController(Robot.Serializer, Robot.KickerWheel, false, false));
+
+
 
         // Sets the serializer motor to move up and stop when released
         operatorJoystick.povUp          .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERPEAKSPEED));

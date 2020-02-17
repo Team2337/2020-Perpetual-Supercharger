@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.Serializer.serializerCoOp;
 
  /** 
  * Subsystem for the Serializer 
@@ -36,6 +37,13 @@ public class Serializer extends SubsystemBase {
   // Current limit configuration
   private StatorCurrentLimitConfiguration currentLimitConfigurationSerializerMotor = new StatorCurrentLimitConfiguration();
   TalonFXConfiguration config = new TalonFXConfiguration();
+
+  // If the driver is currently controlling the kicker wheel, lock out the operators control of it
+  public boolean driverIsControlling = false;
+
+  // If the driver is currently controlling the kicker wheel, lock out the operators control of it
+  public boolean operatorIsControlling = false;
+     
   
   /** 
  * Subsystem for the Serializer 
@@ -77,6 +85,7 @@ public class Serializer extends SubsystemBase {
      serializerMotor.setNeutralMode(NeutralMode.Brake);
      serializerMotor.configAllSettings(FXConfig);
      
+     setDefaultCommand(new serializerCoOp(this));
   }
 
   @Override
@@ -156,7 +165,14 @@ public class Serializer extends SubsystemBase {
     serializerMotor.configPeakOutputReverse(-Constants.SERIALIZERPOSITIONSPEED);
     targetPosition = position;
     serializerMotor.set(ControlMode.Position, targetPosition);
+  }
 
+  public void setCoOp(boolean isDriver, boolean isControlling){
+    if(isDriver){
+      driverIsControlling = isControlling;
+    } else {
+      operatorIsControlling = isControlling;
+    }
   }
     
 }

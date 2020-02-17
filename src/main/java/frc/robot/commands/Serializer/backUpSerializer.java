@@ -16,7 +16,7 @@ public class backUpSerializer extends CommandBase {
   public double position;
   public double target;
   public double tolerance = 15;
-  public int withinTolerence = 0;
+  public int withinTolerance = 0;
 
   /**
    * Move balls back to ready the kicker wheel so that the kicker wheel can get up
@@ -42,10 +42,10 @@ public class backUpSerializer extends CommandBase {
 
   @Override
   public void execute() {
-    if(Robot.Utilities.atPosition(target, m_subsystem.getSerializerPosition(), tolerance)){
-      withinTolerence++;
+    if(Robot.Utilities.withinTolerance(target, m_subsystem.getSerializerPosition(), tolerance)){
+      withinTolerance++;
     } else {
-      withinTolerence = 0;
+      withinTolerance = 0;
     }
   }
 
@@ -57,7 +57,7 @@ public class backUpSerializer extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return withinTolerence >= 10;
+    return withinTolerance >= 10;
   }
 
 }
