@@ -32,7 +32,6 @@ public class runClimber extends InstantCommand {
   @Override
   public void initialize() {
     // This will set the climber to run at a set speed
-    speed = SmartDashboard.getNumber("Climber Speed", Constants.CLIMBERSPEED);
     subsystem.setClimberSpeed(speed);
   }
 
