@@ -4,13 +4,18 @@ import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
+
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
 import frc.robot.commands.ShooterSystem.*;
+import frc.robot.commands.Vision.limeLightLEDBlink;
 
 /**
  * OI Class where all controllers and button presses are placed 
@@ -46,11 +51,11 @@ public class OI {
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
-        operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
+        operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKESPEED));
         operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
 
         //Sets the intake motors to outtake balls (reverse mode)
-        operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKEFORWARDSPEED));
+        operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKESPEED));
         operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake));
 
         operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
@@ -61,7 +66,7 @@ public class OI {
         operatorJoystick.bumperLeft.whenReleased(new feedSystemStop());
 
          // Run the agitator leftwards
-        operatorJoystick.rightStickButton        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORFORWARDSPEED));
+        operatorJoystick.rightStickButton        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
         operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator));
 
         // Move the climber upwards

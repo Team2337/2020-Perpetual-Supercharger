@@ -25,9 +25,9 @@ public class autoShooterSystemOn extends SequentialCommandGroup {
             new autoResetRampRate(Robot.OperatorAngleAdjustment),
             new WaitCommand(1.3).withTimeout(1.3), 
             new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED), 
-            new runAgitator(Robot.Agitator, Constants.AGITATORFORWARDSPEED),
+            new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
             new WaitCommand(1.5).withTimeout(1.5), 
-            new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED), 
+            new runIntake(Robot.Intake, Constants.INTAKESPEED), 
             new WaitCommand(10).withTimeout(10)
         );
     }

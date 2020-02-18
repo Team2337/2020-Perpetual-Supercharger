@@ -104,8 +104,8 @@ public String mac;
     Vision.switchPipeLine(1);
     
     //** --- Allows the speed of these subsystems to be changed on SmarDashboard --- */
-    SmartDashboard.putNumber("Intake Speed", Constants.INTAKEFORWARDSPEED);
-    SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORFORWARDSPEED);
+    SmartDashboard.putNumber("Intake Speed", Constants.INTAKESPEED);
+    SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
     SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
     SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERFORWARDSPEED);
     SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);
