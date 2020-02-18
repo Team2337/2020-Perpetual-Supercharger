@@ -57,6 +57,7 @@ public class Pigeon extends SubsystemBase {
 
 		//Change the configMode variable to true to calibrate the pigeon to the correct degree mode
 		if(configMode){
+			pidgey.configFactoryDefault();
 			pidgey.enterCalibrationMode(CalibrationMode.BootTareGyroAccel, 10);
 		}
 
