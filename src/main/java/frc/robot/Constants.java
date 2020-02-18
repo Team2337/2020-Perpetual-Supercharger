@@ -107,16 +107,16 @@ public final class Constants {
 
     /* --- Intake --- */
     public static double INTAKEFORWARDSPEED = 0.7;
-    public static double INTAKEREVERSESPEED = -0.7;
+    public static double INTAKEREVERSESPEED = -0.4;
 
     //Whether or not to detect jams for the agitator
     public static boolean DETECTINTAKEJAMS = true;
 
     //The current to trigger motor reversal at
-    public static int INTAKECURRENTTOLERENCE = 20;
+    public static int INTAKECURRENTTOLERENCE = 30;
 
     //The amount of time (in seconds) to reverse the Serializer when a jam is detected
-    public static double INTAKEREVERSALDURATION = 0.75;
+    public static double INTAKEREVERSALDURATION = 0.3;
 
 
     /* --- Climber --- */
