@@ -97,10 +97,10 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     if(Robot.isComp) {
       angleOffsets = new double[] {
-        0,   // Module 0 
-        0,   // Module 1 
-        0,   // Module 2 
-        0    // Module 3 
+        -0.407217,   // Module 0
+        2.2618739,   // Module 1
+        -1.193802,   // Module 2 
+        0.1775224    // Module 3 
       };
     } else {
       angleOffsets = new double[] {
@@ -293,6 +293,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       iteration++;
     } 
     average = total / iteration;
+    System.out.println("Average" + average);
     return average;
   }
 
@@ -311,7 +312,12 @@ public class SwerveDrivetrain extends SubsystemBase {
       for(int i = 0; i < 4; i++) {
       SmartDashboard.putNumber("ModuleAngle/" + i, 
       ((getModule(i).getNormalizedAnalogVoltageRadians() - angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
+      SmartDashboard.putNumber("Actual Module Angle/" + i, getModule(i).getNormalizedAnalogVoltageRadians());
       }
+    }
+    for(int i = 0; i < 4; i++) {
+      SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
+      SmartDashboard.putNumber("Drive Motor Temperature/" + i, getModule(i).getDriveMotorTemperature());
     }
   }
 }

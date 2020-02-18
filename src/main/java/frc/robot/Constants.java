@@ -20,44 +20,6 @@ public final class Constants {
         public final static double SHORTVELOCITYP = 0.0001;
     }
 
-    public Constants() {
-        if(Robot.isComp) {
-            CANID0 = 0;
-            MODULE0DRIVEMOTORID = 0;
-            MODULE1DRIVEMOTORID = 1;
-            MODULE0ANGLEMOTORID = 4;
-            MODULE1ANGLEMOTORID = 5;
-            INTAKE = 8;
-            AGITATOR = 9;
-            MODULE2ANGLEMOTORID = 10;
-            MODULE3ANGLEMOTORID = 11;
-            SERIALIZER = 12;
-            CLIMBER = 13;
-            MODULE2DRIVEMOTORID = 14;
-            MODULE3DRIVEMOTORID = 15;
-            SHOOTERLEFTMOTOR = 13;
-            SHOOTERRIGHTMOTOR = 14;
-            KICKER = 12;
-        } else {
-            CANID0 = 0;
-            MODULE0DRIVEMOTORID = 1;
-            MODULE0ANGLEMOTORID = 2;
-            MODULE1DRIVEMOTORID = 3;
-            MODULE1ANGLEMOTORID = 4;
-            MODULE2DRIVEMOTORID = 5;
-            MODULE2ANGLEMOTORID = 6;
-            MODULE3DRIVEMOTORID = 7;
-            MODULE3ANGLEMOTORID = 8;
-            INTAKE = 9;
-            AGITATOR = 10;
-            CLIMBER = 11;
-            KICKER = 12;
-            SHOOTERLEFTMOTOR = 13;
-            SHOOTERRIGHTMOTOR = 14;
-            SERIALIZER = 15;
-        }
-    }
-
     /* --- CAN IDs --- */
     public static int CANID0;
     public static int MODULE0DRIVEMOTORID;
@@ -152,9 +114,9 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     // Speed to shoot at from ~16 feet away
-    public static int SHOOTSPEEDCLOSE = 11500; //14450
+    public static int SHOOTSPEEDCLOSE; //14450
     // Speed to shoot at from ~34 feet away
-    public static int SHOOTSPEEDFAR = 14800; //15295 ///14800
+    public static int SHOOTSPEEDFAR; //15295 ///14800
 
     /* ---Serializer--- */
     //Maximum speed of the serializer
@@ -167,5 +129,59 @@ public final class Constants {
     public static double SERIALIZERREGRESSIONDISTANCE = 768;
 
     /* --- Kicker --- */
-    public static int KICKERSPEED = 500; //3000 ///750
+    public static int KICKERSPEED; //3000 ///750
+
+    public Constants() {
+        if(Robot.isComp) {
+            MODULE0DRIVEMOTORID = 0;
+            MODULE1DRIVEMOTORID = 1;
+            SHOOTERLEFTMOTOR = 2;
+            SHOOTERRIGHTMOTOR = 3;
+            MODULE0ANGLEMOTORID = 4;
+            MODULE1ANGLEMOTORID = 5;
+            KICKER = 6;
+            //Limelight = 7
+            INTAKE = 8;
+            AGITATOR = 9;
+            MODULE2ANGLEMOTORID = 10;
+            MODULE3ANGLEMOTORID = 11;
+            SERIALIZER = 12;
+            CLIMBER = 13;
+            MODULE2DRIVEMOTORID = 14;
+            MODULE3DRIVEMOTORID = 15;
+
+            /* --- Shooter --- */
+            SHOOTSPEEDCLOSE = 11500;
+            SHOOTSPEEDFAR = 14800;
+
+            /* --- Kicker --- */
+            KICKERSPEED = 500;
+
+        } else {
+            CANID0 = 0;
+            MODULE0DRIVEMOTORID = 1;
+            MODULE0ANGLEMOTORID = 2;
+            MODULE1DRIVEMOTORID = 3;
+            MODULE1ANGLEMOTORID = 4;
+            MODULE2DRIVEMOTORID = 5;
+            MODULE2ANGLEMOTORID = 6;
+            MODULE3DRIVEMOTORID = 7;
+            MODULE3ANGLEMOTORID = 8;
+            INTAKE = 9;
+            AGITATOR = 10;
+            CLIMBER = 11;
+            KICKER = 12;
+            SHOOTERLEFTMOTOR = 13;
+            SHOOTERRIGHTMOTOR = 14;
+            SERIALIZER = 15;
+
+            /* --- Shooter --- */
+            SHOOTSPEEDCLOSE = 11500;
+            SHOOTSPEEDFAR = 14800;
+
+            /* --- Kicker --- */
+            KICKERSPEED = 500;
+
+        }
+    }
 }
