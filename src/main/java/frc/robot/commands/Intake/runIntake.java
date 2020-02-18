@@ -32,7 +32,6 @@ public class runIntake extends InstantCommand {
   @Override
   public void initialize() {
     // This will set the intake to run at a set speed
-    speed = SmartDashboard.getNumber("Intake Speed", Constants.INTAKESPEED);
     subsystem.setIntakeSpeed(speed);
   }
 
