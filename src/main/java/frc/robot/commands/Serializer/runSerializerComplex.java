@@ -35,8 +35,7 @@ public class runSerializerComplex extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Sets up the reset value and the sensorValue boolean needed for the execute
-    // command
+    // Sets up the reset value and the sensorValue boolean needed for the execute command
     sensorValue = false;
     resetti = 0;
 
@@ -45,9 +44,9 @@ public class runSerializerComplex extends CommandBase {
   @Override
   public void execute() {
     /*
-     * This command is pretty simple but also complex If the sensor value is false,
-     * the serializer runs until it turns true which then flips a boolean to true,
-     * which then locks the command inside a wait, After one second, the boolean
+     * This command is pretty simple but also complex. If the sensor value is true,
+     * the serializer runs until it turns false which then flips a boolean to true,
+     * which then locks the command inside a wait, After 0.01 second, the boolean
      * turns false and then the cycle continues.
      */
     if (sensorValue == true) {

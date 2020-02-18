@@ -4,8 +4,8 @@ import frc.robot.subsystems.Serializer;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * Sets the serializer speed
- * @author Nicholas S
+ * Resets the serializer counter
+ * @author Michael Francis
  */
 public class resetCounter extends InstantCommand {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
