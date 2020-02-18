@@ -316,7 +316,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       }
     }
     for(int i = 0; i < 4; i++) {
-      SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
+      // SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
       SmartDashboard.putNumber("Drive Motor Temperature/" + i, getModule(i).getDriveMotorTemperature());
     }
   }

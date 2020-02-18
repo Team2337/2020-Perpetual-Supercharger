@@ -142,22 +142,6 @@ public class Shooter extends SubsystemBase {
       }
     };
 
-    /* --- DASHBOARD VALUES --- */
-    // VELOCITY VALUES
-    SmartDashboard.putNumber("Left Shooter Velocity", leftShootMotor.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("Right Shooter Velocity", rightShootMotor.getSelectedSensorVelocity());
-    // TEMPERATURE VALUES
-    SmartDashboard.putNumber("Left Shooter Temperature", leftShootMotor.getTemperature());
-    SmartDashboard.putNumber("Right Shooter Temperature", rightShootMotor.getTemperature());
-    // RPM VALUES
-    SmartDashboard.putNumber("Left Motor RPM", calculateLeftRPM());
-    SmartDashboard.putNumber("Right Motor RPM", calculateRightRPM());
-
-    /* --- BOOLEAN VALUES --- */
-    /** Sets the value to true if either motor's temperature is over 70 degrees Celsius */
-    shooterOver70 = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
-    SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterOver70);
-
     /////////////////////////////
     /* ----------------------- */
     /* --- DEBUG MODE CODE --- */
@@ -177,6 +161,22 @@ public class Shooter extends SubsystemBase {
       }
       // Report the max speed variable to SmartDashboard
       SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
+      /* --- DASHBOARD VALUES --- */
+      // VELOCITY VALUES
+      SmartDashboard.putNumber("Left Shooter Velocity", leftShootMotor.getSelectedSensorVelocity());
+      SmartDashboard.putNumber("Right Shooter Velocity", rightShootMotor.getSelectedSensorVelocity());
+      // TEMPERATURE VALUES
+      SmartDashboard.putNumber("Left Shooter Temperature", leftShootMotor.getTemperature());
+      SmartDashboard.putNumber("Right Shooter Temperature", rightShootMotor.getTemperature());
+      // RPM VALUES
+      SmartDashboard.putNumber("Left Motor RPM", calculateLeftRPM());
+      SmartDashboard.putNumber("Right Motor RPM", calculateRightRPM());
+
+      /* --- BOOLEAN VALUES --- */
+      /** Sets the value to true if either motor's temperature is over 70 degrees Celsius */
+      shooterOver70 = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
+      SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterOver70);
+
     }
   }
 

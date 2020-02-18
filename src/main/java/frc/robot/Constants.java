@@ -135,8 +135,8 @@ public final class Constants {
         if(Robot.isComp) {
             MODULE0DRIVEMOTORID = 0;
             MODULE1DRIVEMOTORID = 1;
-            SHOOTERLEFTMOTOR = 2;
-            SHOOTERRIGHTMOTOR = 3;
+            SHOOTERRIGHTMOTOR = 2;
+            SHOOTERLEFTMOTOR = 3;
             MODULE0ANGLEMOTORID = 4;
             MODULE1ANGLEMOTORID = 5;
             KICKER = 6;
