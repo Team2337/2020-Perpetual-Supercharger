@@ -37,12 +37,6 @@ public class Intake extends SubsystemBase {
   // The number of 20ms iterations that have passed since a jam was detected
   private int i = 0;
 
-  // The number of 20ms iterations that the intake motor has been above the
-  // current threshold
-  private int jammedIterations = 0;
-
-  private int unjammedIterations = 10;
-
   private double speed = 0;
 
   /**
@@ -73,46 +67,29 @@ public class Intake extends SubsystemBase {
 
     // If we want to use anti-jam code in the first place
     if (Constants.DETECTINTAKEJAMS) {
+      // If there is currently no jams detected
       if (!jamDetected) {
-        // If there is currently no jams detected, then just run the intake normally
+        // Run the intake normally
         if (!speedSet) {
           setIntakeSpeed(speed);
           speedSet = true;
-          System.out.println("===Speed set to " + speed);
         }
-        // If we've been going forwards after unjamming for 10 iterations
-        if (unjammedIterations < 10) {
-          System.out.println("===We've been unjammed for " + unjammedIterations + " iterations");
-          unjammedIterations++;
-        } else {
-          // If the current is above the threshold, make sure it does so for 10 iterations
-          if (intakeMotor.getStatorCurrent() >= Constants.INTAKECURRENTTOLERENCE) {
-            jammedIterations++;
-            System.out.println("===We've been JAMMED for " + jammedIterations + " iterations");
-          } else {
-            // This variable is set every iteration? Does this need a lockout?
-            // System.out.println("===jammed iterations reset");
-            jammedIterations = 0;
-          }
 
-          // If the current ever spikes above the threshold for 5 iterations (100ms)
-          if (jammedIterations >= 4) {
-            System.out.println("===jammed iterations exceeded");
-            // There's now a jam detected, so we flip this boolean and set the counter to 0
-            jamDetected = true;
-            i = 0;
-            // Also, we'll need to re-set the speed
-            speedSet = false;
-          }
-          // This will occur on the next loop through of periodic when a jam is detected
+        // If the current is above the threshold, make sure it does so for 4 iterations
+        if (intakeMotor.getStatorCurrent() >= Constants.INTAKECURRENTTOLERENCE) {
+          // There's now a jam detected, so we flip this boolean and set the counter to 0
+          jamDetected = true;
+          i = 0;
+          // Also, we'll need to re-set the speed
+          speedSet = false;
         }
       } else {
+        // Since we are reversing the motors now, we need to re-set the speed
         if (!speedSet) {
-          // Run the motor in reverse
+          // Run the motor in reverse if the motors are still running
           if (speed != 0) {
             setReverseJamSpeed(Constants.INTAKEREVERSESPEED);
           }
-          System.out.println("===REVERSING");
           speedSet = true;
         }
 
@@ -123,29 +100,23 @@ public class Intake extends SubsystemBase {
           // If they're not, this whole block will restart
           jamDetected = false;
 
-          // speed = speed;
           // We need to make the motors go forward in the next iteration
           speedSet = false;
-          System.out.println("===Unjamming iterations exceeded");
-          
-          // Reset the amount of time the robot has been unjammed
-          unjammedIterations = 0;
         }
         i++;
       }
-    }
 
-    if (intakeDebug) {
-      // If in debug mode, put the intake speed and temperature on
-      // SmartDashboard/Shuffleboard
-      SmartDashboard.putNumber("Intake Motor Speed", getIntakeSpeed());
-      SmartDashboard.putBoolean("Jam detected", jamDetected);
-      SmartDashboard.putBoolean("speedSet", speedSet);
-      SmartDashboard.putNumber("Speed ---", speed);
-      SmartDashboard.putNumber("i", i);
-      SmartDashboard.putNumber("Intake current", intakeMotor.getStatorCurrent());
-      SmartDashboard.putNumber("Jammed iterations", jammedIterations);
-      SmartDashboard.putNumber("Intake Motor Temperature", getIntakeTemperature());
+      if (intakeDebug) {
+        // If in debug mode, put the intake speed and temperature on
+        // SmartDashboard/Shuffleboard
+        SmartDashboard.putNumber("Intake Motor Speed", getIntakeSpeed());
+        SmartDashboard.putBoolean("Jam detected", jamDetected);
+        SmartDashboard.putBoolean("speedSet", speedSet);
+        SmartDashboard.putNumber("Speed ---", speed);
+        SmartDashboard.putNumber("i", i);
+        SmartDashboard.putNumber("Intake current", intakeMotor.getStatorCurrent());
+        SmartDashboard.putNumber("Intake Motor Temperature", getIntakeTemperature());
+      }
     }
   }
 
