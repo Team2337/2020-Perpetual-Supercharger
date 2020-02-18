@@ -87,7 +87,7 @@ public class OI {
         operatorJoystick.povUp          .whenReleased(new stopSerializer(Robot.Serializer));
         
         // Readies the shooter to get the kicker wheel up to speed
-        operatorJoystick.povRight       .whenPressed(new backUpSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE));
+        operatorJoystick.povRight       .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE));
         
         //Sets the serializer motor to move down and stop when released
         operatorJoystick.povDown        .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERPEAKSPEED));

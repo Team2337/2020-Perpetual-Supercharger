@@ -6,6 +6,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -29,6 +32,11 @@ public class Serializer extends SubsystemBase {
   final double kI = 0;
   final double kD = 0;
   final double kF = 0;
+  
+  //Sets up sensors and counters
+  public DigitalInput bottomSerializerSensor;
+  public DigitalInput topSerializerSensor;
+  public Counter counter;
 
   // Motors
   private TalonFX serializerMotor;
@@ -57,6 +65,14 @@ public class Serializer extends SubsystemBase {
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
     FXConfig = new TalonFXConfiguration();
+    bottomSerializerSensor = new DigitalInput(0);
+    topSerializerSensor = new DigitalInput(1);
+    counter = new Counter(1);
+    // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
+    // up of the pulse
+    counter.setUpDownCounterMode();
+    counter.setUpSource(topSerializerSensor);
+    counter.setMaxPeriod(2);
     
     // Set up the current configuration
     currentLimitConfigurationSerializerMotor.currentLimit = 50;

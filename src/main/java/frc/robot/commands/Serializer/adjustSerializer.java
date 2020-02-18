@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * 
  * @author Nicholas Stokes
  */
-public class backUpSerializer extends CommandBase {
+public class adjustSerializer extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer m_subsystem;
   public double position;
@@ -24,9 +24,9 @@ public class backUpSerializer extends CommandBase {
    *
    * @param subsystem  The subsystem used by this command. (Serializer)
    * @param adjustment What value the command is passed in OI.java position is the
-   * position = value the method uses for shifting
+   *                   position = value the method uses for shifting
    */
-  public backUpSerializer(Serializer subsystem, double adjustment) {
+  public adjustSerializer(Serializer subsystem, double adjustment) {
     m_subsystem = subsystem;
     position = adjustment;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,7 +36,7 @@ public class backUpSerializer extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    target = m_subsystem.getSerializerPosition() - position;
+    target = m_subsystem.getSerializerPosition() + position;
     m_subsystem.setPosition(target);
   }
 
