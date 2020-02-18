@@ -29,6 +29,7 @@ public String mac;
 
   public static Agitator Agitator;
   public static Climber Climber;
+  public static ClimberBrake ClimberBrake;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
   public static LEDs LEDs;
@@ -86,6 +87,7 @@ public String mac;
     /* --- Subsystems --- */
     Agitator = new Agitator();
     Climber = new Climber();
+    ClimberBrake = new ClimberBrake();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
     LEDs = new LEDs();

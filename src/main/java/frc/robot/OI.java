@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
+import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
@@ -34,8 +35,11 @@ public class OI {
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
         //Run the shooter
-        driverJoystick.triggerRight .whenPressed(new feedSystemForward());
-        driverJoystick.triggerRight.whenReleased(new feedSystemStop());
+        // If the shooter is not running then feed system forward cannot run. If the shooter is running then feed system forward can run
+        driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new feedSystemForward(), 
+        new CommandBase(){}, Robot.Shooter.shooterAtVelocityBooleanSupplier));
+        driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new feedSystemStop(),
+        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
         // Slow rotates to the right
         driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
@@ -60,7 +64,8 @@ public class OI {
 
         operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
         }, new feedSystemForward(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
-        operatorJoystick.triggerLeft.whenReleased(new feedSystemStop());
+        operatorJoystick.triggerLeft.whenReleased(new ConditionalCommand(new CommandBase() {
+        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
         operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
         operatorJoystick.bumperLeft.whenReleased(new feedSystemStop());
@@ -71,10 +76,10 @@ public class OI {
 
         // Move the climber upwards
         operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERFORWARDSPEED));
-        operatorJoystick.leftStickButton          .whenReleased(new stopClimber(Robot.Climber));
+        operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
         
 
-        // Backs the seri
+        // Backs the serializer up
         operatorJoystick.start          .whenPressed(new backUpSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
         operatorJoystick.start          .whenReleased(new shooterSystemOn());
 
@@ -92,6 +97,16 @@ public class OI {
         operatorJoystick.povLeft.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "270"));
 
         /* --- DRIVER STATION CONTROLS --- */
+        operatorControls.BlackSwitch.whenPressed(new activateClimber(Robot.Climber, true));
+        operatorControls.BlackSwitch.whenReleased(new activateClimber(Robot.Climber, false));
+
+        operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 20000, false));
+        operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 20000, true));
+
+        operatorControls.BlueButton.whenPressed(new runClimber(Robot.Climber, 0, false));
+        operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 0, true));
+
+        operatorControls.YellowButton.whenPressed(new engageBrake(Robot.ClimberBrake));
 
         //insert code here
         
