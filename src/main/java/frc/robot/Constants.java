@@ -14,7 +14,7 @@ public final class Constants {
         public final static boolean SWERVEDEBUG = false;
     }
     public final class Vision {
-        public final static double VISIONROTATIONP = 0.85;
+        public final static double VISIONROTATIONP = 0.65; // 0.85
     }
     public final class KickerWheel {
         public final static double SHORTVELOCITYP = 0.0001;
@@ -99,7 +99,7 @@ public final class Constants {
 
 
     /* --- Intake --- */
-    public static double INTAKESPEED = 0.7;
+    public static double INTAKESPEED = 0.5; //0.7
 
 
     /* --- Climber --- */
@@ -121,15 +121,17 @@ public final class Constants {
     /* ---Serializer--- */
     //Maximum speed of the serializer
     public static double SERIALIZERPEAKSPEED = 0.3;
-    public static double SERIALIZERPOSITIONSPEED = 0.1;
-    public static double SERIALIZERFORWARDSPEED = 0.2;
-    public static double SERIALIZERREVERSESPEED = -0.2;
+    public static double SERIALIZERPOSITIONSPEED = 0.2;
+    public static double SERIALIZERFORWARDSPEED = 0.3;
+    public static double SERIALIZERREVERSESPEED = -0.3;
     
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
     public static double SERIALIZERREGRESSIONDISTANCE = 768;
 
     /* --- Kicker --- */
-    public static int KICKERSPEED; //3000 ///750
+    public static int KICKERSPEEDFAR;
+    public static int KICKERSPEEDCLOSE; //3000 ///750
+
 
     public Constants() {
         if(Robot.isComp) {
@@ -151,11 +153,12 @@ public final class Constants {
             MODULE3DRIVEMOTORID = 15;
 
             /* --- Shooter --- */
-            SHOOTSPEEDCLOSE = 11500;
-            SHOOTSPEEDFAR = 14800;
+            SHOOTSPEEDCLOSE = 13000; //11500
+            SHOOTSPEEDFAR = 15100; //14800
 
             /* --- Kicker --- */
-            KICKERSPEED = 500;
+            KICKERSPEEDCLOSE = 3000; //500 //750
+            KICKERSPEEDFAR = 4500;
 
         } else {
             CANID0 = 0;
@@ -180,7 +183,9 @@ public final class Constants {
             SHOOTSPEEDFAR = 14800;
 
             /* --- Kicker --- */
-            KICKERSPEED = 500;
+            KICKERSPEEDCLOSE = 500;
+            KICKERSPEEDFAR = 500;
+
 
         }
     }

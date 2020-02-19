@@ -53,6 +53,13 @@ public class SwerveDriveCommand extends CommandBase {
    */
   public SwerveDriveCommand(SwerveDrivetrain subsystem) {
     this.swerveDrivetrain = subsystem;
+    if(Robot.isComp) {
+      stationaryP = 0.007;
+      movingP = 0.002; // 0.0035
+    } else {
+    stationaryP = 0.015;
+    movingP = 0.007;
+    }
     addRequirements(subsystem);
   }
 
@@ -108,6 +115,11 @@ public class SwerveDriveCommand extends CommandBase {
         Robot.OperatorAngleAdjustment.setSlowRotateMode(false);
         Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
       }
+    }
+    if(Robot.isComp) {
+      forward = forward;
+      strafe = strafe;
+      rotation = rotation;
     }
     // Pass on joystick values to be calculated into angles and speeds
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);

@@ -103,7 +103,7 @@ public String mac;
 
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
-    Vision.switchPipeLine(1);
+    Vision.switchPipeLine(0);
   }
 
   /**

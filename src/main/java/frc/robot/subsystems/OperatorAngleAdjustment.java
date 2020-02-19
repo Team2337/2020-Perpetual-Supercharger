@@ -27,6 +27,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   private boolean isFieldOriented;
   private boolean isChangingGyroAngle;
   private boolean limelightRotationMode = false;
+  private boolean wasPreviouslyChangingAngle = false; 
   private String mode = "";
 
   private double slowRotateSpeed = 0;
@@ -78,33 +79,38 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       futureOffsetAngle = farShot;
       Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDFAR);
       Robot.Vision.setRotateLimelight(true);
-      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEED);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFAR);
       Robot.Vision.switchPipeLine(1);
       break;
     case "nearShot":
       futureOffsetAngle = nearShot;
       Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
       Robot.Vision.setRotateLimelight(true);
-      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEED);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDCLOSE);
       Robot.Vision.switchPipeLine(0);
       break;
     case "climbing":
-      futureOffsetAngle = climbing;
+    futureOffsetAngle = climbing;
+    Robot.Vision.setRotateLimelight(false);
       break;
     case "targetLimelightOn":
       Robot.Vision.setRotateLimelight(true);
       break;
     case "0":
       futureOffsetAngle = field0;
+      Robot.Vision.setRotateLimelight(false);
       break;
     case "90":
       futureOffsetAngle = field90;
+      Robot.Vision.setRotateLimelight(false);
       break;
     case "180":
       futureOffsetAngle = field180;
+      Robot.Vision.setRotateLimelight(false);
       break;
     case "270":
       futureOffsetAngle = field270;
+      Robot.Vision.setRotateLimelight(false);
       break;
     default:
       futureOffsetAngle = 0;
@@ -229,6 +235,23 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    */
   public double getSlowRotateSpeed() {
     return this.slowRotateSpeed;
+  }
+
+  /**
+   * Sets the mode if the robot was previously rotating. 
+   * (was rotating: true | wasn't rotating: false)
+   * @param wasPreviouslyChangingAngle - boolean value
+   */
+  public void setPreviouslyChangingGyroAngle(boolean wasPreviouslyChangingAngle) {
+    this.wasPreviouslyChangingAngle = wasPreviouslyChangingAngle;
+  }
+
+  /**
+   * Gets the previous rotation mode (was rotating: true | wasn't rotating: false)
+   * @return - boolean value 
+   */
+  public boolean wasChangingGyroAngle() {
+    return this.wasPreviouslyChangingAngle;
   }
 
   @Override

@@ -24,7 +24,7 @@ public class Shooter extends SubsystemBase {
    * During debug mode, the SmartDashboard will show troubleshooting values.
    * @see #periodic()
    */
-  private final boolean shooterDebug = false;
+  private final boolean shooterDebug = true;
 
   private boolean shooterAtVelocity = false;
   private int m_FutureSpeed = Constants.SHOOTSPEEDCLOSE;
@@ -47,7 +47,7 @@ public class Shooter extends SubsystemBase {
   public TalonFX rightShootMotor;
   public TalonFXConfiguration FXConfig;
   // Creates a new current limit configuration for putting current limits onto motors
-  private StatorCurrentLimitConfiguration currentLimitConfigurationMotor = new StatorCurrentLimitConfiguration();
+  public StatorCurrentLimitConfiguration currentLimitConfigurationMotor = new StatorCurrentLimitConfiguration();
 
   /**
    * Shoots the ball with a certain strength
@@ -71,7 +71,7 @@ public class Shooter extends SubsystemBase {
 
     /** --- SETS UP SETTINGS (Such as current limits) ON MOTORS AND SENSORS --- **/
     // Set up current limits
-    currentLimitConfigurationMotor.currentLimit = 50;
+    currentLimitConfigurationMotor.currentLimit = 50; //50
     currentLimitConfigurationMotor.enable = true;
     currentLimitConfigurationMotor.triggerThresholdCurrent = 40;
     currentLimitConfigurationMotor.triggerThresholdTime = 3;
@@ -127,7 +127,7 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
 
-    if(getAverageVelocity() > 1000) {
+    if(getAverageVelocity() > 10000) {
       shooterAtVelocity = true;
     } else {
       shooterAtVelocity = false;
@@ -168,6 +168,9 @@ public class Shooter extends SubsystemBase {
       // TEMPERATURE VALUES
       SmartDashboard.putNumber("Left Shooter Temperature", leftShootMotor.getTemperature());
       SmartDashboard.putNumber("Right Shooter Temperature", rightShootMotor.getTemperature());
+
+      SmartDashboard.putNumber("Left Shooter CUrrent", leftShootMotor.getStatorCurrent());
+      SmartDashboard.putNumber("Right Shooter CUrrent", rightShootMotor.getStatorCurrent());
       // RPM VALUES
       SmartDashboard.putNumber("Left Motor RPM", calculateLeftRPM());
       SmartDashboard.putNumber("Right Motor RPM", calculateRightRPM());
