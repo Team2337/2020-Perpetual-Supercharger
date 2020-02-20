@@ -27,7 +27,7 @@ public class autoShooterSystemOn extends SequentialCommandGroup {
             new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED), 
             new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
             new WaitCommand(1.5).withTimeout(1.5), 
-            new runIntake(Robot.Intake, Constants.INTAKESPEED), 
+            new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED), 
             new WaitCommand(10).withTimeout(10)
         );
     }
