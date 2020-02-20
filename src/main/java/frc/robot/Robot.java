@@ -7,9 +7,9 @@ import java.net.UnknownHostException;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import frc.robot.commands.auton.autoShooterSystemOn;
 import frc.robot.subsystems.*;
 
@@ -103,14 +103,8 @@ public String mac;
 
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
-    Vision.switchPipeLine(1);
-    
-    //** --- Allows the speed of these subsystems to be changed on SmarDashboard --- */
-    SmartDashboard.putNumber("Intake Speed", Constants.INTAKEFORWARDSPEED);
-    SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
-    SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
-    SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERFORWARDSPEED);
-    SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);
+    Vision.switchPipeLine(0);
+    Vision.setLEDMode(1);
   }
 
   /**

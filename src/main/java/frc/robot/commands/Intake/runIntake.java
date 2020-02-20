@@ -1,8 +1,6 @@
 package frc.robot.commands.Intake;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
@@ -32,7 +30,6 @@ public class runIntake extends InstantCommand {
   @Override
   public void initialize() {
     // This will set the intake to run at a set speed
-    speed = SmartDashboard.getNumber("Intake Speed", Constants.INTAKEFORWARDSPEED);
     subsystem.setIntakeSpeed(speed);
   }
 

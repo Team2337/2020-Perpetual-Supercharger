@@ -30,6 +30,9 @@ public class startShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    subsystem.currentLimitConfigurationMotor.currentLimit = 50;
+    subsystem.leftShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
+    subsystem.rightShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     //Sets the ramp rate. We set them here because in the execute of this command,
     // they are set to another value after a set speed.
     //Sets the speed.
@@ -57,8 +60,11 @@ public class startShooter extends CommandBase {
   public void end(boolean interrupted) {
     subsystem.leftShootMotor.configClosedloopRamp(0.5);
     subsystem.rightShootMotor.configClosedloopRamp(0.5);
-    //Stop the shooter.
-    subsystem.stopShooter();
+    subsystem.currentLimitConfigurationMotor.currentLimit = 0;
+    subsystem.leftShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
+    subsystem.rightShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
+    // //Stop the shooter.
+    // subsystem.stopShooter();
   }
 
   // Returns true when the command should end.

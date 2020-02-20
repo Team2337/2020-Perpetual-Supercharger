@@ -97,10 +97,10 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     if(Robot.isComp) {
       angleOffsets = new double[] {
-        -0.407217,   // Module 0
-        2.2618739,   // Module 1
-        -1.193802,   // Module 2 
-        0.1775224    // Module 3 
+        -0.407217 + Math.PI,   // Module 0
+        2.2618739 + Math.PI,   // Module 1
+        -1.193802 + Math.PI,   // Module 2 
+        -0.746431 + Math.PI    // Module 3 
       };
     } else {
       angleOffsets = new double[] {
@@ -205,8 +205,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       // Sets the angles and speeds if a joystick is beyond zero,
       // otherwise drive stops and the modules are sent to their last angle
       if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband || Robot.OperatorAngleAdjustment.getSlowRotateMode()) {
-      //  SmartDashboard.putNumberArray("Angles", angles);
-        if(Math.abs((lastAngle[i] - angles[i])) < Math.PI / 2) {
+        if(Math.abs((lastAngle[i] - angles[i])) < (Math.PI / 2)) {
           lastAngle[i] = angles[i];
         }
         getModule(i).setModuleAngle(angles[i]);
@@ -215,8 +214,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         getModule(i).setModuleAngle(lastAngle[i]);
         getModule(i).setDriveSpeed(0);
       }
-      //Sets the drive speed for each drive motor
-     //SmartDashboard.putNumberArray("Drive Speeds", speeds);
     }
   }
 
@@ -293,7 +290,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       iteration++;
     } 
     average = total / iteration;
-    System.out.println("Average" + average);
+    // System.out.println("Average" + average);
     return average;
   }
 
@@ -316,7 +313,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       }
     }
     for(int i = 0; i < 4; i++) {
-      SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
+      // SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
       SmartDashboard.putNumber("Drive Motor Temperature/" + i, getModule(i).getDriveMotorTemperature());
     }
   }

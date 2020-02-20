@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.*;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
@@ -283,8 +282,6 @@ public class FXSwerveModule {
         double errorRad;
         double currentAngle = getNormalizedAnalogVoltageRadians();
 
-        SmartDashboard.putNumber("CurrentAngle " + moduleNumber, getNormalizedAnalogVoltageRadians());
-
         // Adds angle offset to target angle
         targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
 
@@ -334,6 +331,14 @@ public class FXSwerveModule {
     public double getAngleOffset() {
         return this.angleMotorOffset;
     }
+    
+    /**
+     * Gets the angle motor temperature
+     * @return - The temperature of the angle motors
+     */
+    public double getAngleMotorTemperature() {
+        return angleMotor.getTemperature();
+    }
 
     /*************************/
     /* --------------------- */
@@ -357,14 +362,6 @@ public class FXSwerveModule {
         if(isDriveInverted) speed = -speed; 
 
         driveMotor.set(ControlMode.PercentOutput, speed);
-    }
-
-    /**
-     * Gets the angle motor temperature
-     * @return - The temperature of the angle motors
-     */
-    public double getAngleMotorTemperature() {
-        return angleMotor.getTemperature();
     }
 
     /**

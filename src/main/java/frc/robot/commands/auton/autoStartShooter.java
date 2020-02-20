@@ -1,9 +1,7 @@
 package frc.robot.commands.auton;
 
-import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
@@ -12,24 +10,23 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class autoStartShooter extends InstantCommand {
   
-  private final Shooter subsystem;
+  private final Shooter Shooter;
 
   /**
    * Starts the shooter at the designated speed
-   * @param m_subsystem - OperatorAngleAdjustment Subsystem object
+   * @param Shooter - OperatorAngleAdjustment Subsystem object
    */
-  public autoStartShooter(Shooter m_subsystem) {
-    subsystem = m_subsystem;
+  public autoStartShooter(Shooter shooter) {
+    this.Shooter = shooter;
 
-    addRequirements(m_subsystem);
+    addRequirements(Shooter);
   }
 
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     // Sets the shooter speed to the future speed
-    subsystem.setShooterSpeed(Robot.Shooter.getFutureSpeed());
+    Shooter.setShooterSpeed(Robot.Shooter.getFutureSpeed());
   }
 
 
