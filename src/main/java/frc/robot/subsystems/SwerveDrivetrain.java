@@ -206,10 +206,8 @@ public class SwerveDrivetrain extends SubsystemBase {
       // otherwise drive stops and the modules are sent to their last angle
       if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband || Robot.OperatorAngleAdjustment.getSlowRotateMode()) {
         if(Math.abs((lastAngle[i] - angles[i])) < (Math.PI / 2)) {
-          SmartDashboard.putBoolean("Last angle being set", true);
           lastAngle[i] = angles[i];
         }
-        SmartDashboard.putBoolean("Last angle being set", false);
         getModule(i).setModuleAngle(angles[i]);
         getModule(i).setDriveSpeed(speeds[i]);
       } else {
