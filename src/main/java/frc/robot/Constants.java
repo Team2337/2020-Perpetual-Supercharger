@@ -16,23 +16,27 @@ public final class Constants {
     public final class Vision {
         public final static double VISIONROTATIONP = 0.85;
     }
+    public final class KickerWheel {
+        public final static double SHORTVELOCITYP = 0.0001;
+    }
+
     /* --- CAN IDs --- */
-    public static int CANID0 = 0;
-    public static int MODULE0DRIVEMOTORID = 1;
-    public static int MODULE0ANGLEMOTORID = 2;
-    public static int MODULE1DRIVEMOTORID = 3;
-    public static int MODULE1ANGLEMOTORID = 4;
-    public static int MODULE2DRIVEMOTORID = 5;
-    public static int MODULE2ANGLEMOTORID = 6;
-    public static int MODULE3DRIVEMOTORID = 7;
-    public static int MODULE3ANGLEMOTORID = 8;
-    public static int INTAKE = 9;
-    public static int AGITATOR = 10;
-    public static int CLIMBER = 11;
-    public static int KICKER = 12;
-    public static int SHOOTERLEFTMOTOR = 13;
-    public static int SHOOTERRIGHTMOTOR = 14;
-    public static int SERIALIZER = 15;
+    public static int CANID0;
+    public static int MODULE0DRIVEMOTORID;
+    public static int MODULE0ANGLEMOTORID;
+    public static int MODULE1DRIVEMOTORID;
+    public static int MODULE1ANGLEMOTORID;
+    public static int MODULE2DRIVEMOTORID;
+    public static int MODULE2ANGLEMOTORID;
+    public static int MODULE3DRIVEMOTORID;
+    public static int MODULE3ANGLEMOTORID;
+    public static int INTAKE;
+    public static int AGITATOR;
+    public static int CLIMBER;
+    public static int KICKER;
+    public static int SHOOTERLEFTMOTOR;
+    public static int SHOOTERRIGHTMOTOR;
+    public static int SERIALIZER;
 
     /* --- PCMs --- */
     public static final int PCM0 = 0;
@@ -90,16 +94,16 @@ public final class Constants {
 
 
     /* --- Agitator --- */
-    public static double AGITATORSPEED = 0.4;
-    public static double AGITATORREVERSESPEED = -0.4;
+    public static double AGITATORSPEED = 0.2;
+    public static double AGITATORREVERSESPEED = -0.2;
 
 
     /* --- Intake --- */
-    public static double INTAKESPEED = 0.4;
+    public static double INTAKESPEED = 0.7;
 
 
     /* --- Climber --- */
-    public static double CLIMBERSPEED = 0.4;
+    public static double CLIMBERSPEED = 0.7;
 
 
     /* --- Shooter Values --- */
@@ -110,9 +114,9 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     // Speed to shoot at from ~16 feet away
-    public static int SHOOTSPEEDCLOSE = 14450;
+    public static int SHOOTSPEEDCLOSE; //14450
     // Speed to shoot at from ~34 feet away
-    public static int SHOOTSPEEDFAR = 15700; //15295
+    public static int SHOOTSPEEDFAR; //15295 ///14800
 
     /* ---Serializer--- */
     //Maximum speed of the serializer
@@ -125,5 +129,59 @@ public final class Constants {
     public static double SERIALIZERREGRESSIONDISTANCE = -768;
 
     /* --- Kicker --- */
-    public static int KICKERSPEED = 3000;
+    public static int KICKERSPEED; //3000 ///750
+
+    public Constants() {
+        if(Robot.isComp) {
+            MODULE0DRIVEMOTORID = 0;
+            MODULE1DRIVEMOTORID = 1;
+            SHOOTERLEFTMOTOR = 2;
+            SHOOTERRIGHTMOTOR = 3;
+            MODULE0ANGLEMOTORID = 4;
+            MODULE1ANGLEMOTORID = 5;
+            KICKER = 6;
+            //Limelight = 7
+            INTAKE = 8;
+            AGITATOR = 9;
+            MODULE2ANGLEMOTORID = 10;
+            MODULE3ANGLEMOTORID = 11;
+            SERIALIZER = 12;
+            CLIMBER = 13;
+            MODULE2DRIVEMOTORID = 14;
+            MODULE3DRIVEMOTORID = 15;
+
+            /* --- Shooter --- */
+            SHOOTSPEEDCLOSE = 11500;
+            SHOOTSPEEDFAR = 14800;
+
+            /* --- Kicker --- */
+            KICKERSPEED = 500;
+
+        } else {
+            CANID0 = 0;
+            MODULE0DRIVEMOTORID = 1;
+            MODULE0ANGLEMOTORID = 2;
+            MODULE1DRIVEMOTORID = 3;
+            MODULE1ANGLEMOTORID = 4;
+            MODULE2DRIVEMOTORID = 5;
+            MODULE2ANGLEMOTORID = 6;
+            MODULE3DRIVEMOTORID = 7;
+            MODULE3ANGLEMOTORID = 8;
+            INTAKE = 9;
+            AGITATOR = 10;
+            CLIMBER = 11;
+            KICKER = 12;
+            SHOOTERLEFTMOTOR = 13;
+            SHOOTERRIGHTMOTOR = 14;
+            SERIALIZER = 15;
+
+            /* --- Shooter --- */
+            SHOOTSPEEDCLOSE = 11500;
+            SHOOTSPEEDFAR = 14800;
+
+            /* --- Kicker --- */
+            KICKERSPEED = 500;
+
+        }
+    }
 }

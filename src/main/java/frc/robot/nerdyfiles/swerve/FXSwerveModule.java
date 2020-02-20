@@ -234,6 +234,14 @@ public class FXSwerveModule {
     /**************************/
 
     /**
+     * Gets the angle voltages
+     * @return - The angle voltages
+     */
+    public double getAnalogVoltage() {
+        return analogAngleSensor.getVoltage();
+    }
+
+    /**
      * Gets the raw analog input, and divides it by the current 5V reading from 
      * the robot to normalize the sensor value in terms of (0 -> 1)
      * @return - double sensor positional value from (0 -> 1)
@@ -349,5 +357,21 @@ public class FXSwerveModule {
         if(isDriveInverted) speed = -speed; 
 
         driveMotor.set(ControlMode.PercentOutput, speed);
+    }
+
+    /**
+     * Gets the angle motor temperature
+     * @return - The temperature of the angle motors
+     */
+    public double getAngleMotorTemperature() {
+        return angleMotor.getTemperature();
+    }
+
+    /**
+     * Gets the drive motor temperature
+     * @return - The temperature of the drive motors
+     */
+    public double getDriveMotorTemperature() {
+        return driveMotor.getTemperature();
     }
 }

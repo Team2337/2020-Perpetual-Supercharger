@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -23,6 +25,17 @@ public class Shooter extends SubsystemBase {
    * @see #periodic()
    */
   private final boolean shooterDebug = false;
+
+  private boolean shooterAtVelocity = false;
+  private int m_FutureSpeed = Constants.SHOOTSPEEDCLOSE;
+  public BooleanSupplier shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
+        
+    @Override
+    public boolean getAsBoolean() {
+        // TODO Auto-generated method stub
+        return shooterAtVelocity;
+    }
+};
 
   //////////////////////////
   /* -------------------- */
@@ -67,8 +80,8 @@ public class Shooter extends SubsystemBase {
     rightShootMotor.configStatorCurrentLimit(currentLimitConfigurationMotor, 0);
 
     // Set a closed-loop ramp rate on the motors
-    leftShootMotor.configClosedloopRamp(0.5);
-    rightShootMotor.configClosedloopRamp(0.5);
+    leftShootMotor.configClosedloopRamp(0.2);
+    rightShootMotor.configClosedloopRamp(0.2);
     // Enable voltage compensation for all control modes on the motors
     leftShootMotor.enableVoltageCompensation(true);
     rightShootMotor.enableVoltageCompensation(true);
@@ -113,6 +126,21 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    if(getAvgRPM() > 1000) {
+      shooterAtVelocity = true;
+    } else {
+      shooterAtVelocity = false;
+    }
+    SmartDashboard.putBoolean("Shooter At Velocity", shooterAtVelocity);
+    shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
+        
+      @Override
+      public boolean getAsBoolean() {
+          // TODO Auto-generated method stub
+          return shooterAtVelocity;
+      }
+    };
 
     /* --- DASHBOARD VALUES --- */
     // VELOCITY VALUES
@@ -226,11 +254,26 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
-   * Calculates the average revolutions per minute of both motors
-   * 
-   * @return The average revolutions per minute of both motors
+   * Gets the average rpm of the shooter
+   * @return The average rpm of both shooter motors
    */
-  public int getAvgRPM() {
-    return (getLeftRPM() + getRightRPM()) / 2;
+  public double getAvgRPM() {
+    return (Math.abs(rightShootMotor.getSelectedSensorVelocity()) + Math.abs(leftShootMotor.getSelectedSensorVelocity())) / 2;
+  }
+
+  /**
+   * Gets the future speed of the shooter
+   * @return - The future speed of the shooter
+   */
+  public int getFutureSpeed() {
+    return m_FutureSpeed;
+  }
+  
+  /**
+   * Sets the future speed of the shooter
+   * @param futureSpeed - The future speed of the shooter
+   */
+  public void setFutureSpeed(int futureSpeed) {
+    m_FutureSpeed = futureSpeed;
   }
 }
