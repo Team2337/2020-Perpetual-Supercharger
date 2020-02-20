@@ -38,8 +38,6 @@ public class stopShooter extends InstantCommand {
     subsystem.leftShootMotor.configClosedloopRamp(0.5);
     subsystem.rightShootMotor.configClosedloopRamp(0.5);
 
-    //Stop the shooter.
-    // subsystem.stopShooter();
   }
 
   // Called once the command ends or is interrupted.
