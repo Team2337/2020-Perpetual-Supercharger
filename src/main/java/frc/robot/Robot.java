@@ -104,6 +104,7 @@ public String mac;
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
     Vision.switchPipeLine(0);
+    Vision.setLEDMode(1);
   }
 
   /**
