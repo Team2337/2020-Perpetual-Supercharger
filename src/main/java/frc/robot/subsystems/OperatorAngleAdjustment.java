@@ -15,6 +15,7 @@ import frc.robot.Robot;
  */
 public class OperatorAngleAdjustment extends SubsystemBase {
 
+  /* --- Private Double Values --- */
   private double gyroOffset = 0;
   private double farShot;
   private double nearShot;
@@ -24,10 +25,12 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   private double field90; 
   private double field180;
   private double field270;
+
   private boolean isFieldOriented;
   private boolean isChangingGyroAngle;
   private boolean limelightRotationMode = false;
   private boolean wasPreviouslyChangingAngle = false; 
+
   private String mode = "";
 
   private double slowRotateSpeed = 0;
@@ -62,14 +65,26 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    * List of modes:
    * </p>
    * <ul>
-   * <li>farShot
-   * <li>nearShot
-   * <li>climbing
-   * <li>targetLimelightOn
-   * <li>0
-   * <li>90
-   * <li>180
-   * <li>270
+   * <li><b>farShot</b>
+   * - turns the robot to the specified angle, then enables vision, 
+   * and adjusts the speed of the kicker wheel and shooter to the far
+   * shot velocities
+   * <li><b>nearShot</b>
+   * - turns the robot to the specified angle, then enables vision, 
+   * and adjusts the speed of the kicker wheel and shooter to the near
+   * shot velocities
+   * <li><b>climbing</b>
+   * - turns the robot towards the hangers, and disables field centric mode
+   * <li><b>targetLimelightOn</b>
+   * - sets the robot's rotation into vision tracking mode
+   * <li><b>0</b>
+   * - sets the robot's rotational angle offset to 0 degrees
+   * <li><b>90</b>
+   * - sets the robot's rotational angle offset to 90 degrees
+   * <li><b>180</b>
+   * - sets the robot's rotational angle offset to 180 degrees
+   * <li><b>270</b>
+   * - sets the robot's rotational angle offset to 270 degrees
    * </ul>
    */
   public void setFutureOffsetAngle(String mode) {

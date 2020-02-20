@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 
 /**
  * Controls engaging and disengaging the climber brake
@@ -11,9 +10,12 @@ import frc.robot.Robot;
  */
 public class ClimberBrake extends SubsystemBase {
 
-    private Solenoid ClimberBrake;
+  private Solenoid ClimberBrake;
 
-    public ClimberBrake() {
+  /**
+   * Controls engaging and disengaging the climber brake
+   */
+  public ClimberBrake() {
     ClimberBrake = new Solenoid(Constants.PCM0, Constants.PCM0PORT0);
   }
 

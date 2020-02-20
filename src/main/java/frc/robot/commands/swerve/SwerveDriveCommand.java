@@ -55,10 +55,10 @@ public class SwerveDriveCommand extends CommandBase {
     this.swerveDrivetrain = subsystem;
     if(Robot.isComp) {
       stationaryP = 0.007;
-      movingP = 0.002; // 0.0035
+      movingP = 0.002;
     } else {
-    stationaryP = 0.015;
-    movingP = 0.007;
+      stationaryP = 0.015;
+      movingP = 0.007;
     }
     addRequirements(subsystem);
   }
@@ -80,6 +80,7 @@ public class SwerveDriveCommand extends CommandBase {
     strafe = Robot.Utilities.deadband(strafe, 0.1);
     rotation = Robot.Utilities.deadband(rotation, 0.1);
 
+    /* --- Rotation Angle Adjustments --- */
     if (Math.abs(rotation) > rotationDeadband) {
       lastRotation = rotation;
     } else {
@@ -104,8 +105,9 @@ public class SwerveDriveCommand extends CommandBase {
       rotation = Robot.OperatorAngleAdjustment.calculateGyroOffset(error, kP);
     }
     
+    // Checks the limelight mode to rotate towards the target
     if (Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
-      rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.Vision.VISIONROTATIONP);
+      rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.VISIONROTATIONP);
     }  
     
     // Checks to see if we are in slow rotate mode, then directly sets the rotation to the given speed
@@ -116,11 +118,7 @@ public class SwerveDriveCommand extends CommandBase {
         Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
       }
     }
-    if(Robot.isComp) {
-      forward = forward;
-      strafe = strafe;
-      rotation = rotation;
-    }
+
     // Pass on joystick values to be calculated into angles and speeds
     swerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
     
