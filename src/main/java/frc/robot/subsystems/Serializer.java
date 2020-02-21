@@ -35,6 +35,7 @@ public class Serializer extends SubsystemBase {
   
   //Sets up sensors and counters
   public DigitalInput bottomSerializerSensor;
+  public DigitalInput middleSerializerSensor;
   public DigitalInput topSerializerSensor;
   public Counter counter;
 
@@ -48,8 +49,6 @@ public class Serializer extends SubsystemBase {
 
   // If the driver is currently controlling the kicker wheel, lock out the operators control of it
   public boolean driverIsControlling = false;
-
-  // If the driver is currently controlling the kicker wheel, lock out the operators control of it
   public boolean operatorIsControlling = false;
      
   
@@ -65,15 +64,7 @@ public class Serializer extends SubsystemBase {
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
     FXConfig = new TalonFXConfiguration();
-    bottomSerializerSensor = new DigitalInput(0);
-    topSerializerSensor = new DigitalInput(1);
-    counter = new Counter(1);
-    // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
-    // up of the pulse
-    counter.setUpDownCounterMode();
-    counter.setUpSource(topSerializerSensor);
-    counter.setMaxPeriod(2);
-    
+
     // Set up the current configuration
     currentLimitConfigurationSerializerMotor.currentLimit = 50;
     currentLimitConfigurationSerializerMotor.enable = true;
@@ -100,6 +91,16 @@ public class Serializer extends SubsystemBase {
      FXConfig.nominalOutputReverse = -0.01;
      serializerMotor.setNeutralMode(NeutralMode.Brake);
      serializerMotor.configAllSettings(FXConfig);
+
+     bottomSerializerSensor = new DigitalInput(0);
+     middleSerializerSensor = new DigitalInput(1);
+     topSerializerSensor = new DigitalInput(2);
+     counter = new Counter(3);
+     // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
+     // up of the pulse
+     counter.setUpDownCounterMode();
+     counter.setUpSource(topSerializerSensor);
+     counter.setMaxPeriod(2); 
      
      setDefaultCommand(new serializerCoOp(this));
   }
@@ -111,9 +112,11 @@ public class Serializer extends SubsystemBase {
       SmartDashboard.putNumber("Serializer TargetPosition", targetPosition);
       SmartDashboard.putNumber("Serializer Error", getSerializerPosition() - targetPosition);
       SmartDashboard.putNumber("Serializer Motor Speed", getSerializerSpeed());
+      SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
     }
-
-    SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
+    SmartDashboard.putBoolean("Bottom sensor", bottomSerializerSensor.get());
+    SmartDashboard.putBoolean("Middle sensor", middleSerializerSensor.get());
+    SmartDashboard.putBoolean("Top sensor", topSerializerSensor.get());
   }
 
   /**
@@ -183,12 +186,9 @@ public class Serializer extends SubsystemBase {
     serializerMotor.set(ControlMode.Position, targetPosition);
   }
 
-  public void setCoOp(boolean isDriver, boolean isControlling){
-    if(isDriver){
-      driverIsControlling = isControlling;
-    } else {
-      operatorIsControlling = isControlling;
-    }
+  public void setCoOp(boolean driverIsControlling, boolean operatorIsControlling){
+      this.driverIsControlling = driverIsControlling;
+      this.operatorIsControlling = operatorIsControlling;
   }
     
 }

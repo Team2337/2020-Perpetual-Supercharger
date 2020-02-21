@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 /**
  * Shoots the power cells (balls) at a certain speed.
@@ -24,7 +25,7 @@ public class Shooter extends SubsystemBase {
    * During debug mode, the SmartDashboard will show troubleshooting values.
    * @see #periodic()
    */
-  private final boolean shooterDebug = false;
+  private final boolean shooterDebug = true;
 
   private boolean shooterAtVelocity = false;
   private int m_FutureSpeed = Constants.SHOOTSPEEDCLOSE;
@@ -36,6 +37,8 @@ public class Shooter extends SubsystemBase {
         return shooterAtVelocity;
     }
 };
+
+  private double targetSpeed;
 
   //////////////////////////
   /* -------------------- */
@@ -177,6 +180,8 @@ public class Shooter extends SubsystemBase {
       }
       // Report the max speed variable to SmartDashboard
       SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
+      SmartDashboard.putNumber("Target speed", targetSpeed);
+      SmartDashboard.putBoolean("At target speed", Robot.Utilities.withinTolerance(targetSpeed, getAvgRPM(), 500));
     }
   }
 
@@ -191,6 +196,7 @@ public class Shooter extends SubsystemBase {
    * @param velocity The velocity at which the motors run at
    */
   public void setShooterSpeed(double velocity) {
+    targetSpeed = velocity;
     leftShootMotor.set(ControlMode.Velocity, velocity);
     rightShootMotor.set(ControlMode.Velocity, velocity);
   }
@@ -259,6 +265,14 @@ public class Shooter extends SubsystemBase {
    */
   public double getAvgRPM() {
     return (Math.abs(rightShootMotor.getSelectedSensorVelocity()) + Math.abs(leftShootMotor.getSelectedSensorVelocity())) / 2;
+  }
+
+   /**
+   * Gets the target speed of the shooter
+   * @return - The target speed of the shooter
+   */
+  public double getTargetSpeed() {
+    return targetSpeed;
   }
 
   /**

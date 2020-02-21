@@ -17,7 +17,7 @@ public final class Constants {
         public final static double VISIONROTATIONP = 0.85;
     }
     public final class KickerWheel {
-        public final static double SHORTVELOCITYP = 0.0001;
+        public final static double SHORTVELOCITYP = 0.0002;
     }
 
     /* --- CAN IDs --- */

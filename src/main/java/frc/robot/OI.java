@@ -5,18 +5,13 @@ import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
-
-import java.util.function.BooleanSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
 import frc.robot.commands.ShooterSystem.*;
-import frc.robot.commands.Vision.limeLightLEDBlink;
 
 /**
  * OI Class where all controllers and button presses are placed 
@@ -36,10 +31,10 @@ public class OI {
 
         //Run the shooter
         // If the shooter is not running then feed system forward cannot run. If the shooter is running then feed system forward can run
-        driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new feedSystemForward(), 
-        new CommandBase(){}, Robot.Shooter.shooterAtVelocityBooleanSupplier));
-        driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new feedSystemStop(),
-        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier));
+        // driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new feedSystemForward(), 
+        // new CommandBase(){}, Robot.Shooter.shooterAtVelocityBooleanSupplier));
+        // driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new feedSystemStop(),
+        // new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
         // Slow rotates to the right
         driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
@@ -50,10 +45,6 @@ public class OI {
         driverJoystick.blueX         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
-
-        driverJoystick.start.whenPressed(new setController(Robot.Serializer, Robot.KickerWheel, true, true));
-        driverJoystick.start.whenReleased(new setController(Robot.Serializer, Robot.KickerWheel, true, false));
-
 
         /* --- OPERATOR JOYSTICK --- */
         
@@ -78,9 +69,9 @@ public class OI {
         operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator));
 
         // Move the climber upwards
-        operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERFORWARDSPEED));
-        operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
-        
+        // operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERFORWARDSPEED));
+        // operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
+
 
         // Backs the serializer up
         operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));

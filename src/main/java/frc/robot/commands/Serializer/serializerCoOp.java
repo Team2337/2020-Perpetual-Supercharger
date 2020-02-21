@@ -2,8 +2,8 @@ package frc.robot.commands.Serializer;
 
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.subsystems.Agitator;
 import frc.robot.subsystems.Serializer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class serializerCoOp extends CommandBase {
     private Serializer serializer;
+    private int i = 0;
 
     /**
      * Sets the kicker's speed.
@@ -21,7 +22,6 @@ public class serializerCoOp extends CommandBase {
         this.serializer = serializer;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(serializer);
-        SmartDashboard.putBoolean("SERIALIZER COMMAND ACTIVE", true);
     }
 
     // Called when the command is initially scheduled.
@@ -33,25 +33,39 @@ public class serializerCoOp extends CommandBase {
     @Override
     public void execute() {
         // The driver takes priority
-        if (serializer.driverIsControlling) {
-            if (Robot.Utilities.withinTolerance(Constants.SHOOTSPEEDFAR, Robot.Shooter.getAvgRPM(), 100)) {
-                if (Robot.Utilities.withinTolerance(Constants.KICKERSPEED, Robot.KickerWheel.getKickerSpeed(), 100)) {
+        if (Robot.OI.driverJoystick.triggerLeft.get()) {
+            if (Robot.Shooter.getAvgRPM() > Robot.Shooter.getTargetSpeed() * 0.9) {
+                if (i > 10) {
                     Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
+                    Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
+                } else {
+                    i++;
                 }
             }
             // If the driver isn't attempting to control it and the operator is
-        } else if (serializer.operatorIsControlling) {
-            // Set the kicker to hold it's position
-            serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
+        } else if (Robot.OI.operatorJoystick.leftStickButton.get()) {
+            // Set the kicker to hold it's position (done in the kicker subsystem)
+            if (serializer.topSerializerSensor.get() && serializer.middleSerializerSensor.get()) {
+                serializer.stopSerializer();
+                Robot.Agitator.stopAgitator();
+            } else if (serializer.bottomSerializerSensor.get()) {
+                serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
+                Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
+            } else {
+                serializer.stopSerializer();
+                Robot.Agitator.stopAgitator();
+            }
         } else {
             // If no-one is trying to control the kicker wheel, stop it
             serializer.stopSerializer();
+            Robot.Agitator.stopAgitator();
+            //Also, the speed checking iterations would need to be reset
+            i = 0;
         }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        SmartDashboard.putBoolean("SERIALIZER COMMAND ACTIVE", false);
     }
 }
