@@ -19,8 +19,8 @@ public class StartShooter extends ParallelCommandGroup {
  */
   public StartShooter() {
     addCommands(
-      new runKicker(Robot.KickerWheel, Constants.KICKERSPEED),
-      new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE)
+      new runKicker(Robot.KickerWheel),
+      new startShooter(Robot.Shooter)
     );
   
   }

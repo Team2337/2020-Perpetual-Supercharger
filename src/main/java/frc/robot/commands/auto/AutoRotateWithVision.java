@@ -38,7 +38,7 @@ public class AutoRotateWithVision extends CommandBase {
 
   @Override
   public void execute() {
-    rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.Vision.VISIONROTATIONP);
+    rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.VISIONROTATIONP);
    
    // Pass on joystick values to be calculated into angles and speeds
    Robot.SwerveDrivetrain.calculateJoystickInput(0, 0, rotation);

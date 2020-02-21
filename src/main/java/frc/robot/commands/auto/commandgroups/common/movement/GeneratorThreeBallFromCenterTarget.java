@@ -44,7 +44,7 @@ public class GeneratorThreeBallFromCenterTarget extends SequentialCommandGroup {
         new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, 53, 0.15, 0.3, 28).withTimeout(5),
         new runIntake(Robot.Intake, 0.5),
         new autoStartShooter(Robot.Shooter, 8000),
-        new runKicker(Robot.KickerWheel, 750)
+        new runKicker(Robot.KickerWheel)
         ),
         new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, 25, 0, 0, 28).withTimeout(1),
         new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, 50, 0.3, -0.15, 28).withTimeout(5),

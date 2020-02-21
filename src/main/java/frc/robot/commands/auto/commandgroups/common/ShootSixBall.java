@@ -21,12 +21,10 @@ public class ShootSixBall extends SequentialCommandGroup {
   public ShootSixBall() {
     addCommands(
      new StartShooter(),
-     new checkShooterVelocity(Robot.Serializer, Constants.SHOOTSPEEDCLOSE, Constants.KICKERSPEED).withTimeout(3),
+     new checkShooterVelocity(Robot.Serializer, Constants.SHOOTSPEEDCLOSE, Constants.KICKERSPEEDCLOSE).withTimeout(3),
      new FeedShooter(6).withTimeout(7),
      new stopShooter(Robot.Shooter)
     );
   
-  }
-
- 
+  } 
 }

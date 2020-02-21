@@ -60,7 +60,7 @@ public class Trench3Ball extends SequentialCommandGroup {
         new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, SecondDrive.driveDist, SecondDrive.forward, SecondDrive.strafe, SecondDrive.moduleAngle).withTimeout(SecondDrive.driveTimeout),
         new runIntake(Robot.Intake, 1),
         new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-        new WaitCommand(1).andThen(new autoStartShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE).andThen(new runKicker(Robot.KickerWheel, Constants.KICKERSPEED)))
+        new WaitCommand(1).andThen(new autoStartShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE).andThen(new runKicker(Robot.KickerWheel)))
       ),
       new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.moduleAngle), 
       new stopIntake(Robot.Intake),

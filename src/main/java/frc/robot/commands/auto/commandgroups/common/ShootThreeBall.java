@@ -21,7 +21,7 @@ public class ShootThreeBall extends SequentialCommandGroup {
   public ShootThreeBall() {
     addCommands(
      new StartShooter(),
-     new checkShooterVelocity(Robot.Serializer, Constants.SHOOTSPEEDCLOSE, Constants.KICKERSPEED).withTimeout(3),
+     new checkShooterVelocity(Robot.Serializer, Constants.SHOOTSPEEDCLOSE, Constants.KICKERSPEEDCLOSE).withTimeout(3),
      new FeedShooter(3).withTimeout(5),
      new stopShooter(Robot.Shooter)
     );

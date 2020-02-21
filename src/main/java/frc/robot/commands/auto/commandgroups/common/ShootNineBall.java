@@ -21,7 +21,7 @@ public class ShootNineBall extends SequentialCommandGroup {
   public ShootNineBall() {
     addCommands(
      new StartShooter(),
-     new checkShooterVelocity(Robot.Serializer, Constants.SHOOTSPEEDCLOSE, Constants.KICKERSPEED).withTimeout(3),
+     new checkShooterVelocity(Robot.Serializer, Constants.SHOOTSPEEDCLOSE, Constants.KICKERSPEEDCLOSE).withTimeout(3),
      new FeedShooter(9).withTimeout(10),
      new stopShooter(Robot.Shooter)
     );
