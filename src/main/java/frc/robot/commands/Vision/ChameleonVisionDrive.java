@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
- */public class OpensightVisionDrive extends CommandBase {
+ */
+  public class ChameleonVisionDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Vision m_subsystem;
   public double forward;
@@ -21,11 +22,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
   double previous = 0;
 
   /**
-   * Opensight's camera blocks will create a center on the ball and identify the coordinates
+   * ChameleonVision's system will identify anything that is yellow, typically balls, and give coordinates on how far it is
    * @author Zayd A.
-   * @param subsystem -
+   * @param subsystem - Ball tracking system that identifies the balls and get them
    */
-  public OpensightVisionDrive(Vision subsystem) {
+  public ChameleonVisionDrive(Vision subsystem) {
   
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -41,20 +42,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // forward = Robot.Vision.getOpenSightYCoordinateValue()*.01;
+    // Receives the distance and motors will move accordingly
     current = Robot.Vision.getChameleonVisionXDistance();
     double p = 0.05; 
     rotation = Robot.Vision.calculateMotorSpeed(current, p);
     SmartDashboard.putNumber("Rotation", rotation);
-    Robot.Vision.LeftWheel.set(ControlMode.PercentOutput, rotation);
-    Robot.Vision.RightWheel.set(ControlMode.PercentOutput, rotation);
+   
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.Vision.LeftWheel.set(ControlMode.PercentOutput, 0);
-    Robot.Vision.RightWheel.set(ControlMode.PercentOutput, 0);
+   
   }
 
   // Returns true when the command should end.

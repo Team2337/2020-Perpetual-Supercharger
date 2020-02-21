@@ -14,16 +14,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    */
 public class Vision extends SubsystemBase {
 
-  public TalonSRX LeftWheel;
-  public VictorSPX RightWheel;
   public double total = 0;
   public double average;
 
   public Vision() {
-    LeftWheel = new TalonSRX(15);
-    RightWheel = new VictorSPX(1);
-    RightWheel.setInverted(false);
-    LeftWheel.setInverted(false);
+
 
   }
 

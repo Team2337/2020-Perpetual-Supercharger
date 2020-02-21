@@ -2,7 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Intake.*;
-import frc.robot.commands.Vision.OpensightVisionDrive;
+import frc.robot.commands.Vision.ChameleonVisionDrive;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 
@@ -22,7 +22,7 @@ public class OI {
         // Sets the field orientation
         driverJoystick.bumperLeft.whenPressed(new SetFieldOriented(Robot.SwerveDrivetrain, false));
         driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
-        driverJoystick.triggerLeft.whileHeld(new OpensightVisionDrive(Robot.Vision));
+        driverJoystick.triggerLeft.whileHeld(new ChameleonVisionDrive(Robot.Vision));
 
         /* --- OPERATOR JOYSTICK --- */
         
