@@ -24,10 +24,10 @@ public class FirePreloads extends SequentialCommandGroup {
             new runKicker(Robot.KickerWheel),
             new autoStartShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE),
             new WaitCommand(0.2).withTimeout(0.2), 
-            new AutoResetRampRate(Robot.OperatorAngleAdjustment),
-            new WaitCommand(1.3).withTimeout(1.3), 
-            new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED), 
-            new runAgitator(Robot.Agitator, Constants.AGITATORSPEED)
+            new AutoResetRampRate(Robot.OperatorAngleAdjustment).withTimeout(0.1),
+            new WaitCommand(3).withTimeout(3), 
+            new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
+            new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED) 
         );
     }
 }

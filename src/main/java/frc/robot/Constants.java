@@ -195,10 +195,10 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     /** Speed to shoot at from ~16 feet away */
-    public static int SHOOTSPEEDCLOSE;
+    public static int SHOOTSPEEDCLOSE = 13000;
 
     /** Speed to shoot at from ~34 feet away */
-    public static int SHOOTSPEEDFAR;
+    public static int SHOOTSPEEDFAR = 15000;
 
     /**********************/
     /* ------------------ */
@@ -232,6 +232,7 @@ public final class Constants {
 
     /** Kicker wheel velocity for the near shot */
     public static int KICKERSPEEDCLOSE;
+
 
     /******************/
     /* -------------- */
@@ -271,12 +272,12 @@ public final class Constants {
             MODULE3DRIVEMOTORID = 15;
 
             /* --- Shooter --- */
-            SHOOTSPEEDCLOSE = 13000; //11500
-            SHOOTSPEEDFAR = 15100; //14800
+        /*     SHOOTSPEEDCLOSE = 13000; //11500
+            SHOOTSPEEDFAR = 15100; //14800 */
 
             /* --- Kicker --- */
-            KICKERSPEEDCLOSE = 3000; //500 //750
-            KICKERSPEEDFAR = 4500;
+            KICKERSPEEDCLOSE = 3000 * (7 / 3); //500 //750
+            KICKERSPEEDFAR = 4500 * (7 / 3);
 
             /* --- Vision --- */
             VISIONROTATIONP = 0.65;
@@ -300,9 +301,9 @@ public final class Constants {
             SERIALIZER = 15;
 
             /* --- Shooter --- */
-            SHOOTSPEEDCLOSE = 11500;
+           /*  SHOOTSPEEDCLOSE = 11500;
             SHOOTSPEEDFAR = 14800;
-
+ */
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 500;
             KICKERSPEEDFAR = 500;

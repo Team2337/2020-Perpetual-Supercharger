@@ -112,11 +112,11 @@ public class Serializer extends SubsystemBase {
       SmartDashboard.putNumber("Serializer TargetPosition", targetPosition);
       SmartDashboard.putNumber("Serializer Error", getSerializerPosition() - targetPosition);
       SmartDashboard.putNumber("Serializer Motor Speed", getSerializerSpeed());
-      SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
     }
     SmartDashboard.putBoolean("Bottom sensor", bottomSerializerSensor.get());
     SmartDashboard.putBoolean("Middle sensor", middleSerializerSensor.get());
     SmartDashboard.putBoolean("Top sensor", topSerializerSensor.get());
+    SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
   }
 
   /**

@@ -8,10 +8,12 @@ import java.net.UnknownHostException;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
 import frc.robot.commands.auto.commandgroups.sixball.CenterGoalFront6BallFeedLeftTrench3BallShoot;
+import frc.robot.commands.auto.commandgroups.threeball.CenterGoal3Ball;
 import frc.robot.commands.auton.autoShooterSystemOn;
 import frc.robot.subsystems.*;
 
@@ -114,6 +116,7 @@ public String mac;
     autonChooser.setDefaultOption("default", "default");
     autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
     autonChooser.addOption("CenterGoalFront6BallFeedLeftTrench3BallShoot", "CenterGoalFront6BallFeedLeftTrench3BallShoot");
+    autonChooser.addOption("Shoot 3 And Back Up", "CenterGoal3Ball");
   }
 
   /**
@@ -129,6 +132,7 @@ public String mac;
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putData("AutonSelector", autonChooser);
   }
 
   /**
@@ -155,6 +159,9 @@ public String mac;
       case "CenterGoalFront6BallFeedLeftTrench3BallShoot":
         autonomousCommand = new CenterGoalFront6BallFeedLeftTrench3BallShoot();
         break;
+        case "CenterGoal3Ball":
+        autonomousCommand = new CenterGoal3Ball();
+        break;
       
     }
     // schedule the autonomous command (example)
@@ -172,6 +179,7 @@ public String mac;
 
   @Override
   public void teleopInit() {
+    Shooter.stopShooter();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
