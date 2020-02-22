@@ -303,6 +303,23 @@ public class SwerveDrivetrain extends SubsystemBase {
       return this.isFieldOriented;
   }
 
+  /**
+   * Sets the drive encoders for each module
+   */
+  public void setAllModuleDriveEncoders(int position) {
+    // Goes through 4 times and sets the drive encoders 
+    for(int i = 0; i < 4; i++) {
+      getModule(i).setDriveEncoder(position);
+    }
+  }
+  
+  /**
+   * Zeros all of the drive encoders
+   */
+  public void zeroAllDriveEncoders() {
+    setAllModuleDriveEncoders(0);
+  }
+
   @Override
   public void periodic() {
     if (swerveDebug) {
