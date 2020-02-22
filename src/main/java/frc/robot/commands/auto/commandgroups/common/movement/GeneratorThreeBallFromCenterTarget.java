@@ -12,11 +12,8 @@ import frc.robot.commands.auto.AutoDriveWithJoystickInput;
 import frc.robot.commands.auto.AutoRotateWithJoystickInput;
 import frc.robot.commands.auto.AutoRotateWithVision;
 import frc.robot.commands.auto.autoStartShooter;
-import frc.robot.commands.auto.driveToPosition;
 import frc.robot.commands.auto.resetDriveEncoders;
-import frc.robot.commands.auto.turnModulesToDegree;
 import frc.robot.commands.auto.zeroAngleEncoders;
-import frc.robot.commands.auto.zeroWithAnalog;
 
 /**
  * Drives from the initiation line to the generator command group

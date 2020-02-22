@@ -35,7 +35,7 @@ public class checkShooterVelocity extends CommandBase {
 
   @Override
   public void execute() {
-    if ((Robot.Shooter.getAverageVelocity() > (shooterVelocity * 0.75)) && (Robot.KickerWheel.getKickerSpeed() > (kickerVelocity * 0.75))) {
+    if ((Robot.Shooter.getAvgRPM() > (shooterVelocity * 0.75)) && (Robot.KickerWheel.getKickerSpeed() > (kickerVelocity * 0.75))) {
       isAtVelocity = true;
     } else {
       isAtVelocity = false;

@@ -1,7 +1,6 @@
 package frc.robot.commands.auto.commandgroups.nineball;
 
 import frc.robot.commands.auto.commandgroups.common.ShootNineBall;
-import frc.robot.commands.auto.commandgroups.common.systemactions.AutonInit;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
@@ -17,7 +16,7 @@ public class CenterGoalBack9BallGenerator2Ball extends SequentialCommandGroup {
  */
   public CenterGoalBack9BallGenerator2Ball() {
     addCommands(
-      new AutonInit(),
+      // new AutonInit(),
       new ShootNineBall()
     );
   

@@ -61,6 +61,6 @@ public class AutoRotateWithJoystickInput extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return Robot.Utilities.atPosition(endAngleDegree, -Robot.Utilities.getPigeonYawMod(), 2);
+    return Robot.Utilities.withinTolerance(endAngleDegree, -Robot.Utilities.getPigeonYawMod(), 2);
   }
 }

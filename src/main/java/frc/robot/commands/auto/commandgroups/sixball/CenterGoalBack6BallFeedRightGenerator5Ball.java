@@ -2,7 +2,6 @@ package frc.robot.commands.auto.commandgroups.sixball;
 
 import frc.robot.commands.auto.commandgroups.common.movement.GeneratorThreeBallFromCenterTarget;
 import frc.robot.commands.auto.commandgroups.common.ShootNineBall;
-import frc.robot.commands.auto.commandgroups.common.systemactions.AutonInit;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
@@ -18,7 +17,7 @@ public class CenterGoalBack6BallFeedRightGenerator5Ball extends SequentialComman
  */
   public CenterGoalBack6BallFeedRightGenerator5Ball() {
     addCommands(
-      new AutonInit()
+      // new AutonInit()
     );
   
   }
