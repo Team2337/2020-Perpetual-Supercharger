@@ -27,7 +27,7 @@ public final class Constants {
     }
 
     public final class KickerWheel {
-        public final static double SHORTVELOCITYP = 0.0001;
+        public final static double SHORTVELOCITYP = 0.0002;
     }
     
     /*******************/
@@ -218,8 +218,8 @@ public final class Constants {
     /** Percent reverse speed when serializing or shooting */
     public static double SERIALIZERREVERSESPEED = -0.3;
     
-    /** Amount of ticks to reverse the serializer by when readying the kicker wheel */
-    public static double SERIALIZERREGRESSIONDISTANCE = 768;
+    //Amount of ticks to reverse the serializer by when readying the kicker wheel
+    public static double SERIALIZERREGRESSIONDISTANCE = -768;
 
     /******************/
     /* -------------- */

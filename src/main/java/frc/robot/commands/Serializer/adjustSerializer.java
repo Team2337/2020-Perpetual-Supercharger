@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * 
  * @author Nicholas Stokes
  */
-public class backUpSerializer extends CommandBase {
+public class adjustSerializer extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer m_subsystem;
   public double position;
   public double target;
   public double tolerance = 15;
-  public int withinTolerence = 0;
+  public int withinTolerance = 0;
 
   /**
    * Move balls back to ready the kicker wheel so that the kicker wheel can get up
@@ -24,9 +24,9 @@ public class backUpSerializer extends CommandBase {
    *
    * @param subsystem  The subsystem used by this command. (Serializer)
    * @param adjustment What value the command is passed in OI.java position is the
-   * position = value the method uses for shifting
+   *                   position = value the method uses for shifting
    */
-  public backUpSerializer(Serializer subsystem, double adjustment) {
+  public adjustSerializer(Serializer subsystem, double adjustment) {
     m_subsystem = subsystem;
     position = adjustment;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,16 +36,16 @@ public class backUpSerializer extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    target = m_subsystem.getSerializerPosition() - position;
+    target = m_subsystem.getSerializerPosition() + position;
     m_subsystem.setPosition(target);
   }
 
   @Override
   public void execute() {
-    if(Robot.Utilities.atPosition(target, m_subsystem.getSerializerPosition(), tolerance)){
-      withinTolerence++;
+    if(Robot.Utilities.withinTolerance(target, m_subsystem.getSerializerPosition(), tolerance)){
+      withinTolerance++;
     } else {
-      withinTolerence = 0;
+      withinTolerance = 0;
     }
   }
 
@@ -57,7 +57,7 @@ public class backUpSerializer extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return withinTolerence >= 10;
+    return withinTolerance >= 10;
   }
 
 }
