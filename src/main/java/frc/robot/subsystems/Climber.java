@@ -3,12 +3,15 @@ package frc.robot.subsystems;
 //Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.commands.Climber.runClimberJoystick;
 
 /**
  * Simple subsystem for the climber
@@ -21,8 +24,12 @@ public class Climber extends SubsystemBase {
    */
   private final boolean climberDebug = false;
 
+  private boolean isActivated = false;
+
   //Motor
-  TalonFX climberMotor;
+  private TalonFX climberMotor;
+
+  private TalonFXConfiguration TalonFXConfigurationClimber;
 
   //Sets up current limit config variable
   private StatorCurrentLimitConfiguration currentLimitConfigclimber = new StatorCurrentLimitConfiguration();
@@ -31,8 +38,29 @@ public class Climber extends SubsystemBase {
    * Creates a new climber subsystem and sets up the motor.
    */
   public Climber() {
+    setDefaultCommand(new runClimberJoystick(this));
+
     climberMotor = new TalonFX(Constants.CLIMBER);
+    TalonFXConfigurationClimber = new TalonFXConfiguration();
+
+    climberMotor.configFactoryDefault();
+
     climberMotor.setInverted(false);
+  
+    TalonFXConfigurationClimber.slot0.kP = 0.01;
+    TalonFXConfigurationClimber.slot0.kI = 0;
+    TalonFXConfigurationClimber.slot0.kD = 0;
+    TalonFXConfigurationClimber.slot0.kF = 0;
+    TalonFXConfigurationClimber.slot0.allowableClosedloopError = 100;
+    TalonFXConfigurationClimber.peakOutputForward = 0.9;
+    TalonFXConfigurationClimber.peakOutputReverse = -0.9;
+    TalonFXConfigurationClimber.reverseSoftLimitEnable = true;
+    TalonFXConfigurationClimber.forwardSoftLimitEnable = true;
+    TalonFXConfigurationClimber.reverseSoftLimitThreshold = 0;
+    TalonFXConfigurationClimber.forwardSoftLimitThreshold = 100000;
+    TalonFXConfigurationClimber.initializationStrategy = SensorInitializationStrategy.BootToZero;
+
+    climberMotor.configAllSettings(TalonFXConfigurationClimber);
 
     //Sets up current limits on variables
     currentLimitConfigclimber .currentLimit = 50;
@@ -87,5 +115,37 @@ public class Climber extends SubsystemBase {
   public double getClimberTemperature(){
     double temp = climberMotor.getTemperature();
     return temp;
+  }
+
+  /**
+   * Sets climber activated
+   * @param isActivated - Sets the climber activated to run the climber if true
+   */
+  public void setClimberActivated(boolean isActivated) {
+    this.isActivated = isActivated;
+  }
+
+  /**
+   * Gets the climber activated
+   * @return - The climber activated
+   */
+  public boolean getClimberActivated() {
+    return isActivated;
+  }
+
+  /**
+   * Sets the climber setpoint
+   * @param setpoint - The setpoint for the climber
+   */
+  public void setSetpoint(int setpoint) {
+    climberMotor.set(ControlMode.Position, setpoint);
+  }
+
+  /**
+   * Gets the current position of the climber
+   * @return - The current position of the climber
+   */
+  public int getCurrentPosition() {
+    return climberMotor.getSelectedSensorPosition();
   }
 }
