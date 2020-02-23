@@ -7,9 +7,9 @@ import java.net.UnknownHostException;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import frc.robot.commands.auton.autoShooterSystemOn;
 import frc.robot.subsystems.*;
 
@@ -30,6 +30,7 @@ public String mac;
   public static AirCompressor AirCompressor;
   public static Agitator Agitator;
   public static Climber Climber;
+  public static ClimberBrake ClimberBrake;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
   public static LEDs LEDs;
@@ -88,6 +89,7 @@ public String mac;
     AirCompressor = new AirCompressor();
     Agitator = new Agitator();
     Climber = new Climber();
+    ClimberBrake = new ClimberBrake();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
     LEDs = new LEDs();
@@ -103,14 +105,8 @@ public String mac;
 
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
-    Vision.switchPipeLine(1);
-    
-    //** --- Allows the speed of these subsystems to be changed on SmarDashboard --- */
-    SmartDashboard.putNumber("Intake Speed", Constants.INTAKESPEED);
-    SmartDashboard.putNumber("Agitator Speed", Constants.AGITATORSPEED);
-    SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
-    SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERFORWARDSPEED);
-    SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);
+    Vision.switchPipeLine(0);
+    Vision.setLEDMode(1);
   }
 
   /**

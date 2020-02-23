@@ -47,7 +47,7 @@ public class Shooter extends SubsystemBase {
   public TalonFX rightShootMotor;
   public TalonFXConfiguration FXConfig;
   // Creates a new current limit configuration for putting current limits onto motors
-  private StatorCurrentLimitConfiguration currentLimitConfigurationMotor = new StatorCurrentLimitConfiguration();
+  public StatorCurrentLimitConfiguration currentLimitConfigurationMotor = new StatorCurrentLimitConfiguration();
 
   /**
    * Shoots the ball with a certain strength
@@ -127,33 +127,20 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
 
-    if(getAverageVelocity() > 1000) {
+    if(getAverageVelocity() > 10000) {
       shooterAtVelocity = true;
-      shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
-        
-        @Override
-        public boolean getAsBoolean() {
-            // TODO Auto-generated method stub
-            return shooterAtVelocity;
-        }
-    };
-
+    } else {
+      shooterAtVelocity = false;
     }
-    /* --- DASHBOARD VALUES --- */
-    // VELOCITY VALUES
-    SmartDashboard.putNumber("Left Shooter Velocity", leftShootMotor.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("Right Shooter Velocity", rightShootMotor.getSelectedSensorVelocity());
-    // TEMPERATURE VALUES
-    SmartDashboard.putNumber("Left Shooter Temperature", leftShootMotor.getTemperature());
-    SmartDashboard.putNumber("Right Shooter Temperature", rightShootMotor.getTemperature());
-    // RPM VALUES
-    SmartDashboard.putNumber("Left Motor RPM", calculateLeftRPM());
-    SmartDashboard.putNumber("Right Motor RPM", calculateRightRPM());
-
-    /* --- BOOLEAN VALUES --- */
-    /** Sets the value to true if either motor's temperature is over 70 degrees Celsius */
-    shooterOver70 = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
-    SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterOver70);
+    SmartDashboard.putBoolean("Shooter At Velocity", shooterAtVelocity);
+    shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
+        
+      @Override
+      public boolean getAsBoolean() {
+          // TODO Auto-generated method stub
+          return shooterAtVelocity;
+      }
+    };
 
     /////////////////////////////
     /* ----------------------- */
@@ -174,6 +161,25 @@ public class Shooter extends SubsystemBase {
       }
       // Report the max speed variable to SmartDashboard
       SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
+      /* --- DASHBOARD VALUES --- */
+      // VELOCITY VALUES
+      SmartDashboard.putNumber("Left Shooter Velocity", leftShootMotor.getSelectedSensorVelocity());
+      SmartDashboard.putNumber("Right Shooter Velocity", rightShootMotor.getSelectedSensorVelocity());
+      // TEMPERATURE VALUES
+      SmartDashboard.putNumber("Left Shooter Temperature", leftShootMotor.getTemperature());
+      SmartDashboard.putNumber("Right Shooter Temperature", rightShootMotor.getTemperature());
+
+      SmartDashboard.putNumber("Left Shooter CUrrent", leftShootMotor.getStatorCurrent());
+      SmartDashboard.putNumber("Right Shooter CUrrent", rightShootMotor.getStatorCurrent());
+      // RPM VALUES
+      SmartDashboard.putNumber("Left Motor RPM", calculateLeftRPM());
+      SmartDashboard.putNumber("Right Motor RPM", calculateRightRPM());
+
+      /* --- BOOLEAN VALUES --- */
+      /** Sets the value to true if either motor's temperature is over 70 degrees Celsius */
+      shooterOver70 = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
+      SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterOver70);
+
     }
   }
 

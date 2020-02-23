@@ -31,7 +31,7 @@ public class KickerWheel extends SubsystemBase {
   /** PID controller of the Kicker wheel motor */
   private CANPIDController kickerPIDController;
 
-  private int futureSpeed = Constants.KICKERSPEED;
+  private int futureSpeed = Constants.KICKERSPEEDCLOSE;
 
   /* --- PID SETTINGS --- */
   double velocityP = 0.0001;

@@ -27,6 +27,7 @@ public class runKicker extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize(){ 
+    System.out.println("Future Speed " + Robot.KickerWheel.getFutureSpeed());
     subsystem.setKickerSpeed(Robot.KickerWheel.getFutureSpeed(), Constants.KickerWheel.SHORTVELOCITYP);
   }
 
