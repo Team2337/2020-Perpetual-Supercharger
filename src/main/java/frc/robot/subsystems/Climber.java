@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 //Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
@@ -22,7 +23,7 @@ public class Climber extends SubsystemBase {
    * Specifies whether or not the climber will be in debug mode.
    * @see #periodic()
    */
-  private final boolean climberDebug = false;
+  private final boolean climberDebug = true;
 
   private boolean isActivated = false;
 
@@ -56,11 +57,13 @@ public class Climber extends SubsystemBase {
     TalonFXConfigurationClimber.peakOutputReverse = -0.9;
     TalonFXConfigurationClimber.reverseSoftLimitEnable = true;
     TalonFXConfigurationClimber.forwardSoftLimitEnable = true;
-    TalonFXConfigurationClimber.reverseSoftLimitThreshold = 0;
-    TalonFXConfigurationClimber.forwardSoftLimitThreshold = 100000;
+    TalonFXConfigurationClimber.reverseSoftLimitThreshold = 30000;
+    TalonFXConfigurationClimber.forwardSoftLimitThreshold = 230000; //Top position: ~248,000
     TalonFXConfigurationClimber.initializationStrategy = SensorInitializationStrategy.BootToZero;
 
     climberMotor.configAllSettings(TalonFXConfigurationClimber);
+
+    climberMotor.setNeutralMode(NeutralMode.Brake);
 
     //Sets up current limits on variables
     currentLimitConfigclimber .currentLimit = 50;
@@ -71,6 +74,7 @@ public class Climber extends SubsystemBase {
     climberMotor.configStatorCurrentLimit(currentLimitConfigclimber, 0);
     //Set up ramp rate
     climberMotor.configClosedloopRamp(0.5);
+    climberMotor.setSelectedSensorPosition(0);
   }
 
   @Override
@@ -80,6 +84,7 @@ public class Climber extends SubsystemBase {
       //If in debug mode, put the climber speed and temperature on SmartDashboard/Shuffleboard
       SmartDashboard.putNumber("Climber Motor Speed", getClimberSpeed());
       SmartDashboard.putNumber("Climber Motor Temperature", getClimberTemperature());
+      SmartDashboard.putNumber("Climber Motor Position", getCurrentPosition());
     }
   }
 
@@ -106,6 +111,7 @@ public class Climber extends SubsystemBase {
    */
   public void stopClimber(){
     climberMotor.set(ControlMode.PercentOutput, 0);
+    // setSetpoint(getCurrentPosition());
   }
 
   /**
@@ -130,7 +136,7 @@ public class Climber extends SubsystemBase {
    * @return - The climber activated
    */
   public boolean getClimberActivated() {
-    return isActivated;
+    return true;
   }
 
   /**

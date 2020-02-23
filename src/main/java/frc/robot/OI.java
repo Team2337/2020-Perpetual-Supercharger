@@ -47,6 +47,16 @@ public class OI {
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
+       driverJoystick.greenA.whenPressed(new activateClimber(Robot.Climber, true));
+       driverJoystick.greenA.whenReleased(new activateClimber(Robot.Climber, false));
+
+        driverJoystick.redB.whenPressed(new runClimber(Robot.Climber, 75000, false));
+        driverJoystick.redB.whenReleased(new runClimber(Robot.Climber, 75000, true));
+
+        driverJoystick.blueX.whenPressed(new runClimber(Robot.Climber, 50000, false));
+        driverJoystick.blueX.whenReleased(new runClimber(Robot.Climber, 50000, true));
+
+        driverJoystick.yellowY.whenPressed(new engageBrake(Robot.ClimberBrake));
 
         /* --- OPERATOR JOYSTICK --- */
         
