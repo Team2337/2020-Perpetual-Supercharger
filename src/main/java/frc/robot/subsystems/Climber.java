@@ -15,8 +15,8 @@ import frc.robot.Constants;
 import frc.robot.commands.Climber.runClimberJoystick;
 
 /**
- * Simple subsystem for the climber
- * @author Michael Francis
+ * Subsystem for the climber
+ * @author Bryce G
  */
 public class Climber extends SubsystemBase {
   /**

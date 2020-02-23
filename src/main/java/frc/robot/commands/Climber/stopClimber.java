@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Stops the climber motors.
- * @author Michael Francis
+ * @author Bryce G
  */
 public class stopClimber extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

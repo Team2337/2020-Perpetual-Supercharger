@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the climber speed
- * @author Michael Francis
+ * @author Bryce G
  */
 public class runClimber extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
