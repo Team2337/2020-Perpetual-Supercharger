@@ -2,6 +2,7 @@ package frc.robot.commands.Serializer;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.Serializer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -47,6 +48,7 @@ public class adjustSerializer extends CommandBase {
     } else {
       withinTolerance = 0;
     }
+    
   }
 
   // Called once the command ends or is interrupted.

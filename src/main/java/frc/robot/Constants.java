@@ -200,6 +200,8 @@ public final class Constants {
     /** Speed to shoot at from ~34 feet away */
     public static int SHOOTSPEEDFAR = 15000;
 
+    public static int SHOOTFRONTTRENCHSPEED = 15000;
+
     /**********************/
     /* ------------------ */
     /* --- SERIALIZER --- */
@@ -232,6 +234,8 @@ public final class Constants {
 
     /** Kicker wheel velocity for the near shot */
     public static int KICKERSPEEDCLOSE;
+
+    public static int KICKERSPEEDFRONTTRENCH;
 
 
     /******************/
@@ -274,6 +278,7 @@ public final class Constants {
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 3000 * (7 / 3); //500 //750
             KICKERSPEEDFAR = 4500 * (7 / 3);
+            KICKERSPEEDFRONTTRENCH = 4500 * (7/3);
 
             /* --- Vision --- */
             VISIONROTATIONP = 0.65;
@@ -298,7 +303,8 @@ public final class Constants {
 
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 3000 * (7 / 3);
-            KICKERSPEEDFAR = 500;
+            KICKERSPEEDFAR = 4500 * (7/3);
+            KICKERSPEEDFRONTTRENCH = 4500 * (7/3);
 
             /* --- Vision --- */
             VISIONROTATIONP = 0.85;

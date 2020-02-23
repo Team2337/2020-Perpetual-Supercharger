@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,12 +24,14 @@ public class KickerWheel extends SubsystemBase {
    * Specifies whether or not the Feeder will be in debug mode.
    * @see #periodic()
    */
-  private boolean kickerWheelDebug = true;
+  private boolean kickerWheelDebug = false;
 
   /** The speed the motors are currently set to. Changed in methods. */
   public double targetSpeed;
   /** Kicker wheel motor */
   public CANSparkMax kickerWheelMotor;
+
+  public CANEncoder neoEncoder;
   /** PID controller of the Kicker wheel motor */
   private CANPIDController kickerPIDController;
 
@@ -54,6 +58,7 @@ public class KickerWheel extends SubsystemBase {
   public KickerWheel() {
     // Sets up the motor (NEO 550) using the number specified in the Constants file.
     kickerWheelMotor = new CANSparkMax(Constants.KICKER, MotorType.kBrushless);
+    neoEncoder = (kickerWheelMotor.getEncoder());
 
     kickerWheelMotor.restoreFactoryDefaults();
 
@@ -72,6 +77,8 @@ public class KickerWheel extends SubsystemBase {
     kickerWheelMotor.setClosedLoopRampRate(0.0);
     
     setDefaultCommand(new kickerCoOp(this));
+
+    kickerPIDController.setReference(0, ControlType.kVelocity);
     //
   }
  
@@ -81,11 +88,11 @@ public class KickerWheel extends SubsystemBase {
 
     // Debug mode: if on, put numbers on the SmartDashboard
     if(kickerWheelDebug){
-      SmartDashboard.putNumber("Kicker wheel velocity", getKickerSpeed());
       SmartDashboard.putNumber("Kicker wheel target", targetSpeed);
       SmartDashboard.putNumber("Kicker wheel percent output", kickerWheelMotor.getOutputCurrent());
-    }
       SmartDashboard.putNumber("Kicker Temperature", getKickerTemperature());
+    }
+    SmartDashboard.putNumber("Kicker wheel velocity", getKickerSpeed());
   }
 
   /**
@@ -129,7 +136,7 @@ public class KickerWheel extends SubsystemBase {
    * @return The kicker speed in RPM
    */
   public double getKickerSpeed() {
-    return kickerWheelMotor.getEncoder().getVelocity();
+    return neoEncoder.getVelocity();
   }
 
     /**
