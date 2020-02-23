@@ -74,7 +74,7 @@ public class Shooter extends SubsystemBase {
 
     /** --- SETS UP SETTINGS (Such as current limits) ON MOTORS AND SENSORS --- **/
     // Set up current limits
-    currentLimitConfigurationMotor.currentLimit = 50;
+    currentLimitConfigurationMotor.currentLimit = 50; //50
     currentLimitConfigurationMotor.enable = true;
     currentLimitConfigurationMotor.triggerThresholdCurrent = 40;
     currentLimitConfigurationMotor.triggerThresholdTime = 3;
@@ -83,8 +83,8 @@ public class Shooter extends SubsystemBase {
     rightShootMotor.configStatorCurrentLimit(currentLimitConfigurationMotor, 0);
 
     // Set a closed-loop ramp rate on the motors
-    leftShootMotor.configClosedloopRamp(0.2);
-    rightShootMotor.configClosedloopRamp(0.2);
+    leftShootMotor.configClosedloopRamp(0.1);
+    rightShootMotor.configClosedloopRamp(0.1);
     // Enable voltage compensation for all control modes on the motors
     leftShootMotor.enableVoltageCompensation(true);
     rightShootMotor.enableVoltageCompensation(true);

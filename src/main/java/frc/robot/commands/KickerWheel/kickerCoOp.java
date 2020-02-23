@@ -34,21 +34,21 @@ public class kickerCoOp extends CommandBase {
     @Override
     public void execute() {
         // The driver takes priority
-        if (Robot.OI.driverJoystick.triggerRight.get()) {
+       /*  if (Robot.OI.driverJoystick.triggerRight.get()) {
             if(!speedSet){
                 // Turn the kicker on for when the driver wants to shoot
-                kickerWheel.setKickerSpeed(kickerWheel.getFutureSpeed(), Constants.KickerWheel.SHORTVELOCITYP);
+                // kickerWheel.setKickerSpeed(kickerWheel.getFutureSpeed(), Constants.KickerWheel.SHORTVELOCITYP);
                 speedSet = true;
                 positionSet = false;
             }
         } else {
             // If the driver isn't trying to control the kicker wheel, stop it and hold position
             if(!positionSet){
-                kickerWheel.setKickerPosition(kickerWheel.getKickerPosition());
+                // kickerWheel.setKickerPosition(kickerWheel.getKickerPosition());
                 positionSet = true;
                 speedSet = false;
             }
-        }
+        } */
     }
 
     // Called once the command ends or is interrupted.

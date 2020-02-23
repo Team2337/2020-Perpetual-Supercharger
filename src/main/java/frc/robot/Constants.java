@@ -27,7 +27,7 @@ public final class Constants {
     }
 
     public final class KickerWheel {
-        public final static double SHORTVELOCITYP = 0.0002;
+        public final static double SHORTVELOCITYP = 0.0000525; //0000035
     }
     
     /*******************/
@@ -195,7 +195,7 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     /** Speed to shoot at from ~16 feet away */
-    public static int SHOOTSPEEDCLOSE = 13000;
+    public static int SHOOTSPEEDCLOSE = 12500; //13000 - OG //12900 - kinda working
 
     /** Speed to shoot at from ~34 feet away */
     public static int SHOOTSPEEDFAR = 15000;
@@ -297,7 +297,7 @@ public final class Constants {
             SERIALIZER = 15;
 
             /* --- Kicker --- */
-            KICKERSPEEDCLOSE = 500;
+            KICKERSPEEDCLOSE = 3000 * (7 / 3);
             KICKERSPEEDFAR = 500;
 
             /* --- Vision --- */

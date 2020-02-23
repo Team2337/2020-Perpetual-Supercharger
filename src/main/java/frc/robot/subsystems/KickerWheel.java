@@ -22,7 +22,7 @@ public class KickerWheel extends SubsystemBase {
    * Specifies whether or not the Feeder will be in debug mode.
    * @see #periodic()
    */
-  private boolean kickerWheelDebug = false;
+  private boolean kickerWheelDebug = true;
 
   /** The speed the motors are currently set to. Changed in methods. */
   public double targetSpeed;
@@ -34,10 +34,10 @@ public class KickerWheel extends SubsystemBase {
   private int futureSpeed = Constants.KICKERSPEEDCLOSE;
 
   /* --- PID SETTINGS --- */
-  double velocityP = 0.0001;
+  double velocityP = 0.0000;
   double velocityI = 0;
   double velocityD = 0;
-  double velocityFF = 0;
+  double velocityFF = 0.000043; //0.000059
   double kMinOutput = -1;
   double kMaxOutput = 1;
   double positionalP = 0.9;
@@ -83,6 +83,7 @@ public class KickerWheel extends SubsystemBase {
     if(kickerWheelDebug){
       SmartDashboard.putNumber("Kicker wheel velocity", getKickerSpeed());
       SmartDashboard.putNumber("Kicker wheel target", targetSpeed);
+      SmartDashboard.putNumber("Kicker wheel percent output", kickerWheelMotor.getOutputCurrent());
     }
       SmartDashboard.putNumber("Kicker Temperature", getKickerTemperature());
   }

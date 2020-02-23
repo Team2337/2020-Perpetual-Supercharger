@@ -3,6 +3,7 @@ package frc.robot.commands.Shooter;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class startShooter extends CommandBase {
   
   private final Shooter subsystem;
+  private int i = 0;
 
   /**
    * Shoots the ball at a specified speed.
@@ -30,23 +32,30 @@ public class startShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    subsystem.currentLimitConfigurationMotor.currentLimit = 50;
+    i = 0;
+    subsystem.currentLimitConfigurationMotor.currentLimit = 70;
     subsystem.leftShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     subsystem.rightShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     //Sets the ramp rate. We set them here because in the execute of this command,
     // they are set to another value after a set speed.
     //Sets the speed.
     subsystem.setShooterSpeed(Robot.Shooter.getFutureSpeed());
+    System.out.println("Time: " + System.currentTimeMillis());
   }
-
-
+  
+  
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //Once the velocity reaches a certain speed, the closed-loop ramp is turned off.
     //This is to ensure that the motors get up to speed quickly without damaging themselves.
+    
     /** Left shooter motor velocity */
     double lsm = subsystem.leftShootMotor.getSelectedSensorVelocity();
+    if(lsm > 12000 && i < 1) {
+      System.out.println("Time: " + System.currentTimeMillis());
+      i++;
+    }
     /** Right shooter motor velocity */
     double rsm = subsystem.rightShootMotor.getSelectedSensorVelocity();
     if(Math.max(lsm, rsm) > Constants.SHOOTERRAMPSWITCHVALUE){
