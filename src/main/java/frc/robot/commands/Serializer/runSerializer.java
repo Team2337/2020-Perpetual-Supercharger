@@ -1,15 +1,13 @@
 package frc.robot.commands.Serializer;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Serializer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * Sets the serializer speed
  * @author Nicholas Stokes
  */
-public class runSerializer extends InstantCommand {
+public class runSerializer extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Serializer subsystem;
   private double serializerSpeed;
@@ -38,6 +36,11 @@ public class runSerializer extends InstantCommand {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+  }
+
+  @Override
+  public boolean isFinished() {
+    return false;
   }
   
 }

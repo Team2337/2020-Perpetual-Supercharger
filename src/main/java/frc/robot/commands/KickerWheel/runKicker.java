@@ -3,7 +3,6 @@ package frc.robot.commands.KickerWheel;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.KickerWheel;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
@@ -27,7 +26,6 @@ public class runKicker extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize(){ 
-    System.out.println("Future Speed " + Robot.KickerWheel.getFutureSpeed());
     subsystem.setKickerSpeed(Robot.KickerWheel.getFutureSpeed(), Constants.KickerWheel.SHORTVELOCITYP);
   }
 
