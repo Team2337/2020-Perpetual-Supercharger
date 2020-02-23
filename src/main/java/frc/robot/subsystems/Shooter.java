@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase {
    * During debug mode, the SmartDashboard will show troubleshooting values.
    * @see #periodic()
    */
-  private final boolean shooterDebug = true;
+  private final boolean shooterDebug = false;
 
   private boolean shooterAtVelocity = false;
   private int m_FutureSpeed = Constants.SHOOTSPEEDCLOSE;

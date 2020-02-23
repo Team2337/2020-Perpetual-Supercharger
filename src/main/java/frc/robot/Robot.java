@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
 import frc.robot.commands.auto.commandgroups.sixball.CenterGoalFront6BallFeedLeftTrench3BallShoot;
 import frc.robot.commands.auto.commandgroups.threeball.CenterGoal3Ball;
-import frc.robot.commands.auton.autoShooterSystemOn;
 import frc.robot.subsystems.*;
 
 /**

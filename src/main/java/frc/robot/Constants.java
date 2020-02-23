@@ -271,10 +271,6 @@ public final class Constants {
             MODULE2DRIVEMOTORID = 14;
             MODULE3DRIVEMOTORID = 15;
 
-            /* --- Shooter --- */
-        /*     SHOOTSPEEDCLOSE = 13000; //11500
-            SHOOTSPEEDFAR = 15100; //14800 */
-
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 3000 * (7 / 3); //500 //750
             KICKERSPEEDFAR = 4500 * (7 / 3);
@@ -300,10 +296,6 @@ public final class Constants {
             SHOOTERRIGHTMOTOR = 14;
             SERIALIZER = 15;
 
-            /* --- Shooter --- */
-           /*  SHOOTSPEEDCLOSE = 11500;
-            SHOOTSPEEDFAR = 14800;
- */
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 500;
             KICKERSPEEDFAR = 500;

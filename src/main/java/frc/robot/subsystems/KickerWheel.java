@@ -7,7 +7,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.commands.KickerWheel.kickerCoOp;
 
 
@@ -23,7 +22,7 @@ public class KickerWheel extends SubsystemBase {
    * Specifies whether or not the Feeder will be in debug mode.
    * @see #periodic()
    */
-  private boolean kickerWheelDebug = true;
+  private boolean kickerWheelDebug = false;
 
   /** The speed the motors are currently set to. Changed in methods. */
   public double targetSpeed;
