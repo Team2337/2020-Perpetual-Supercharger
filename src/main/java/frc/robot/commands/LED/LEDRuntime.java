@@ -14,7 +14,7 @@ import frc.robot.subsystems.LED;
 public class LEDRuntime extends CommandBase {
 
 	public LEDRuntime() {
-		SendableRegistry.addChild(this, Robot.LED);
+		SendableRegistry.addChild(this, Robot.LEDs);
 	}
 
 	public  void initialize() {
