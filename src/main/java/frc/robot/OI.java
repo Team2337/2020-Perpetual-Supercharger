@@ -28,8 +28,8 @@ public class OI {
         driverJoystick.bumperLeft.whenReleased(new SetFieldOriented(Robot.SwerveDrivetrain, true));
 
         //Run the shooter
-        driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDFAR));
-        driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE));
+        driverJoystick.triggerRight .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTDISTFAR));
+        driverJoystick.triggerLeft  .whileHeld(new startShooter(Robot.Shooter, Constants.SHOOTDISTCLOSE));
 
         /* --- OPERATOR JOYSTICK --- */
         

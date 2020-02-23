@@ -24,6 +24,19 @@ public class Shooter extends SubsystemBase {
    */
   private final boolean shooterDebug = false;
 
+
+  /* --- PID VALUES --- */
+
+  /** P value used by the shooter */
+  private static double p = 1.15;
+  /** I value used by the shooter */
+  private static double i = 0;
+  /** D value used by the shooter */
+  private static double d = 0.0002;
+  /** F value used by the shooter */
+  private static double f = 0;
+
+
   //////////////////////////
   /* -------------------- */
   /* --- MOTOR SET-UP --- */
@@ -74,21 +87,16 @@ public class Shooter extends SubsystemBase {
     rightShootMotor.enableVoltageCompensation(true);
 
     /** --- CONFIGURE PIDS --- **/
-    // Set variables
-    final double kP = 1.15;
-    final double kI = 0;
-    final double kD = 0.0002;
-    final double kF = 0;
     // Implement variables into the PIDs
-    leftShootMotor.config_kP(0, kP);
-    leftShootMotor.config_kI(0, kI);
-    leftShootMotor.config_kD(0, kD);
-    leftShootMotor.config_kF(0, kF);
+    leftShootMotor.config_kP(0, p);
+    leftShootMotor.config_kI(0, i);
+    leftShootMotor.config_kD(0, d);
+    leftShootMotor.config_kF(0, f);
 
-    rightShootMotor.config_kP(0, kP);
-    rightShootMotor.config_kI(0, kI);
-    rightShootMotor.config_kD(0, kD);
-    rightShootMotor.config_kF(0, kF);
+    rightShootMotor.config_kP(0, p);
+    rightShootMotor.config_kI(0, i);
+    rightShootMotor.config_kD(0, d);
+    rightShootMotor.config_kF(0, f);
 
     /** --- BRAKE MODES AND INVERSIONS --- **/
     // Sets up control mode.
@@ -99,6 +107,7 @@ public class Shooter extends SubsystemBase {
     leftShootMotor.setInverted(true);
     rightShootMotor.setInverted(false);
   }
+
 
   //////////////////////////////////////
   /* -------------------------------- */
@@ -130,6 +139,7 @@ public class Shooter extends SubsystemBase {
     shooterOver70 = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
     SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterOver70);
 
+
     /////////////////////////////
     /* ----------------------- */
     /* --- DEBUG MODE CODE --- */
@@ -152,11 +162,72 @@ public class Shooter extends SubsystemBase {
     }
   }
 
-  ///////////////////////////////////
-  /* ----------------------------- */
-  /* --- SHOOTER FUNCTIONALITY --- */
-  /* ----------------------------- */
-  ///////////////////////////////////
+
+  ///////////////////////////////////////
+  /* --------------------------------- */
+  /* --- ADJUST AND SET PID VALUES --- */
+  /* --------------------------------- */
+  ///////////////////////////////////////
+
+  /**
+   * Sets the PIDF values to the values that will shoot the ball from the initiation line
+   */
+  public void initLineShooterValues(){
+    setPIDFValues(1.15, 0, 0.0002, 0);
+  }
+
+  /**
+   * Sets the PIDF values of the shooter all at one time
+   * @param sP P value to set
+   * @param sI I value to set
+   * @param sD D value to set
+   * @param sF F value to set
+   */
+  public void setPIDFValues(double sP, double sI, double sD, double sF){
+    setPValue(sP);
+    setIValue(sI);
+    setDValue(sD);
+    setFValue(sF);
+  }
+  
+  /**
+   * Changes the P value of the Shooter PIDF
+   * @param value The value to set
+   */
+  public void setPValue(double value){
+    p = value;
+  }
+
+  /**
+   * Changes the I value of the Shooter PIDF
+   * @param value The value to set
+   */
+  public void setIValue(double value){
+    i = value;
+  }
+
+  /**
+   * Changes the D value of the Shooter PIDF
+   * @param value The value to set
+   */
+  public void setDValue(double value){
+    d = value;
+  }
+
+  /**
+   * Adjusts the F value of the Shooter PIDF
+   * @param value The value to be set
+   */
+  public void setFValue(double value){
+    f = value;
+  }
+
+
+  ///////////////////////////
+  /* --------------------- */
+  /* --- START SHOOTER --- */
+  /* --------------------- */
+  ///////////////////////////
 
   /**
    * Sets the shooter motors to run at a certain speed
@@ -166,6 +237,7 @@ public class Shooter extends SubsystemBase {
     leftShootMotor.set(ControlMode.Velocity, velocity);
     rightShootMotor.set(ControlMode.Velocity, velocity);
   }
+
 
   //////////////////////////////////
   /* ---------------------------- */
@@ -184,6 +256,7 @@ public class Shooter extends SubsystemBase {
     leftShootMotor.set(TalonFXControlMode.PercentOutput, 0);
     rightShootMotor.set(TalonFXControlMode.PercentOutput, 0);
   }
+
 
   ////////////////////////////////////////////////////
   /* ---------------------------------------------- */

@@ -103,6 +103,18 @@ public final class Constants {
     // Speed to shoot at from ~34 feet away
     public static int SHOOTSPEEDFAR = 15295;
 
+    /** Distance from the initiation line to the scoring zone */
+    public static int SHOOTDISTCLOSE = 16;
+    /** Distance from the closer end of the control panel area to the scoring zone */
+    public static int SHOOTDISTFAR = 34;
+
+    // Assuming the amount the shooter is set to is linear throughout the field,
+    // these two constants
+    public static double SHOOTMULT = 545/6;
+    /** Offset from 0 in encoder ticks per 100 ms */
+    public static double SHOOTOFFSET = 36590/3;
+
+
     /* ---Serializer--- */
     //Maximum speed of the serializer
     public static double SERIALIZERPEAKSPEED = 0.3;
@@ -111,6 +123,7 @@ public final class Constants {
     
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
     public static double SERIALIZERREGRESSIONDISTANCE = 4096;
+
 
     /* --- Kicker --- */
     public static int KICKERSPEED = 3000;
