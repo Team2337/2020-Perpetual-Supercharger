@@ -4,12 +4,10 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
-import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.KickerWheel.kickerCoOp;
 
 
 /**
@@ -76,10 +74,6 @@ public class KickerWheel extends SubsystemBase {
     
     kickerWheelMotor.setClosedLoopRampRate(0.0);
     
-    setDefaultCommand(new kickerCoOp(this));
-
-    kickerPIDController.setReference(0, ControlType.kVelocity);
-    //
   }
  
   @Override
@@ -91,8 +85,8 @@ public class KickerWheel extends SubsystemBase {
       SmartDashboard.putNumber("Kicker wheel target", targetSpeed);
       SmartDashboard.putNumber("Kicker wheel percent output", kickerWheelMotor.getOutputCurrent());
       SmartDashboard.putNumber("Kicker Temperature", getKickerTemperature());
+      SmartDashboard.putNumber("Kicker wheel velocity", getKickerSpeed());
     }
-    SmartDashboard.putNumber("Kicker wheel velocity", getKickerSpeed());
   }
 
   /**

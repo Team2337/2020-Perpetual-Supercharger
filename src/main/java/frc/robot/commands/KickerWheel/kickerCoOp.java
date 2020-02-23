@@ -34,7 +34,7 @@ public class kickerCoOp extends CommandBase {
     @Override
     public void execute() {
         // The driver takes priority
-        /*  if (Robot.OI.driverJoystick.triggerRight.get()) {
+          if (Robot.OI.driverJoystick.triggerRight.get()) {
             if(!speedSet){
                 // Turn the kicker on for when the driver wants to shoot
                  kickerWheel.setKickerSpeed(kickerWheel.getFutureSpeed(), Constants.KickerWheel.SHORTVELOCITYP);
@@ -48,7 +48,7 @@ public class kickerCoOp extends CommandBase {
                 positionSet = true;
                 speedSet = false;
             }
-        }  */
+        }  
     }
 
     // Called once the command ends or is interrupted.

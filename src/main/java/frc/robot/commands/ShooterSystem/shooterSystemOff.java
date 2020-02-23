@@ -15,8 +15,7 @@ public class shooterSystemOff extends ParallelCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public shooterSystemOff() {
         addCommands(
-            new stopKicker(Robot.KickerWheel),
-            //new holdKickerPosition(Robot.KickerWheel),
-            new stopShooter(Robot.Shooter));
+            new stopShooter(Robot.Shooter),
+            new stopKicker(Robot.KickerWheel).andThen(new holdKickerPosition(Robot.KickerWheel)));
     }
 }

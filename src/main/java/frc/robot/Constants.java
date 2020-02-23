@@ -195,7 +195,7 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     /** Speed to shoot at from ~16 feet away */
-    public static int SHOOTSPEEDCLOSE = 12500; //13000 - OG //12900 - kinda working
+    public static int SHOOTSPEEDCLOSE = 12500; 
 
     /** Speed to shoot at from ~34 feet away */
     public static int SHOOTSPEEDFAR = 15000;
@@ -221,7 +221,7 @@ public final class Constants {
     public static double SERIALIZERREVERSESPEED = -0.3;
     
     //Amount of ticks to reverse the serializer by when readying the kicker wheel
-    public static double SERIALIZERREGRESSIONDISTANCE = -768;
+    public static double SERIALIZERREGRESSIONDISTANCE = -4096;
 
     /******************/
     /* -------------- */
@@ -275,6 +275,11 @@ public final class Constants {
             MODULE2DRIVEMOTORID = 14;
             MODULE3DRIVEMOTORID = 15;
 
+            /* --- Shooter --- */
+            SHOOTSPEEDCLOSE = 13000; //11500
+            SHOOTSPEEDFAR = 15100; //14800
+            SHOOTFRONTTRENCHSPEED = 15000;
+
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 3000 * (7 / 3); //500 //750
             KICKERSPEEDFAR = 4500 * (7 / 3);
@@ -301,6 +306,11 @@ public final class Constants {
             SHOOTERRIGHTMOTOR = 14;
             SERIALIZER = 15;
 
+            /* --- Shooter --- */
+            SHOOTSPEEDCLOSE = 12500;
+            SHOOTSPEEDFAR = 14800;
+            SHOOTFRONTTRENCHSPEED = 15000;
+            
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 3000 * (7 / 3);
             KICKERSPEEDFAR = 4500 * (7/3);

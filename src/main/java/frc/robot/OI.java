@@ -31,10 +31,8 @@ public class OI {
         driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, true));
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
-        driverJoystick.rightStickButton.whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
-        driverJoystick.rightStickButton.whenPressed(new runKicker(Robot.KickerWheel));
-        driverJoystick.rightStickButton.whenReleased(new stopSerializer(Robot.Serializer));
-        driverJoystick.rightStickButton.whenReleased(new stopKicker(Robot.KickerWheel));
+        driverJoystick.bumperRight.whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
+        driverJoystick.bumperRight.whenReleased(new stopSerializer(Robot.Serializer));
 
         // Run the shooter
         // If the shooter is not running then feed system forward cannot run. If the shooter is running then feed system forward can run
@@ -56,7 +54,6 @@ public class OI {
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
-        driverJoystick.triggerLeft.whenPressed(new runKicker(Robot.KickerWheel));
 
         driverJoystick.back.whenPressed(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true));
         driverJoystick.back.whenReleased(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false));
@@ -90,7 +87,7 @@ public class OI {
         
 
         // Backs the serializer up
-        operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, -4096).withTimeout(0.5));
+        operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
         operatorJoystick.start          .whenReleased(new shooterSystemOn());
 
         operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));

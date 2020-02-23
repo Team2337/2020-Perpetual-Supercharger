@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase {
    * During debug mode, the SmartDashboard will show troubleshooting values.
    * @see #periodic()
    */
-  private final boolean shooterDebug = false;
+  private final boolean shooterDebug = true;
 
   private boolean shooterAtVelocity = false;
   private int m_FutureSpeed = Constants.SHOOTSPEEDCLOSE;
@@ -129,44 +129,26 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-
-    if(getAvgRPM() > 1000) {
+    if(getAvgRPM() > (getTargetRPM() * 0.95)) {
       shooterAtVelocity = true;
     } else {
       shooterAtVelocity = false;
     }
-    SmartDashboard.putBoolean("Shooter At Velocity", shooterAtVelocity);
     shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
-        
+      
       @Override
       public boolean getAsBoolean() {
-          // TODO Auto-generated method stub
-          return shooterAtVelocity;
+        // TODO Auto-generated method stub
+        return shooterAtVelocity;
       }
     };
-
-    /* --- DASHBOARD VALUES --- */
-    // VELOCITY VALUES
-    SmartDashboard.putNumber("Left Shooter Velocity", leftShootMotor.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("Right Shooter Velocity", rightShootMotor.getSelectedSensorVelocity());
-    // TEMPERATURE VALUES
-    SmartDashboard.putNumber("Left Shooter Temperature", leftShootMotor.getTemperature());
-    SmartDashboard.putNumber("Right Shooter Temperature", rightShootMotor.getTemperature());
-    // RPM VALUES
-    SmartDashboard.putNumber("Left Motor RPM", getLeftRPM());
-    SmartDashboard.putNumber("Right Motor RPM", getRightRPM());
-
-    /* --- BOOLEAN VALUES --- */
-    /** Sets the value to true if either motor's temperature is over 70 degrees Celsius */
-    shooterOver70 = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
-    SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterOver70);
-
+    
     /////////////////////////////
     /* ----------------------- */
     /* --- DEBUG MODE CODE --- */
     /* ----------------------- */
     /////////////////////////////
-
+    
     if (shooterDebug) {
       // Calculate the max speed.
       // Calculations: Maximum value between the average of left and right motors and itself.
@@ -178,13 +160,32 @@ public class Shooter extends SubsystemBase {
       if (Math.round(lsm) == 0 || Math.round(rsm) == 0) {
         shooterMaxSpeed = 0;
       }
+      /* --- DASHBOARD VALUES --- */
+      // VELOCITY VALUES
+      SmartDashboard.putNumber("Left Shooter Velocity", leftShootMotor.getSelectedSensorVelocity());
+      SmartDashboard.putNumber("Right Shooter Velocity", rightShootMotor.getSelectedSensorVelocity());
+      
+      // RPM VALUES
+      SmartDashboard.putNumber("Left Motor RPM", getLeftRPM());
+      SmartDashboard.putNumber("Right Motor RPM", getRightRPM());
+      
+      /* --- BOOLEAN VALUES --- */
+      /** Sets the value to true if either motor's temperature is over 70 degrees Celsius */
+      shooterOver70 = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
+      SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterOver70);
+      
+      
       // Report the max speed variable to SmartDashboard
       SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
       SmartDashboard.putNumber("Target speed", targetSpeed);
-      SmartDashboard.putBoolean("At target speed", Robot.Utilities.withinTolerance(targetSpeed, getAvgRPM(), 500));
     }
+    SmartDashboard.putBoolean("At target speed", Robot.Utilities.withinTolerance(targetSpeed, getAvgRPM(), 500));
+    // TEMPERATURE VALUES
+    SmartDashboard.putNumber("Left Shooter Temperature", leftShootMotor.getTemperature());
+    SmartDashboard.putNumber("Right Shooter Temperature", rightShootMotor.getTemperature());
+    SmartDashboard.putBoolean("Shooter At Velocity", shooterAtVelocity);
   }
-
+  
   ///////////////////////////////////
   /* ----------------------------- */
   /* --- SHOOTER FUNCTIONALITY --- */
@@ -242,6 +243,8 @@ public class Shooter extends SubsystemBase {
     return rpm;
   }
 
+  
+
   /**
    * Calculates the revolutions per minute of the right motor using its speed
    * 
@@ -259,12 +262,24 @@ public class Shooter extends SubsystemBase {
     return rpm;
   }
 
+  public int getTargetRPM() {
+    // Encoder ticks per 100 ms
+    int speed = (int) getTargetSpeed();
+    // Encoder ticks per second
+    int tps = speed * 10;
+    // Encoder revolutions per second
+    int rps = tps / 2048;
+    // Convert rps into revolutions per minute
+    int rpm = rps * 60;
+    return rpm;
+  }
+
   /**
    * Gets the average rpm of the shooter
    * @return The average rpm of both shooter motors
    */
   public double getAvgRPM() {
-    return (Math.abs(rightShootMotor.getSelectedSensorVelocity()) + Math.abs(leftShootMotor.getSelectedSensorVelocity())) / 2;
+    return (Math.abs(getRightRPM()) + Math.abs(getLeftRPM())) / 2;
   }
 
    /**

@@ -2,7 +2,6 @@ package frc.robot.commands.Serializer;
 
 import frc.robot.subsystems.Serializer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the serializer speed

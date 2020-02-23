@@ -27,7 +27,6 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   private double field180;
   private double field270;
 
-  private boolean isFieldOriented;
   private boolean isChangingGyroAngle;
   private boolean limelightRotationMode = false;
   private boolean wasPreviouslyChangingAngle = false; 
@@ -55,7 +54,6 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     field90 = 90;
     field180 = 180;
     field270 = 270;
-    isFieldOriented = true;
   }
 
   /**
