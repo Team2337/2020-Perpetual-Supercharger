@@ -1,7 +1,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
   /**
    * The vision code for the limelight and camera
@@ -9,10 +12,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    * @category VISION
    */
 public class Vision extends SubsystemBase {
+  public AnalogInput pixyRight;
+  public AnalogInput pixyLeft;
   private boolean rotateLimelight = false;
 
   public Vision() {
-    
+    pixyRight = new AnalogInput(0);
+    pixyLeft = new AnalogInput(6);
   }
 
  /**
@@ -94,10 +100,28 @@ public class Vision extends SubsystemBase {
   public boolean getRotateLimelight() {
     return rotateLimelight;
   }
+  
+  /**
+   * Gets the voltage of the right Pixy camera
+   * @return The voltage of the Pixy camera
+   */
+  public double getPixyRightValue() {
+    return pixyRight.getVoltage() * (60 / 3.3);
+  }
+  
+  /**
+   * Gets the voltage of the left Pixy camera
+   * @return The voltage of the Pixy camera
+   */
+  public double getPixyLeftValue() {
+    return pixyLeft.getVoltage() * (60 / 3.3);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Voltage", pixyRight.getVoltage());
+    SmartDashboard.putNumber("pixyRight", getPixyRightValue());
+    
   }
-
 }
