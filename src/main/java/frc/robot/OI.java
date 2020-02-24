@@ -51,33 +51,38 @@ public class OI {
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
-        operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
-        operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
+        // operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
+        // operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
 
+        
+        
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKEFORWARDSPEED));
         operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake));
-
-        operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
+        
+               operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
         }, new feedSystemForward(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
         operatorJoystick.triggerLeft.whenReleased(new ConditionalCommand(new CommandBase() {
         }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
         operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
         operatorJoystick.bumperLeft.whenReleased(new feedSystemStop());
-
-         // Run the agitator leftwards
+        
+        // Run the agitator leftwards
         operatorJoystick.rightStickButton        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
         operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator));
-
+        
         // Move the climber upwards
+        operatorJoystick.triggerRight   .whileHeld(new startShooter(Robot.Shooter));
         operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
-        operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
+        // operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
+        
+        
+        // Backs the serializer up
+        // operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
+        operatorJoystick.start          .whenReleased(new shooterSystemOn());
         
 
-        // Backs the serializer up
-        operatorJoystick.start          .whenPressed(new backUpSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
-        operatorJoystick.start          .whenReleased(new shooterSystemOn());
 
         operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));
 

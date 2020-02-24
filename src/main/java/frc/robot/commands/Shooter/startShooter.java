@@ -36,7 +36,8 @@ public class startShooter extends CommandBase {
     //Sets the ramp rate. We set them here because in the execute of this command,
     // they are set to another value after a set speed.
     //Sets the speed.
-    subsystem.setShooterSpeed(Robot.Shooter.getFutureSpeed());
+    subsystem.setShooterSpeed(8700);
+    System.out.println("Time: " + System.currentTimeMillis());
   }
 
 
