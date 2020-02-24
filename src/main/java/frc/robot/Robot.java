@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
-import frc.robot.commands.auto.commandgroups.sixball.CenterGoalFront6BallFeedLeftTrench3BallShoot;
+import frc.robot.commands.auto.commandgroups.sixball.CenterFeedRightTRGrab3GenRGrab2Score5;
 import frc.robot.commands.auto.commandgroups.threeball.CenterGoal3Ball;
 import frc.robot.subsystems.*;
 
@@ -156,7 +156,7 @@ public String mac;
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball();
         break;
       case "CenterGoalFront6BallFeedLeftTrench3BallShoot":
-        autonomousCommand = new CenterGoalFront6BallFeedLeftTrench3BallShoot();
+        autonomousCommand = new CenterFeedRightTRGrab3GenRGrab2Score5();
         break;
         case "CenterGoal3Ball":
         autonomousCommand = new CenterGoal3Ball();
