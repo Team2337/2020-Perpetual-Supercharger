@@ -24,7 +24,7 @@ public class Climber extends SubsystemBase {
    */
   private final boolean climberDebug = false;
 
-  private boolean isActivated = false;
+  private boolean isActivated = true;
 
   //Motor
   private TalonFX climberMotor;

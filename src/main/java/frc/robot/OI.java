@@ -3,7 +3,10 @@ package frc.robot;
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
+import frc.robot.commands.ClimberBrake.disengaeBrake;
 import frc.robot.commands.ClimberBrake.engageBrake;
+import frc.robot.commands.Compressor.compressorTurnOff;
+import frc.robot.commands.Compressor.compressorTurnOn;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.runKicker;
 import frc.robot.commands.KickerWheel.stopKicker;
@@ -58,8 +61,12 @@ public class OI {
         driverJoystick.back.whenPressed(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true));
         driverJoystick.back.whenReleased(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false));
 
-        /* --- OPERATOR JOYSTICK --- */
-        
+        driverJoystick.triggerLeft.whenPressed(new compressorTurnOn(Robot.AirCompressor));
+        driverJoystick.triggerLeft.whenReleased(new compressorTurnOff(Robot.AirCompressor));
+
+        driverJoystick.leftStickButton.whenPressed(new disengaeBrake(Robot.ClimberBrake));
+        driverJoystick.leftStickButton.whenReleased(new engageBrake(Robot.ClimberBrake));
+
         //Sets the intake motors to intake balls
         operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
         operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
