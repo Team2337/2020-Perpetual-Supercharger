@@ -8,12 +8,13 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  */
 public class CenterFeedRightTRGrab3GenRGrab2Score5 extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-
+  
  /**
  * Shoots 9 balls centered on the goal then the chassis drives to the generator and we intake 3 balls  
  */
-  public CenterFeedRightTRGrab3GenRGrab2Score5() {
+  public CenterFeedRightTRGrab3GenRGrab2Score5(double delay) {
     addCommands(/* 
+      new WaitCommand(delay).withTimeout(delay),
       new FirePartnerBalls(1),
       new stopSerializer(Robot.Serializer), */
       new Trench3BallPartnerDoesNotMove()
