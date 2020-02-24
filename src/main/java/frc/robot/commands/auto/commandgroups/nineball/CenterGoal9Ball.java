@@ -1,7 +1,6 @@
 package frc.robot.commands.auto.commandgroups.nineball;
 
 import frc.robot.commands.auto.AutoDriveWithJoystickInput;
-import frc.robot.commands.auto.commandgroups.common.movement.Trench3Ball;
 import frc.robot.Robot;
 import frc.robot.commands.Serializer.stopSerializer;
 import frc.robot.commands.auto.commandgroups.common.systemactions.FirePartnerBalls;

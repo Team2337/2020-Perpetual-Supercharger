@@ -178,7 +178,6 @@ public String mac;
 
   @Override
   public void teleopInit() {
-    Shooter.stopShooter();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

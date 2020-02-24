@@ -100,7 +100,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         -0.407217 + Math.PI,   // Module 0
         2.2618739 + Math.PI,   // Module 1
         -1.193802 + Math.PI,   // Module 2 
-        -0.746431 + Math.PI    // Module 3 
+        -0.746431 - Math.PI / 2   // Module 3 
       };
     } else {
       angleOffsets = new double[] {
