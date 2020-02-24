@@ -125,5 +125,5 @@ public final class Constants {
     public static double SERIALIZERREGRESSIONDISTANCE = 768;
 
     /* --- Kicker --- */
-    public static int KICKERSPEED = 3000;
+    public static int KICKERSPEED = 10000;
 }

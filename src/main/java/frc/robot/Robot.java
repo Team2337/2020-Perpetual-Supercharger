@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
   public static Climber Climber;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
-  public static LEDs LEDs;
+  public static LED LED;
   public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
        SmartDashboard.putNumber("Climber Speed", Constants.CLIMBERSPEED);
        SmartDashboard.putNumber("Serializer Speed", Constants.SERIALIZERFORWARDSPEED);
        SmartDashboard.putNumber("Kicker Speed", Constants.KICKERSPEED);*/
-       SmartDashboard.putBoolean("Kicker LED Test", Robot.KickerWheel.kickerUpToSpeed);
+      
   }
 
   /**

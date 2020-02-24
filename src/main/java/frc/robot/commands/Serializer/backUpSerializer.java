@@ -38,6 +38,7 @@ public class backUpSerializer extends CommandBase {
   public void initialize() {
     target = m_subsystem.getSerializerPosition() - position;
     m_subsystem.setPosition(target);
+  
   }
 
   @Override
