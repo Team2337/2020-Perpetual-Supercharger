@@ -112,7 +112,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     analogAngleSensors = new AnalogInput[] {
-      new AnalogInput(5), // Module 0 
+      new AnalogInput(0), // Module 0 
       new AnalogInput(1), // Module 1 
       new AnalogInput(2), // Module 2 
       new AnalogInput(3)  // Module 3

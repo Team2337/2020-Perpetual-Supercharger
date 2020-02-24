@@ -2,7 +2,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -14,11 +16,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Vision extends SubsystemBase {
   public AnalogInput pixyRight;
   public AnalogInput pixyLeft;
+  public DigitalInput pixyDigitalRight;
   private boolean rotateLimelight = false;
 
   public Vision() {
-    pixyRight = new AnalogInput(0);
-    pixyLeft = new AnalogInput(6);
+    pixyRight = new AnalogInput(4);
+    pixyLeft = new AnalogInput(5);
+    pixyDigitalRight = new DigitalInput(5);
   }
 
  /**
@@ -106,7 +110,7 @@ public class Vision extends SubsystemBase {
    * @return The voltage of the Pixy camera
    */
   public double getPixyRightValue() {
-    return pixyRight.getVoltage() * (60 / 3.3);
+    return (pixyRight.getVoltage() * (60 / 3.3) - 30) /2;
   }
   
   /**
@@ -114,7 +118,7 @@ public class Vision extends SubsystemBase {
    * @return The voltage of the Pixy camera
    */
   public double getPixyLeftValue() {
-    return pixyLeft.getVoltage() * (60 / 3.3);
+    return (pixyLeft.getVoltage() * (60 / 3.3) - 30) / 2;
   }
 
   @Override
@@ -122,6 +126,7 @@ public class Vision extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Voltage", pixyRight.getVoltage());
     SmartDashboard.putNumber("pixyRight", getPixyRightValue());
-    
+    SmartDashboard.putBoolean("Pixyright", pixyDigitalRight.get());
+    SmartDashboard.putNumber("Rotation motor value", (Math.toRadians(getPixyRightValue()) * Constants.VISIONROTATIONP));
   }
 }
