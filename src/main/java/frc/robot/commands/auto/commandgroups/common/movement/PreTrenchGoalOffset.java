@@ -24,19 +24,7 @@ public class PreTrenchGoalOffset extends SequentialCommandGroup {
   public PreTrenchGoalOffset() {
 
     final class FirstDrive {
-      public static final double robotAngle = 0, driveDist = 36, forward = -0.35, strafe = 0, driveTimeout = 5;
-    }
-
-    final class SecondDrive {
-      public static final double robotAngle = 90, driveDist = 72, forward = -0.2, strafe = 0.4, driveTimeout = 5;
-    }
-
-    final class ThirdDrive {
-      public static final double robotAngle = 90, driveDist = 85, forward = -0.4, strafe = 0, driveTimeout = 5;
-    }
-
-    final class FirstRotate {
-      public static final double moduleAngle = 12;
+      public static final double robotAngle = 90, driveDist = 77, forward = 0.45, strafe = -0.85, driveTimeout = 5;
     }
 
     if(Robot.isComp) {
@@ -44,14 +32,7 @@ public class PreTrenchGoalOffset extends SequentialCommandGroup {
     }
     addCommands(
       new resetDriveEncoders(Robot.SwerveDrivetrain),
-      new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FirstDrive.driveDist, FirstDrive.forward, FirstDrive.strafe, FirstDrive.robotAngle).withTimeout(FirstDrive.driveTimeout),
-       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, SecondDrive.driveDist, SecondDrive.forward, SecondDrive.strafe, SecondDrive.robotAngle),
-       new ParallelCommandGroup(
-        new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, ThirdDrive.driveDist, ThirdDrive.forward, ThirdDrive.strafe, ThirdDrive.robotAngle).withTimeout(ThirdDrive.driveTimeout),
-        new runIntake(Robot.Intake, intakeSpeed),
-        new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-        new WaitCommand(1).andThen(new autoStartShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE).andThen(new runKicker(Robot.KickerWheel)))
-      )
+      new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FirstDrive.driveDist, FirstDrive.forward, FirstDrive.strafe, FirstDrive.robotAngle).withTimeout(FirstDrive.driveTimeout)
     );
   }
 }
