@@ -32,7 +32,6 @@ public class runAgitator extends InstantCommand {
   @Override
   public void initialize() {
     // This will set the agitator to run at a set speed
-    speed = SmartDashboard.getNumber("Agitator Speed", Constants.AGITATORSPEED);
     subsystem.setAgitatorSpeed(speed);
   }
   

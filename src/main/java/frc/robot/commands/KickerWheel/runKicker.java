@@ -10,18 +10,15 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * A command that sets the kicker speed using the Kicker subsystem.
  */
 public class runKicker extends InstantCommand {
-  public double kspeed;
   private KickerWheel subsystem;
 
   /**
    * Sets the kicker's speed.
    * 
    * @param subsystem The subsystem used by this command. (Kicker)
-   * @param kickerspeed The speed (in velocity) the kicker wheel is set to.
    */
-  public runKicker(KickerWheel kickerWheel, double kickerspeed) {
+  public runKicker(KickerWheel kickerWheel) {
     subsystem = kickerWheel;
-    kspeed = kickerspeed;
     
 
     // Use addRequirements() here to declare subsystem dependencies.
