@@ -20,13 +20,13 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   private double farShot;
   private double nearShot;
   private double climbing;
+  private double frontTrenchShot;
   private double futureOffsetAngle;
   private double field0;
   private double field90; 
   private double field180;
   private double field270;
 
-  private boolean isFieldOriented;
   private boolean isChangingGyroAngle;
   private boolean limelightRotationMode = false;
   private boolean wasPreviouslyChangingAngle = false; 
@@ -49,14 +49,14 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   public OperatorAngleAdjustment() {
     // Sets all the gyro offsets
     gyroOffset = 0;
-    farShot = 0;
+    farShot = 25;
     nearShot = 0;
-    climbing = 0;
+    climbing = 28;
+    frontTrenchShot = 33;
     field0 = 0;
     field90 = 90;
     field180 = 180;
     field270 = 270;
-    isFieldOriented = true;
   }
 
   /**
@@ -96,43 +96,56 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     case "farShot":
       futureOffsetAngle = farShot;
       Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDFAR);
-      Robot.Vision.setRotateLimelight(true);
+      Robot.Vision.setRotateLimelight(false);
       Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFAR);
       Robot.Vision.switchPipeLine(1);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     case "nearShot":
       futureOffsetAngle = nearShot;
       Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
-      Robot.Vision.setRotateLimelight(true);
+      Robot.Vision.setRotateLimelight(false);
       Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDCLOSE);
       Robot.Vision.switchPipeLine(0);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     case "climbing":
-    futureOffsetAngle = climbing;
-    Robot.Vision.setRotateLimelight(false);
+      futureOffsetAngle = climbing;
+      Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(false);
       break;
     case "targetLimelightOn":
       Robot.Vision.setRotateLimelight(true);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
+    case "frontTrenchShot":
+      futureOffsetAngle = frontTrenchShot;
+      Robot.Shooter.setFutureSpeed(Constants.SHOOTFRONTTRENCHSPEED);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFRONTTRENCH); 
     case "0":
       futureOffsetAngle = field0;
       Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     case "90":
       futureOffsetAngle = field90;
       Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     case "180":
       futureOffsetAngle = field180;
       Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     case "270":
       futureOffsetAngle = field270;
       Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     default:
       futureOffsetAngle = 0;
       Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
 
     }
   }

@@ -30,7 +30,7 @@ public class startShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    subsystem.currentLimitConfigurationMotor.currentLimit = 50;
+    subsystem.currentLimitConfigurationMotor.currentLimit = 70;
     subsystem.leftShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     subsystem.rightShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     //Sets the ramp rate. We set them here because in the execute of this command,
@@ -38,8 +38,8 @@ public class startShooter extends CommandBase {
     //Sets the speed.
     subsystem.setShooterSpeed(Robot.Shooter.getFutureSpeed());
   }
-
-
+  
+  
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {

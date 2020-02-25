@@ -100,7 +100,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         -0.407217 + Math.PI,   // Module 0
         2.2618739 + Math.PI,   // Module 1
         -1.193802 + Math.PI,   // Module 2 
-        -0.746431 + Math.PI    // Module 3 
+        -0.746431 - Math.PI / 2   // Module 3 
       };
     } else {
       angleOffsets = new double[] {
@@ -204,7 +204,13 @@ public class SwerveDrivetrain extends SubsystemBase {
 
       // Sets the angles and speeds if a joystick is beyond zero,
       // otherwise drive stops and the modules are sent to their last angle
-      if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband || Robot.OperatorAngleAdjustment.getSlowRotateMode()) {
+      if(
+        Math.abs(forward) > deadband 
+        || Math.abs(strafe) > deadband 
+        || Math.abs(rotation) > deadband 
+        || Robot.OperatorAngleAdjustment.getSlowRotateMode() 
+        || Robot.OperatorAngleAdjustment.getLimelightRotationMode()
+      ) {
         if(Math.abs((lastAngle[i] - angles[i])) < (Math.PI / 2)) {
           lastAngle[i] = angles[i];
         }
@@ -301,6 +307,23 @@ public class SwerveDrivetrain extends SubsystemBase {
    */
   public boolean getFieldOriented() {
       return this.isFieldOriented;
+  }
+
+  /**
+   * Sets the drive encoders for each module
+   */
+  public void setAllModuleDriveEncoders(int position) {
+    // Goes through 4 times and sets the drive encoders 
+    for(int i = 0; i < 4; i++) {
+      getModule(i).setDriveEncoder(position);
+    }
+  }
+  
+  /**
+   * Zeros all of the drive encoders
+   */
+  public void zeroAllDriveEncoders() {
+    setAllModuleDriveEncoders(0);
   }
 
   @Override

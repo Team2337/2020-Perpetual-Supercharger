@@ -55,7 +55,10 @@ public class Vision extends SubsystemBase {
     * 9 - Drivecam
     */
    public void switchPipeLine(int pipeline) {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+    double currentPipeline = NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").getDouble(0);
+    if(currentPipeline != pipeline){
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+    }
    }
 
     /**

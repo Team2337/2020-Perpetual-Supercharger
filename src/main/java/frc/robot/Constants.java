@@ -10,12 +10,24 @@ package frc.robot;
  */
 public final class Constants {
     public final class Swerve {
+        public static final double GEARRATIO = 8.31;
+        public static final double WHEELDIAMETER = 4;
+        public static final double TICKSPERREVOLUTION = GEARRATIO * 4096;
+        public static final double INCHESPERREVOLUTION = WHEELDIAMETER * Math.PI;
+        public static final double TICKSPERINCH = 1550;
+        public static final double INCHESPERDEGREE = 0.2722;
+        public static final double MINVELOCITY = 1;
+        public static final double TICKSPERDEGREE = 102;
         public final static double SLOWROTATESPEED = 0.05;
         public final static boolean SWERVEDEBUG = false;
     }
 
+    public static final class Auton {
+        public static final double INCHESTOJOYSTICKVALUE = 1;
+    }
+
     public final class KickerWheel {
-        public final static double SHORTVELOCITYP = 0.0001;
+        public final static double SHORTVELOCITYP = 0.0000525; //0000035
     }
     
     /*******************/
@@ -25,21 +37,22 @@ public final class Constants {
     /*******************/
 
     public static int CANID0;
-    public static int MODULE0DRIVEMOTORID;
-    public static int MODULE0ANGLEMOTORID;
-    public static int MODULE1DRIVEMOTORID;
-    public static int MODULE1ANGLEMOTORID;
-    public static int MODULE2DRIVEMOTORID;
-    public static int MODULE2ANGLEMOTORID;
-    public static int MODULE3DRIVEMOTORID;
-    public static int MODULE3ANGLEMOTORID;
-    public static int INTAKE;
-    public static int AGITATOR;
-    public static int CLIMBER;
-    public static int KICKER;
-    public static int SHOOTERLEFTMOTOR;
-    public static int SHOOTERRIGHTMOTOR;
-    public static int SERIALIZER;
+    public static int MODULE0DRIVEMOTORID = 0;
+    public static int MODULE1DRIVEMOTORID = 1;
+    public static int SHOOTERRIGHTMOTOR = 2;
+    public static int SHOOTERLEFTMOTOR = 3;
+    public static int MODULE0ANGLEMOTORID = 4;
+    public static int MODULE1ANGLEMOTORID = 5;
+    public static int KICKER = 6;
+                      //Limelight = 7
+    public static int INTAKE = 8;
+    public static int AGITATOR = 9;
+    public static int MODULE2ANGLEMOTORID = 10;
+    public static int MODULE3ANGLEMOTORID = 11;
+    public static int SERIALIZER = 12;
+    public static int CLIMBER = 13;
+    public static int MODULE2DRIVEMOTORID = 14;
+    public static int MODULE3DRIVEMOTORID = 15;
 
     /***************/
     /* ----------- */
@@ -110,7 +123,7 @@ public final class Constants {
     /* ----------------- */
     /*********************/
 
-    public static int PWMPORT0 = 0;
+    public static int BLINKIN = 0;
     public static int PWMPORT1 = 1;
     public static int PWMPORT2 = 2;
     public static int PWMPORT3 = 3;
@@ -182,10 +195,12 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     /** Speed to shoot at from ~16 feet away */
-    public static int SHOOTSPEEDCLOSE;
+    public static int SHOOTSPEEDCLOSE = 12500; 
 
     /** Speed to shoot at from ~34 feet away */
-    public static int SHOOTSPEEDFAR;
+    public static int SHOOTSPEEDFAR = 15000;
+
+    public static int SHOOTFRONTTRENCHSPEED = 15000;
 
     /**********************/
     /* ------------------ */
@@ -205,8 +220,8 @@ public final class Constants {
     /** Percent reverse speed when serializing or shooting */
     public static double SERIALIZERREVERSESPEED = -0.3;
     
-    /** Amount of ticks to reverse the serializer by when readying the kicker wheel */
-    public static double SERIALIZERREGRESSIONDISTANCE = 768;
+    //Amount of ticks to reverse the serializer by when readying the kicker wheel
+    public static double SERIALIZERREGRESSIONDISTANCE = -4096;
 
     /******************/
     /* -------------- */
@@ -219,6 +234,9 @@ public final class Constants {
 
     /** Kicker wheel velocity for the near shot */
     public static int KICKERSPEEDCLOSE;
+
+    public static int KICKERSPEEDFRONTTRENCH;
+
 
     /******************/
     /* -------------- */
@@ -260,10 +278,12 @@ public final class Constants {
             /* --- Shooter --- */
             SHOOTSPEEDCLOSE = 13000; //11500
             SHOOTSPEEDFAR = 15100; //14800
+            SHOOTFRONTTRENCHSPEED = 15000;
 
             /* --- Kicker --- */
-            KICKERSPEEDCLOSE = 3000; //500 //750
-            KICKERSPEEDFAR = 4500;
+            KICKERSPEEDCLOSE = 3000 * (7 / 3); //500 //750
+            KICKERSPEEDFAR = 4500 * (7 / 3);
+            KICKERSPEEDFRONTTRENCH = 4500 * (7/3);
 
             /* --- Vision --- */
             VISIONROTATIONP = 0.65;
@@ -287,12 +307,14 @@ public final class Constants {
             SERIALIZER = 15;
 
             /* --- Shooter --- */
-            SHOOTSPEEDCLOSE = 11500;
+            SHOOTSPEEDCLOSE = 12500;
             SHOOTSPEEDFAR = 14800;
-
+            SHOOTFRONTTRENCHSPEED = 15000;
+            
             /* --- Kicker --- */
-            KICKERSPEEDCLOSE = 500;
-            KICKERSPEEDFAR = 500;
+            KICKERSPEEDCLOSE = 3000 * (7 / 3);
+            KICKERSPEEDFAR = 4500 * (7/3);
+            KICKERSPEEDFRONTTRENCH = 4500 * (7/3);
 
             /* --- Vision --- */
             VISIONROTATIONP = 0.85;
