@@ -27,7 +27,7 @@ public class Shooter extends SubsystemBase {
    */
   private final boolean shooterDebug = true;
 
-  private boolean shooterAtVelocity = false;
+  public boolean shooterAtVelocity = false;
   private int m_FutureSpeed = Constants.SHOOTSPEEDCLOSE;
   public BooleanSupplier shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
         
