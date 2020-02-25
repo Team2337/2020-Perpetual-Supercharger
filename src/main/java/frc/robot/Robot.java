@@ -29,7 +29,8 @@ public String mac;
   private Command autonomousCommand;
   public static Constants Constants;
   public static Utilities Utilities;
-
+  
+  public static ColorWheel ColorWheel;
   public static Agitator Agitator;
   public static Climber Climber;
   public static ClimberBrake ClimberBrake;
@@ -72,7 +73,6 @@ public String mac;
       System.out.println("Socket Exception - " + e);
     }
     // Determines what robot we are using based on the MAC adress
-    // (make sure to change mac address for 2020 season)
 
     if (mac.equals("00:80:2F:17:89:85")) {
       System.out.println("PracticeBot " + mac);
@@ -93,6 +93,7 @@ public String mac;
     Climber = new Climber();
     ClimberBrake = new ClimberBrake();
     Intake = new Intake();
+    ColorWheel = new ColorWheel();
     KickerWheel = new KickerWheel();
     LEDs = new LEDs();
     Pigeon = new Pigeon();
