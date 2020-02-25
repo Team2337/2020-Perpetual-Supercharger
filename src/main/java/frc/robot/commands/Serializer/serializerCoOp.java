@@ -33,7 +33,7 @@ public class serializerCoOp extends CommandBase {
     public void execute() {
         // The driver takes priority
         if (Robot.OI.driverJoystick.triggerRight.get()) {
-            if (Robot.Shooter.shooterAtVelocity) { //Robot.Shooter.getAvgRPM() > Robot.Shooter.getTargetSpeed() * 0.9) {
+            if (Robot.Shooter.shooterAtVelocity) { 
                 if (i < 10) {
                     if(Robot.KickerWheel.getKickerSpeed() < 3500){
                         Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERREVERSESPEED);
