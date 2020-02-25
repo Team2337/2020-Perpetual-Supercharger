@@ -37,6 +37,9 @@ public class OperatorAngleAdjustment extends SubsystemBase {
 
   /* --- Private Boolean Values --- */
   private boolean slowRotateMode = false;
+  
+  private boolean rotateLimelight = false;
+  private boolean ballTrackingEnabled = false;
 
   /**
    * Class to change the robot's angle based on an offset. These offsets will be
@@ -209,6 +212,18 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    */
   public boolean getLimelightRotationMode() {
     return limelightRotationMode;
+  }
+
+  public void setBallTrackingEnabled(boolean enabled){
+    ballTrackingEnabled = enabled;
+  }
+
+  /**
+   * Lets us know if we are in the ball tracking mode, we are rotating using the pixycam
+   * @return whether or not we are tracking balls
+   */
+  public boolean getBallTrackingEnabled() {
+    return ballTrackingEnabled;
   }
 
   /**
