@@ -28,7 +28,7 @@ public class Climber extends SubsystemBase {
   private boolean isActivated = false;
 
   //Motor
-  private TalonFX climberMotor;
+  public TalonFX climberMotor;
 
   private TalonFXConfiguration TalonFXConfigurationClimber;
 
@@ -47,9 +47,9 @@ public class Climber extends SubsystemBase {
     climberMotor.configFactoryDefault();
 
     climberMotor.setInverted(false);
-    climberMotor.setNeutralMode(NeutralMode.Coast);
+    climberMotor.setNeutralMode(NeutralMode.Brake);
   
-    TalonFXConfigurationClimber.slot0.kP = 0.025;
+    TalonFXConfigurationClimber.slot0.kP = 0.03375;
     TalonFXConfigurationClimber.slot0.kI = 0;
     TalonFXConfigurationClimber.slot0.kD = 0;
     TalonFXConfigurationClimber.slot0.kF = 0;
@@ -59,7 +59,7 @@ public class Climber extends SubsystemBase {
     TalonFXConfigurationClimber.reverseSoftLimitEnable = true;
     TalonFXConfigurationClimber.forwardSoftLimitEnable = true;
     TalonFXConfigurationClimber.reverseSoftLimitThreshold = 30000;    
-    TalonFXConfigurationClimber.forwardSoftLimitThreshold = 230000; //Top position: ~248,000
+    TalonFXConfigurationClimber.forwardSoftLimitThreshold = 240000; //Top position: ~248,000
     TalonFXConfigurationClimber.initializationStrategy = SensorInitializationStrategy.BootToZero;
 
     climberMotor.configAllSettings(TalonFXConfigurationClimber);
