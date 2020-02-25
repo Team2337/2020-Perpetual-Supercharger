@@ -123,7 +123,7 @@ public final class Constants {
     /* ----------------- */
     /*********************/
 
-    public static int PWMPORT0 = 0;
+    public static int BLINKIN = 0;
     public static int PWMPORT1 = 1;
     public static int PWMPORT2 = 2;
     public static int PWMPORT3 = 3;

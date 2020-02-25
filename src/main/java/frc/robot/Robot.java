@@ -11,8 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
-import frc.robot.commands.auto.commandgroups.sixball.CenterGoalFront6BallFeedLeftTrench3BallShoot;
+import frc.robot.commands.auto.commandgroups.sixball.CenterFeedRightTRGrab3GenRGrab2Score5;
 import frc.robot.commands.auto.commandgroups.threeball.CenterGoal3Ball;
 import frc.robot.subsystems.*;
 
@@ -35,7 +36,7 @@ public String mac;
   public static ClimberBrake ClimberBrake;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
-  public static LEDs LEDs;
+  public static LED LED;
   public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
@@ -46,6 +47,7 @@ public String mac;
   public static PowerDistributionPanel PDP;
   public static OI OI;
   public SendableChooser<String> autonChooser;
+  public SendableChooser<String> delayChooser;
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -94,7 +96,7 @@ public String mac;
     ClimberBrake = new ClimberBrake();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
-    LEDs = new LEDs();
+    LED = new LED();
     Pigeon = new Pigeon();
     OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Serializer = new Serializer();
@@ -109,13 +111,29 @@ public String mac;
     Pigeon.resetPidgey();
     Vision.switchPipeLine(0);
     Vision.setLEDMode(1);
-    
+    Climber.climberMotor.setSelectedSensorPosition(0);
+
+    LED.setColor(LED.blue);
+
     autonChooser = new SendableChooser<String>();
+    delayChooser = new SendableChooser<String>();
 
     autonChooser.setDefaultOption("default", "default");
     autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
     autonChooser.addOption("CenterGoalFront6BallFeedLeftTrench3BallShoot", "CenterGoalFront6BallFeedLeftTrench3BallShoot");
     autonChooser.addOption("Shoot 3 And Back Up", "CenterGoal3Ball");
+
+    delayChooser.setDefaultOption("0", "0");
+    delayChooser.addOption("0.5", "0.5");
+    delayChooser.addOption("1", "1");
+    delayChooser.addOption("1.5", "1.5");
+    delayChooser.addOption("2", "2");
+    delayChooser.addOption("2.5", "2.5");
+    delayChooser.addOption("3", "3");
+    delayChooser.addOption("3.5", "3.5");
+    delayChooser.addOption("4", "4");
+    delayChooser.addOption("4.5", "4.5");
+    delayChooser.addOption("5", "5");
   }
 
   /**
@@ -131,7 +149,8 @@ public String mac;
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putData("AutonSelector", autonChooser);
+    SmartDashboard.putData("Auton Selector", autonChooser);
+    SmartDashboard.putData("Delay Selector", delayChooser);
   }
 
   /**
@@ -151,15 +170,54 @@ public String mac;
    */
   @Override
   public void autonomousInit() {
+    double delay = 0;
+    switch (delayChooser.getSelected()) {
+      case "0.5":
+      delay = 0.5;
+      break;
+      case "1":
+      delay = 1;
+      break;
+      case "1.5":
+      delay = 1.5;
+      break;
+      case "2":
+      delay = 2;
+      break;
+      case "2.5":
+      delay = 2.5;
+      break;
+      case "3":
+      delay = 3;
+      break;
+      case "3.5":
+      delay = 3.5;
+      break;
+      case "4":
+      delay = 4;
+      break;
+      case "4.5":
+      delay = 4.5;
+      break;
+      case "5":
+      delay = 5;
+      break;
+      default:
+      delay = 0;
+      break;
+    }
     switch (autonChooser.getSelected()) {
       case "CenterGoalBack9BallGenerator3Ball":
-        autonomousCommand = new CenterGoalBack9BallGenerator3Ball();
+        autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
         break;
       case "CenterGoalFront6BallFeedLeftTrench3BallShoot":
-        autonomousCommand = new CenterGoalFront6BallFeedLeftTrench3BallShoot();
+        autonomousCommand = new CenterFeedRightTRGrab3GenRGrab2Score5(delay);
         break;
         case "CenterGoal3Ball":
-        autonomousCommand = new CenterGoal3Ball();
+        autonomousCommand = new CenterGoal3Ball(delay);
+        break;
+        default:
+        autonomousCommand = new WaitCommand(15).withTimeout(15);
         break;
       
     }
@@ -178,7 +236,6 @@ public String mac;
 
   @Override
   public void teleopInit() {
-    Shooter.stopShooter();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
