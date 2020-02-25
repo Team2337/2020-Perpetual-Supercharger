@@ -23,7 +23,7 @@ public class Climber extends SubsystemBase {
    * Specifies whether or not the climber will be in debug mode.
    * @see #periodic()
    */
-  private final boolean climberDebug = true;
+  private final boolean climberDebug = false;
 
   private boolean isActivated = false;
 
