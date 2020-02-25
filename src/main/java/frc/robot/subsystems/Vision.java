@@ -14,15 +14,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
    * @category VISION
    */
 public class Vision extends SubsystemBase {
-  public AnalogInput pixyRight;
-  public AnalogInput pixyLeft;
-  public DigitalInput pixyDigitalRight;
+  public AnalogInput pixyLeftAnalog;
+  public AnalogInput pixyRightAnalog;
+  public DigitalInput pixyLeftDigital;
+  public DigitalInput pixyRightDigital;
+  
   private boolean rotateLimelight = false;
 
   public Vision() {
-    pixyRight = new AnalogInput(4);
-    pixyLeft = new AnalogInput(5);
-    pixyDigitalRight = new DigitalInput(5);
+    pixyRightAnalog = new AnalogInput(4);
+    pixyRightDigital = new DigitalInput(5);
+    pixyLeftAnalog = new AnalogInput(5);
+    pixyLeftDigital = new DigitalInput(6);
   }
 
  /**
@@ -113,7 +116,7 @@ public class Vision extends SubsystemBase {
    * @return The voltage of the Pixy camera
    */
   public double getPixyRightValue() {
-    return (pixyRight.getVoltage() * (60 / 3.3) - 30) /2;
+    return (pixyRightAnalog.getVoltage() * (60 / 3.3) - 30) /2;
   }
   
   /**
@@ -121,15 +124,17 @@ public class Vision extends SubsystemBase {
    * @return The voltage of the Pixy camera
    */
   public double getPixyLeftValue() {
-    return (pixyLeft.getVoltage() * (60 / 3.3) - 30) / 2;
+    return (pixyLeftAnalog.getVoltage() * (60 / 3.3) - 30) / 2;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Voltage", pixyRight.getVoltage());
-    SmartDashboard.putNumber("pixyRight", getPixyRightValue());
-    SmartDashboard.putBoolean("Pixyright", pixyDigitalRight.get());
-    SmartDashboard.putNumber("Rotation motor value", (Math.toRadians(getPixyRightValue()) * Constants.VISIONROTATIONP));
-  }
+    SmartDashboard.putNumber("Pixy Right Raw Analog Voltage", pixyRightAnalog.getVoltage());
+    SmartDashboard.putNumber("Pixy Right Analog Degrees", getPixyRightValue());
+    SmartDashboard.putBoolean("Pixy Right sees target", pixyRightDigital.get());
+    SmartDashboard.putNumber("Pixy Left Raw Analog Voltage", pixyLeftAnalog.getVoltage());
+    SmartDashboard.putNumber("Pixy Left Analog Degrees", getPixyLeftValue());
+    SmartDashboard.putBoolean("Pixy Left sees target", pixyLeftDigital.get()); 
+   }
 }

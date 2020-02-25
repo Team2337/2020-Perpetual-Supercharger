@@ -37,8 +37,6 @@ public class OperatorAngleAdjustment extends SubsystemBase {
 
   /* --- Private Boolean Values --- */
   private boolean slowRotateMode = false;
-  
-  private boolean rotateLimelight = false;
   private boolean ballTrackingEnabled = false;
 
   /**

@@ -110,8 +110,8 @@ public class SwerveDriveCommand extends CommandBase {
       rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.VISIONROTATIONP);
     }
 
-    if(Robot.OI.driverJoystick.greenA.get()){
-      if(Robot.Vision.pixyDigitalRight.get()){
+    if(Robot.OperatorAngleAdjustment.getBallTrackingEnabled()){
+      if(Robot.Vision.pixyRightDigital.get()) {
         rotation = -(Math.toRadians(Robot.Vision.getPixyRightValue()) * Constants.VISIONROTATIONP);
       } else {
         rotation = 0;
