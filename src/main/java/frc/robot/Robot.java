@@ -113,7 +113,7 @@ public String mac;
     Vision.setLEDMode(1);
     Climber.climberMotor.setSelectedSensorPosition(0);
 
-    LED.setColor(LED.blue);
+    LED.setColor(LED.white);
 
     autonChooser = new SendableChooser<String>();
     delayChooser = new SendableChooser<String>();
@@ -251,6 +251,8 @@ public String mac;
     }
     
     Pigeon.resetPidgey();
+
+    LED.setColor(LED.red);
   }
 
   /**
