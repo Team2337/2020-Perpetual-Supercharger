@@ -1,6 +1,7 @@
 package frc.robot.commands.Climber;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.subsystems.Climber;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -24,13 +25,14 @@ public class activateClimber extends InstantCommand {
     subsystem = m_subsystem;
   this.isActivated = isActivated;    
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_subsystem);
+    addRequirements(m_subsystem, Robot.ClimberBrake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     // This will set the climber to run at a set speed
+    Robot.ClimberBrake.disengageBrake();
     subsystem.setClimberActivated(isActivated);
   }
 

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 //Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
@@ -22,7 +23,7 @@ public class Climber extends SubsystemBase {
    * Specifies whether or not the climber will be in debug mode.
    * @see #periodic()
    */
-  private final boolean climberDebug = false;
+  private final boolean climberDebug = true;
 
   private boolean isActivated = false;
 
@@ -46,8 +47,9 @@ public class Climber extends SubsystemBase {
     climberMotor.configFactoryDefault();
 
     climberMotor.setInverted(false);
+    climberMotor.setNeutralMode(NeutralMode.Coast);
   
-    TalonFXConfigurationClimber.slot0.kP = 0.01;
+    TalonFXConfigurationClimber.slot0.kP = 0.025;
     TalonFXConfigurationClimber.slot0.kI = 0;
     TalonFXConfigurationClimber.slot0.kD = 0;
     TalonFXConfigurationClimber.slot0.kF = 0;
@@ -56,8 +58,8 @@ public class Climber extends SubsystemBase {
     TalonFXConfigurationClimber.peakOutputReverse = -0.9;
     TalonFXConfigurationClimber.reverseSoftLimitEnable = true;
     TalonFXConfigurationClimber.forwardSoftLimitEnable = true;
-    TalonFXConfigurationClimber.reverseSoftLimitThreshold = 0;
-    TalonFXConfigurationClimber.forwardSoftLimitThreshold = 100000;
+    TalonFXConfigurationClimber.reverseSoftLimitThreshold = 30000;    
+    TalonFXConfigurationClimber.forwardSoftLimitThreshold = 230000; //Top position: ~248,000
     TalonFXConfigurationClimber.initializationStrategy = SensorInitializationStrategy.BootToZero;
 
     climberMotor.configAllSettings(TalonFXConfigurationClimber);
@@ -80,7 +82,9 @@ public class Climber extends SubsystemBase {
       //If in debug mode, put the climber speed and temperature on SmartDashboard/Shuffleboard
       SmartDashboard.putNumber("Climber Motor Speed", getClimberSpeed());
       SmartDashboard.putNumber("Climber Motor Temperature", getClimberTemperature());
+      SmartDashboard.putNumber("Climber Encoder Value", climberMotor.getSelectedSensorPosition());
     }
+    SmartDashboard.putBoolean("Climber Activated", getClimberActivated());
   }
 
   /**
