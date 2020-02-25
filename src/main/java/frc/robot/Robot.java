@@ -30,10 +30,11 @@ public String mac;
   private Command autonomousCommand;
   public static Constants Constants;
   public static Utilities Utilities;
-
+  
   public static Agitator Agitator;
   public static Climber Climber;
   public static ClimberBrake ClimberBrake;
+  public static ColorWheel ColorWheel;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
   public static LED LED;
@@ -94,6 +95,7 @@ public String mac;
     Agitator = new Agitator();
     Climber = new Climber();
     ClimberBrake = new ClimberBrake();
+    ColorWheel = new ColorWheel();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
     LED = new LED();

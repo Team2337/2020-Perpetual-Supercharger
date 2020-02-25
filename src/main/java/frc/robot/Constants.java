@@ -237,6 +237,8 @@ public final class Constants {
 
     public static int KICKERSPEEDFRONTTRENCH;
 
+    public static double COLORWHEELSPEED = 3000 * (7 / 3);
+
 
     /******************/
     /* -------------- */
