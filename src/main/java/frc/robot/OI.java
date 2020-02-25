@@ -59,6 +59,9 @@ public class OI {
         //Sets the intake motors to intake balls
         operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
         operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
+/* 
+        operatorJoystick.triggerRight.whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
+        operatorJoystick.triggerRight.whenReleased(new stopAgitator(Robot.Agitator)); */
 
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKEFORWARDSPEED));
@@ -74,7 +77,7 @@ public class OI {
         operatorJoystick.bumperLeft.whenReleased(new feedSystemStop());
 
          // Run the agitator leftwards
-        operatorJoystick.rightStickButton        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
+        operatorJoystick.rightStickButton        .whenPressed(new runAgitator(Robot.Agitator, 0.2));
         operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator));
 
         // Move the climber upwards
@@ -91,7 +94,7 @@ public class OI {
         // Buttons to queue the robot's angle offset 
         operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
         operatorJoystick.redB.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "nearShot"));
-        operatorJoystick.blueX.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "targetLimelightOn"));
+        operatorJoystick.blueX.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "frontTrenchShot"));
         operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
         
         operatorJoystick.povUp.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "0"));

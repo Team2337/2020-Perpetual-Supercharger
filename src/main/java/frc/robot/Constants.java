@@ -198,9 +198,9 @@ public final class Constants {
     public static int SHOOTSPEEDCLOSE = 12500; 
 
     /** Speed to shoot at from ~34 feet away */
-    public static int SHOOTSPEEDFAR = 15000;
+    public static int SHOOTSPEEDFAR = 15000; //15000
 
-    public static int SHOOTFRONTTRENCHSPEED = 15000;
+    public static int SHOOTFRONTTRENCHSPEED = 14000;
 
     /**********************/
     /* ------------------ */
@@ -245,7 +245,8 @@ public final class Constants {
     /******************/
 
     /** P value for vision rotation */
-    public static double VISIONROTATIONP = 0.65; // 0.85
+    public static double VISIONCLOSEROTATIONP = 0.65; // 0.85
+    public static double VISIONFARROTATIONP = 0.85; // 0.85
 
 
     /**
@@ -276,17 +277,14 @@ public final class Constants {
             MODULE3DRIVEMOTORID = 15;
 
             /* --- Shooter --- */
-            SHOOTSPEEDCLOSE = 13000; //11500
-            SHOOTSPEEDFAR = 15100; //14800
-            SHOOTFRONTTRENCHSPEED = 15000;
+            SHOOTSPEEDCLOSE = 13000; //13000 - week 0 working 
+            SHOOTSPEEDFAR = 15100; //15100 - week 0 working //
+            SHOOTFRONTTRENCHSPEED = 13750;
 
             /* --- Kicker --- */
-            KICKERSPEEDCLOSE = 3000 * (7 / 3); //500 //750
-            KICKERSPEEDFAR = 4500 * (7 / 3);
-            KICKERSPEEDFRONTTRENCH = 4500 * (7/3);
-
-            /* --- Vision --- */
-            VISIONROTATIONP = 0.65;
+            KICKERSPEEDCLOSE = 7000; //7000 - week 0 working
+            KICKERSPEEDFAR = 4000; //10500 - week 0 working
+            KICKERSPEEDFRONTTRENCH = 4000;
 
         } else {
             CANID0 = 0;
@@ -315,9 +313,6 @@ public final class Constants {
             KICKERSPEEDCLOSE = 3000 * (7 / 3);
             KICKERSPEEDFAR = 4500 * (7/3);
             KICKERSPEEDFRONTTRENCH = 4500 * (7/3);
-
-            /* --- Vision --- */
-            VISIONROTATIONP = 0.85;
 
         }
     }

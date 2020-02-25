@@ -49,7 +49,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     farShot = 25;
     nearShot = 0;
     climbing = 28;
-    frontTrenchShot = 33;
+    frontTrenchShot = 13;
     field0 = 0;
     field90 = 90;
     field180 = 180;
@@ -117,6 +117,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       break;
     case "frontTrenchShot":
       futureOffsetAngle = frontTrenchShot;
+      Robot.Vision.switchPipeLine(1);
       Robot.Shooter.setFutureSpeed(Constants.SHOOTFRONTTRENCHSPEED);
       Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFRONTTRENCH); 
     case "0":

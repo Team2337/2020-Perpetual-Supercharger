@@ -51,6 +51,14 @@ public class Vision extends SubsystemBase {
     }
    }
 
+   /**
+    * Gets the current pipeline on the limelight
+    * @return - Double value limelight pipeline (0 -> 9)
+    */
+   public double getPipeline() {
+     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").getDouble(0);
+   }
+
     /**
      * This will get the value from tx, ta, etc. by using a string
      * @param output - string double value

@@ -20,7 +20,7 @@ public class serializerCoOp extends CommandBase {
     public serializerCoOp(Serializer serializer) {
         this.serializer = serializer;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(serializer);
+        addRequirements(serializer, Robot.Agitator);
     }
 
     // Called when the command is initially scheduled.
@@ -48,16 +48,16 @@ public class serializerCoOp extends CommandBase {
             }
             // If the driver isn't attempting to control it and the operator is
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
+            Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
             // Set the kicker to hold it's position (done in the kicker subsystem)
             if (serializer.topSerializerSensor.get() && serializer.middleSerializerSensor.get()) {
                 serializer.stopSerializer();
-                Robot.Agitator.stopAgitator();
+                // Robot.Agitator.stopAgitator();
             } else if (serializer.bottomSerializerSensor.get()) {
                 serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
-                Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
             } else {
                 serializer.stopSerializer();
-                Robot.Agitator.stopAgitator();
+                // Robot.Agitator.stopAgitator();
             }
         } else {
             // If no-one is trying to control the kicker wheel, stop it
