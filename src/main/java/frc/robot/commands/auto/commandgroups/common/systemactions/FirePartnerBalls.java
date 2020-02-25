@@ -6,6 +6,7 @@ import frc.robot.commands.Agitator.runAgitator;
 import frc.robot.commands.Intake.runIntake;
 import frc.robot.commands.Serializer.runSerializer;
 import frc.robot.commands.Shooter.stopShooter;
+import frc.robot.commands.auto.AutoDriveWithJoystickInput;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
@@ -20,10 +21,8 @@ public class FirePartnerBalls extends SequentialCommandGroup {
     public FirePartnerBalls(int numOfPartners) {
         addCommands(new FirePreloads().withTimeout(3.2),
                 new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED),
-                new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED),
                 new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-                new WaitCommand(numOfPartners * 3).withTimeout(numOfPartners * 3),
-                new stopShooter(Robot.Shooter)
+                new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED).withTimeout(10)
                 );
         
     }

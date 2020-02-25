@@ -28,7 +28,6 @@ public class CenterGoal9Ball extends SequentialCommandGroup {
     addCommands(
       new WaitCommand(delay).withTimeout(delay),
       new FirePartnerBalls(2),
-      new stopSerializer(Robot.Serializer),
       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FirstDrive.driveDist, FirstDrive.forward, FirstDrive.strafe, FirstDrive.moduleAngle).withTimeout(FirstDrive.driveTimeout)
     );
   
