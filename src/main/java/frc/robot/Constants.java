@@ -307,7 +307,7 @@ public final class Constants {
             /* --- Shooter --- */
             SHOOTSPEEDCLOSE = 12500;
             SHOOTSPEEDFAR = 14800;
-            SHOOTFRONTTRENCHSPEED = 15000;
+            SHOOTFRONTTRENCHSPEED = 13700;
             
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 3000 * (7 / 3);
