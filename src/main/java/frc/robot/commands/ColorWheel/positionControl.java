@@ -40,11 +40,12 @@ public class positionControl extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    subsystem.stopKicker();
   }
 
   @Override
   public boolean isFinished() {
-    return colorValue == "Blue";
+    return colorValue == "Green"/*Robot.ColorWheel.positionColor*/;
   }
 }
 

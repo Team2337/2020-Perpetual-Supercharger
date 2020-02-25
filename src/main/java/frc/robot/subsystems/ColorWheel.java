@@ -1,10 +1,10 @@
 package frc.robot.subsystems;
 
-
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -28,6 +28,7 @@ public class ColorWheel extends SubsystemBase {
   
   ColorMatch m_colorMatcher = new ColorMatch();
   String colorString;
+  public String positionColor;
   
   public ColorWheel() {
 // This makes it so that the colors match to the RGB values
@@ -39,7 +40,29 @@ public class ColorWheel extends SubsystemBase {
 // periodic runs every 20 milliseconds to detect the color found and send that reading to the SmartDashboard//
 
   public void periodic() {
-    
+    // Finds what the position control color will be and converts into a usable string for other code.
+    String gameData;
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
+if(gameData.length() > 0)
+{
+  switch (gameData.charAt(0))
+  {
+    case 'B' :
+    positionColor = "Blue";
+      break;
+    case 'G' :
+      positionColor = "Green";
+      break;
+    case 'R' :
+    positionColor = "Red";
+      break;
+    case 'Y' :
+    positionColor = "Yellow";
+      break;
+    default :
+      break;
+  }
+}
     String color = getColor();
     
     SmartDashboard.putString("Detected Color", color);
@@ -49,23 +72,20 @@ public class ColorWheel extends SubsystemBase {
     Color detectedColor = m_colorSensor.getColor();
     
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-    SmartDashboard.putString("Match Color", match.color.toString());
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    
+    /*
+
+    */
     if (match.color == kBlueTarget) {
-      colorString = "Blue";
-    } else if (match.color == kRedTarget) {
       colorString = "Red";
+    } else if (match.color == kRedTarget) {
+      colorString = "Blue";
     } else if (match.color == kGreenTarget) {
-      colorString = "Green";
-    } else if (match.color == kYellowTarget) {
       colorString = "Yellow";
+    } else if (match.color == kYellowTarget) {
+      colorString = "Green";
     } else {
       colorString = "Unknown";
     }
-    SmartDashboard.putString("detected", colorString);
 
     return colorString;
     

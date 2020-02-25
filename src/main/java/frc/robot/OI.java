@@ -4,6 +4,8 @@ import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
+import frc.robot.commands.ColorWheel.positionControl;
+import frc.robot.commands.ColorWheel.rotationControl;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.Serializer.*;
 import frc.robot.Robot;
@@ -54,6 +56,9 @@ public class OI {
         driverJoystick.back.whenPressed(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true));
         driverJoystick.back.whenReleased(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false));
 
+
+        driverJoystick.leftStickButton.whenPressed(new positionControl(Robot.KickerWheel));
+        driverJoystick.rightStickButton.whenPressed(new rotationControl(Robot.KickerWheel));
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
