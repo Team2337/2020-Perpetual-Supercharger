@@ -86,6 +86,13 @@ public class FXSwerveModule {
     /** Sets the max speed for the drive motors */
     private double driveMaxSpeed = 1.0;
 
+    private int angleAllowableClosedloopError = 5;
+    private double talonAngleP = 2.5;
+    private double talonAngleI = 0;
+    private double talonAngleD = 0;
+    private double talonAngleF = 0;
+    private int angleEncoderOffset;
+
     /* --- Booleans --- */
 
     /** Sets the inversion mode on the drive motors (True: invered | False: not inverted) */
@@ -159,7 +166,14 @@ public class FXSwerveModule {
         angleMotor.setSensorPhase(false);
         angleMotor.setInverted(false);
 
+        TalonFXConfigurationAngle.slot0.kP = talonAngleP;
+        TalonFXConfigurationAngle.slot0.kI = talonAngleI;
+        TalonFXConfigurationAngle.slot0.kD = talonAngleD;
+        TalonFXConfigurationAngle.slot0.kF = talonAngleF;
+        TalonFXConfigurationAngle.slot0.allowableClosedloopError = angleAllowableClosedloopError;
         TalonFXConfigurationAngle.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
+        TalonFXConfigurationAngle.feedbackNotContinuous = true;
+        TalonFXConfigurationAngle.integratedSensorOffsetDegrees = angleEncoderOffset / 5.6888;
         TalonFXConfigurationAngle.openloopRamp = 0.15;
 
         angleMotor.configAllSettings(TalonFXConfigurationAngle); 
@@ -338,6 +352,41 @@ public class FXSwerveModule {
      */
     public double getAngleMotorTemperature() {
         return angleMotor.getTemperature();
+    }
+
+    /**
+     * Gets the drive encoder position in ticks
+     * @return - The selected sensor position
+     */
+    public int getDriveEncoderValue() {
+        return driveMotor.getSelectedSensorPosition(0);
+    }
+
+    /**
+     * Sets the encoder drive position
+     * @param position - Sets the selected sensor position
+     */
+    public void setDriveEncoder(int position) {
+        driveMotor.setSelectedSensorPosition(position, 0, 0);
+    }
+
+    /**
+     * Zeros all drive encoders
+     */
+    public void zeroDriveEncoder() {
+        setDriveEncoder(0);
+    }
+
+    /**
+     * Gets the angle encoder position in ticks
+     * @return - The selected sensor position
+     */    
+    public int getAngleEncoderValue() {
+        return angleMotor.getSelectedSensorPosition(0);
+    }
+
+    public void setAngleEncoder(int position) {
+        angleMotor.setSelectedSensorPosition(position, 0, 0);
     }
 
     /*************************/

@@ -81,7 +81,7 @@ public class Utilities {
    * @param tolerance A range that the given value can be within the target value before returning true
    * @return Whether or not the current value is within a tolerance of the target
    */
-  public boolean atPosition(double target, double current, double tolerance) {
+  public boolean withinTolerance(double target, double current, double tolerance) {
     return Math.abs(target - current) <= tolerance;
   }
 }
