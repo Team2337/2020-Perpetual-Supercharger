@@ -58,7 +58,7 @@ public class adjustSerializer extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return withinTolerance >= 100;
+    return withinTolerance >= 10;
   }
 
 }
