@@ -36,7 +36,7 @@ public String mac;
   public static ClimberBrake ClimberBrake;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
-  public static LEDs LEDs;
+  public static LED LED;
   public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
@@ -96,7 +96,7 @@ public String mac;
     ClimberBrake = new ClimberBrake();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
-    LEDs = new LEDs();
+    LED = new LED();
     Pigeon = new Pigeon();
     OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Serializer = new Serializer();
@@ -111,6 +111,8 @@ public String mac;
     Pigeon.resetPidgey();
     Vision.switchPipeLine(0);
     Vision.setLEDMode(1);
+
+    LED.setColor(LED.blue);
 
     autonChooser = new SendableChooser<String>();
     delayChooser = new SendableChooser<String>();
