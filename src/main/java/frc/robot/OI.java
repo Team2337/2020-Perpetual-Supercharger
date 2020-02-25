@@ -101,13 +101,14 @@ public class OI {
 
         /* --- DRIVER STATION CONTROLS --- */
         operatorControls.BlackSwitch.whenPressed(new activateClimber(Robot.Climber, true));
+        operatorControls.BlackSwitch.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
         operatorControls.BlackSwitch.whenReleased(new activateClimber(Robot.Climber, false));
 
-        operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 20000, false));
-        operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 20000, true));
+        operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 177500, false));
+        operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 177500, true));
 
-        operatorControls.BlueButton.whenPressed(new runClimber(Robot.Climber, 0, false));
-        operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 0, true));
+        operatorControls.BlueButton.whenPressed(new runClimber(Robot.Climber, 50000, false));
+        operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 50000, true));
 
         operatorControls.YellowButton.whenPressed(new engageBrake(Robot.ClimberBrake));
 

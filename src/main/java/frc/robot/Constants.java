@@ -72,7 +72,7 @@ public final class Constants {
     public static int PCM0PORT0 = 0;
     public static int PCM0PORT1 = 1;
     public static int PCM0PORT2 = 2;
-    public static int PCM0PORT3 = 3;
+    public static int PCMCLIMBERBRAKE = 3;
     public static int PCM0PORT4 = 4;
     public static int PCM0PORT5 = 5;
     public static int PCM0PORT6 = 6;
@@ -123,11 +123,11 @@ public final class Constants {
     /* ----------------- */
     /*********************/
 
-    public static int BLINKIN = 0;
+    public static int PWMPORT0 = 0;
     public static int PWMPORT1 = 1;
     public static int PWMPORT2 = 2;
     public static int PWMPORT3 = 3;
-    public static int PWMPORT4 = 4;
+    public static int PWMBLINKIN = 4;
     public static int PWMPORT5 = 5;
     public static int PWMPORT6 = 6;
     public static int PWMPORT7 = 7;

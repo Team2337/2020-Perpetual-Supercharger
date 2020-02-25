@@ -43,7 +43,7 @@ public class LED extends SubsystemBase {
 	 * @param pwm The PWM port that the blinkin is plugged into
 	 */
 	public LED() {
-		blinkin = new Spark(Constants.BLINKIN);
+		blinkin = new Spark(Constants.PWMBLINKIN);
 		blinkin.setSafetyEnabled(false);
 	}
 

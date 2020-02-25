@@ -111,6 +111,7 @@ public String mac;
     Pigeon.resetPidgey();
     Vision.switchPipeLine(0);
     Vision.setLEDMode(1);
+    Climber.climberMotor.setSelectedSensorPosition(0);
 
     LED.setColor(LED.blue);
 
