@@ -106,8 +106,9 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       Robot.Vision.switchPipeLine(0);
       Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
-    case "climbing":
+      case "climbing":
       futureOffsetAngle = climbing;
+      Robot.Vision.switchPipeLine(0);
       Robot.Vision.setRotateLimelight(false);
       Robot.SwerveDrivetrain.setFieldOriented(false);
       break;

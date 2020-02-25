@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
-import frc.robot.commands.auto.commandgroups.sixball.CenterFeedRightTRGrab3GenRGrab2Score5;
-import frc.robot.commands.auto.commandgroups.threeball.CenterGoal3Ball;
+import frc.robot.commands.auto.commandgroups.nineball.*;
+import frc.robot.commands.auto.commandgroups.sixball.*;
+import frc.robot.commands.auto.commandgroups.threeball.*;
 import frc.robot.subsystems.*;
 
 /**
@@ -207,16 +207,22 @@ public String mac;
       break;
     }
     switch (autonChooser.getSelected()) {
+      case "9 Ball - Back Up":
+        autonomousCommand = new CenterGoal9Ball(delay);
+        break;
       case "CenterGoalBack9BallGenerator3Ball":
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
         break;
-      case "CenterGoalFront6BallFeedLeftTrench3BallShoot":
+      case "6 Ball - Partner Left - 3 Trench - 2 Generator":
+        autonomousCommand = new CenterFeedLeftTRGrab3GenRGrab2Score5(delay);
+        break;
+      case "6 Ball - Partner Right - 3 Trench - 2 Generator":
         autonomousCommand = new CenterFeedRightTRGrab3GenRGrab2Score5(delay);
         break;
-        case "CenterGoal3Ball":
+      case "3 Ball - Back Up":
         autonomousCommand = new CenterGoal3Ball(delay);
         break;
-        default:
+      default:
         autonomousCommand = new WaitCommand(15).withTimeout(15);
         break;
       
