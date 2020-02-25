@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -38,17 +39,21 @@ public class ColorWheel extends SubsystemBase {
 // periodic runs every 20 milliseconds to detect the color found and send that reading to the SmartDashboard//
 
   public void periodic() {
-
+    
     String color = getColor();
-
+    
     SmartDashboard.putString("Detected Color", color);
   }
   // This checks the color and sees if its a color on the color wheel.
   public String getColor() {
     Color detectedColor = m_colorSensor.getColor();
-
+    
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-
+    SmartDashboard.putString("Match Color", match.color.toString());
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    
     if (match.color == kBlueTarget) {
       colorString = "Blue";
     } else if (match.color == kRedTarget) {
@@ -60,7 +65,9 @@ public class ColorWheel extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
+    SmartDashboard.putString("detected", colorString);
 
     return colorString;
+    
   }
 }
