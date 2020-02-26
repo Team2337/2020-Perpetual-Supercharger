@@ -6,6 +6,8 @@ import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.Serializer.*;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
@@ -67,10 +69,10 @@ public class OI {
         operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKEFORWARDSPEED));
         operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake));
 
- /*        operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
+         operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
         }, new feedSystemForward(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
         operatorJoystick.triggerLeft.whenReleased(new ConditionalCommand(new CommandBase() {
-        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier)); */
+        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier)); 
         //TRIGGER LEFT IN SERIALIZER COMMAND
 
         operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
@@ -106,6 +108,7 @@ public class OI {
         operatorControls.BlackSwitch.whenPressed(new activateClimber(Robot.Climber, true));
         operatorControls.BlackSwitch.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
         operatorControls.BlackSwitch.whenReleased(new activateClimber(Robot.Climber, false));
+        operatorControls.BlackSwitch.whenReleased(new engageBrake(Robot.ClimberBrake));
 
         operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 177500, false));
         operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 177500, true));
