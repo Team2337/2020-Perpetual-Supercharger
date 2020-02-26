@@ -32,7 +32,7 @@ public class Trench3BallPartnerDoesNotMove extends SequentialCommandGroup {
       new resetDriveEncoders(Robot.SwerveDrivetrain),
       new PreTrenchPartnerOnRight(),
       new InTrench3Ball(driveDistance),
-      new PostTrench()
+      new PostTrench() 
     ); 
   }
 }
