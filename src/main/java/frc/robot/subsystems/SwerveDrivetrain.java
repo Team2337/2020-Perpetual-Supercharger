@@ -95,12 +95,21 @@ public class SwerveDrivetrain extends SubsystemBase {
   public SwerveDrivetrain() {
     setDefaultCommand(new SwerveDriveCommand(this));
 
-    angleOffsets = new double[] {
-      4.5611,  // Module 0 //4.57
-      1.278353,   // Module 1 //1.3
-      -0.666697, // Module 2 //-0.678327
-      -5.90436  // Module 3 -5.95
-    };
+    if(Robot.isComp) {
+      angleOffsets = new double[] {
+        -0.407217 + Math.PI,   // Module 0
+        2.2618739 + Math.PI,   // Module 1
+        -1.193802 + Math.PI,   // Module 2 
+        -0.746431 - Math.PI / 2   // Module 3 
+      };
+    } else {
+      angleOffsets = new double[] {
+        4.5611,  // Module 0 //4.57
+        1.278353,   // Module 1 //1.3
+        -0.666697, // Module 2 //-0.678327
+        -5.90436  // Module 3 -5.95
+      };
+    }
 
     analogAngleSensors = new AnalogInput[] {
       new AnalogInput(0), // Module 0 
@@ -195,9 +204,14 @@ public class SwerveDrivetrain extends SubsystemBase {
 
       // Sets the angles and speeds if a joystick is beyond zero,
       // otherwise drive stops and the modules are sent to their last angle
-      if(Math.abs(forward) > deadband || Math.abs(strafe) > deadband || Math.abs(rotation) > deadband || Robot.OperatorAngleAdjustment.getSlowRotateMode()) {
-      //  SmartDashboard.putNumberArray("Angles", angles);
-        if(Math.abs((lastAngle[i] - angles[i])) < Math.PI / 2) {
+      if(
+        Math.abs(forward) > deadband 
+        || Math.abs(strafe) > deadband 
+        || Math.abs(rotation) > deadband 
+        || Robot.OperatorAngleAdjustment.getSlowRotateMode() 
+        || Robot.OperatorAngleAdjustment.getLimelightRotationMode()
+      ) {
+        if(Math.abs((lastAngle[i] - angles[i])) < (Math.PI / 2)) {
           lastAngle[i] = angles[i];
         }
         getModule(i).setModuleAngle(angles[i]);
@@ -206,8 +220,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         getModule(i).setModuleAngle(lastAngle[i]);
         getModule(i).setDriveSpeed(0);
       }
-      //Sets the drive speed for each drive motor
-     //SmartDashboard.putNumberArray("Drive Speeds", speeds);
     }
   }
 
@@ -273,12 +285,18 @@ public class SwerveDrivetrain extends SubsystemBase {
     return gyroOffset;
   }
 
+  /**
+   * Only used in robot periodic to reset the angle offsets
+   * @param module - The module number we are reading
+   * @return - The average encoder value over 200 iterations
+   */
   public double getAverageAnalogValueInRadians(int module) {
     if(iteration < 200) {
       total += getModule(module).getNormalizedAnalogVoltageRadians();
       iteration++;
     } 
     average = total / iteration;
+    // System.out.println("Average" + average);
     return average;
   }
 
@@ -291,13 +309,35 @@ public class SwerveDrivetrain extends SubsystemBase {
       return this.isFieldOriented;
   }
 
+  /**
+   * Sets the drive encoders for each module
+   */
+  public void setAllModuleDriveEncoders(int position) {
+    // Goes through 4 times and sets the drive encoders 
+    for(int i = 0; i < 4; i++) {
+      getModule(i).setDriveEncoder(position);
+    }
+  }
+  
+  /**
+   * Zeros all of the drive encoders
+   */
+  public void zeroAllDriveEncoders() {
+    setAllModuleDriveEncoders(0);
+  }
+
   @Override
   public void periodic() {
     if (swerveDebug) {
       for(int i = 0; i < 4; i++) {
       SmartDashboard.putNumber("ModuleAngle/" + i, 
       ((getModule(i).getNormalizedAnalogVoltageRadians() - angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
+      SmartDashboard.putNumber("Actual Module Angle/" + i, getModule(i).getNormalizedAnalogVoltageRadians());
       }
+    }
+    for(int i = 0; i < 4; i++) {
+      // SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
+      SmartDashboard.putNumber("Drive Motor Temperature/" + i, getModule(i).getDriveMotorTemperature());
     }
   }
 }

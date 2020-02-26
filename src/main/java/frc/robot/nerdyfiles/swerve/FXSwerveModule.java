@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.*;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
@@ -87,6 +86,13 @@ public class FXSwerveModule {
     /** Sets the max speed for the drive motors */
     private double driveMaxSpeed = 1.0;
 
+    private int angleAllowableClosedloopError = 5;
+    private double talonAngleP = 2.5;
+    private double talonAngleI = 0;
+    private double talonAngleD = 0;
+    private double talonAngleF = 0;
+    private int angleEncoderOffset;
+
     /* --- Booleans --- */
 
     /** Sets the inversion mode on the drive motors (True: invered | False: not inverted) */
@@ -160,7 +166,14 @@ public class FXSwerveModule {
         angleMotor.setSensorPhase(false);
         angleMotor.setInverted(false);
 
+        TalonFXConfigurationAngle.slot0.kP = talonAngleP;
+        TalonFXConfigurationAngle.slot0.kI = talonAngleI;
+        TalonFXConfigurationAngle.slot0.kD = talonAngleD;
+        TalonFXConfigurationAngle.slot0.kF = talonAngleF;
+        TalonFXConfigurationAngle.slot0.allowableClosedloopError = angleAllowableClosedloopError;
         TalonFXConfigurationAngle.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
+        TalonFXConfigurationAngle.feedbackNotContinuous = true;
+        TalonFXConfigurationAngle.integratedSensorOffsetDegrees = angleEncoderOffset / 5.6888;
         TalonFXConfigurationAngle.openloopRamp = 0.15;
 
         angleMotor.configAllSettings(TalonFXConfigurationAngle); 
@@ -234,6 +247,14 @@ public class FXSwerveModule {
     /**************************/
 
     /**
+     * Gets the angle voltages
+     * @return - The angle voltages
+     */
+    public double getAnalogVoltage() {
+        return analogAngleSensor.getVoltage();
+    }
+
+    /**
      * Gets the raw analog input, and divides it by the current 5V reading from 
      * the robot to normalize the sensor value in terms of (0 -> 1)
      * @return - double sensor positional value from (0 -> 1)
@@ -274,8 +295,6 @@ public class FXSwerveModule {
         /* --- Local Variables --- */
         double errorRad;
         double currentAngle = getNormalizedAnalogVoltageRadians();
-
-        SmartDashboard.putNumber("CurrentAngle " + moduleNumber, getNormalizedAnalogVoltageRadians());
 
         // Adds angle offset to target angle
         targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
@@ -326,6 +345,49 @@ public class FXSwerveModule {
     public double getAngleOffset() {
         return this.angleMotorOffset;
     }
+    
+    /**
+     * Gets the angle motor temperature
+     * @return - The temperature of the angle motors
+     */
+    public double getAngleMotorTemperature() {
+        return angleMotor.getTemperature();
+    }
+
+    /**
+     * Gets the drive encoder position in ticks
+     * @return - The selected sensor position
+     */
+    public int getDriveEncoderValue() {
+        return driveMotor.getSelectedSensorPosition(0);
+    }
+
+    /**
+     * Sets the encoder drive position
+     * @param position - Sets the selected sensor position
+     */
+    public void setDriveEncoder(int position) {
+        driveMotor.setSelectedSensorPosition(position, 0, 0);
+    }
+
+    /**
+     * Zeros all drive encoders
+     */
+    public void zeroDriveEncoder() {
+        setDriveEncoder(0);
+    }
+
+    /**
+     * Gets the angle encoder position in ticks
+     * @return - The selected sensor position
+     */    
+    public int getAngleEncoderValue() {
+        return angleMotor.getSelectedSensorPosition(0);
+    }
+
+    public void setAngleEncoder(int position) {
+        angleMotor.setSelectedSensorPosition(position, 0, 0);
+    }
 
     /*************************/
     /* --------------------- */
@@ -349,5 +411,13 @@ public class FXSwerveModule {
         if(isDriveInverted) speed = -speed; 
 
         driveMotor.set(ControlMode.PercentOutput, speed);
+    }
+
+    /**
+     * Gets the drive motor temperature
+     * @return - The temperature of the drive motors
+     */
+    public double getDriveMotorTemperature() {
+        return driveMotor.getTemperature();
     }
 }

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 /**
@@ -14,14 +15,22 @@ import frc.robot.Robot;
  */
 public class OperatorAngleAdjustment extends SubsystemBase {
 
-   private double gyroOffset = 0;
-   private double farShot;
+  /* --- Private Double Values --- */
+  private double gyroOffset = 0;
+  private double farShot;
   private double nearShot;
   private double climbing;
+  private double frontTrenchShot;
   private double futureOffsetAngle;
-  private boolean isFieldOrientend;
+  private double field0;
+  private double field90; 
+  private double field180;
+  private double field270;
+
   private boolean isChangingGyroAngle;
   private boolean limelightRotationMode = false;
+  private boolean wasPreviouslyChangingAngle = false; 
+
   private String mode = "";
 
   private double slowRotateSpeed = 0;
@@ -37,10 +46,14 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   public OperatorAngleAdjustment() {
     // Sets all the gyro offsets
     gyroOffset = 0;
-    farShot = 33;
-    nearShot = 90;
-    climbing = 180;
-    isFieldOrientend = true;
+    farShot = 25;
+    nearShot = 0;
+    climbing = 28;
+    frontTrenchShot = 33;
+    field0 = 0;
+    field90 = 90;
+    field180 = 180;
+    field270 = 270;
   }
 
   /**
@@ -48,33 +61,88 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    * will take affect when the driver button is pressed
    * 
    * @param mode - String designating the mode
-   *             <p>
-   *             List of modes:
-   *             </p>
-   *             <ul>
-   *             <li>farShot
-   *             <li>nearShot
-   *             <li>climbing
-   *             </ul>
+   * <p>
+   * List of modes:
+   * </p>
+   * <ul>
+   * <li><b>farShot</b>
+   * - turns the robot to the specified angle, then enables vision, 
+   * and adjusts the speed of the kicker wheel and shooter to the far
+   * shot velocities
+   * <li><b>nearShot</b>
+   * - turns the robot to the specified angle, then enables vision, 
+   * and adjusts the speed of the kicker wheel and shooter to the near
+   * shot velocities
+   * <li><b>climbing</b>
+   * - turns the robot towards the hangers, and disables field centric mode
+   * <li><b>targetLimelightOn</b>
+   * - sets the robot's rotation into vision tracking mode
+   * <li><b>0</b>
+   * - sets the robot's rotational angle offset to 0 degrees
+   * <li><b>90</b>
+   * - sets the robot's rotational angle offset to 90 degrees
+   * <li><b>180</b>
+   * - sets the robot's rotational angle offset to 180 degrees
+   * <li><b>270</b>
+   * - sets the robot's rotational angle offset to 270 degrees
+   * </ul>
    */
   public void setFutureOffsetAngle(String mode) {
     this.mode = mode;
     switch(mode) {
     case "farShot":
       futureOffsetAngle = farShot;
+      Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDFAR);
+      Robot.Vision.setRotateLimelight(false);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFAR);
+      Robot.Vision.switchPipeLine(1);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     case "nearShot":
       futureOffsetAngle = nearShot;
+      Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
+      Robot.Vision.setRotateLimelight(false);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDCLOSE);
+      Robot.Vision.switchPipeLine(0);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     case "climbing":
       futureOffsetAngle = climbing;
+      Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(false);
       break;
     case "targetLimelightOn":
       Robot.Vision.setRotateLimelight(true);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
+      break;
+    case "frontTrenchShot":
+      futureOffsetAngle = frontTrenchShot;
+      Robot.Shooter.setFutureSpeed(Constants.SHOOTFRONTTRENCHSPEED);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFRONTTRENCH); 
+    case "0":
+      futureOffsetAngle = field0;
+      Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
+      break;
+    case "90":
+      futureOffsetAngle = field90;
+      Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
+      break;
+    case "180":
+      futureOffsetAngle = field180;
+      Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
+      break;
+    case "270":
+      futureOffsetAngle = field270;
+      Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     default:
       futureOffsetAngle = 0;
       Robot.Vision.setRotateLimelight(false);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
 
     }
   }
@@ -195,6 +263,23 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    */
   public double getSlowRotateSpeed() {
     return this.slowRotateSpeed;
+  }
+
+  /**
+   * Sets the mode if the robot was previously rotating. 
+   * (was rotating: true | wasn't rotating: false)
+   * @param wasPreviouslyChangingAngle - boolean value
+   */
+  public void setPreviouslyChangingGyroAngle(boolean wasPreviouslyChangingAngle) {
+    this.wasPreviouslyChangingAngle = wasPreviouslyChangingAngle;
+  }
+
+  /**
+   * Gets the previous rotation mode (was rotating: true | wasn't rotating: false)
+   * @return - boolean value 
+   */
+  public boolean wasChangingGyroAngle() {
+    return this.wasPreviouslyChangingAngle;
   }
 
   @Override
