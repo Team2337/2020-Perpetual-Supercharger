@@ -34,6 +34,7 @@ public class AutoRotateWithVision extends CommandBase {
   @Override
   public void initialize() {
   Robot.Vision.setLEDMode(3);
+  Robot.OperatorAngleAdjustment.setLimelightRotationMode(true);
   }
 
   @Override
@@ -51,7 +52,7 @@ public class AutoRotateWithVision extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
-
+    Robot.OperatorAngleAdjustment.setLimelightRotationMode(false);
   }
 
   @Override

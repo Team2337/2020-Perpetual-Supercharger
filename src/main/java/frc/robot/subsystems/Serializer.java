@@ -102,7 +102,7 @@ public class Serializer extends SubsystemBase {
      counter.setUpSource(topSerializerSensor);
      counter.setMaxPeriod(2); 
      
-    //  setDefaultCommand(new serializerCoOp(this));
+     setDefaultCommand(new serializerCoOp(this));
   }
 
   @Override
