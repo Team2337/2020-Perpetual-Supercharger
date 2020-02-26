@@ -56,12 +56,10 @@ public class OI {
         driverJoystick.back.whenPressed(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true),
                         new setBallTracking(Robot.OperatorAngleAdjustment, true),
                         Robot.Shooter.shooterAtVelocityBooleanSupplier));
-
-        driverJoystick.back.whenReleased(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true)
             
-        /* new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false),
+        driverJoystick.back.whenReleased(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false),
                         new setBallTracking(Robot.OperatorAngleAdjustment, false),
-                        Robot.Shooter.shooterAtVelocityBooleanSupplier) */);
+                        Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
         //Run the intake while shooting balls
         driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED), 
