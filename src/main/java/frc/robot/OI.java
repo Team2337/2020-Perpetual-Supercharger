@@ -5,6 +5,8 @@ import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.KickerWheel.runKicker;
+import frc.robot.commands.KickerWheel.runControlPanelMode;
 import frc.robot.commands.KickerWheel.stopKicker;
 import frc.robot.commands.Serializer.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -120,7 +122,8 @@ public class OI {
         operatorControls.BlueButton.whenPressed(new runClimber(Robot.Climber, 50000, false));
         operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 50000, true));
 
-        operatorControls.YellowButton.whenPressed(new engageBrake(Robot.ClimberBrake));
+        operatorControls.YellowButton.whenPressed(new runControlPanelMode(Robot.KickerWheel));
+        operatorControls.YellowButton.whenReleased(new stopKicker(Robot.KickerWheel));
 
         //insert code here
         

@@ -237,6 +237,8 @@ public final class Constants {
 
     public static int KICKERSPEEDFRONTTRENCH;
 
+    public static double KICKERCONTROLPANELSPEED = 1000;
+
 
     /******************/
     /* -------------- */
