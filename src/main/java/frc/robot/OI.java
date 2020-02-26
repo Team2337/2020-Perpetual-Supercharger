@@ -6,10 +6,12 @@ import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.Serializer.*;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
 import frc.robot.commands.ShooterSystem.*;
+import frc.robot.commands.Vision.setBallTracking;
 
 /**
  * OI Class where all controllers and button presses are placed 
@@ -37,8 +39,8 @@ public class OI {
         driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new feedSystemStop(),
         new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier)); */
 
-        driverJoystick.triggerRight.whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
-        driverJoystick.triggerRight.whenReleased(new stopIntake(Robot.Intake));
+        // driverJoystick.triggerRight.whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
+        // driverJoystick.triggerRight.whenReleased(new stopIntake(Robot.Intake));
 
         // Slow rotates to the right
         driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
@@ -51,8 +53,16 @@ public class OI {
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
 
-        driverJoystick.back.whenPressed(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true));
-        driverJoystick.back.whenReleased(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false));
+        driverJoystick.triggerLeft.whenPressed(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true),
+                        new setBallTracking(Robot.OperatorAngleAdjustment, true),
+                        Robot.Shooter.shooterAtVelocityBooleanSupplier));
+
+        driverJoystick.triggerLeft.whenReleased(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false),
+                        new setBallTracking(Robot.OperatorAngleAdjustment, false),
+                        Robot.Shooter.shooterAtVelocityBooleanSupplier));
+
+        driverJoystick.triggerRight.whenPressed(new startShooter(Robot.Shooter));
+        driverJoystick.triggerRight.whenReleased(new stopShooter(Robot.Shooter));
 
         /* --- OPERATOR JOYSTICK --- */
         
