@@ -50,7 +50,11 @@ public class OI {
                         new setBallTracking(Robot.OperatorAngleAdjustment, false),
                         Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
-        //DRIVER JOYSTICK RIGHT TRIGGER IS TAKEN BY THE CO-OP COMMANDS IN SERIALIZER AND KICKERWHEEL
+        //Run the intake while shooting balls
+        driverJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
+        driverJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
+
+        //DRIVER JOYSTICK RIGHT TRIGGER IS USED IN THE CO-OP COMMANDS IN SERIALIZER AND KICKERWHEEL
 
         /* --- OPERATOR JOYSTICK --- */
         
@@ -113,7 +117,7 @@ public class OI {
 
         operatorControls.YellowButton.whenPressed(new engageBrake(Robot.ClimberBrake));
 
-        //OPERATOR JOYSTICK RIGHT TRIGGER IS TAKEN BY THE CO-OP COMMAND IN SERIALIZER
+        //OPERATOR JOYSTICK RIGHT TRIGGER IS USED IN THE CO-OP COMMAND IN SERIALIZER
 
         //insert code here
         
