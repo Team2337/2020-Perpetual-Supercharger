@@ -57,11 +57,31 @@ public class Utilities {
     public double getYaw(String gyroType) {
       switch(gyroType) {
           case "pigeon":
-            return Robot.Pigeon.getYaw();
+            return -Robot.Pigeon.getYaw();
           case "navx":
             // return Robot.navx.getYaw();
           default:
           return 0;
       }
+    }
+
+    /**
+     * Gets the yaw value from the Pigeon between -360 & +360
+     * @return - gyro double value between -360 & +360
+     */
+    public double getPigeonYawMod() {
+      return getYaw("pigeon") % 360;
+    }
+
+  /**
+   * Determines whether or not the given value is within a certain amount of a target
+   * 
+   * @param target The desired value
+   * @param current The current value
+   * @param tolerance A range that the given value can be within the target value before returning true
+   * @return Whether or not the current value is within a tolerance of the target
+   */
+  public boolean withinTolerance(double target, double current, double tolerance) {
+    return Math.abs(target - current) <= tolerance;
   }
 }

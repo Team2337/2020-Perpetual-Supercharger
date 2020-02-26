@@ -6,9 +6,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.Serializer.serializerCoOp;
 
  /** 
  * Subsystem for the Serializer 
@@ -24,13 +28,16 @@ public class Serializer extends SubsystemBase {
   public final boolean serializerDebug = false;
   // Sets up posistion stuff (referenced later)
   public double targetPosition;
-  final double kP = 0.3;
+  final double kP = 3;
   final double kI = 0;
   final double kD = 0;
   final double kF = 0;
-
-  //Variables
-  final double tolerance = 5;
+  
+  //Sets up sensors and counters
+  public DigitalInput bottomSerializerSensor;
+  public DigitalInput middleSerializerSensor;
+  public DigitalInput topSerializerSensor;
+  public Counter counter;
 
   // Motors
   private TalonFX serializerMotor;
@@ -39,6 +46,11 @@ public class Serializer extends SubsystemBase {
   // Current limit configuration
   private StatorCurrentLimitConfiguration currentLimitConfigurationSerializerMotor = new StatorCurrentLimitConfiguration();
   TalonFXConfiguration config = new TalonFXConfiguration();
+
+  // If the driver is currently controlling the kicker wheel, lock out the operators control of it
+  public boolean driverIsControlling = false;
+  public boolean operatorIsControlling = false;
+     
   
   /** 
  * Subsystem for the Serializer 
@@ -52,7 +64,7 @@ public class Serializer extends SubsystemBase {
     serializerMotor.setInverted(false);
     serializerMotor.configOpenloopRamp(0.2);
     FXConfig = new TalonFXConfiguration();
-    
+
     // Set up the current configuration
     currentLimitConfigurationSerializerMotor.currentLimit = 50;
     currentLimitConfigurationSerializerMotor.enable = true;
@@ -67,7 +79,6 @@ public class Serializer extends SubsystemBase {
       * All of the PID values are configured here as well
       * as allowable error and the speed of the motor during the PID
       */
-
      FXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
      FXConfig.slot0.kP = kP;
      FXConfig.slot0.kI = kI;
@@ -76,20 +87,36 @@ public class Serializer extends SubsystemBase {
      FXConfig.slot0.allowableClosedloopError = (5);
      FXConfig.peakOutputForward = (Constants.SERIALIZERPEAKSPEED);
      FXConfig.peakOutputReverse = (-Constants.SERIALIZERPEAKSPEED);
+     FXConfig.nominalOutputForward = 0.01;
+     FXConfig.nominalOutputReverse = -0.01;
      serializerMotor.setNeutralMode(NeutralMode.Brake);
      serializerMotor.configAllSettings(FXConfig);
+
+     bottomSerializerSensor = new DigitalInput(0);
+     middleSerializerSensor = new DigitalInput(1);
+     topSerializerSensor = new DigitalInput(2);
+     counter = new Counter(3);
+     // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
+     // up of the pulse
+     counter.setUpDownCounterMode();
+     counter.setUpSource(topSerializerSensor);
+     counter.setMaxPeriod(2); 
      
+     setDefaultCommand(new serializerCoOp(this));
   }
 
   @Override
   public void periodic() {
     if (serializerDebug) {
-      SmartDashboard.putNumber("Serializer CurrentPosisition", getSerializerPosition());
+      SmartDashboard.putNumber("Serializer CurrentPosition", getSerializerPosition());
       SmartDashboard.putNumber("Serializer TargetPosition", targetPosition);
       SmartDashboard.putNumber("Serializer Error", getSerializerPosition() - targetPosition);
       SmartDashboard.putNumber("Serializer Motor Speed", getSerializerSpeed());
     }
-      SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
+    SmartDashboard.putBoolean("Bottom sensor", bottomSerializerSensor.get());
+    SmartDashboard.putBoolean("Middle sensor", middleSerializerSensor.get());
+    SmartDashboard.putBoolean("Top sensor", topSerializerSensor.get());
+    SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
   }
 
   /**
@@ -99,6 +126,8 @@ public class Serializer extends SubsystemBase {
    */
   public void setSerializerSpeed(double speed) {
     // Sets the speed of the serializer motor
+    serializerMotor.configPeakOutputForward(Constants.SERIALIZERPEAKSPEED);
+    serializerMotor.configPeakOutputReverse(-Constants.SERIALIZERPEAKSPEED);
     serializerMotor.set(ControlMode.PercentOutput, speed);
   }
 
@@ -111,10 +140,18 @@ public class Serializer extends SubsystemBase {
     return speed;
   }
 
-/**
- * @return position
- * This returns the current position of the serializer motor
- */
+  /**
+   * Resets the encoder ticks for the serializer
+   */
+  public void resetSerializerPosition() {
+    // serializerMotor.setSelectedSensorPosition(0);
+    serializerMotor.setSelectedSensorPosition(0, 0, 10);
+    targetPosition = 0;
+  }
+
+  /**
+   * @return position This returns the current position of the serializer motor
+   */
   public int getSerializerPosition() {
     int position = serializerMotor.getSelectedSensorPosition();
     return position;
@@ -127,7 +164,6 @@ public class Serializer extends SubsystemBase {
     serializerMotor.set(ControlMode.PercentOutput, 0);
   }
 
-
   /**
    * @return temp
    * Returns the temperature of the serializer motor 
@@ -135,6 +171,7 @@ public class Serializer extends SubsystemBase {
   public double getSerializerTemperature() { 
     return serializerMotor.getTemperature();
   }
+  
   /**
    * @param position
    * This is the amount to shift by
@@ -142,11 +179,17 @@ public class Serializer extends SubsystemBase {
    * This is found by subtracting the position of the motor by the amount to shift by,
    * creating the target position
    */
-    public void setPosition(double position ) {
-      targetPosition = position;
-      serializerMotor.set(ControlMode.Position, targetPosition);
+  public void setPosition(double position) {
+    serializerMotor.configPeakOutputForward(Constants.SERIALIZERPOSITIONSPEED);
+    serializerMotor.configPeakOutputReverse(-Constants.SERIALIZERPOSITIONSPEED);
+    targetPosition = position;
+    serializerMotor.set(ControlMode.Position, targetPosition);
+  }
 
-    }
+  public void setCoOp(boolean driverIsControlling, boolean operatorIsControlling){
+      this.driverIsControlling = driverIsControlling;
+      this.operatorIsControlling = operatorIsControlling;
+  }
     
 }
     

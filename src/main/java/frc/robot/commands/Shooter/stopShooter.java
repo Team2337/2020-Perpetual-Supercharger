@@ -31,16 +31,19 @@ public class stopShooter extends InstantCommand {
   @Override
   public void initialize() {
     //Sets the ramp rate to allow for a safer ramp down
+    subsystem.currentLimitConfigurationMotor.currentLimit = 0;
+    subsystem.leftShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
+    subsystem.rightShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
+    
     subsystem.leftShootMotor.configClosedloopRamp(0.5);
     subsystem.rightShootMotor.configClosedloopRamp(0.5);
-    //Stop the shooter.
+    
     subsystem.stopShooter();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
   }
 
 }
