@@ -127,11 +127,32 @@ public class Serializer extends SubsystemBase {
   }
 
   /**
+   * Stops the serializer motors.
+   */
+  public void stopSerializer() {
+    serializerMotor.set(ControlMode.PercentOutput, 0);
+  }
+
+  /**
    * @return speed Returns the speed of the serializer motor
    */
   public double getSerializerSpeed() {
     double speed = serializerMotor.getMotorOutputPercent();
     return speed;
+  }
+
+  /**
+   * @param position
+   * This is the amount to shift by
+   * targetPosition is the target position of the motor
+   * This is found by subtracting the position of the motor by the amount to shift by,
+   * creating the target position
+   */
+  public void setPosition(double position) {
+    serializerMotor.configPeakOutputForward(Constants.SERIALIZERPOSITIONSPEED);
+    serializerMotor.configPeakOutputReverse(-Constants.SERIALIZERPOSITIONSPEED);
+    targetPosition = position;
+    serializerMotor.set(ControlMode.Position, targetPosition);
   }
 
   /**
@@ -152,31 +173,10 @@ public class Serializer extends SubsystemBase {
   }
 
   /**
-   * Stops the serializer motors.
-   */
-  public void stopSerializer() {
-    serializerMotor.set(ControlMode.PercentOutput, 0);
-  }
-
-  /**
    * @return temp Returns the temperature of the serializer motor
    */
   public double getSerializerTemperature() {
     return serializerMotor.getTemperature();
-  }
-
-  /**
-   * @param position
-   * This is the amount to shift by
-   * targetPosition is the target position of the motor
-   * This is found by subtracting the position of the motor by the amount to shift by,
-   * creating the target position
-   */
-  public void setPosition(double position) {
-    serializerMotor.configPeakOutputForward(Constants.SERIALIZERPOSITIONSPEED);
-    serializerMotor.configPeakOutputReverse(-Constants.SERIALIZERPOSITIONSPEED);
-    targetPosition = position;
-    serializerMotor.set(ControlMode.Position, targetPosition);
   }
 
   /**
