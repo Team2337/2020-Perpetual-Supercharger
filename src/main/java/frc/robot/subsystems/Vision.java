@@ -1,7 +1,12 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
   /**
    * The vision code for the limelight and camera
@@ -9,10 +14,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    * @category VISION
    */
 public class Vision extends SubsystemBase {
+  public AnalogInput pixyLeftAnalog;
+  public AnalogInput pixyRightAnalog;
+  public DigitalInput pixyLeftDigital;
+  public DigitalInput pixyRightDigital;
+  
   private boolean rotateLimelight = false;
 
   public Vision() {
-    
+    pixyRightAnalog = new AnalogInput(4);
+    pixyRightDigital = new DigitalInput(5);
+    pixyLeftAnalog = new AnalogInput(5);
+    pixyLeftDigital = new DigitalInput(6);
   }
 
  /**
@@ -105,10 +118,31 @@ public class Vision extends SubsystemBase {
   public boolean getRotateLimelight() {
     return rotateLimelight;
   }
+  
+  /**
+   * Gets the voltage of the right Pixy camera
+   * @return The voltage of the Pixy camera
+   */
+  public double getPixyRightValue() {
+    return (pixyRightAnalog.getVoltage() * (60 / 3.3) - 30) /2;
+  }
+  
+  /**
+   * Gets the voltage of the left Pixy camera
+   * @return The voltage of the Pixy camera
+   */
+  public double getPixyLeftValue() {
+    return (pixyLeftAnalog.getVoltage() * (60 / 3.3) - 30) / 2;
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
+    SmartDashboard.putNumber("Pixy Right Raw Analog Voltage", pixyRightAnalog.getVoltage());
+    SmartDashboard.putNumber("Pixy Right Analog Degrees", getPixyRightValue());
+    SmartDashboard.putBoolean("Pixy Right sees target", pixyRightDigital.get());
+    SmartDashboard.putNumber("Pixy Left Raw Analog Voltage", pixyLeftAnalog.getVoltage());
+    SmartDashboard.putNumber("Pixy Left Analog Degrees", getPixyLeftValue());
+    SmartDashboard.putBoolean("Pixy Left sees target", pixyLeftDigital.get()); 
+   }
 }
