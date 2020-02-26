@@ -213,14 +213,17 @@ public String mac;
       case "CenterGoal9Ball":
         autonomousCommand = new CenterGoal9Ball(delay);
         break;
-        case "CenterGoal9BallTurn":
+      case "9 Ball - Back Up - Turn 90":
         autonomousCommand = new CenterGoal9BallTurn(delay);
         break;
       case "CenterGoalBack9BallGenerator3Ball":
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
         break;
-        case "CenterFeedLeftTRGrab3Score3":
+      case "6 Ball - Partner Left - 3 Trench":
         autonomousCommand = new CenterFeedLeftTRGrab3Score3(delay);
+        break;
+      case "6 Ball - Partner Right - 3 Trench":
+        autonomousCommand = new CenterFeedRightTRGrab3Score3(delay);
         break;
       case "6 Ball - Partner Left - 3 Trench - 2 Generator":
         autonomousCommand = new CenterFeedLeftTRGrab3GenRGrab2Score5(delay);
