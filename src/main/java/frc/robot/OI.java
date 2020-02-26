@@ -4,8 +4,7 @@ import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
-import frc.robot.commands.ColorWheel.positionControl;
-import frc.robot.commands.ColorWheel.rotationControl;
+import frc.robot.commands.ColorWheel.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.Serializer.*;
 import frc.robot.Robot;
@@ -57,8 +56,9 @@ public class OI {
         driverJoystick.back.whenReleased(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false));
 
 
-        driverJoystick.leftStickButton.whenPressed(new positionControl(Robot.KickerWheel));
-        driverJoystick.rightStickButton.whenPressed(new rotationControl(Robot.KickerWheel));
+        driverJoystick.leftStickButton.whenPressed(new positionControl(Robot.KickerWheel, Robot.ColorWheel));
+        driverJoystick.rightStickButton.whenPressed(new rotationControl(Robot.KickerWheel, Robot.ColorWheel));
+
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
@@ -106,13 +106,14 @@ public class OI {
 
         /* --- DRIVER STATION CONTROLS --- */
         operatorControls.BlackSwitch.whenPressed(new activateClimber(Robot.Climber, true));
+        operatorControls.BlackSwitch.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
         operatorControls.BlackSwitch.whenReleased(new activateClimber(Robot.Climber, false));
 
-        operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 20000, false));
-        operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 20000, true));
+        operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 177500, false));
+        operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 177500, true));
 
-        operatorControls.BlueButton.whenPressed(new runClimber(Robot.Climber, 0, false));
-        operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 0, true));
+        operatorControls.BlueButton.whenPressed(new runClimber(Robot.Climber, 50000, false));
+        operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 50000, true));
 
         operatorControls.YellowButton.whenPressed(new engageBrake(Robot.ClimberBrake));
 
