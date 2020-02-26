@@ -53,11 +53,11 @@ public class OI {
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
 
-        driverJoystick.triggerLeft.whenPressed(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true),
+        driverJoystick.back.whenPressed(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true),
                         new setBallTracking(Robot.OperatorAngleAdjustment, true),
                         Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
-        driverJoystick.triggerLeft.whenReleased(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false),
+        driverJoystick.back.whenReleased(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false),
                         new setBallTracking(Robot.OperatorAngleAdjustment, false),
                         Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
