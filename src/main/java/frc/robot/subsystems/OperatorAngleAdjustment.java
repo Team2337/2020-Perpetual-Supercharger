@@ -46,7 +46,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   public OperatorAngleAdjustment() {
     // Sets all the gyro offsets
     gyroOffset = 0;
-    farShot = 25;
+    farShot = 8;
     nearShot = 0;
     climbing = 28;
     frontTrenchShot = 13;

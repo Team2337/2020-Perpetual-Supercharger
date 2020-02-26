@@ -278,7 +278,7 @@ public final class Constants {
 
             /* --- Shooter --- */
             SHOOTSPEEDCLOSE = 13000; //13000 - week 0 working 
-            SHOOTSPEEDFAR = 15100; //15100 - week 0 working //
+            SHOOTSPEEDFAR = 15400; //15100 - week 0 working //
             SHOOTFRONTTRENCHSPEED = 13750;
 
             /* --- Kicker --- */
@@ -306,8 +306,8 @@ public final class Constants {
 
             /* --- Shooter --- */
             SHOOTSPEEDCLOSE = 12500;
-            SHOOTSPEEDFAR = 14800;
-            SHOOTFRONTTRENCHSPEED = 15000;
+            SHOOTSPEEDFAR = 15000;
+            SHOOTFRONTTRENCHSPEED = 13700;
             
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 3000 * (7 / 3);

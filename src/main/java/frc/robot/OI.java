@@ -5,7 +5,10 @@ import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.KickerWheel.stopKicker;
 import frc.robot.commands.Serializer.*;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
@@ -32,10 +35,12 @@ public class OI {
 
         // Run the shooter
         // If the shooter is not running then feed system forward cannot run. If the shooter is running then feed system forward can run
-/*         driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new feedSystemForward(), 
+        driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new feedSystemForward(), 
         new CommandBase(){}, Robot.Shooter.shooterAtVelocityBooleanSupplier));
         driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new feedSystemStop(),
-        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier)); */
+        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier)); 
+
+        // driverJoystick.triggerRight.whenPressed(new serializerCoOp(Robot.Serializer));
 
         driverJoystick.triggerRight.whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
         driverJoystick.triggerRight.whenReleased(new stopIntake(Robot.Intake));
@@ -67,10 +72,10 @@ public class OI {
         operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKEFORWARDSPEED));
         operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake));
 
- /*        operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
+        operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
         }, new feedSystemForward(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
         operatorJoystick.triggerLeft.whenReleased(new ConditionalCommand(new CommandBase() {
-        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier)); */
+        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
         //TRIGGER LEFT IN SERIALIZER COMMAND
 
         operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
@@ -89,7 +94,9 @@ public class OI {
         operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
         operatorJoystick.start          .whenReleased(new shooterSystemOn());
 
-        operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));
+        // operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));
+        operatorJoystick.back.whenPressed(new stopShooter(Robot.Shooter));
+        operatorJoystick.back.whenReleased(new stopKicker(Robot.KickerWheel));
 
         // Buttons to queue the robot's angle offset 
         operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
