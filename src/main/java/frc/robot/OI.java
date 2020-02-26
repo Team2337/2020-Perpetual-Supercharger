@@ -32,16 +32,6 @@ public class OI {
         driverJoystick.bumperRight.whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
         driverJoystick.bumperRight.whenReleased(new stopSerializer(Robot.Serializer));
 
-        // Run the shooter
-        // If the shooter is not running then feed system forward cannot run. If the shooter is running then feed system forward can run
-/*         driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new feedSystemForward(), 
-        new CommandBase(){}, Robot.Shooter.shooterAtVelocityBooleanSupplier));
-        driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new feedSystemStop(),
-        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier)); */
-
-        // driverJoystick.triggerRight.whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
-        // driverJoystick.triggerRight.whenReleased(new stopIntake(Robot.Intake));
-
         // Slow rotates to the right
         driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
         driverJoystick.redB         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
@@ -52,7 +42,6 @@ public class OI {
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
-
         driverJoystick.back.whenPressed(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true),
                         new setBallTracking(Robot.OperatorAngleAdjustment, true),
                         Robot.Shooter.shooterAtVelocityBooleanSupplier));
@@ -61,8 +50,7 @@ public class OI {
                         new setBallTracking(Robot.OperatorAngleAdjustment, false),
                         Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
-        driverJoystick.triggerRight.whenPressed(new startShooter(Robot.Shooter));
-        driverJoystick.triggerRight.whenReleased(new stopShooter(Robot.Shooter));
+        //DRIVER JOYSTICK RIGHT TRIGGER IS TAKEN BY THE CO-OP COMMANDS IN SERIALIZER AND KICKERWHEEL
 
         /* --- OPERATOR JOYSTICK --- */
         
@@ -124,6 +112,8 @@ public class OI {
         operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 50000, true));
 
         operatorControls.YellowButton.whenPressed(new engageBrake(Robot.ClimberBrake));
+
+        //OPERATOR JOYSTICK RIGHT TRIGGER IS TAKEN BY THE CO-OP COMMAND IN SERIALIZER
 
         //insert code here
         
