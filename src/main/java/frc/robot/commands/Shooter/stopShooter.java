@@ -30,6 +30,7 @@ public class stopShooter extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    shootRunning = false;
     //Sets the ramp rate to allow for a safer ramp down
     subsystem.currentLimitConfigurationMotor.currentLimit = 0;
     subsystem.leftShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);

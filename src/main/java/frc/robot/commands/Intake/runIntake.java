@@ -12,6 +12,7 @@ public class runIntake extends InstantCommand {
   private final Intake subsystem;
   /** Intake motor speed */
   private double speed;
+  public boolean intakeRunning;
 
   /**
    * Sets the intake speed to a given percent
@@ -31,6 +32,7 @@ public class runIntake extends InstantCommand {
   public void initialize() {
     // This will set the intake to run at a set speed
     subsystem.setIntakeSpeed(speed);
+    intakeRunning = true;
   }
 
   // Called once the command ends or is interrupted.

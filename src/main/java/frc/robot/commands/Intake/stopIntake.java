@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 public class stopIntake extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_subsystem;
+  public boolean intakeRuning;
 
   /**
    * Stops the intake motors.
@@ -27,6 +28,7 @@ public class stopIntake extends InstantCommand {
   public void initialize() {
     // This will stop the intake
     m_subsystem.stopIntake();
+    intakeRuning = true;
   }
 
   // Called once the command ends or is interrupted.

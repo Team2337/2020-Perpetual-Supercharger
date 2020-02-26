@@ -305,4 +305,5 @@ public class Shooter extends SubsystemBase {
   public void setFutureSpeed(int futureSpeed) {
     m_FutureSpeed = futureSpeed;
   }
+  
 }

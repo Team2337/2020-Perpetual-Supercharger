@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class startShooter extends CommandBase {
   
   private final Shooter subsystem;
+  public boolean shootRunning;
 
   /**
    * Shoots the ball at a specified speed.
@@ -30,6 +31,7 @@ public class startShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    shootRunning = true;
     subsystem.currentLimitConfigurationMotor.currentLimit = 70;
     subsystem.leftShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     subsystem.rightShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
