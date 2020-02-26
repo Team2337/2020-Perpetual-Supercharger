@@ -122,6 +122,9 @@ public String mac;
     autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
     autonChooser.addOption("CenterGoalFront6BallFeedLeftTrench3BallShoot", "CenterGoalFront6BallFeedLeftTrench3BallShoot");
     autonChooser.addOption("Shoot 3 And Back Up", "CenterGoal3Ball");
+    autonChooser.addOption("9 Ball - Back Up", "CenterGoal9Ball");
+    autonChooser.addOption("CenterGoal9BallTurn", "CenterGoal9BallTurn");
+    autonChooser.addOption("CenterFeedLeftTRGrab3Score3", "CenterFeedLeftTRGrab3Score3");
 
     delayChooser.setDefaultOption("0", "0");
     delayChooser.addOption("0.5", "0.5");
@@ -207,11 +210,17 @@ public String mac;
       break;
     }
     switch (autonChooser.getSelected()) {
-      case "9 Ball - Back Up":
+      case "CenterGoal9Ball":
         autonomousCommand = new CenterGoal9Ball(delay);
+        break;
+        case "CenterGoal9BallTurn":
+        autonomousCommand = new CenterGoal9BallTurn(delay);
         break;
       case "CenterGoalBack9BallGenerator3Ball":
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
+        break;
+        case "CenterFeedLeftTRGrab3Score3":
+        autonomousCommand = new CenterFeedLeftTRGrab3Score3(delay);
         break;
       case "6 Ball - Partner Left - 3 Trench - 2 Generator":
         autonomousCommand = new CenterFeedLeftTRGrab3GenRGrab2Score5(delay);

@@ -16,34 +16,18 @@ import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchPartnerOnR
  * @author Madison J. 
  * @category AUTON 
  */
-public class PostTrench extends SequentialCommandGroup {
+public class PostTrench3Ball extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   public double intakeSpeed = 0.5;
 
   /**
    * Drives from the initiation line to the generator command group
    */
-  public PostTrench() {
+  public PostTrench3Ball() {
 
     /* --- Drives --- */
     final class FourthDrive {
       public static final double robotAngle = 90, driveDist = 20, forward = 0.15, strafe = -0.15, driveTimeout = 5;
-    }
-
-    final class FifthDrive {
-      public static final double robotAngle = 90, driveDist = 80, forward = 0.1, strafe = -0.35, driveTimeout = 5;
-    }
-
-    final class SixthDrive {
-      public static final double robotAngle = 105, driveDist = 20, forward = 0.05, strafe = -0.175, driveTimeout = 5;
-    }
-
-    final class SeventhDrive {
-      public static final double robotAngle = 105, driveDist = 20, forward = 0.35, strafe = -0.1, driveTimeout = 5;
-    }
-
-    final class EightDrive {
-      public static final double robotAngle = 105, driveDist = 30, forward = -0.1, strafe = -0.35, driveTimeout = 5;
     }
 
     /* --- Rotate --- */
@@ -53,13 +37,9 @@ public class PostTrench extends SequentialCommandGroup {
 
     addCommands(
       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FourthDrive.driveDist, FourthDrive.forward, FourthDrive.strafe, FourthDrive.robotAngle).withTimeout(FourthDrive.driveTimeout),
-      new stopIntake(Robot.Intake),
-      new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FifthDrive.driveDist, FifthDrive.forward, FifthDrive.strafe, FifthDrive.robotAngle).withTimeout(FifthDrive.driveTimeout),
-      new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, SixthDrive.driveDist, SixthDrive.forward, SixthDrive.strafe, SixthDrive.robotAngle).withTimeout(SixthDrive.driveTimeout),
-      new runIntake(Robot.Intake, intakeSpeed),
-      new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, SeventhDrive.driveDist, SeventhDrive.forward, SeventhDrive.strafe, SeventhDrive.robotAngle).withTimeout(SeventhDrive.driveTimeout),
+      // new stopIntake(Robot.Intake),
       new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.robotAngle), 
-      new AutoRotateWithVision(Robot.SwerveDrivetrain, 1),
+      new AutoRotateWithVision(Robot.SwerveDrivetrain, 1).withTimeout(2),
       new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED)
     ); 
   }

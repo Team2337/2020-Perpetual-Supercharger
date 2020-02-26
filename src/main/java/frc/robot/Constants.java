@@ -202,6 +202,8 @@ public final class Constants {
 
     public static int SHOOTFRONTTRENCHSPEED = 14000;
 
+    public static int SHOOTFRONTTRENCHAUTO = 13300;
+
     /**********************/
     /* ------------------ */
     /* --- SERIALIZER --- */
@@ -280,6 +282,7 @@ public final class Constants {
             SHOOTSPEEDCLOSE = 13000; //13000 - week 0 working 
             SHOOTSPEEDFAR = 15100; //15100 - week 0 working //
             SHOOTFRONTTRENCHSPEED = 13750;
+            SHOOTFRONTTRENCHAUTO = 13300;
 
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 7000; //7000 - week 0 working
@@ -308,6 +311,7 @@ public final class Constants {
             SHOOTSPEEDCLOSE = 12500;
             SHOOTSPEEDFAR = 14800;
             SHOOTFRONTTRENCHSPEED = 13700;
+            SHOOTFRONTTRENCHAUTO = 13300;
             
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 3000 * (7 / 3);
