@@ -21,7 +21,7 @@ public class Agitator extends SubsystemBase {
   private final boolean agitatorDebug = false;
 
   //Motor
-  VictorSPX agitatorMotor;
+  private VictorSPX agitatorMotor;
 
   /**
    * Creates a new Agitator subsystem and sets up the motor.
@@ -33,9 +33,6 @@ public class Agitator extends SubsystemBase {
     agitatorMotor.configFactoryDefault();
 
     agitatorMotor.setInverted(true);
-
-    //Set up ramp rate
-    agitatorMotor.configClosedloopRamp(0.1);
   }
 
   @Override
@@ -45,7 +42,6 @@ public class Agitator extends SubsystemBase {
       //If in debug mode, put the agitator speed and temperature on SmartDashboard/Shuffleboard
       SmartDashboard.putNumber("Agitator Motor Speed", getAgitatorSpeed());
     }
-      SmartDashboard.putNumber("Agitator Motor Temperature", getAgitatorTemperature());
   }
 
   /**
