@@ -118,13 +118,15 @@ public String mac;
     autonChooser = new SendableChooser<String>();
     delayChooser = new SendableChooser<String>();
 
-    autonChooser.setDefaultOption("default", "default");
-    autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
-    autonChooser.addOption("CenterGoalFront6BallFeedLeftTrench3BallShoot", "CenterGoalFront6BallFeedLeftTrench3BallShoot");
-    autonChooser.addOption("Shoot 3 And Back Up", "CenterGoal3Ball");
-    autonChooser.addOption("9 Ball - Back Up", "CenterGoal9Ball");
-    autonChooser.addOption("CenterGoal9BallTurn", "CenterGoal9BallTurn");
-    autonChooser.addOption("CenterFeedLeftTRGrab3Score3", "CenterFeedLeftTRGrab3Score3");
+    autonChooser.setDefaultOption("Do Nothing", "default");
+    autonChooser.addOption("9 Ball - Back Up - Turn 90", "9 Ball - Back Up - Turn 90");
+    autonChooser.addOption("9 Ball - 3 Generator", "9 Ball - 3 Generator");
+    autonChooser.addOption("9 Ball - 3 Generator", "9 Ball - 3 Generator");
+    autonChooser.addOption("6 Ball - Partner Left - 3 Trench", "6 Ball - Partner Left - 3 Trench");
+    autonChooser.addOption("6 Ball - Partner Right - 3 Trench", "6 Ball - Partner Right - 3 Trench");
+    autonChooser.addOption("6 Ball - Partner Left - 3 Trench - 2 Generator", "6 Ball - Partner Left - 3 Trench - 2 Generator");
+    autonChooser.addOption("6 Ball - Partner Right - 3 Trench - 2 Generator", "6 Ball - Partner Right - 3 Trench - 2 Generator");
+    autonChooser.addOption("3 Ball - Back Up", "3 Ball - Back Up");
 
     delayChooser.setDefaultOption("0", "0");
     delayChooser.addOption("0.5", "0.5");
@@ -216,7 +218,7 @@ public String mac;
       case "9 Ball - Back Up - Turn 90":
         autonomousCommand = new CenterGoal9BallTurn(delay);
         break;
-      case "CenterGoalBack9BallGenerator3Ball":
+      case "9 Ball - 3 Generator":
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
         break;
       case "6 Ball - Partner Left - 3 Trench":
