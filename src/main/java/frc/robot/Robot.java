@@ -36,7 +36,8 @@ public String mac;
   public static ClimberBrake ClimberBrake;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
-  public static LED LED;
+  public static LEDs LEDs;
+  public static LEDBlinkin LEDBlinkin;
   public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
@@ -96,7 +97,8 @@ public String mac;
     ClimberBrake = new ClimberBrake();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
-    LED = new LED();
+    LEDBlinkin = new LEDBlinkin();
+    LEDs = new LEDs();
     Pigeon = new Pigeon();
     OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Serializer = new Serializer();
@@ -112,8 +114,6 @@ public String mac;
     Vision.switchPipeLine(0);
     Vision.setLEDMode(1);
     Climber.climberMotor.setSelectedSensorPosition(0);
-
-    LED.setColor(LED.white);
 
     autonChooser = new SendableChooser<String>();
     delayChooser = new SendableChooser<String>();

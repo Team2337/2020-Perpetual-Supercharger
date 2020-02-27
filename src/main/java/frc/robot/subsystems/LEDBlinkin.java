@@ -12,7 +12,7 @@ import frc.robot.commands.LED.LEDRuntime;
  * @author Zayd A.
  */
 
-public class LED extends SubsystemBase {
+public class LEDBlinkin extends SubsystemBase {
 	/*
 	 * PREDEFINED COLORS - Add more as needed
 	 * http://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf#page=14
@@ -42,7 +42,7 @@ public class LED extends SubsystemBase {
 	 * 
 	 * @param pwm The PWM port that the blinkin is plugged into
 	 */
-	public LED() {
+	public LEDBlinkin() {
 		blinkin = new Spark(Constants.PWMBLINKIN);
 		blinkin.setSafetyEnabled(false);
 	}
@@ -63,7 +63,7 @@ public class LED extends SubsystemBase {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new LEDRuntime(Robot.LED));
+		// setDefaultCommand(new LEDRuntime(Robot.LED));
 	}
 
 	public double status() {
