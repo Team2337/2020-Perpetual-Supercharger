@@ -42,13 +42,11 @@ public class AutoRotateWithVision extends CommandBase {
 
   @Override
   public void execute() {
-    /* if(Robot.Vision.getPipeline() == 0) {
+    if(Robot.Vision.getPipeline() == 0) {
       rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.VISIONCLOSEROTATIONP);
     } else {
       rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.VISIONFARROTATIONP);
-    } */
-    Robot.OperatorAngleAdjustment.setLimelightRotationMode(true);
-    rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.VISIONFARROTATIONP);
+    } 
     
     // Pass on joystick values to be calculated into angles and speeds
     Robot.SwerveDrivetrain.calculateJoystickInput(0, 0, rotation);
@@ -58,7 +56,6 @@ public class AutoRotateWithVision extends CommandBase {
   public void end(boolean interrupted) {
     Robot.OperatorAngleAdjustment.setLimelightRotationMode(false);
     Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
-    Robot.OperatorAngleAdjustment.setLimelightRotationMode(false);
   }
 
   @Override
