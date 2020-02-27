@@ -5,6 +5,7 @@ import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
@@ -129,7 +130,8 @@ public class OI {
         operatorControls.BlueButton.whenPressed(new runClimber(Robot.Climber, 50000, false));
         operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 50000, true));
 
-        //OPERATOR JOYSTICK RIGHT TRIGGER IS USED IN THE CO-OP COMMAND IN SERIALIZER
+        operatorControls.YellowButton.whenPressed(new runControlPanelMode(Robot.KickerWheel));
+        operatorControls.YellowButton.whenReleased(new stopKicker(Robot.KickerWheel));
 
         //insert code here
         
