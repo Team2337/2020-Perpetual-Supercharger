@@ -15,6 +15,7 @@ import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
 import frc.robot.commands.ShooterSystem.*;
+import frc.robot.commands.Vision.setBallTracking;
 
 /**
  * OI Class where all controllers and button presses are placed 
@@ -44,8 +45,8 @@ public class OI {
 
         // driverJoystick.triggerRight.whenPressed(new serializerCoOp(Robot.Serializer));
 
-        driverJoystick.triggerRight.whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
-        driverJoystick.triggerRight.whenReleased(new stopIntake(Robot.Intake));
+        // driverJoystick.triggerRight.whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
+        // driverJoystick.triggerRight.whenReleased(new stopIntake(Robot.Intake));
 
         // Slow rotates to the right
         driverJoystick.redB         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, -Constants.Swerve.SLOWROTATESPEED));
@@ -57,27 +58,39 @@ public class OI {
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
+        driverJoystick.back.whenPressed(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true),
+                        new setBallTracking(Robot.OperatorAngleAdjustment, true),
+                        Robot.Shooter.shooterAtVelocityBooleanSupplier));
+            
+        driverJoystick.back.whenReleased(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false),
+                        new setBallTracking(Robot.OperatorAngleAdjustment, false),
+                        Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
-        driverJoystick.back.whenPressed(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true));
-        driverJoystick.back.whenReleased(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false));
+        //Run the intake while shooting balls
+        driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED), 
+        new CommandBase(){}, Robot.Shooter.shooterAtVelocityBooleanSupplier));
+        driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new stopIntake(Robot.Intake),
+        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier));
+
+        //DRIVER JOYSTICK RIGHT TRIGGER IS USED IN THE CO-OP COMMANDS IN SERIALIZER AND KICKERWHEEL
 
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
         operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
         operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
-/* 
+
         operatorJoystick.triggerRight.whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
-        operatorJoystick.triggerRight.whenReleased(new stopAgitator(Robot.Agitator)); */
+        operatorJoystick.triggerRight.whenReleased(new stopAgitator(Robot.Agitator));
 
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKEFORWARDSPEED));
         operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake));
-
-        /* operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
+/* 
+         operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
         }, new feedSystemForward(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
         operatorJoystick.triggerLeft.whenReleased(new ConditionalCommand(new CommandBase() {
-        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier)); */
+        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier));  */
         //TRIGGER LEFT IN SERIALIZER COMMAND
 
         operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
@@ -115,6 +128,7 @@ public class OI {
         operatorControls.BlackSwitch.whenPressed(new activateClimber(Robot.Climber, true));
         operatorControls.BlackSwitch.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
         operatorControls.BlackSwitch.whenReleased(new activateClimber(Robot.Climber, false));
+        operatorControls.BlackSwitch.whenReleased(new engageBrake(Robot.ClimberBrake));
 
         operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 177500, false));
         operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 177500, true));

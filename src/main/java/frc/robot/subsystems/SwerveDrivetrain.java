@@ -210,6 +210,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         || Math.abs(rotation) > deadband 
         || Robot.OperatorAngleAdjustment.getSlowRotateMode() 
         || Robot.OperatorAngleAdjustment.getLimelightRotationMode()
+        || Robot.OperatorAngleAdjustment.getBallTrackingEnabled()
       ) {
         if(Math.abs((lastAngle[i] - angles[i])) < (Math.PI / 2)) {
           lastAngle[i] = angles[i];
@@ -336,7 +337,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       }
     }
     for(int i = 0; i < 4; i++) {
-      // SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
+      SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
       SmartDashboard.putNumber("Drive Motor Temperature/" + i, getModule(i).getDriveMotorTemperature());
     }
   }

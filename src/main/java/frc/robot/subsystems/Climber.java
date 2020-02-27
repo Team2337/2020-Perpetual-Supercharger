@@ -58,7 +58,7 @@ public class Climber extends SubsystemBase {
     TalonFXConfigurationClimber.peakOutputReverse = -0.9;
     TalonFXConfigurationClimber.reverseSoftLimitEnable = true;
     TalonFXConfigurationClimber.forwardSoftLimitEnable = true;
-    TalonFXConfigurationClimber.reverseSoftLimitThreshold = 30000;    
+    TalonFXConfigurationClimber.reverseSoftLimitThreshold = 10000;    
     TalonFXConfigurationClimber.forwardSoftLimitThreshold = 240000; //Top position: ~248,000
     TalonFXConfigurationClimber.initializationStrategy = SensorInitializationStrategy.BootToZero;
 
