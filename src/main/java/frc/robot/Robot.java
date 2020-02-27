@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
-import frc.robot.commands.auto.commandgroups.sixball.CenterFeedRightTRGrab3GenRGrab2Score5;
-import frc.robot.commands.auto.commandgroups.threeball.CenterGoal3Ball;
+import frc.robot.commands.auto.commandgroups.nineball.*;
+import frc.robot.commands.auto.commandgroups.sixball.*;
+import frc.robot.commands.auto.commandgroups.threeball.*;
 import frc.robot.subsystems.*;
 
 /**
@@ -112,15 +112,17 @@ public String mac;
     Vision.setLEDMode(1);
     Climber.climberMotor.setSelectedSensorPosition(0);
 
-    LED.setColor(LED.blue);
+    LED.setColor(LED.white);
 
     autonChooser = new SendableChooser<String>();
     delayChooser = new SendableChooser<String>();
 
-    autonChooser.setDefaultOption("default", "default");
-    autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
-    autonChooser.addOption("CenterGoalFront6BallFeedLeftTrench3BallShoot", "CenterGoalFront6BallFeedLeftTrench3BallShoot");
-    autonChooser.addOption("Shoot 3 And Back Up", "CenterGoal3Ball");
+    autonChooser.setDefaultOption("Do Nothing", "default");
+    autonChooser.addOption("9 Ball - Back Up Straight", "9 Ball - Back Up Straight");
+    autonChooser.addOption("9 Ball - Back Up - Turn 90", "9 Ball - Back Up - Turn 90");
+    autonChooser.addOption("6 Ball - Partner Left - 3 Trench", "6 Ball - Partner Left - 3 Trench");
+    autonChooser.addOption("6 Ball - Partner Right - 3 Trench", "6 Ball - Partner Right - 3 Trench");
+    autonChooser.addOption("3 Ball - Trench", "3 Ball - Trench");
 
     delayChooser.setDefaultOption("0", "0");
     delayChooser.addOption("0.5", "0.5");
@@ -206,16 +208,34 @@ public String mac;
       break;
     }
     switch (autonChooser.getSelected()) {
-      case "CenterGoalBack9BallGenerator3Ball":
+      case "9 Ball - Back Up Straight":
+        autonomousCommand = new CenterGoal9Ball(delay);
+        break;
+      case "9 Ball - Back Up - Turn 90":
+        autonomousCommand = new CenterGoal9BallTurn(delay);
+        break;
+      case "9 Ball - 3 Generator":
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
         break;
-      case "CenterGoalFront6BallFeedLeftTrench3BallShoot":
+      case "6 Ball - Partner Left - 3 Trench":
+        autonomousCommand = new CenterFeedLeftTRGrab3Score3(delay);
+        break;
+      case "6 Ball - Partner Right - 3 Trench":
+        autonomousCommand = new CenterFeedRightTRGrab3Score3(delay);
+        break;
+      case "6 Ball - Partner Left - 3 Trench - 2 Generator":
+        autonomousCommand = new CenterFeedLeftTRGrab3GenRGrab2Score5(delay);
+        break;
+      case "6 Ball - Partner Right - 3 Trench - 2 Generator":
         autonomousCommand = new CenterFeedRightTRGrab3GenRGrab2Score5(delay);
         break;
-        case "CenterGoal3Ball":
+      case "3 Ball - Trench":
+        autonomousCommand = new CenterTRGrab3Score3(delay);
+        break;
+      case "3 Ball - Back Up":
         autonomousCommand = new CenterGoal3Ball(delay);
         break;
-        default:
+      default:
         autonomousCommand = new WaitCommand(15).withTimeout(15);
         break;
       

@@ -30,7 +30,7 @@ public class InTrench3Ball extends ParallelCommandGroup {
         new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, driveDistance, ThirdDrive.forward, ThirdDrive.strafe, ThirdDrive.robotAngle).withTimeout(ThirdDrive.driveTimeout),
         new runIntake(Robot.Intake, intakeSpeed),
         new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-        new WaitCommand(1).andThen(new autoStartShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE).andThen(new runKicker(Robot.KickerWheel)))
+        new WaitCommand(1).andThen(new autoStartShooter(Robot.Shooter, Constants.SHOOTFRONTTRENCHSPEED).andThen(new runKicker(Robot.KickerWheel)))
     );
   }
 }
