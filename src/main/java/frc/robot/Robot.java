@@ -94,7 +94,6 @@ public String mac;
     /* --- Subsystems --- */
     Agitator = new Agitator();
     Climber = new Climber();
-    ClimberBrake = new ClimberBrake();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
     LEDBlinkin = new LEDBlinkin();

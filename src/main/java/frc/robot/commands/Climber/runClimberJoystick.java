@@ -46,12 +46,11 @@ public class runClimberJoystick extends CommandBase {
       climberSpeed = Robot.OI.operatorJoystick.getRightStickY();
       climberSpeed = Robot.Utilities.deadband(climberSpeed, deadband);
       if(Math.abs(climberSpeed) > deadband) {
-        // Robot.ClimberBrake.disengageBrake();
         Climber.setClimberSpeed(climberSpeed * maxSpeed);
         positionNotSet = true;
       } else {
         if(positionNotSet) {
-          Climber.setSetpoint(Climber.getCurrentPosition());
+          // Climber.setSetpoint(Climber.getCurrentPosition());
           positionNotSet = false;
         }
       }
