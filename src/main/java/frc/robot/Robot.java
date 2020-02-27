@@ -5,6 +5,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,6 +28,7 @@ public class Robot extends TimedRobot {
 // Variables for finding the Mac Address of the robot
 public static boolean isComp = false;  
 public String mac;
+  public String gameData;
   private Command autonomousCommand;
   public static Constants Constants;
   public static Utilities Utilities;
@@ -108,22 +110,23 @@ public String mac;
     
     OI = new OI();
 
+    
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
     Vision.switchPipeLine(0);
     Vision.setLEDMode(1);
     Climber.climberMotor.setSelectedSensorPosition(0);
-
+    
     autonChooser = new SendableChooser<String>();
     delayChooser = new SendableChooser<String>();
-
+    
     autonChooser.setDefaultOption("Do Nothing", "default");
     autonChooser.addOption("9 Ball - Back Up Straight", "9 Ball - Back Up Straight");
     autonChooser.addOption("9 Ball - Back Up - Turn 90", "9 Ball - Back Up - Turn 90");
     autonChooser.addOption("6 Ball - Partner Left - 3 Trench", "6 Ball - Partner Left - 3 Trench");
     autonChooser.addOption("6 Ball - Partner Right - 3 Trench", "6 Ball - Partner Right - 3 Trench");
     autonChooser.addOption("3 Ball - Trench", "3 Ball - Trench");
-
+    
     delayChooser.setDefaultOption("0", "0");
     delayChooser.addOption("0.5", "0.5");
     delayChooser.addOption("1", "1");
@@ -136,7 +139,7 @@ public String mac;
     delayChooser.addOption("4.5", "4.5");
     delayChooser.addOption("5", "5");
   }
-
+  
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
@@ -149,11 +152,13 @@ public String mac;
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic.
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
     CommandScheduler.getInstance().run();
     SmartDashboard.putData("Auton Selector", autonChooser);
     SmartDashboard.putData("Delay Selector", delayChooser);
+    SmartDashboard.putString("Game Data", gameData);
   }
-
+  
   /**
    * This function is called once each time the robot enters Disabled mode.
    */
