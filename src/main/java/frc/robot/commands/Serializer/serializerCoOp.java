@@ -52,12 +52,12 @@ public class serializerCoOp extends CommandBase {
             // Set the kicker to hold it's position (done in the kicker subsystem)
             if (serializer.topSerializerSensor.get() && serializer.middleSerializerSensor.get()) {
                 serializer.stopSerializer();
-                // Robot.Agitator.stopAgitator();
+                Robot.Agitator.stopAgitator();
             } else if (serializer.bottomSerializerSensor.get()) {
                 serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
             } else {
                 serializer.stopSerializer();
-                // Robot.Agitator.stopAgitator();
+                Robot.Agitator.stopAgitator();
             }
         } else {
             // If no-one is trying to control the kicker wheel, stop it

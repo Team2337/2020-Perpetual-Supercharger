@@ -121,7 +121,15 @@ public class SwerveDriveCommand extends CommandBase {
           rotation = (tx * Constants.VISIONOFFROTATIONP);
         }
       }
-    }  
+    }
+
+    if(Robot.OperatorAngleAdjustment.getBallTrackingEnabled()){
+      if(Robot.Vision.pixyRightDigital.get()) {
+        rotation = -(Math.toRadians(Robot.Vision.getPixyRightValue()) * Constants.VISIONCLOSEROTATIONP);
+      } else {
+        rotation = 0;
+      }
+    }
     
     // Checks to see if we are in slow rotate mode, then directly sets the rotation to the given speed
     if(Robot.OperatorAngleAdjustment.getSlowRotateMode()) {

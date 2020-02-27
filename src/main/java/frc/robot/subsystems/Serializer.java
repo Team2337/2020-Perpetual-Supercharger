@@ -62,7 +62,7 @@ public class Serializer extends SubsystemBase {
   // The configuration, ramp rate, and inversion are set here as well as the ports.
     serializerMotor = new TalonFX(Constants.SERIALIZER);
     serializerMotor.setInverted(false);
-    serializerMotor.configOpenloopRamp(0.4); //0.2
+    serializerMotor.configOpenloopRamp(0.2);
     FXConfig = new TalonFXConfiguration();
 
     // Set up the current configuration

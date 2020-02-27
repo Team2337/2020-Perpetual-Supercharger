@@ -23,7 +23,7 @@ public class PreTrenchNoPartner extends SequentialCommandGroup {
   public PreTrenchNoPartner() {
 
     final class FirstDrive {
-      public static final double moduleAngle = 90, driveDist = 87, forward = -0.35, strafe = 0.35, driveTimeout = 5;
+      public static final double moduleAngle = 90, driveDist = 78, forward = -0.35, strafe = 0.35, driveTimeout = 5;
     }
 
     // There is no second drive
