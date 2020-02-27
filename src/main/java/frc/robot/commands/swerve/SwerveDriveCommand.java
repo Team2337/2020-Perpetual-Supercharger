@@ -44,7 +44,7 @@ public class SwerveDriveCommand extends CommandBase {
   /** Rotational P while not rotating */
   private double stationaryP = 0.015;
   /** Rotational P while rotating */
-  private double movingP = 0.007;
+  private double movingP = 0.01; //0.007
 
   /**
    * Command running the swerve calculations with the joystick
