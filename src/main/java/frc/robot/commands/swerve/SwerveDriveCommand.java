@@ -44,7 +44,7 @@ public class SwerveDriveCommand extends CommandBase {
   /** Rotational P while not rotating */
   private double stationaryP = 0.015;
   /** Rotational P while rotating */
-  private double movingP = 0.007;
+  private double movingP = 0.01; //0.007
 
   /**
    * Command running the swerve calculations with the joystick
@@ -107,16 +107,20 @@ public class SwerveDriveCommand extends CommandBase {
     
     // Checks the limelight mode to rotate towards the target
     if(Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
-      double tx = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")));
+      double tx = -(Math.toRadians(Robot.Vision.getDoubleValue("tx") + 2));
       if(Robot.Vision.getPipeline() == 1) {
         if(Math.abs(tx) <  Math.toRadians(2)) {
-          rotation = (tx * Constants.VISIONFARROTATIONP);
+          rotation = (tx * Constants.VISIONCLOSEROTATIONP);
+        } else if(Math.abs(tx) < Math.toRadians(5)) {
+          rotation = (tx * Constants.VISIONMIDDLEROTATIONP);
         } else {
           rotation = (tx * Constants.VISIONOFFROTATIONP);
         }
       } else {
         if(Math.abs(tx) <  Math.toRadians(2)) {
           rotation = (tx * Constants.VISIONCLOSEROTATIONP);
+        } else if(Math.abs(tx) < Math.toRadians(5)) {
+          rotation = (tx * Constants.VISIONMIDDLEROTATIONP);
         } else {
           rotation = (tx * Constants.VISIONOFFROTATIONP);
         }
@@ -125,7 +129,7 @@ public class SwerveDriveCommand extends CommandBase {
 
     if(Robot.OperatorAngleAdjustment.getBallTrackingEnabled()){
       if(Robot.Vision.pixyRightDigital.get()) {
-        rotation = -(Math.toRadians(Robot.Vision.getPixyRightValue()) * Constants.VISIONCLOSEROTATIONP);
+        rotation = -(Math.toRadians(Robot.Vision.getPixyRightValue() - 2) * Constants.BALLTRACKINGP);
       } else {
         rotation = 0;
       }

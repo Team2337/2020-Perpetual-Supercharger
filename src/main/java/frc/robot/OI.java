@@ -3,7 +3,6 @@ package frc.robot;
 import frc.robot.commands.swerve.*;
 import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
-import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.LED.LEDRuntime;
@@ -123,7 +122,6 @@ public class OI {
         operatorControls.BlackSwitch.whenPressed(new activateClimber(Robot.Climber, true));
         operatorControls.BlackSwitch.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
         operatorControls.BlackSwitch.whenReleased(new activateClimber(Robot.Climber, false));
-        operatorControls.BlackSwitch.whenReleased(new engageBrake(Robot.ClimberBrake));
 
         operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 177500, false));
         operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 177500, true));
