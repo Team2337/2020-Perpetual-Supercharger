@@ -1,11 +1,8 @@
 package frc.robot.commands.KickerWheel;
 
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.subsystems.KickerWheel;
-import frc.robot.subsystems.OperatorAngleAdjustment;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * A command that sets the kicker speed using the Kicker subsystem.

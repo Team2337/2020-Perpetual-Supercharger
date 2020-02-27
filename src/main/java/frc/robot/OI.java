@@ -5,9 +5,7 @@ import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.runKicker;
-import frc.robot.commands.KickerWheel.runControlPanelMode;
-import frc.robot.commands.KickerWheel.stopKicker;
+import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
@@ -41,9 +39,7 @@ public class OI {
         /* driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new feedSystemForward(), 
         new CommandBase(){}, Robot.Shooter.shooterAtVelocityBooleanSupplier));
         driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new feedSystemStop(),
-        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier));  */
-
-        // driverJoystick.triggerRight.whenPressed(new serializerCoOp(Robot.Serializer));
+        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier)); */
 
         // driverJoystick.triggerRight.whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
         // driverJoystick.triggerRight.whenReleased(new stopIntake(Robot.Intake));
@@ -109,9 +105,7 @@ public class OI {
         operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
         operatorJoystick.start          .whenReleased(new shooterSystemOn());
 
-        // operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));
-        operatorJoystick.back.whenPressed(new stopShooter(Robot.Shooter));
-        operatorJoystick.back.whenReleased(new stopKicker(Robot.KickerWheel));
+        operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));
 
         // Buttons to queue the robot's angle offset 
         operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));

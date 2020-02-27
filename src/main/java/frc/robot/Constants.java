@@ -241,7 +241,6 @@ public final class Constants {
 
     public static double KICKERCONTROLPANELSPEED = 3000;
 
-
     /******************/
     /* -------------- */
     /* --- VISION --- */
