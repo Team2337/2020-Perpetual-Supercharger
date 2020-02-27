@@ -24,9 +24,9 @@ public class FirePreloads extends SequentialCommandGroup {
             new autoStartShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE),
             new WaitCommand(0.2).withTimeout(0.2), 
             new AutoResetRampRate(Robot.OperatorAngleAdjustment).withTimeout(0.1),
-            new WaitCommand(3).withTimeout(3), 
+            new WaitCommand(1.5).withTimeout(1.5), 
             new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-            new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED) 
+            new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED).withTimeout(3)
         );
     }
 }

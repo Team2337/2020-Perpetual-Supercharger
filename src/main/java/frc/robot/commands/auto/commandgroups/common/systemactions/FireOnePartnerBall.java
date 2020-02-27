@@ -16,13 +16,13 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
  * 
  * @author Bryce G.
  */
-public class FirePartnerBalls extends SequentialCommandGroup {
+public class FireOnePartnerBall extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-    public FirePartnerBalls(int numOfPartners) {
+    public FireOnePartnerBall(int numOfPartners) {
         addCommands(new FirePreloads().withTimeout(3.2),
                 new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED),
                 new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-                new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED).withTimeout(10)
+                new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED).withTimeout(5)
                 );
         
     }
