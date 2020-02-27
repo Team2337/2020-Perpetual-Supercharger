@@ -3,6 +3,9 @@ package frc.robot.commands.Climber;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Climber;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -17,7 +20,7 @@ public class runClimberJoystick extends CommandBase {
 
   private double climberSpeed;
   private double deadband = 0.1;
-  private double maxSpeed = 0.9;
+  private double maxSpeed = 1.0;
   private boolean positionNotSet = false;
 
 
@@ -51,6 +54,7 @@ public class runClimberJoystick extends CommandBase {
       } else {
         if(positionNotSet) {
           // Climber.setSetpoint(Climber.getCurrentPosition());
+          Climber.climberMotor.set(ControlMode.PercentOutput, 0);
           positionNotSet = false;
         }
       }

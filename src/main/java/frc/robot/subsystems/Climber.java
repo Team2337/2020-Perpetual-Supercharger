@@ -72,7 +72,7 @@ public class Climber extends SubsystemBase {
     //Pushes current limits to motors
     climberMotor.configStatorCurrentLimit(currentLimitConfigclimber, 0);
     //Set up ramp rate
-    climberMotor.configClosedloopRamp(0.5);
+    climberMotor.configClosedloopRamp(0.1);
   }
 
   @Override
