@@ -20,6 +20,7 @@ public class Vision extends SubsystemBase {
   public DigitalInput pixyRightDigital;
   
   private boolean rotateLimelight = false;
+  private boolean visionDebug = false;
 
   public Vision() {
     pixyRightAnalog = new AnalogInput(4);
@@ -138,11 +139,13 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Pixy Right Raw Analog Voltage", pixyRightAnalog.getVoltage());
-    SmartDashboard.putNumber("Pixy Right Analog Degrees", getPixyRightValue());
-    SmartDashboard.putBoolean("Pixy Right sees target", pixyRightDigital.get());
-    SmartDashboard.putNumber("Pixy Left Raw Analog Voltage", pixyLeftAnalog.getVoltage());
-    SmartDashboard.putNumber("Pixy Left Analog Degrees", getPixyLeftValue());
-    SmartDashboard.putBoolean("Pixy Left sees target", pixyLeftDigital.get()); 
+    if(visionDebug) {
+      SmartDashboard.putNumber("Pixy Right Raw Analog Voltage", pixyRightAnalog.getVoltage());
+      SmartDashboard.putNumber("Pixy Right Analog Degrees", getPixyRightValue());
+      SmartDashboard.putBoolean("Pixy Right sees target", pixyRightDigital.get());
+      SmartDashboard.putNumber("Pixy Left Raw Analog Voltage", pixyLeftAnalog.getVoltage());
+      SmartDashboard.putNumber("Pixy Left Analog Degrees", getPixyLeftValue());
+      SmartDashboard.putBoolean("Pixy Left sees target", pixyLeftDigital.get()); 
+    }
    }
 }

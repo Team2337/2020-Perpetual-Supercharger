@@ -195,12 +195,12 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     /** Speed to shoot at from ~16 feet away */
-    public static int SHOOTSPEEDCLOSE = 12500; 
+    public static int SHOOTSPEEDCLOSE = 13000; //13000 - week 0 working 
 
     /** Speed to shoot at from ~34 feet away */
-    public static int SHOOTSPEEDFAR = 15000; //15000
+    public static int SHOOTSPEEDFAR = 15300; //15100 - week 0 working //
 
-    public static int SHOOTFRONTTRENCHSPEED = 14000;
+    public static int SHOOTFRONTTRENCHSPEED = 13750;
 
     public static int SHOOTFRONTTRENCHAUTO = 13300;
 
@@ -277,12 +277,6 @@ public final class Constants {
             CLIMBER = 13;
             MODULE2DRIVEMOTORID = 14;
             MODULE3DRIVEMOTORID = 15;
-
-            /* --- Shooter --- */
-            SHOOTSPEEDCLOSE = 13000; //13000 - week 0 working 
-            SHOOTSPEEDFAR = 15100; //15100 - week 0 working //
-            SHOOTFRONTTRENCHSPEED = 13750;
-            SHOOTFRONTTRENCHAUTO = 13300;
 
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 7000; //7000 - week 0 working

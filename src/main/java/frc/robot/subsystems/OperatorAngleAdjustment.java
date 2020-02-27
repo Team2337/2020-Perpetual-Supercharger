@@ -47,10 +47,10 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   public OperatorAngleAdjustment() {
     // Sets all the gyro offsets
     gyroOffset = 0;
-    farShot = 12;
+    farShot = 12; //25
     nearShot = 0;
     climbing = 28;
-    frontTrenchShot = 13;
+    frontTrenchShot = 13;  //???
     field0 = 0;
     field90 = 90;
     field180 = 180;
@@ -109,7 +109,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       break;
       case "climbing":
       futureOffsetAngle = climbing;
-      Robot.Vision.switchPipeLine(0);
+      Robot.Vision.switchPipeLine(2);
       Robot.Vision.setRotateLimelight(false);
       Robot.SwerveDrivetrain.setFieldOriented(false);
       break;

@@ -119,14 +119,11 @@ public String mac;
     delayChooser = new SendableChooser<String>();
 
     autonChooser.setDefaultOption("Do Nothing", "default");
+    autonChooser.addOption("9 Ball - Back Up Straight", "9 Ball - Back Up Straight");
     autonChooser.addOption("9 Ball - Back Up - Turn 90", "9 Ball - Back Up - Turn 90");
-    autonChooser.addOption("9 Ball - 3 Generator", "9 Ball - 3 Generator");
-    autonChooser.addOption("9 Ball - 3 Generator", "9 Ball - 3 Generator");
     autonChooser.addOption("6 Ball - Partner Left - 3 Trench", "6 Ball - Partner Left - 3 Trench");
     autonChooser.addOption("6 Ball - Partner Right - 3 Trench", "6 Ball - Partner Right - 3 Trench");
-    autonChooser.addOption("6 Ball - Partner Left - 3 Trench - 2 Generator", "6 Ball - Partner Left - 3 Trench - 2 Generator");
-    autonChooser.addOption("6 Ball - Partner Right - 3 Trench - 2 Generator", "6 Ball - Partner Right - 3 Trench - 2 Generator");
-    autonChooser.addOption("3 Ball - Back Up", "3 Ball - Back Up");
+    autonChooser.addOption("3 Ball - Trench", "3 Ball - Trench");
 
     delayChooser.setDefaultOption("0", "0");
     delayChooser.addOption("0.5", "0.5");
@@ -212,7 +209,7 @@ public String mac;
       break;
     }
     switch (autonChooser.getSelected()) {
-      case "CenterGoal9Ball":
+      case "9 Ball - Back Up Straight":
         autonomousCommand = new CenterGoal9Ball(delay);
         break;
       case "9 Ball - Back Up - Turn 90":
@@ -232,6 +229,9 @@ public String mac;
         break;
       case "6 Ball - Partner Right - 3 Trench - 2 Generator":
         autonomousCommand = new CenterFeedRightTRGrab3GenRGrab2Score5(delay);
+        break;
+      case "3 Ball - Trench":
+        autonomousCommand = new CenterTRGrab3Score3(delay);
         break;
       case "3 Ball - Back Up":
         autonomousCommand = new CenterGoal3Ball(delay);
@@ -265,8 +265,6 @@ public String mac;
     }
     
     Pigeon.resetPidgey();
-
-    LED.setColor(LED.red);
   }
 
   /**
