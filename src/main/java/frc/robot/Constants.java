@@ -253,6 +253,8 @@ public final class Constants {
     public static double VISIONOFFROTATIONP = 0.65; // 0.85
     public static double VISIONFARROTATIONP = 0.85; // 0.85
 
+    public static double BALLTRACKINGP = 0.65;
+
 
     /**
      * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean

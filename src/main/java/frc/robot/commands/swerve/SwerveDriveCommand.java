@@ -129,7 +129,7 @@ public class SwerveDriveCommand extends CommandBase {
 
     if(Robot.OperatorAngleAdjustment.getBallTrackingEnabled()){
       if(Robot.Vision.pixyRightDigital.get()) {
-        rotation = -(Math.toRadians(Robot.Vision.getPixyRightValue()) * Constants.VISIONCLOSEROTATIONP);
+        rotation = -(Math.toRadians(Robot.Vision.getPixyRightValue() - 2) * Constants.BALLTRACKINGP);
       } else {
         rotation = 0;
       }
