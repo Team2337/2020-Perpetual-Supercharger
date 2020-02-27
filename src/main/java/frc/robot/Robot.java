@@ -5,6 +5,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -24,9 +26,10 @@ import frc.robot.subsystems.*;
  * project.  
  */
 public class Robot extends TimedRobot {
-// Variables for finding the Mac Address of the robot
-public static boolean isComp = false;  
-public String mac;
+  // Variables for finding the Mac Address of the robot
+  public static boolean isComp = false;  
+  public String mac;
+  public String gameData; 
   private Command autonomousCommand;
   public static Constants Constants;
   public static Utilities Utilities;
@@ -108,6 +111,8 @@ public String mac;
     
     OI = new OI();
 
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
+
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
     Vision.switchPipeLine(0);
@@ -152,6 +157,7 @@ public String mac;
     CommandScheduler.getInstance().run();
     SmartDashboard.putData("Auton Selector", autonChooser);
     SmartDashboard.putData("Delay Selector", delayChooser);
+    SmartDashboard.putString("Game Data", gameData);
   }
 
   /**
