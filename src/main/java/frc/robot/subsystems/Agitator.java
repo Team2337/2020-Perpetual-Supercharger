@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
-
 /**
  * Simple subsystem for the agitator
  * @author Michael Francis
@@ -21,18 +20,16 @@ public class Agitator extends SubsystemBase {
   private final boolean agitatorDebug = false;
 
   //Motor
-  private VictorSPX agitatorMotor;
+  public VictorSPX agitatorMotor;
 
   /**
    * Creates a new Agitator subsystem and sets up the motor.
    */
   public Agitator() {
     agitatorMotor = new VictorSPX(Constants.AGITATOR);
-
+    
     //Reset the motor to its factory settings each boot
     agitatorMotor.configFactoryDefault();
-
-    agitatorMotor.setInverted(true);
   }
 
   @Override
@@ -40,7 +37,6 @@ public class Agitator extends SubsystemBase {
     // This method will be called once per scheduler run
     if(agitatorDebug){
       //If in debug mode, put the agitator speed and temperature on SmartDashboard/Shuffleboard
-      SmartDashboard.putNumber("Agitator Motor Speed", getAgitatorSpeed());
     }
   }
 
@@ -57,9 +53,8 @@ public class Agitator extends SubsystemBase {
    * Gets the speed of the agitator motor.
    * @return The intake speed of both the agitator motor in an array.
    */
-  public double getAgitatorSpeed(){
-    double spd = agitatorMotor.getMotorOutputPercent();
-    return spd;
+  public double getAgitatorSpeed() {
+    return agitatorMotor.getMotorOutputPercent();
   }
 
   /**
@@ -67,14 +62,5 @@ public class Agitator extends SubsystemBase {
    */
   public void stopAgitator(){
     agitatorMotor.set(ControlMode.PercentOutput, 0);
-  }
-
-  /**
-   * Method that returns the agitator motor temperature
-   * @return A double of the temperature (in Celsius) of the agitator motor.
-   */
-  public double getAgitatorTemperature(){
-    double temp = agitatorMotor.getTemperature();
-    return temp;
   }
 }

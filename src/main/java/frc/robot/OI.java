@@ -110,9 +110,6 @@ public class OI {
         operatorControls.BlueButton.whenPressed(new runClimber(Robot.Climber, 50000, false));
         operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 50000, true));
 
-        operatorControls.YellowButton.whenPressed(new engageBrake(Robot.ClimberBrake));
-
-        //insert code here
         
     }
 

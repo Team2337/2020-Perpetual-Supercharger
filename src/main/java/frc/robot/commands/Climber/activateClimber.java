@@ -25,14 +25,13 @@ public class activateClimber extends InstantCommand {
     subsystem = m_subsystem;
   this.isActivated = isActivated;    
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_subsystem, Robot.ClimberBrake);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     // This will set the climber to run at a set speed
-    Robot.ClimberBrake.disengageBrake();
     subsystem.setClimberActivated(isActivated);
   }
 
