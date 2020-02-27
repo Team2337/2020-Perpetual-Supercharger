@@ -106,9 +106,30 @@ public class SwerveDriveCommand extends CommandBase {
     }
     
     // Checks the limelight mode to rotate towards the target
-    if (Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
-      rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.VISIONROTATIONP);
-    }  
+    if(Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
+      double tx = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")));
+      if(Robot.Vision.getPipeline() == 1) {
+        if(Math.abs(tx) <  Math.toRadians(2)) {
+          rotation = (tx * Constants.VISIONFARROTATIONP);
+        } else {
+          rotation = (tx * Constants.VISIONOFFROTATIONP);
+        }
+      } else {
+        if(Math.abs(tx) <  Math.toRadians(2)) {
+          rotation = (tx * Constants.VISIONCLOSEROTATIONP);
+        } else {
+          rotation = (tx * Constants.VISIONOFFROTATIONP);
+        }
+      }
+    }
+
+    if(Robot.OperatorAngleAdjustment.getBallTrackingEnabled()){
+      if(Robot.Vision.pixyRightDigital.get()) {
+        rotation = -(Math.toRadians(Robot.Vision.getPixyRightValue()) * Constants.VISIONCLOSEROTATIONP);
+      } else {
+        rotation = 0;
+      }
+    }
     
     // Checks to see if we are in slow rotate mode, then directly sets the rotation to the given speed
     if(Robot.OperatorAngleAdjustment.getSlowRotateMode()) {
