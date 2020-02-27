@@ -25,7 +25,7 @@ public class runControlPanelMode extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize(){ 
-    subsystem.setKickerSpeed(Constants.KICKERCONTROLPANELSPEED, Constants.KickerWheel.SHORTVELOCITYP);
+    subsystem.setKickerSpeed(-Constants.KICKERCONTROLPANELSPEED, Constants.KickerWheel.SHORTVELOCITYP);
   }
   
   // Called once the command ends or is interrupted.
