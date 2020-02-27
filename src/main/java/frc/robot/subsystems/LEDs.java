@@ -19,8 +19,8 @@ public class LEDs extends SubsystemBase {
    */
   public LEDs() {
     LEDs = new Solenoid(Constants.PCM0, Constants.PCMLEDSTRIP);
-    setDefaultCommand(new LEDRuntime(Robot.LEDs));
-
+    setDefaultCommand(new LEDRuntime(this));
+    
   }
 
   /**

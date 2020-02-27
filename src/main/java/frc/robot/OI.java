@@ -6,6 +6,7 @@ import frc.robot.commands.Climber.*;
 import frc.robot.commands.ClimberBrake.engageBrake;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
+import frc.robot.commands.LED.LEDRuntime;
 import frc.robot.commands.Serializer.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;

@@ -28,7 +28,7 @@ public class LEDRuntime extends CommandBase {
 		if(Robot.Shooter.shooterAtVelocity) {
 			Robot.LEDs.turnOnLEDs();
 		} else if(Robot.Intake.getIntakeSpeed() > 0) {
-			if(iterations % 50 == 0) {
+			if(iterations % 20 == 0) {
 				if(lastState == 0) {
 					Robot.LEDs.turnOnLEDs();
 					lastState = 1;
