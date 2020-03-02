@@ -84,9 +84,9 @@ public final class Constants {
     /* ----------------- */
     /*********************/
 
-    public static int DIOPORT0 = 0;
-    public static int DIOPORT1 = 1;
-    public static int DIOPORT2 = 2;
+    public static int BOTTOMSERIALIZERSENSOR = 0;
+    public static int MIDDLESERIALIZERSENSOR = 1;
+    public static int TOPSERIALIZERSENSOR = 2;
     public static int DIOPORT3 = 3;
     public static int DIOPORT4 = 4;
     public static int DIOPORT5 = 5;

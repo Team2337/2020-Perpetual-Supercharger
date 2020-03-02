@@ -33,7 +33,6 @@ public class Shooter extends SubsystemBase {
         
     @Override
     public boolean getAsBoolean() {
-        // TODO Auto-generated method stub
         return shooterAtVelocity;
     }
 };
@@ -138,7 +137,6 @@ public class Shooter extends SubsystemBase {
       
       @Override
       public boolean getAsBoolean() {
-        // TODO Auto-generated method stub
         return shooterAtVelocity;
       }
     };

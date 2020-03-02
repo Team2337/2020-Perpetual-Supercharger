@@ -15,7 +15,6 @@ public class feedSystemForward extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public feedSystemForward() {
         addCommands(
-            //new holdKickerPosition(Robot.KickerWheel), //TODO: FIX ME
             new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
             new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
     }
