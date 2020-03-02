@@ -1,11 +1,7 @@
 package frc.robot.commands.Climber;
 
-import frc.robot.Constants;
-import frc.robot.Robot;
-import frc.robot.subsystems.Climber;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.Climber;
 
 /**
  * Sets the climber speed

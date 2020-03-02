@@ -1,7 +1,5 @@
 package frc.robot.commands.auto.commandgroups.threeball;
 
-import frc.robot.commands.auto.commandgroups.common.movement.GeneratorThreeBallFromCenterTarget;
-import frc.robot.commands.auto.commandgroups.common.ShootNineBall;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
