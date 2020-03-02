@@ -34,17 +34,17 @@ public class serializerCoOp extends CommandBase {
         // The driver takes priority
         if (Robot.OI.driverJoystick.triggerRight.get()) {
             if (Robot.Shooter.shooterAtVelocity) { 
-                if (i < 10) {
+                /* if (i < 10) {
                     if(Robot.KickerWheel.getKickerSpeed() < 3500){
                         Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERREVERSESPEED);
                     }
                 } else if (i == 10){
                     Robot.Serializer.stopSerializer();
-                } else if (i > 50 * 0.5) {
+                } else if (i > 50 * 0.5) { */
                     Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
                     Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
-                }
-                i++;
+                /* }
+                i++; */
             }
             // If the driver isn't attempting to control it and the operator is
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
