@@ -1,12 +1,8 @@
 package frc.robot.commands.auto;
 
-import frc.robot.Robot;
-import frc.robot.Constants.Swerve;
-import frc.robot.subsystems.Serializer;
-import frc.robot.subsystems.SwerveDrivetrain;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+import frc.robot.subsystems.Serializer;
 
 /**
  * Sets the module angles to the desired rotation angle and rotates the robot a specified direction, either left or right

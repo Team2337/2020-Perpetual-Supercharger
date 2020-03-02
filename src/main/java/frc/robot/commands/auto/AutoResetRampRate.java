@@ -1,8 +1,8 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.subsystems.OperatorAngleAdjustment;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Resets the ramp rate on the shooter to be zero

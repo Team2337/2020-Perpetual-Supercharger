@@ -1,9 +1,7 @@
 package frc.robot.commands.Agitator;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.Agitator;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.Agitator;
 
 /**
  * Sets the agitator speed

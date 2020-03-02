@@ -92,9 +92,9 @@ public class Serializer extends SubsystemBase {
      serializerMotor.setNeutralMode(NeutralMode.Brake);
      serializerMotor.configAllSettings(FXConfig);
 
-     bottomSerializerSensor = new DigitalInput(0); //TODO: FIX ME
-     middleSerializerSensor = new DigitalInput(1); //TODO: FIX ME
-     topSerializerSensor = new DigitalInput(2);    //TODO: FIX ME
+     bottomSerializerSensor = new DigitalInput(Constants.BOTTOMSERIALIZERSENSOR);
+     middleSerializerSensor = new DigitalInput(Constants.MIDDLESERIALIZERSENSOR); 
+     topSerializerSensor = new DigitalInput(Constants.TOPSERIALIZERSENSOR);    
      counter = new Counter(3);
      // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
      // up of the pulse
