@@ -129,7 +129,7 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(getAvgRPM() > (getTargetRPM() * 0.95)) {
+    if(getAvgRPM() > (getTargetRPM() * 0.9)) {
       shooterAtVelocity = true;
     } else {
       shooterAtVelocity = false;

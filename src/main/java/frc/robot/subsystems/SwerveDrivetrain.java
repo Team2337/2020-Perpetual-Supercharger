@@ -333,10 +333,10 @@ public class SwerveDrivetrain extends SubsystemBase {
       for(int i = 0; i < 4; i++) {
       SmartDashboard.putNumber("ModuleAngle/" + i, 
       ((getModule(i).getNormalizedAnalogVoltageRadians() - angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
-      SmartDashboard.putNumber("Actual Module Angle/" + i, getModule(i).getNormalizedAnalogVoltageRadians());
-      }
     }
-    for(int i = 0; i < 4; i++) {
+  }
+  for(int i = 0; i < 4; i++) {
+    SmartDashboard.putNumber("Actual Module Angle/" + i, getModule(i).getNormalizedAnalogVoltageRadians());
       SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
       SmartDashboard.putNumber("Drive Motor Temperature/" + i, getModule(i).getDriveMotorTemperature());
     }
