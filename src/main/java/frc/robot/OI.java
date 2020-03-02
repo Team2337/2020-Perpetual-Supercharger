@@ -7,12 +7,16 @@ import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.LED.LEDRuntime;
 import frc.robot.commands.Serializer.*;
+import frc.robot.commands.Servo.deployHyperLoop;
+import frc.robot.commands.Servo.retractHyperLoop;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Shooter.*;
 import frc.robot.commands.ShooterSystem.*;
+import frc.robot.commands.Vision.limeLightLEDOff;
+import frc.robot.commands.Vision.limeLightLEDOn;
 import frc.robot.commands.Vision.setBallTracking;
 
 /**
@@ -54,13 +58,19 @@ public class OI {
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 
-        driverJoystick.back.whenPressed(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true),
+        driverJoystick.back.whenPressed(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true));
+        driverJoystick.back.whenReleased(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false));
+
+        driverJoystick.start.whenPressed(new setBallTracking(Robot.OperatorAngleAdjustment, true));
+        driverJoystick.start.whenReleased(new setBallTracking(Robot.OperatorAngleAdjustment, false));
+
+        /* driverJoystick.back.whenPressed(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, true),
                         new setBallTracking(Robot.OperatorAngleAdjustment, true),
                         Robot.Shooter.shooterAtVelocityBooleanSupplier));
             
         driverJoystick.back.whenReleased(new ConditionalCommand(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false),
                         new setBallTracking(Robot.OperatorAngleAdjustment, false),
-                        Robot.Shooter.shooterAtVelocityBooleanSupplier));
+                        Robot.Shooter.shooterAtVelocityBooleanSupplier)); */
 
         //Run the intake while shooting balls
         driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED), 
@@ -103,9 +113,9 @@ public class OI {
 
         // Backs the serializer up
         operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
-        operatorJoystick.start          .whenReleased(new shooterSystemOn());
+        operatorJoystick.start          .whenReleased(new limeLightLEDOn(Robot.Vision).andThen(new shooterSystemOn()));
 
-        operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)));
+        operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)).andThen(new limeLightLEDOff(Robot.Vision)));
 
         // Buttons to queue the robot's angle offset 
         operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
@@ -131,6 +141,11 @@ public class OI {
 
         operatorControls.YellowButton.whenPressed(new runControlPanelMode(Robot.KickerWheel));
         operatorControls.YellowButton.whenReleased(new stopKicker(Robot.KickerWheel));
+
+        operatorControls.BlueSwitch.whenPressed(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false));
+
+        operatorControls.YellowSwitch.whenPressed(new deployHyperLoop(Robot.Servo66));
+        operatorControls.YellowSwitch.whenReleased(new retractHyperLoop(Robot.Servo66));
 
         //insert code here
         

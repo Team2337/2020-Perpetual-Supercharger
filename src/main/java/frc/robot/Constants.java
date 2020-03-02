@@ -132,7 +132,7 @@ public final class Constants {
     public static int PWMPORT6 = 6;
     public static int PWMPORT7 = 7;
     public static int PWMPORT8 = 8;
-    public static int PWMPORT9 = 9;
+    public static int SERVOPORT = 9;
 
     /* --- TIME OF FLIGHT Variables --- */
 
@@ -195,10 +195,10 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     /** Speed to shoot at from ~16 feet away */
-    public static int SHOOTSPEEDCLOSE = 13000; //13000 - week 0 working 
+    public static int SHOOTSPEEDCLOSE = 13025; //13000 - week 0 working 
 
     /** Speed to shoot at from ~34 feet away */
-    public static int SHOOTSPEEDFAR = 15300; //15100 - week 0 working //
+    public static int SHOOTSPEEDFAR = 15550; //15100 - week 0 working // 15500 kettering week 1 //
 
     public static int SHOOTFRONTTRENCHSPEED = 13750;
 

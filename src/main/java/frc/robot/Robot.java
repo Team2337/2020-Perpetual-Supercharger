@@ -41,6 +41,7 @@ public String mac;
   public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
+  public static Servo66 Servo66;
   public static Shooter Shooter;
   public static SwerveDrivetrain SwerveDrivetrain;
   public static TimeOfFlight TimeOfFlight;
@@ -100,6 +101,7 @@ public String mac;
     LEDs = new LEDs();
     Pigeon = new Pigeon();
     OperatorAngleAdjustment = new OperatorAngleAdjustment();
+    Servo66 = new Servo66();
     Serializer = new Serializer();
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
@@ -120,6 +122,7 @@ public String mac;
     autonChooser.setDefaultOption("Do Nothing", "default");
     autonChooser.addOption("9 Ball - Back Up Straight", "9 Ball - Back Up Straight");
     autonChooser.addOption("9 Ball - Back Up - Turn 90", "9 Ball - Back Up - Turn 90");
+    autonChooser.addOption("9 Ball - Drive to Trench", "9 Ball - Drive to Trench");
     autonChooser.addOption("6 Ball - Partner Left - 3 Trench", "6 Ball - Partner Left - 3 Trench");
     autonChooser.addOption("6 Ball - Partner Right - 3 Trench", "6 Ball - Partner Right - 3 Trench");
     autonChooser.addOption("3 Ball - Trench", "3 Ball - Trench");
@@ -214,6 +217,9 @@ public String mac;
       case "9 Ball - Back Up - Turn 90":
         autonomousCommand = new CenterGoal9BallTurn(delay);
         break;
+      case "9 Ball - Drive to Trench":
+        autonomousCommand = new CenterGoal9BallTrench(delay);
+        break;
       case "9 Ball - 3 Generator":
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
         break;
@@ -263,7 +269,7 @@ public String mac;
       autonomousCommand.cancel();
     }
     
-    Pigeon.resetPidgey();
+    Vision.setLEDMode(1);
   }
 
   /**
