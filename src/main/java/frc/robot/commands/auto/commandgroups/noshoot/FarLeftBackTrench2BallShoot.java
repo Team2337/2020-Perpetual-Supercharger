@@ -17,7 +17,7 @@ public class FarLeftBackTrench2BallShoot extends SequentialCommandGroup {
     addCommands(
       // new AutonInit()
 
-      //Please change the naming on this, I am so confused. Thanks -Nicholas Stokes
+      
     );
   
   }
