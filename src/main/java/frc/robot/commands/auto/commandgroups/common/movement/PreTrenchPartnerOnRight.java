@@ -5,12 +5,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Agitator.runAgitator;
-import frc.robot.commands.Intake.runIntake;
-import frc.robot.commands.KickerWheel.runKicker;
-import frc.robot.commands.auto.AutoDriveWithJoystickInput;
-import frc.robot.commands.auto.autoStartShooter;
-import frc.robot.commands.auto.resetDriveEncoders;
+import frc.robot.commands.Agitator.*;
+import frc.robot.commands.Intake.*;
+import frc.robot.commands.KickerWheel.*;
+import frc.robot.commands.auto.*;
 
 /**
  * Drives from the initiation line to the Trench to gather power cells

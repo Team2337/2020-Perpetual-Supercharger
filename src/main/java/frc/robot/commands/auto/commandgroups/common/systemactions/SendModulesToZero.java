@@ -2,7 +2,7 @@ package frc.robot.commands.auto.commandgroups.common.systemactions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.auto.zeroAngleEncoders;
+import frc.robot.commands.auto.*;
 
 /**
  * Sets the angle encoders to zero command group

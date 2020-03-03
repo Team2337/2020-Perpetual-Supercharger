@@ -3,8 +3,8 @@ package frc.robot.commands.auto.commandgroups.nineball;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
-import frc.robot.commands.Serializer.stopSerializer;
-import frc.robot.commands.auto.zeroDriveEncoders;
+import frc.robot.commands.Serializer.*;
+import frc.robot.commands.auto.*;
 import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchNoPartner;
 import frc.robot.commands.auto.commandgroups.common.systemactions.FirePartnerBalls;
 

@@ -3,8 +3,8 @@ package frc.robot.commands.auto.commandgroups.common;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Shooter.stopShooter;
-import frc.robot.commands.auto.checkShooterVelocity;
+import frc.robot.commands.Shooter.*;
+import frc.robot.commands.auto.*;
 import frc.robot.commands.auto.commandgroups.common.systemactions.*;
 
 /**

@@ -2,8 +2,8 @@ package frc.robot.commands.auto.commandgroups.common.systemactions;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.KickerWheel.runKicker;
-import frc.robot.commands.Shooter.startShooter;
+import frc.robot.commands.KickerWheel.*;
+import frc.robot.commands.Shooter.*;
 
 /**
  * Runs the kicker and starts the shooter command group

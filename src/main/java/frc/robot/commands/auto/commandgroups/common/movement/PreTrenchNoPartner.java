@@ -2,9 +2,7 @@ package frc.robot.commands.auto.commandgroups.common.movement;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.auto.AutoDriveWithJoystickInput;
-import frc.robot.commands.auto.resetDriveEncoders;
-
+import frc.robot.commands.auto.*;
 /**
  * Drives from the initiation line to the Trench to gather power cells
  * @author Madison J. 

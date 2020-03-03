@@ -3,13 +3,10 @@ package frc.robot.commands.auto.commandgroups.common.movement;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.Intake.runIntake;
-import frc.robot.commands.KickerWheel.runKicker;
-import frc.robot.commands.Serializer.runSerializer;
-import frc.robot.commands.auto.AutoDriveWithJoystickInput;
-import frc.robot.commands.auto.AutoRotateWithVision;
-import frc.robot.commands.auto.autoStartShooter;
-import frc.robot.commands.auto.resetDriveEncoders;
+import frc.robot.commands.Intake.*;
+import frc.robot.commands.KickerWheel.*;
+import frc.robot.commands.Serializer.*;
+import frc.robot.commands.auto.*;
 
 /**
  * Drives from the initiation line to the generator command group
