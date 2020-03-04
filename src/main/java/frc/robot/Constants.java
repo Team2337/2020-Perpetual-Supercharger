@@ -167,7 +167,7 @@ public final class Constants {
    public static boolean DETECTINTAKEJAMS = true;
 
    //The current to trigger motor reversal at
-   public static int INTAKECURRENTTOLERENCE = 30;
+   public static int INTAKECURRENTTOLERENCE = 40;
 
    //The amount of time (in seconds) to reverse the Serializer when a jam is detected
    public static double INTAKEREVERSALDURATION = 0.4;
