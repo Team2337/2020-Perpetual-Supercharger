@@ -20,7 +20,8 @@ import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchNoPartner;
  */
 public class Trench3BallPartnerMoves extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  public double driveDistance = 110;
+  public double driveDistance = 107;
+  private double speed = -0.4;
 
   /**
    * Drives from the initiation line to the generator command group
@@ -30,7 +31,7 @@ public class Trench3BallPartnerMoves extends SequentialCommandGroup {
     addCommands(
       new resetDriveEncoders(Robot.SwerveDrivetrain),
       new PreTrenchNoPartner(),
-      new InTrench3Ball(driveDistance),
+      new InTrench3Ball(driveDistance, speed),
       new PostTrench3Ball()
     );
   }

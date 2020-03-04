@@ -8,6 +8,8 @@ import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.runSerializer;
 import frc.robot.commands.Shooter.*;
+import frc.robot.commands.Vision.limeLightLEDOn;
+import frc.robot.commands.Vision.limelightPipeline;
 import frc.robot.commands.auto.*;
 import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchPartnerOnRight;
 
@@ -27,19 +29,28 @@ public class PostTrench3Ball extends SequentialCommandGroup {
 
     /* --- Drives --- */
     final class FourthDrive {
-      public static final double robotAngle = 90, driveDist = 20, forward = 0.15, strafe = -0.15, driveTimeout = 5;
+      public static final double robotAngle = 90, driveDist = 20, forward = 0.3, strafe = -0.3, driveTimeout = 5;
+    }
+
+    final class FifthDrive {
+      public static final double robotAngle = 12, driveDist = 5, forward = 0.325, strafe = -0.075, driveTimeout = 5;
     }
 
     /* --- Rotate --- */
     final class FirstRotate {
-      public static final double robotAngle = 12;
+      public static final double robotAngle = 20; //12
     }
 
     addCommands(
+      new resetDriveEncoders(Robot.SwerveDrivetrain),
+      new limeLightLEDOn(Robot.Vision),
+      new limelightPipeline(Robot.Vision, 1),
       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FourthDrive.driveDist, FourthDrive.forward, FourthDrive.strafe, FourthDrive.robotAngle).withTimeout(FourthDrive.driveTimeout),
       // new stopIntake(Robot.Intake),
-      new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.robotAngle), 
-      new AutoRotateWithVision(Robot.SwerveDrivetrain, 1).withTimeout(2.0),
+      new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.robotAngle),
+      // new resetDriveEncoders(Robot.SwerveDrivetrain),
+      // new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FifthDrive.driveDist, FifthDrive.forward, FifthDrive.strafe, FifthDrive.robotAngle).withTimeout(FifthDrive.driveTimeout), 
+      new AutoRotateWithVision(Robot.SwerveDrivetrain, 1).withTimeout(1.0),
       new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED)
     ); 
   }
