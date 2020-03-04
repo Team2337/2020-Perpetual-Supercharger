@@ -3,6 +3,7 @@ package frc.robot.commands.auto.commandgroups.common.systemactions;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.commands.Agitator.runAgitator;
+import frc.robot.commands.Intake.runIntake;
 import frc.robot.commands.KickerWheel.runKicker;
 import frc.robot.commands.Serializer.runSerializer;
 import frc.robot.commands.auto.AutoResetRampRate;
@@ -21,6 +22,7 @@ public class FirePreloads extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public FirePreloads() {
         addCommands(
+            new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED),
             new runKicker(Robot.KickerWheel),
             new autoStartShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE),
             new WaitCommand(0.2).withTimeout(0.2), 

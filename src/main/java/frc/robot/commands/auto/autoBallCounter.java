@@ -1,5 +1,6 @@
 package frc.robot.commands.auto;
 
+import frc.robot.Constants;
 import frc.robot.Constants.Swerve;
 import frc.robot.subsystems.OperatorAngleAdjustment;
 import frc.robot.subsystems.SwerveDrivetrain;
@@ -16,38 +17,47 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @author Madison J.
  * @category AUTON
  */
-public class ballCounter extends CommandBase {
+public class autoBallCounter extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final SubsystemBase m_subsystem;
-    private Counter counter;
     private DigitalInput digitalSensor;
     private double maxPeriod;
     private boolean finished;
+    private boolean hadBall = false;
     private int maxBallCount;
+    private int ballCount = 0;
 
-    public ballCounter(SubsystemBase subsystem, DigitalInput digitalSensor, double maxPeriod, int maxBallCount) {
+    public autoBallCounter(SubsystemBase subsystem, DigitalInput digitalSensor, double maxPeriod, int maxBallCount) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
-    counter = new Counter(1);
     this.digitalSensor = digitalSensor;
     this.maxPeriod = maxPeriod;
-    this.maxBallCount = maxBallCount - 1;
+    this.maxBallCount = maxBallCount;
   }
-
+  
   @Override
   public void initialize() {
-    counter.setUpDownCounterMode();
-    counter.setDownSource(digitalSensor);
-    counter.setMaxPeriod(maxPeriod);
+    ballCount = 0;
   }
 
   @Override
   public void execute() {
-    if (counter.get() >= maxBallCount) {
+    if(digitalSensor.get()) {
+      hadBall = true;
+    }
+    if(hadBall && !digitalSensor.get()) {
+      ballCount++;
+      hadBall = false;
+    }
+
+    if (ballCount >= maxBallCount) {
       finished = true;
     } else {
       finished = false;
     }
+
+    SmartDashboard.putNumber("Ball Count", ballCount);
+    SmartDashboard.putBoolean("Had Ball", hadBall);
   }
 
   @Override

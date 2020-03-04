@@ -240,6 +240,8 @@ public String mac;
       case "6 Ball - Partner Right - 3 Trench - 2 Generator":
         autonomousCommand = new CenterFeedRightTRGrab3GenRGrab2Score5(delay);
         break;
+      case "6 Ball - Partner Right - 3 Generator":
+        
       case "3 Ball - Trench":
         autonomousCommand = new CenterTRGrab3Score3(delay);
         break;

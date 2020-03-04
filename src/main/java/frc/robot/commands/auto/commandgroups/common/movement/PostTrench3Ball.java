@@ -29,7 +29,7 @@ public class PostTrench3Ball extends SequentialCommandGroup {
 
     /* --- Drives --- */
     final class FourthDrive {
-      public static final double robotAngle = 90, driveDist = 20, forward = 0.3, strafe = -0.3, driveTimeout = 5;
+      public static final double robotAngle = 90, driveDist = 10, forward = 0.4, strafe = -0.4, driveTimeout = 5;
     }
 
     final class FifthDrive {
@@ -50,7 +50,7 @@ public class PostTrench3Ball extends SequentialCommandGroup {
       new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.robotAngle),
       // new resetDriveEncoders(Robot.SwerveDrivetrain),
       // new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FifthDrive.driveDist, FifthDrive.forward, FifthDrive.strafe, FifthDrive.robotAngle).withTimeout(FifthDrive.driveTimeout), 
-      new AutoRotateWithVision(Robot.SwerveDrivetrain, 1).withTimeout(1.0),
+      new AutoRotateWithVision(Robot.SwerveDrivetrain, 1).withTimeout(2.0),
       new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED)
     ); 
   }

@@ -20,8 +20,8 @@ public class CenterFeedRightTRGrab3Score3 extends SequentialCommandGroup {
     addCommands(
       new WaitCommand(delay).withTimeout(delay),
       new FireOnePartnerBall(1),
-      new stopSerializer(Robot.Serializer)
-      // new Trench3BallPartnerDoesNotMove()
+      new stopSerializer(Robot.Serializer),
+      new Trench3BallPartnerDoesNotMove()
     );
   
   }
