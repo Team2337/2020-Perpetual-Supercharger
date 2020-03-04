@@ -72,7 +72,7 @@ public class KickerWheel extends SubsystemBase {
     kickerPIDController.setFF(velocityFF);
     kickerPIDController.setOutputRange(kMinOutput, kMaxOutput);
 
-    kickerWheelMotor.setSmartCurrentLimit(50); //Placeholder value
+    kickerWheelMotor.setSmartCurrentLimit(50);
     
     kickerWheelMotor.setClosedLoopRampRate(0.0);
     
