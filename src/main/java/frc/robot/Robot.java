@@ -152,6 +152,7 @@ public String mac;
    */
   @Override
   public void robotPeriodic() {
+    //SwerveDrivetrain.getAverageAnalogValueInRadians(3);
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic.
