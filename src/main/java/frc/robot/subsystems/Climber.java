@@ -65,12 +65,12 @@ public class Climber extends SubsystemBase {
     climberMotor.configAllSettings(TalonFXConfigurationClimber);
 
     //Sets up current limits on variables
-    currentLimitConfigclimber .currentLimit = 50;
+    currentLimitConfigclimber .currentLimit = 80;
     currentLimitConfigclimber .enable = true;
     currentLimitConfigclimber .triggerThresholdCurrent = 40;
     currentLimitConfigclimber .triggerThresholdTime = 3;
     //Pushes current limits to motors
-    climberMotor.configStatorCurrentLimit(currentLimitConfigclimber, 0);
+    climberMotor.configStatorCurrentLimit(currentLimitConfigclimber, 0); 
     //Set up ramp rate
     climberMotor.configClosedloopRamp(0.1);
   }
@@ -83,6 +83,7 @@ public class Climber extends SubsystemBase {
       SmartDashboard.putNumber("Climber Motor Speed", getClimberSpeed());
       SmartDashboard.putNumber("Climber Motor Temperature", getClimberTemperature());
       SmartDashboard.putNumber("Climber Encoder Value", climberMotor.getSelectedSensorPosition());
+      SmartDashboard.putNumber("Climber Current", climberMotor.getStatorCurrent());
     }
     SmartDashboard.putBoolean("Climber Activated", getClimberActivated());
   }
