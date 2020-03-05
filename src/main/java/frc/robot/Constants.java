@@ -150,6 +150,8 @@ public final class Constants {
     /** Percent speed of the agitator */
     public static double AGITATORSPEED = 0.2;
 
+    public static double AGITATORSHOOTSPEED = 0.5;
+
     /** Percent speed of the agitator */
     public static double AGITATORREVERSESPEED = -0.2;
 
@@ -218,8 +220,9 @@ public final class Constants {
     public static double SERIALIZERPOSITIONSPEED = 0.2;
 
     /** Percent forward speed when serializing or shooting */
-    public static double SERIALIZERFORWARDSPEED = 0.4;
-
+    public static double SERIALIZERDRIVERFORWARDSPEED = 0.25;
+    
+    public static double SERIALIZEROPERATORFORWARDSPEED = 0.3;
     /** Percent reverse speed when serializing or shooting */
     public static double SERIALIZERREVERSESPEED = -0.3;
     

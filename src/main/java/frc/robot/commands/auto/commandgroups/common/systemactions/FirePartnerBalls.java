@@ -23,7 +23,7 @@ public class FirePartnerBalls extends SequentialCommandGroup {
                 new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED),
                 new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
                 new FirePreloads().withTimeout(3.2),
-                new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED).withTimeout(9.5) //10
+                new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED).withTimeout(9.5) //10
                 );
         
     }

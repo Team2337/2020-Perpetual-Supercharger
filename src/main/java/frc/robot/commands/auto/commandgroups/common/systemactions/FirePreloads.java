@@ -30,7 +30,7 @@ public class FirePreloads extends SequentialCommandGroup {
             // new WaitCommand(1.5).withTimeout(1.5), 
             new autoShooterAtSpeed(Robot.OperatorAngleAdjustment),
             new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-            new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED).withTimeout(3)
+            new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED).withTimeout(3)
         );
     }
 }

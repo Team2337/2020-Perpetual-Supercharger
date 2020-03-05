@@ -60,7 +60,7 @@ public class PostTrench extends SequentialCommandGroup {
       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, SeventhDrive.driveDist, SeventhDrive.forward, SeventhDrive.strafe, SeventhDrive.robotAngle).withTimeout(SeventhDrive.driveTimeout),
       new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.robotAngle), 
       new AutoRotateWithVision(Robot.SwerveDrivetrain, 1),
-      new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED)
+      new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED)
     ); 
   }
 }
