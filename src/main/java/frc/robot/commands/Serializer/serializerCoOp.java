@@ -20,7 +20,7 @@ public class serializerCoOp extends CommandBase {
     public serializerCoOp(Serializer serializer) {
         this.serializer = serializer;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(serializer, Robot.Agitator);
+        addRequirements(serializer);
     }
 
     // Called when the command is initially scheduled.
@@ -41,8 +41,8 @@ public class serializerCoOp extends CommandBase {
                 } else if (i == 10){
                     Robot.Serializer.stopSerializer();
                 } else if (i > 50 * 0.5) { */
-                    Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
-                    Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
+                    Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERDRIVERFORWARDSPEED);
+                    Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSHOOTSPEED);
                 /* }
                 i++; */
             }
@@ -50,14 +50,14 @@ public class serializerCoOp extends CommandBase {
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
             Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
             // Set the kicker to hold it's position (done in the kicker subsystem)
-            if (serializer.topSerializerSensor.get() && serializer.middleSerializerSensor.get()) {
+            if (serializer.topSerializerSensor.get()/*  && serializer.middleSerializerSensor.get() */) {
                 serializer.stopSerializer();
                 Robot.Agitator.stopAgitator();
             } else if (serializer.bottomSerializerSensor.get()) {
-                serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
+                serializer.setSerializerSpeed(Constants.SERIALIZEROPERATORFORWARDSPEED);
             } else {
                 serializer.stopSerializer();
-                Robot.Agitator.stopAgitator();
+                // Robot.Agitator.stopAgitator();
             }
         } else {
             // If no-one is trying to control the kicker wheel, stop it

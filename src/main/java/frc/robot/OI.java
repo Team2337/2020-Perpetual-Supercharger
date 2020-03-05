@@ -35,7 +35,7 @@ public class OI {
         driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, true));
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
-        driverJoystick.bumperRight.whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
+        driverJoystick.bumperRight.whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED));
         driverJoystick.bumperRight.whenReleased(new stopSerializer(Robot.Serializer));
 
         // Run the shooter
@@ -107,7 +107,7 @@ public class OI {
         operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator));
 
         // Move the climber upwards
-        operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERFORWARDSPEED));
+        operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERDRIVERFORWARDSPEED));
         operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
         
 

@@ -23,7 +23,7 @@ public class FeedShooter extends ParallelCommandGroup {
   public FeedShooter(int ballsShot) {
     parallel(
     new ballCounter(Robot.OperatorAngleAdjustment, new DigitalInput(0), 10, ballsShot),
-    new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED),
+    new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED),
     new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
     new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED)
     );  

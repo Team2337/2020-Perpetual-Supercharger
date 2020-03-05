@@ -22,7 +22,7 @@ public class FireOnePartnerBall extends SequentialCommandGroup {
         addCommands(new FirePreloads().withTimeout(3.2),
                 new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED),
                 new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-                new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED).withTimeout(5)
+                new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED).withTimeout(5)
                 );
         
     }
