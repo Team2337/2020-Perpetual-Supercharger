@@ -301,7 +301,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       iteration++;
     } 
     average = total / iteration;
-    System.out.println("Average" + average);
+   // System.out.println("Average" + average);
     return average;
   }
 
