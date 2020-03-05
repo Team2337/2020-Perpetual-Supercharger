@@ -40,7 +40,7 @@ public class PostTrench3Ball extends SequentialCommandGroup {
       // new stopIntake(Robot.Intake),
       new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.robotAngle), 
       new AutoRotateWithVision(Robot.SwerveDrivetrain, 1).withTimeout(2.0),
-      new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED)
+      new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED)
     ); 
   }
 }

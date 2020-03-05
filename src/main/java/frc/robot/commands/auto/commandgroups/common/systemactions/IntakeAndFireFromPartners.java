@@ -20,7 +20,7 @@ public class IntakeAndFireFromPartners extends SequentialCommandGroup {
         addCommands(
             new WaitCommand(0.5),
             new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED), 
-            new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED),
+            new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED),
             new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
             new WaitCommand(timeout).withTimeout(timeout)
         );

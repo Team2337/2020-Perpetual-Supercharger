@@ -149,6 +149,8 @@ public final class Constants {
     /** Percent speed of the agitator */
     public static double AGITATORSPEED = 0.2;
 
+    public static double AGITATORSHOOTSPEED = 0.5;
+
     /** Percent speed of the agitator */
     public static double AGITATORREVERSESPEED = -0.2;
 
@@ -198,7 +200,7 @@ public final class Constants {
     public static int SHOOTSPEEDCLOSE = 13025; //13000 - week 0 working 
 
     /** Speed to shoot at from ~34 feet away */
-    public static int SHOOTSPEEDFAR = 15550; //15100 - week 0 working // 15500 kettering week 1 //
+    public static int SHOOTSPEEDFAR = 15400; //15100 - week 0 working // 15500 kettering week 1 //15550
 
     public static int SHOOTFRONTTRENCHSPEED = 13750;
 
@@ -211,14 +213,15 @@ public final class Constants {
     /**********************/
 
     /** Maximum speed of the serializer */
-    public static double SERIALIZERPEAKSPEED = 0.3;
+    public static double SERIALIZERPEAKSPEED = 0.4;
 
     /** Percent speed on the serializer when moving to positions */
     public static double SERIALIZERPOSITIONSPEED = 0.2;
 
     /** Percent forward speed when serializing or shooting */
-    public static double SERIALIZERFORWARDSPEED = 0.3;
-
+    public static double SERIALIZERDRIVERFORWARDSPEED = 0.25;
+    
+    public static double SERIALIZEROPERATORFORWARDSPEED = 0.3;
     /** Percent reverse speed when serializing or shooting */
     public static double SERIALIZERREVERSESPEED = -0.3;
     
@@ -285,7 +288,7 @@ public final class Constants {
 
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 7000; //7000 - week 0 working
-            KICKERSPEEDFAR = 4000; //10500 - week 0 working
+            KICKERSPEEDFAR = 5000; //10500 - week 0 working //4000 //12000
             KICKERSPEEDFRONTTRENCH = 4000;
 
         } else {
