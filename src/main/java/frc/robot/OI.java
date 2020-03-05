@@ -107,7 +107,7 @@ public class OI {
         operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator));
 
         // Move the climber upwards
-        operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERDRIVERFORWARDSPEED));
+        operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZEROPERATORFORWARDSPEED));
         operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
         
 
