@@ -11,6 +11,7 @@ import frc.robot.commands.auto.*;
 import frc.robot.commands.auto.commandgroups.common.movement.InTrench3Ball;
 import frc.robot.commands.auto.commandgroups.common.movement.PostTrench;
 import frc.robot.commands.auto.commandgroups.common.movement.PostTrench3Ball;
+import frc.robot.commands.auto.commandgroups.common.movement.PostTrench6Ball;
 import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchNoPartner;
 
 /**

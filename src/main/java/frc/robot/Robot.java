@@ -118,6 +118,7 @@ public String mac;
     Vision.switchPipeLine(0);
     Vision.setLEDMode(1);
     Climber.climberMotor.setSelectedSensorPosition(0);
+    Serializer.resetSerializerPosition();
     
     autonChooser = new SendableChooser<String>();
     delayChooser = new SendableChooser<String>();
@@ -152,7 +153,7 @@ public String mac;
    */
   @Override
   public void robotPeriodic() {
-    //SwerveDrivetrain.getAverageAnalogValueInRadians(3);
+    // SwerveDrivetrain.getAverageAnalogValueInRadians(2);
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic.
@@ -240,9 +241,7 @@ public String mac;
         break;
       case "6 Ball - Partner Right - 3 Trench - 2 Generator":
         autonomousCommand = new CenterFeedRightTRGrab3GenRGrab2Score5(delay);
-        break;
-      case "6 Ball - Partner Right - 3 Generator":
-        
+        break;        
       case "3 Ball - Trench":
         autonomousCommand = new CenterTRGrab3Score3(delay);
         break;

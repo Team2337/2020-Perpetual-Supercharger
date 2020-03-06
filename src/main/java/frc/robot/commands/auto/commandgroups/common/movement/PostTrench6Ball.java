@@ -18,14 +18,14 @@ import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchPartnerOnR
  * @author Madison J. 
  * @category AUTON 
  */
-public class PostTrench3Ball extends SequentialCommandGroup {
+public class PostTrench6Ball extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   public double intakeSpeed = 0.5;
 
   /**
    * Drives from the initiation line to the generator command group
    */
-  public PostTrench3Ball() {
+  public PostTrench6Ball() {
 
     /* --- Drives --- */
     final class FourthDrive {
@@ -50,10 +50,10 @@ public class PostTrench3Ball extends SequentialCommandGroup {
       new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.robotAngle),
       // new resetDriveEncoders(Robot.SwerveDrivetrain),
       // new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FifthDrive.driveDist, FifthDrive.forward, FifthDrive.strafe, FifthDrive.robotAngle).withTimeout(FifthDrive.driveTimeout), 
-      // new ParallelCommandGroup(
+       new ParallelCommandGroup(
         new AutoRotateWithVision(Robot.SwerveDrivetrain, 1).withTimeout(2.0),
         new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED)
-      // )
+       )
     ); 
   }
 }

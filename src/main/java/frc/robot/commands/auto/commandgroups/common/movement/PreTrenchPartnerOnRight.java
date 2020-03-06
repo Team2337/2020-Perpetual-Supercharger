@@ -28,7 +28,7 @@ public class PreTrenchPartnerOnRight extends SequentialCommandGroup {
     }
 
     final class SecondDrive {
-      public static final double robotAngle = 90, driveDist = 80, forward =  -0.075/* -0.2 */, strafe = 0.4/* 0.4 */, driveTimeout = 5;
+      public static final double robotAngle = 90, driveDist = 72, forward =  -0.075/* -0.2 */, strafe = 0.4/* 0.4 */, driveTimeout = 5;
     }
 
     addCommands(

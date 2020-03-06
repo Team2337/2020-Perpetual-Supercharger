@@ -148,7 +148,7 @@ public final class Constants {
     /********************/
 
     /** Percent speed of the agitator */
-    public static double AGITATORSPEED = 0.2;
+    public static double AGITATORSPEED = 0.4;
 
     public static double AGITATORSHOOTSPEED = 0.5;
 
@@ -243,7 +243,7 @@ public final class Constants {
 
     public static int KICKERSPEEDFRONTTRENCH;
 
-    public static double KICKERCONTROLPANELSPEED = 3000;
+    public static double KICKERCONTROLPANELSPEED = 7000;
 
     /******************/
     /* -------------- */
