@@ -26,6 +26,7 @@ public class autoBallCounter extends CommandBase {
     private boolean hadBall = false;
     private int maxBallCount;
     private int ballCount = 0;
+    private int iteration = 0;
 
     public autoBallCounter(SubsystemBase subsystem, DigitalInput digitalSensor, double maxPeriod, int maxBallCount) {
     m_subsystem = subsystem;
@@ -38,6 +39,7 @@ public class autoBallCounter extends CommandBase {
   @Override
   public void initialize() {
     ballCount = 0;
+    iteration = 0;
   }
 
   @Override
@@ -51,7 +53,10 @@ public class autoBallCounter extends CommandBase {
     }
 
     if (ballCount >= maxBallCount) {
-      finished = true;
+      if(iteration > 5) {
+        finished = true;
+      } 
+      iteration++;
     } else {
       finished = false;
     }

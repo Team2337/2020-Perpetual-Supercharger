@@ -53,7 +53,7 @@ public class serializerBallControl extends CommandBase {
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
             Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
             if(serializer.bottomSerializerSensor.get() && !serializer.topSerializerSensor.get()) {
-                if(iteration > 5 && iteration < 9) {
+                if(iteration > 5 && iteration < 9) { 
                     position = serializer.getSerializerPosition() + 7400;
                     serializer.setPosition(position);
                 }
@@ -66,7 +66,7 @@ public class serializerBallControl extends CommandBase {
                 }
             } else if(serializer.topSerializerSensor.get() || !serializer.bottomSerializerSensor.get()) {
                 serializer.stopSerializer(); 
-            } 
+            }  
             if(serializer.topSerializerSensor.get()){
                 Robot.Agitator.stopAgitator();
             }

@@ -7,6 +7,7 @@ import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Shooter.*;
+import frc.robot.commands.Vision.limelightPipeline;
 import frc.robot.commands.auto.*;
 
 /**
@@ -28,13 +29,15 @@ public class PreTrenchPartnerOnRight extends SequentialCommandGroup {
     }
 
     final class SecondDrive {
-      public static final double robotAngle = 90, driveDist = 72, forward =  -0.075/* -0.2 */, strafe = 0.4/* 0.4 */, driveTimeout = 5;
+      public static final double robotAngle = 90, driveDist = 64, forward =  -0.075/* -0.2 */, strafe = 0.4/* 0.4 */, driveTimeout = 5;
     }
 
     addCommands(
+      new limelightPipeline(Robot.Vision, 1),
       new resetDriveEncoders(Robot.SwerveDrivetrain),
       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FirstDrive.driveDist, FirstDrive.forward, FirstDrive.strafe, FirstDrive.robotAngle).withTimeout(FirstDrive.driveTimeout),
-      new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, SecondDrive.driveDist, SecondDrive.forward, SecondDrive.strafe, SecondDrive.robotAngle)
+      new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, SecondDrive.driveDist, SecondDrive.forward, SecondDrive.strafe, SecondDrive.robotAngle),
+      new limelightPipeline(Robot.Vision, 0)
     );
   }
 }

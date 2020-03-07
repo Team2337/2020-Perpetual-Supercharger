@@ -17,7 +17,7 @@ import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchPartnerOnR
 public class Trench3BallPartnerDoesNotMove extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   public double intakeSpeed = 0.6;
-  public double driveDistance = 105;
+  public double driveDistance = 110;
   public double speed = -0.45;
 
   /**

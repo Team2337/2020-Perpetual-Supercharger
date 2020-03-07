@@ -26,7 +26,7 @@ public class FireOnePartnerBall extends SequentialCommandGroup {
                 new FirePreloads().withTimeout(2.75), //3.2
                 new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
                 new ParallelRaceGroup(
-                    new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED).withTimeout(4.35),
+                    new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED).withTimeout(6), //3.5 TODO: Fix MEEEEEEEEEEEEEEEEEEEEEEEEEEE
                     new autoBallCounter(Robot.OperatorAngleAdjustment, Robot.Serializer.middleSerializerSensor, 5, 3)
                 ),
                 new WaitCommand(0.4).withTimeout(0.4)

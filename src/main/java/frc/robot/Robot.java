@@ -127,6 +127,7 @@ public String mac;
     autonChooser.addOption("9 Ball - Back Up Straight", "9 Ball - Back Up Straight");
     autonChooser.addOption("9 Ball - Back Up - Turn 90", "9 Ball - Back Up - Turn 90");
     autonChooser.addOption("9 Ball - Drive to Trench", "9 Ball - Drive to Trench");
+    autonChooser.addOption("6 Ball - Back Up Straight", "6 Ball - Back Up Straight");
     autonChooser.addOption("6 Ball - Partner Left - 3 Trench", "6 Ball - Partner Left - 3 Trench");
     autonChooser.addOption("6 Ball - Partner Right - 3 Trench", "6 Ball - Partner Right - 3 Trench");
     autonChooser.addOption("3 Ball - Trench", "3 Ball - Trench");
@@ -153,7 +154,7 @@ public String mac;
    */
   @Override
   public void robotPeriodic() {
-    // SwerveDrivetrain.getAverageAnalogValueInRadians(2);
+    // SwerveDrivetrain.getAverageAnalogValueInRadians(3);
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic.
@@ -230,6 +231,12 @@ public String mac;
       case "9 Ball - 3 Generator":
         autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
         break;
+      case "6 Ball - Back Up Straight":
+        autonomousCommand = new CenterGoal6Ball(delay);
+        break;
+      case "6 Ball - 3 Generator":
+        autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
+        break;
       case "6 Ball - Partner Left - 3 Trench":
         autonomousCommand = new CenterFeedLeftTRGrab3Score3(delay);
         break;
@@ -277,6 +284,7 @@ public String mac;
     }
     
     Vision.setLEDMode(1);
+    // Robot.Intake.setIntakeSpeed(Constants.INTAKEFORWARDSPEED);
   }
 
   /**

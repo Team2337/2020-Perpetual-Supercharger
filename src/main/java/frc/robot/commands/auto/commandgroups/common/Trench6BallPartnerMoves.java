@@ -20,7 +20,7 @@ import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchNoPartner;
  */
 public class Trench6BallPartnerMoves extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  public double driveDistance = 107;
+  public double driveDistance = 111;
   private double speed = -0.4;
 
   /**

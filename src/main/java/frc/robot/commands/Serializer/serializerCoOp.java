@@ -49,7 +49,7 @@ public class serializerCoOp extends CommandBase {
             // If the driver isn't attempting to control it and the operator is
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
             Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
-            
+
             if(Robot.Serializer.topSerializerSensor.get() && Robot.Serializer.bottomSerializerSensor.get()) {
                 Robot.Agitator.stopAgitator();
             }
@@ -60,7 +60,7 @@ public class serializerCoOp extends CommandBase {
             } else if (serializer.bottomSerializerSensor.get()) {
                 serializer.setSerializerSpeed(Constants.SERIALIZEROPERATORFORWARDSPEED);
             } else {
-                 serializer.stopSerializer();
+                serializer.stopSerializer();
                 // Robot.Agitator.stopAgitator();
             }
         } else {

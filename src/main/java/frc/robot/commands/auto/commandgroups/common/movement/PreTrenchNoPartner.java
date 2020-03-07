@@ -7,6 +7,7 @@ import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Shooter.*;
+import frc.robot.commands.Vision.limelightPipeline;
 import frc.robot.commands.auto.*;
 
 /**
@@ -28,9 +29,10 @@ public class PreTrenchNoPartner extends SequentialCommandGroup {
 
     // There is no second drive
     addCommands(
+      new limelightPipeline(Robot.Vision, 1),
       new resetDriveEncoders(Robot.SwerveDrivetrain),
-      new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FirstDrive.driveDist, FirstDrive.forward, FirstDrive.strafe, FirstDrive.moduleAngle).withTimeout(FirstDrive.driveTimeout)
-       
+      new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FirstDrive.driveDist, FirstDrive.forward, FirstDrive.strafe, FirstDrive.moduleAngle).withTimeout(FirstDrive.driveTimeout),
+      new limelightPipeline(Robot.Vision, 0)
     );
   }
 }
