@@ -133,10 +133,18 @@ public class SwerveDriveCommand extends CommandBase {
     }
 
     if(Robot.OperatorAngleAdjustment.getBallTrackingEnabled()){
-      if(Robot.Vision.pixyRightDigital.get()) {
-        rotation = -(Math.toRadians(Robot.Vision.getPixyRightValue() - 2) * Constants.BALLTRACKINGP);
+      if(Robot.Utilities.getPigeonYawMod() > -90 && Robot.Utilities.getPigeonYawMod() < 90){
+        if(Robot.Vision.pixyRightDigital.get()) {
+          rotation = -(Math.toRadians(Robot.Vision.getPixyRightValue() - 2) * Constants.BALLTRACKINGP);
+        } else {
+          rotation = 0;
+        }
       } else {
-        rotation = 0;
+        if(Robot.Vision.pixyLeftDigital.get()) {
+          rotation = -(Math.toRadians(Robot.Vision.getPixyLeftValue() - 2) * Constants.BALLTRACKINGP);
+        } else {
+          rotation = 0;
+        }
       }
     }
     
