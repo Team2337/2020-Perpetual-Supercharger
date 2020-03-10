@@ -29,7 +29,6 @@ public class InTrench3Ball extends ParallelCommandGroup {
     }
 
     addCommands(
-        // new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, driveDistance, ThirdDrive.forward, ThirdDrive.strafe, ThirdDrive.robotAngle).withTimeout(ThirdDrive.driveTimeout),
         new AutoStrafeWithPixy(Robot.SwerveDrivetrain, driveDistance, speed, ThirdDrive.robotAngle),
         new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED),
         new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),

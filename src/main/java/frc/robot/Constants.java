@@ -28,7 +28,7 @@ public final class Constants {
     }
 
     public final class KickerWheel {
-        public final static double SHORTVELOCITYP = 0.0000525; //0000035
+        public final static double SHORTVELOCITYP = 0.0000525; 
     }
     
     /*******************/
@@ -198,10 +198,9 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     /** Speed to shoot at from ~16 feet away */
-    public static int SHOOTSPEEDCLOSE = 13025; //13000 - week 0 working 
-
+    public static int SHOOTSPEEDCLOSE = 13025; 
     /** Speed to shoot at from ~34 feet away */
-    public static int SHOOTSPEEDFAR = 15400; //15100 - week 0 working // 15500 kettering week 1 //15550
+    public static int SHOOTSPEEDFAR = 15400; 
 
     public static int SHOOTFRONTTRENCHSPEED = 13750;
 
@@ -252,10 +251,10 @@ public final class Constants {
     /******************/
 
     /** P value for vision rotation */
-    public static double VISIONCLOSEROTATIONP = 2.5; // 0.85
-    public static double VISIONMIDDLEROTATIONP = 0.9; // 0.85
-    public static double VISIONOFFROTATIONP = 0.65; // 0.85
-    public static double VISIONFARROTATIONP = 0.85; // 0.85
+    public static double VISIONCLOSEROTATIONP = 2.5; 
+    public static double VISIONMIDDLEROTATIONP = 0.9; 
+    public static double VISIONOFFROTATIONP = 0.65; 
+    public static double VISIONFARROTATIONP = 0.85; 
 
     public static double BALLTRACKINGP = 0.65;
 
@@ -288,8 +287,8 @@ public final class Constants {
             MODULE3DRIVEMOTORID = 15;
 
             /* --- Kicker --- */
-            KICKERSPEEDCLOSE = 7000; //7000 - week 0 working
-            KICKERSPEEDFAR = 5000; //10500 - week 0 working //4000 //12000
+            KICKERSPEEDCLOSE = 7000; 
+            KICKERSPEEDFAR = 5000; 
             KICKERSPEEDFRONTTRENCH = 4000;
 
         } else {

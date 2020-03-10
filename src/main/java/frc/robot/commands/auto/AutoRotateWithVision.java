@@ -35,9 +35,7 @@ public class AutoRotateWithVision extends CommandBase {
   
   @Override
   public void initialize() {
-    // Robot.Vision.setLEDMode(3);
     Robot.OperatorAngleAdjustment.setLimelightRotationMode(true);
-    // Robot.Vision.switchPipeLine(pipeline);
   }
 
   @Override

@@ -284,7 +284,6 @@ public String mac;
     }
     
     Vision.setLEDMode(1);
-    // Robot.Intake.setIntakeSpeed(Constants.INTAKEFORWARDSPEED);
   }
 
   /**

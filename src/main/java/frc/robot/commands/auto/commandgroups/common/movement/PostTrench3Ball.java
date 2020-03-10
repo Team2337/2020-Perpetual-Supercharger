@@ -46,14 +46,9 @@ public class PostTrench3Ball extends SequentialCommandGroup {
       new limeLightLEDOn(Robot.Vision),
       new limelightPipeline(Robot.Vision, 1),
       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FourthDrive.driveDist, FourthDrive.forward, FourthDrive.strafe, FourthDrive.robotAngle).withTimeout(FourthDrive.driveTimeout),
-      // new stopIntake(Robot.Intake),
       new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.robotAngle),
-      // new resetDriveEncoders(Robot.SwerveDrivetrain),
-      // new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FifthDrive.driveDist, FifthDrive.forward, FifthDrive.strafe, FifthDrive.robotAngle).withTimeout(FifthDrive.driveTimeout), 
-      // new ParallelCommandGroup(
         new AutoRotateWithVision(Robot.SwerveDrivetrain, 1).withTimeout(2.0),
         new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED)
-      // )
     ); 
   }
 }

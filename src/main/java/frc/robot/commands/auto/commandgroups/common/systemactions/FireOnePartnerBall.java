@@ -23,7 +23,7 @@ public class FireOnePartnerBall extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public FireOnePartnerBall(int numOfPartners) {
         addCommands(
-                new FirePreloads().withTimeout(2.75), //3.2
+                new FirePreloads().withTimeout(2.75), 
                 new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
                 new ParallelRaceGroup(
                     new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED).withTimeout(6), //3.5 TODO: Fix MEEEEEEEEEEEEEEEEEEEEEEEEEEE

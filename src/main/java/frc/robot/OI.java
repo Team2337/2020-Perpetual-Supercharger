@@ -147,8 +147,6 @@ public class OI {
 
         operatorControls.YellowSwitch.whenPressed(new deployHyperLoop(Robot.Servo66));
         operatorControls.YellowSwitch.whenReleased(new retractHyperLoop(Robot.Servo66));
-
-        //insert code here
         
     }
 
