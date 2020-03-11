@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.Serializer.serializerBallControl;
-import frc.robot.commands.Serializer.serializerCoOp;
+import frc.robot.commands.Serializer.serializerSensorControl;
 
  /** 
  * Subsystem for the Serializer 
@@ -103,11 +102,11 @@ public class Serializer extends SubsystemBase {
      bottomBackSerializerSensor = new DigitalInput(9);
 
      DigitalInput[] sensorArray = {
-      serializer.bottomSerializerSensor,
-      serializer.bottomBackSerializerSensor,
-      serializer.middleSerializerSensor,
-      serializer.topSerializerSensor,
-      serializer.topTopSerializerSensor
+      bottomSerializerSensor,
+      bottomBackSerializerSensor,
+      middleSerializerSensor,
+      topSerializerSensor,
+      topTopSerializerSensor
     };
 
     sensorsArray = sensorArray;
@@ -119,7 +118,7 @@ public class Serializer extends SubsystemBase {
      counter.setUpSource(topSerializerSensor);
      counter.setMaxPeriod(2); 
      
-      setDefaultCommand(new serializerBallControl(this));
+      setDefaultCommand(new serializerSensorControl(this));
     //  setDefaultCommand(new serializerCoOp(this));
 
   }
