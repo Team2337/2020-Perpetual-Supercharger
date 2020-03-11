@@ -101,10 +101,10 @@ public class FXSwerveModule {
     /* --- Motor Controllers --- */
 
     /** TalonFX motor controller, used as an angle motor in the swerve module */
-    private TalonFX driveMotor;
+    public TalonFX driveMotor;
 
     /** TalonFX motor controller, used as a drive motor in the swerve module */
-    private TalonFX angleMotor;
+    public TalonFX angleMotor;
 
     /* --- Sensors --- */
 

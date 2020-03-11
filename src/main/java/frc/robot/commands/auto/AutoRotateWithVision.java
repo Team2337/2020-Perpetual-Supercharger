@@ -35,18 +35,34 @@ public class AutoRotateWithVision extends CommandBase {
   
   @Override
   public void initialize() {
-    Robot.Vision.setLEDMode(3);
     Robot.OperatorAngleAdjustment.setLimelightRotationMode(true);
-    Robot.Vision.switchPipeLine(pipeline);
   }
 
   @Override
   public void execute() {
-    if(Robot.Vision.getPipeline() == 0) {
-      rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.VISIONCLOSEROTATIONP);
+    double tx = 0;
+      if(Robot.Vision.getPipeline() == 0 && Robot.Shooter.getAvgRPM() > 250) {
+        tx = -(Math.toRadians(Robot.Vision.getDoubleValue("tx") - 3));
+      } else if (Robot.Vision.getPipeline() == 1) {
+        tx = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")));
+      }
+    if(Robot.Vision.getPipeline() == 1) {
+      if(Math.abs(tx) <  Math.toRadians(2)) {
+        rotation = (tx * Constants.VISIONCLOSEROTATIONP);
+      } else if(Math.abs(tx) < Math.toRadians(5)) {
+        rotation = (tx * Constants.VISIONMIDDLEROTATIONP);
+      } else {
+        rotation = (tx * Constants.VISIONOFFROTATIONP);
+      }
     } else {
-      rotation = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")) * Constants.VISIONFARROTATIONP);
-    } 
+      if(Math.abs(tx) <  Math.toRadians(2)) {
+        rotation = (tx * Constants.VISIONCLOSEROTATIONP);
+      } else if(Math.abs(tx) < Math.toRadians(5)) {
+        rotation = (tx * Constants.VISIONMIDDLEROTATIONP);
+      } else {
+        rotation = (tx * Constants.VISIONOFFROTATIONP);
+      }
+    }
     
     // Pass on joystick values to be calculated into angles and speeds
     Robot.SwerveDrivetrain.calculateJoystickInput(0, 0, rotation);

@@ -6,6 +6,7 @@ import frc.robot.commands.Agitator.runAgitator;
 import frc.robot.commands.Intake.runIntake;
 import frc.robot.commands.KickerWheel.runKicker;
 import frc.robot.commands.Serializer.runSerializer;
+import frc.robot.commands.auto.autoStartShooter;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
@@ -20,7 +21,7 @@ public class autoShooterSystemOn extends SequentialCommandGroup {
     public autoShooterSystemOn() {
         addCommands(
             new runKicker(Robot.KickerWheel),
-            new autoStartShooter(Robot.Shooter),
+            new autoStartShooter(Robot.Shooter, Constants.SHOOTSPEEDCLOSE),
             new WaitCommand(0.2).withTimeout(0.2), 
             new autoResetRampRate(Robot.OperatorAngleAdjustment),
             new WaitCommand(1.3).withTimeout(1.3), 

@@ -16,18 +16,20 @@ import frc.robot.commands.auto.*;
 public class InTrench3Ball extends ParallelCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   public double intakeSpeed = 0.5;
+  public double speed;
 
   /**
    * Drives from the initiation line to the generator command group
    */
-  public InTrench3Ball(double driveDistance) {
+  public InTrench3Ball(double driveDistance, double speed) {
+    this.speed = speed;
 
     final class ThirdDrive {
       public static final double robotAngle = 90, forward = -0.4, strafe = 0, driveTimeout = 5;
     }
 
     addCommands(
-        new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, driveDistance, ThirdDrive.forward, ThirdDrive.strafe, ThirdDrive.robotAngle).withTimeout(ThirdDrive.driveTimeout),
+        new AutoStrafeWithPixy(Robot.SwerveDrivetrain, driveDistance, speed, ThirdDrive.robotAngle),
         new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED),
         new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
         new WaitCommand(1).andThen(new autoStartShooter(Robot.Shooter, Constants.SHOOTFRONTTRENCHSPEED).andThen(new runKicker(Robot.KickerWheel)))

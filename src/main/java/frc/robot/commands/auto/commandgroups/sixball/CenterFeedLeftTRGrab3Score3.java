@@ -1,6 +1,8 @@
 package frc.robot.commands.auto.commandgroups.sixball;
 
+import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.commands.Intake.runIntake;
 import frc.robot.commands.Serializer.stopSerializer;
 import frc.robot.commands.auto.commandgroups.common.*;
 import frc.robot.commands.auto.commandgroups.common.systemactions.*;
@@ -18,10 +20,11 @@ public class CenterFeedLeftTRGrab3Score3 extends SequentialCommandGroup {
  */
   public CenterFeedLeftTRGrab3Score3(double delay) {
     addCommands(
+      new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED),
       new WaitCommand(delay).withTimeout(delay),
       new FireOnePartnerBall(1),
       new stopSerializer(Robot.Serializer),
-      new Trench3BallPartnerMoves()
+      new Trench6BallPartnerMoves()
     );
   
   }

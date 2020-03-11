@@ -21,7 +21,7 @@ public class CenterFeedLeftTRGrab3GenRGrab2Score5 extends SequentialCommandGroup
       new WaitCommand(delay).withTimeout(delay),
       new FirePartnerBalls(1),
       new stopSerializer(Robot.Serializer),
-      new Trench3BallPartnerMoves()
+      new Trench6BallPartnerMoves()
     );
   
   }
