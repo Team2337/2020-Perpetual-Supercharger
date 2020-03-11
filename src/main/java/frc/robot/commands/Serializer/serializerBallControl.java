@@ -15,13 +15,6 @@ public class serializerBallControl extends CommandBase {
     private int i = 0;
     private int iteration = 0;
     private int position = 0;
-    private DigitalInput[] sensorArray = {
-        serializer.bottomSerializerSensor,
-        serializer.bottomBackSerializerSensor,
-        serializer.middleSerializerSensor,
-        serializer.topSerializerSensor,
-        serializer.topTopSerializerSensor
-    };
 
     /**
      * Sets the kicker's speed.
@@ -62,30 +55,36 @@ public class serializerBallControl extends CommandBase {
             Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
             if(serializer.bottomSerializerSensor.get() && !serializer.topSerializerSensor.get()) {
                 if(iteration < 5) {
-                    highestTrippedSensor = serializer.checkTopSensor(sensorArray);
-                    bottomSensorTripped = false;
+                    highestTrippedSensor = serializer.checkTopSensor(serializer.sensorsArray);
+                    serializerActive = false;
                 }
                  else if(iteration > 5 && iteration < 9) { 
-                    bottomSensorTripped = true;
+                    serializerActive = true;
                     // position = serializer.getSerializerPosition() + 7400;
                     // serializer.setPosition(position);
                 }
-                if(serializer.sensorArray[hightestSensorTripped + 1].get()) {
-                    bottomSensorTripped = false;
+
+                if(highestTrippedSensor == serializer.sensorsArray.length || serializer.sensorsArray[hightestSensorTripped + 1].get()) {
+                    serializerActive = false;
                 }
-                if(bottomSensorTripped) {
+
+                if(serializerActive) {
                     serializer.setSerializerSpeed(Constants.SERIALIZEROPERATORFORWARDSPEED);
+                    Robot.Agitator.setAgitatorSpeed(Constants.AGITATORFORWARDSPEED);
+                } else {
+                    serializer.stopSerializer();
+                    Robot.Agitator.stopAgitator();;
                 }
                 iteration++;
 
-                if((Robot.Utilities.withinTolerance(position, serializer.getSerializerPosition(), 100)  && iteration > 39)
+                /* if((Robot.Utilities.withinTolerance(position, serializer.getSerializerPosition(), 100)  && iteration > 39)
                 || (iteration > 40) ||( !serializer.bottomSerializerSensor.get())
                 ) {
                     iteration = 0;
                 }
             } else if(serializer.topSerializerSensor.get() || !serializer.bottomSerializerSensor.get()) {
                 serializer.stopSerializer(); 
-            }  
+            }   */
             if(serializer.topSerializerSensor.get()){
                 Robot.Agitator.stopAgitator();
             }

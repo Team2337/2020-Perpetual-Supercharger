@@ -40,6 +40,7 @@ public class Serializer extends SubsystemBase {
   public DigitalInput topSerializerSensor;
   public DigitalInput topTopSerializerSensor;
   public DigitalInput bottomBackSerializerSensor;
+  public DigitalInput[] sensorsArray;
   public Counter counter;
 
   // Motors
@@ -100,6 +101,17 @@ public class Serializer extends SubsystemBase {
      topSerializerSensor = new DigitalInput(2);    //TODO: FIX ME
      topTopSerializerSensor = new DigitalInput(8);
      bottomBackSerializerSensor = new DigitalInput(9);
+
+     DigitalInput[] sensorArray = {
+      serializer.bottomSerializerSensor,
+      serializer.bottomBackSerializerSensor,
+      serializer.middleSerializerSensor,
+      serializer.topSerializerSensor,
+      serializer.topTopSerializerSensor
+    };
+
+    sensorsArray = sensorArray;
+
      counter = new Counter(3);
      // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
      // up of the pulse
