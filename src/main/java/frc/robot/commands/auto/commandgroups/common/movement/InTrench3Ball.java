@@ -9,7 +9,7 @@ import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.auto.*;
 
 /**
- * Drives from the initiation line to the Trench to gather power cells
+ * Drives in the trench to collect 3 power cells
  * @author Madison J. 
  * @category AUTON 
  */
@@ -19,7 +19,7 @@ public class InTrench3Ball extends ParallelCommandGroup {
   public double speed;
 
   /**
-   * Drives from the initiation line to the generator command group
+   * Drives in the trench to collect 3 power cells
    */
   public InTrench3Ball(double driveDistance, double speed) {
     this.speed = speed;

@@ -3,18 +3,13 @@ package frc.robot.commands.auto.commandgroups.common.movement;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Agitator.*;
-import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.runSerializer;
-import frc.robot.commands.Shooter.*;
 import frc.robot.commands.Vision.limeLightLEDOn;
 import frc.robot.commands.Vision.limelightPipeline;
 import frc.robot.commands.auto.*;
-import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchPartnerOnRight;
 
 /**
- * Drives from the initiation line to the Trench to gather power cells
+ * Drives from the trench to the goal and rotates using vision to score 3 power cells
  * @author Madison J. 
  * @category AUTON 
  */
@@ -23,7 +18,7 @@ public class PostTrench3Ball extends SequentialCommandGroup {
   public double intakeSpeed = 0.5;
 
   /**
-   * Drives from the initiation line to the generator command group
+   * Drives from the trench to the goal and rotates using vision to score 3 power cells
    */
   public PostTrench3Ball() {
 
