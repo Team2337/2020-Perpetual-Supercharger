@@ -3,6 +3,7 @@ package frc.robot.commands.Serializer;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Serializer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -14,6 +15,13 @@ public class serializerBallControl extends CommandBase {
     private int i = 0;
     private int iteration = 0;
     private int position = 0;
+    private DigitalInput[] sensorArray = {
+        serializer.bottomSerializerSensor,
+        serializer.bottomBackSerializerSensor,
+        serializer.middleSerializerSensor,
+        serializer.topSerializerSensor,
+        serializer.topTopSerializerSensor
+    };
 
     /**
      * Sets the kicker's speed.
@@ -53,9 +61,20 @@ public class serializerBallControl extends CommandBase {
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
             Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
             if(serializer.bottomSerializerSensor.get() && !serializer.topSerializerSensor.get()) {
-                if(iteration > 5 && iteration < 9) { 
-                    position = serializer.getSerializerPosition() + 7400;
-                    serializer.setPosition(position);
+                if(iteration < 5) {
+                    highestTrippedSensor = serializer.checkTopSensor(sensorArray);
+                    bottomSensorTripped = false;
+                }
+                 else if(iteration > 5 && iteration < 9) { 
+                    bottomSensorTripped = true;
+                    // position = serializer.getSerializerPosition() + 7400;
+                    // serializer.setPosition(position);
+                }
+                if(serializer.sensorArray[hightestSensorTripped + 1].get()) {
+                    bottomSensorTripped = false;
+                }
+                if(bottomSensorTripped) {
+                    serializer.setSerializerSpeed(Constants.SERIALIZEROPERATORFORWARDSPEED);
                 }
                 iteration++;
 
