@@ -37,6 +37,8 @@ public class Serializer extends SubsystemBase {
   public DigitalInput bottomSerializerSensor;
   public DigitalInput middleSerializerSensor;
   public DigitalInput topSerializerSensor;
+  public DigitalInput topTopSerializerSensor;
+  public DigitalInput bottomBackSerializerSensor;
   public Counter counter;
 
   // Motors
@@ -95,6 +97,8 @@ public class Serializer extends SubsystemBase {
      bottomSerializerSensor = new DigitalInput(0); //TODO: FIX ME
      middleSerializerSensor = new DigitalInput(1); //TODO: FIX ME
      topSerializerSensor = new DigitalInput(2);    //TODO: FIX ME
+     topTopSerializerSensor = new DigitalInput(8);
+     bottomBackSerializerSensor = new DigitalInput(9);
      counter = new Counter(3);
      // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
      // up of the pulse
@@ -116,6 +120,8 @@ public class Serializer extends SubsystemBase {
     SmartDashboard.putBoolean("Bottom sensor", bottomSerializerSensor.get());
     SmartDashboard.putBoolean("Middle sensor", middleSerializerSensor.get());
     SmartDashboard.putBoolean("Top sensor", topSerializerSensor.get());
+    SmartDashboard.putBoolean("Top top sensor", topTopSerializerSensor.get());
+    SmartDashboard.putBoolean("Bottom back sensor", bottomBackSerializerSensor.get());
     SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
   }
 
@@ -189,6 +195,20 @@ public class Serializer extends SubsystemBase {
   public void setCoOp(boolean driverIsControlling, boolean operatorIsControlling){
       this.driverIsControlling = driverIsControlling;
       this.operatorIsControlling = operatorIsControlling;
+  }
+
+  /**
+   * Checks to see which sensor is tripped and based on that moves the serializer up unless the top sensor is tripped
+   * @param digitalInputArray - An array for the digital inputs
+   * @return - It returns the sensor that is tripped
+   */
+  public int checkTopSensor(DigitalInput[] digitalInputArray) {
+    for(int i = digitalInputArray.length - 1; i > 0; i--) {
+      if(digitalInputArray[i].get()) {
+        return i;
+      }
+    }
+    return 0;
   }
     
 }
