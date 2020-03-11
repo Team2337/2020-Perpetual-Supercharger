@@ -1,6 +1,11 @@
 package frc.robot.commands.KickerWheel;
 
+import frc.robot.Robot;
 import frc.robot.subsystems.KickerWheel;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
@@ -24,7 +29,7 @@ public class stopKicker extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize(){ 
-
+    Robot.KickerWheel.kickerWheelMotor.setIdleMode(IdleMode.kBrake);
     subsystem.stopKicker();
   }
 

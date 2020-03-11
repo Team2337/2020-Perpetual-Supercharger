@@ -101,10 +101,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         2.2618739 + Math.PI,   // Module 1
         -1.193802 + Math.PI,   // Module 2 
         -0.746431 - Math.PI / 2   // Module 3  */
-        4.6524127,
-        3.8954300 + Math.PI,
-        2.0473980 + Math.PI,
-        0.3950974
+        4.6603704,//4.6599803,//4.6524127,
+        4.034184285652252 + Math.PI, // 3.8954300 //3.8795141 //4.02862
+        2.0822764483757705 + Math.PI, // 2.0473980 //2.0331746
+        5.89055019742 //6.211150//0.3951469//0.3950974
       };
     } else {
       angleOffsets = new double[] {
@@ -301,7 +301,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       iteration++;
     } 
     average = total / iteration;
-   // System.out.println("Average" + average);
+   System.out.println("Average" + average);
     return average;
   }
 
@@ -333,6 +333,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
+
     if (swerveDebug) {
       for(int i = 0; i < 4; i++) {
       SmartDashboard.putNumber("ModuleAngle/" + i, 

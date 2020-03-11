@@ -7,8 +7,11 @@ import frc.robot.commands.Intake.runIntake;
 import frc.robot.commands.Serializer.runSerializer;
 import frc.robot.commands.Shooter.stopShooter;
 import frc.robot.commands.auto.AutoDriveWithJoystickInput;
+import frc.robot.commands.auto.autoBallCounter;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;;
+
 
 /**
  * Nine ball auto
@@ -19,11 +22,15 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 public class FireOnePartnerBall extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public FireOnePartnerBall(int numOfPartners) {
-        addCommands(new FirePreloads().withTimeout(3.2),
-                new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED),
+        addCommands(
+                new FirePreloads().withTimeout(2.75), 
                 new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-                new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED).withTimeout(5)
-                );
+                new ParallelRaceGroup(
+                    new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED).withTimeout(6), //3.5 TODO: Fix MEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                    new autoBallCounter(Robot.OperatorAngleAdjustment, Robot.Serializer.middleSerializerSensor, 5, 3)
+                ),
+                new WaitCommand(0.4).withTimeout(0.4)
+            );
         
     }
 }

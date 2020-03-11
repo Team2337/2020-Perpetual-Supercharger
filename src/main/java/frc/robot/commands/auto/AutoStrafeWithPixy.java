@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @author Bryce G.
  * @category SWERVE
  */
-public class AutoDriveWithJoystickInput extends CommandBase {
+public class AutoStrafeWithPixy extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final SwerveDrivetrain SwerveDrivetrain;
 
@@ -29,6 +29,7 @@ public class AutoDriveWithJoystickInput extends CommandBase {
   private double rotationP = 0.009; 
   private double maxRotationSpeed = 0.15;
   private double encoderDist = 0;
+  private double offset;
 
   /**
    * Sets the forwards value to a set a mock joystick value
@@ -36,11 +37,11 @@ public class AutoDriveWithJoystickInput extends CommandBase {
    * @param subsystem - SwerveDrivetrain Subsystem object
    * @param forward   - mock forward joystick value
    */
-  public AutoDriveWithJoystickInput(SwerveDrivetrain SwerveDrivetrain, double encoderDist, double forwardDist, double horizontalDist, double endAngleDegree) {
+  public AutoStrafeWithPixy(SwerveDrivetrain SwerveDrivetrain, double encoderDist, double forwardDist,
+     double endAngleDegree) {
     this.SwerveDrivetrain = SwerveDrivetrain;
     this.encoderDist = encoderDist;
     this.forwardDist = forwardDist;
-    this.strafe = horizontalDist * Constants.Auton.INCHESTOJOYSTICKVALUE;
     this.forward = forwardDist * Constants.Auton.INCHESTOJOYSTICKVALUE;
     this.endAngleDegree = endAngleDegree;
     addRequirements(SwerveDrivetrain);
@@ -57,9 +58,16 @@ public class AutoDriveWithJoystickInput extends CommandBase {
     rotationError = (endAngleDegree - currentGyro);
     rotation = rotationError * rotationP;
     rotation = rotation > maxRotationSpeed ? maxRotationSpeed : rotation;
-   
+    
+    if(Robot.Vision.getPixyRightTarget()) {
+      strafe = -(Math.toRadians(Robot.Vision.getPixyRightValue() - 2) * Constants.Auton.AUTOSTRAFEP);
+    } else {
+      strafe = 0;
+    }
+
    // Pass on joystick values to be calculated into angles and speeds
    Robot.SwerveDrivetrain.calculateJoystickInput(forward, strafe, rotation);
+
   }
 
   @Override
@@ -73,6 +81,8 @@ public class AutoDriveWithJoystickInput extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return (Math.abs(SwerveDrivetrain.getModule(3).getDriveEncoderValue()) > encoderDist * Constants.Swerve.TICKSPERINCH);
+    return (Math.abs(SwerveDrivetrain.getModule(3).getDriveEncoderValue()) > encoderDist * Constants.Swerve.TICKSPERINCH) 
+    ||( ((Math.abs(SwerveDrivetrain.getModule(3).getDriveEncoderValue()) > (encoderDist * Constants.Swerve.TICKSPERINCH) * 0.95)) 
+    && Robot.Vision.getPixyRightTarget());
   }
 }
