@@ -53,8 +53,6 @@ public String mac;
   public static OI OI;
   public SendableChooser<String> autonChooser;
   public SendableChooser<String> delayChooser;
-
-  public boolean lightsaberOn = false;
   
   /**
    * This function is run when the robot is first started up and should be used for any
