@@ -6,6 +6,9 @@ import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.LED.LEDRuntime;
+import frc.robot.commands.Lightsaber.lightsaberOff;
+import frc.robot.commands.Lightsaber.turnOffLightsaber;
+import frc.robot.commands.Lightsaber.turnOnLightsaber;
 import frc.robot.commands.Serializer.*;
 import frc.robot.commands.Servo.deployHyperLoop;
 import frc.robot.commands.Servo.retractHyperLoop;
@@ -78,6 +81,8 @@ public class OI {
         driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new stopIntake(Robot.Intake),
         new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier));
 
+        driverJoystick.leftStickButton.whenPressed(new turnOnLightsaber(Robot.Lightsaber));
+        driverJoystick.leftStickButton.whenReleased(new lightsaberOff());
         //DRIVER JOYSTICK RIGHT TRIGGER IS USED IN THE CO-OP COMMANDS IN SERIALIZER AND KICKERWHEEL
 
         /* --- OPERATOR JOYSTICK --- */
