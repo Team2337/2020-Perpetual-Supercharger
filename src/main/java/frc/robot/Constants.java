@@ -221,7 +221,7 @@ public final class Constants {
     /** Percent forward speed when serializing or shooting */
     public static double SERIALIZERDRIVERFORWARDSPEED = 0.25;
     
-    public static double SERIALIZEROPERATORFORWARDSPEED = 0.3;
+    public static double SERIALIZEROPERATORFORWARDSPEED = 0.7;
     /** Percent reverse speed when serializing or shooting */
     public static double SERIALIZERREVERSESPEED = -0.3;
     
