@@ -8,7 +8,8 @@ import frc.robot.commands.auto.checkShooterVelocity;
 import frc.robot.commands.auto.commandgroups.common.systemactions.*;
 
 /**
- * Starts the shooter and when when the velocity of the shooter is reached run feed shooter until 9 balls have been shot then turn off the shooter command group
+ * Starts the shooter and when when the velocity of the shooter is reached 
+ * run the serializer, agitator, and the intake until 9 balls have been shot
  * @author Madison J. 
  * @category AUTON 
  */
@@ -16,7 +17,8 @@ public class ShootNineBall extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
  /**
- * Starts the shooter and when when the velocity of the shooter is reached run feed shooter until 9 balls have been shot then turn off the shooter command group
+ * Starts the shooter and when when the velocity of the shooter is reached 
+ * run the serializer, agitator, and the intake until 9 balls have been shot
  */
   public ShootNineBall() {
     addCommands(

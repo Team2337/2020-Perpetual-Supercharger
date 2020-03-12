@@ -10,7 +10,7 @@ import frc.robot.commands.Shooter.*;
 import frc.robot.commands.auto.*;
 
 /**
- * Drives from the initiation line to the Trench to gather power cells
+ * Drives in the trench to collect 3 power cells then scores them
  * @author Madison J. 
  * @category AUTON 
  */
@@ -18,7 +18,7 @@ public class RightTrench3Ball extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 
   /**
-   * Drives from the initiation line to the generator command group
+   * Drives in the trench to collect 3 power cells then scores them
    */
   public RightTrench3Ball() {
 

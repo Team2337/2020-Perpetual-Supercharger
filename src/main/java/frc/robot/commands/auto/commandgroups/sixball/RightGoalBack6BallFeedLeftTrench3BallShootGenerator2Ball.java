@@ -1,11 +1,10 @@
 package frc.robot.commands.auto.commandgroups.sixball;
 
-import frc.robot.commands.auto.commandgroups.common.movement.GeneratorThreeBallFromCenterTarget;
-import frc.robot.commands.auto.commandgroups.common.ShootNineBall;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
- * Shoots 9 balls centered on the goal then the chassis drives to the generator and we intake 3 balls
+ * Scores 6 power cells with our partners feeding from the left when we are to the right of the goal 
+ * then drives to the trench and generator to collect 5 power cells and score them
  * @author Madison J. 
  * @category AUTON 
  */
@@ -13,11 +12,12 @@ public class RightGoalBack6BallFeedLeftTrench3BallShootGenerator2Ball extends Se
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
  /**
- * Shoots 9 balls centered on the goal then the chassis drives to the generator and we intake 3 balls  
- */
+  * Scores 6 power cells with our partners feeding from the left when we are to the right of the goal 
+  * then drives to the trench and generator to collect 5 power cells and score them
+  */
   public RightGoalBack6BallFeedLeftTrench3BallShootGenerator2Ball() {
     addCommands(
-      // new AutonInit()
+      
     );
   
   }

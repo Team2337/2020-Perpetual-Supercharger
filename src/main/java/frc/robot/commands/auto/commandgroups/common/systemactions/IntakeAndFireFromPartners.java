@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
  * Nine ball auto
- * Runs the shooter for 1.5 seconds before intaking balls from our partners
+ * Waits for 0.5 seconds before running the intakes, serializer, and agitator
  * 
  * @author Bryce G.
  */

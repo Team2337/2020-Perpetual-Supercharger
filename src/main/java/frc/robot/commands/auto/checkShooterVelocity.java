@@ -1,15 +1,11 @@
 package frc.robot.commands.auto;
 
 import frc.robot.Robot;
-import frc.robot.Constants.Swerve;
 import frc.robot.subsystems.Serializer;
-import frc.robot.subsystems.SwerveDrivetrain;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot a specified direction, either left or right
+ * Checks to see if both the shooter and kicker wheel are at velocity and if so sets isAtVelocity to true
  * @author Madison J.
  * @category AUTON
  */
@@ -21,6 +17,12 @@ public class checkShooterVelocity extends CommandBase {
     private boolean finished;
     private boolean isAtVelocity;
 
+  /**
+   * Checks to see if both the shooter and kicker wheel are at velocity and if so sets isAtVelocity to true
+   * @param subsystem - The required subsystem
+   * @param shooterVelocity - The velocity of the shooter
+   * @param kickerVelocity - The velocity of the kicker wheel
+   */
   public checkShooterVelocity(Serializer subsystem, double shooterVelocity, double kickerVelocity) {
     m_subsystem = subsystem;
     addRequirements(subsystem);

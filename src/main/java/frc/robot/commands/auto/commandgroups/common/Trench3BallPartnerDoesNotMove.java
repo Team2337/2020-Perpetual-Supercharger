@@ -10,7 +10,7 @@ import frc.robot.commands.auto.commandgroups.common.movement.PostTrench6Ball;
 import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchPartnerOnRight;
 
 /**
- * Drives from the initiation line to the Trench to gather power cells
+ * Drives from the initiation line to the trench to gather power cells when our partner does not move out of our way
  * @author Madison J. 
  * @category AUTON 
  */
@@ -21,7 +21,7 @@ public class Trench3BallPartnerDoesNotMove extends SequentialCommandGroup {
   public double speed = -0.45;
 
   /**
-   * Drives from the initiation line to the generator command group
+   * Drives from the initiation line to the trench to gather power cells when our partner does not move out of our way
    */
   public Trench3BallPartnerDoesNotMove() {
 

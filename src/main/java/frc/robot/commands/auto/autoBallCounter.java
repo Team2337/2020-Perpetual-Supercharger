@@ -1,19 +1,12 @@
 package frc.robot.commands.auto;
 
-import frc.robot.Constants;
-import frc.robot.Constants.Swerve;
-import frc.robot.subsystems.OperatorAngleAdjustment;
-import frc.robot.subsystems.SwerveDrivetrain;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
- * Sets the module angles to the desired rotation angle and rotates the robot a specified direction, either left or right
+ * Counts the number of balls we have based on how many times the sensor is tripped
  * @author Madison J.
  * @category AUTON
  */

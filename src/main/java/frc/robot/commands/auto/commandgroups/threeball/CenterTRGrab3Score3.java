@@ -8,14 +8,13 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
- * Shoot 6 balls with a partner feeding on our right, intake 3 balls from the trench and 2 from the generator, then shoot 5 balls
+ * Scores 3 power cells then drives to the trench to collect 3 power cells and score them
  */
 public class CenterTRGrab3Score3 extends SequentialCommandGroup {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 
   /**
-   * Shoots 9 balls centered on the goal then the chassis drives to the generator
-   * and we intake 3 balls
+   * Scores 3 power cells then drives to the trench to collect 3 power cells and score them
    */
   public CenterTRGrab3Score3(double delay) {
     addCommands(

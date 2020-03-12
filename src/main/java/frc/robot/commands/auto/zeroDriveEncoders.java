@@ -1,7 +1,6 @@
 package frc.robot.commands.auto;
 
 import frc.robot.subsystems.SwerveDrivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
@@ -24,7 +23,6 @@ public class zeroDriveEncoders extends InstantCommand {
 
   @Override
   public void initialize() {
-      // Goes through 4 times and sets the angle encoders to zero
       m_subsystem.zeroAllDriveEncoders();
   }
 

@@ -9,7 +9,7 @@ import frc.robot.commands.Vision.limelightPipeline;
 import frc.robot.commands.auto.*;
 
 /**
- * Drives from the initiation line to the Trench to gather power cells
+ * Drives from the trench to the goal and rotates using vision to score 3 power cells
  * @author Madison J. 
  * @category AUTON 
  */
@@ -18,7 +18,7 @@ public class PostTrench6Ball extends SequentialCommandGroup {
   public double intakeSpeed = 0.5;
 
   /**
-   * Drives from the initiation line to the generator command group
+   * Drives from the trench to the goal and rotates using vision to score 3 power cells
    */
   public PostTrench6Ball() {
 

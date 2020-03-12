@@ -11,7 +11,7 @@ import frc.robot.subsystems.SwerveDrivetrain;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- *  Zeros each drive encoder
+ * Zeros each drive encoder
  * @author Madison J.
  * @category AUTON
  */
@@ -20,7 +20,7 @@ public class resetDriveEncoders extends InstantCommand {
   private final SwerveDrivetrain m_subsystem;
 
   /**
-   *  Zeros each drive encoder
+   * Zeros each drive encoder
    * @param subsystem - SwerveDrivetrain subsystem object
    */
   public resetDriveEncoders(SwerveDrivetrain subsystem) {

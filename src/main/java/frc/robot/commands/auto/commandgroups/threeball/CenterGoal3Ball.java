@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
- * Shoots 9 balls centered on the goal then the chassis drives to the generator and we intake 3 balls
+ * Scores 3 power cells then drives backwards off the initation line
  * @author Madison J. 
  * @category AUTON 
  */
@@ -16,7 +16,7 @@ public class CenterGoal3Ball extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 
     /**
-     * Shoots 6 balls centered on the goal then the chassis backs up 35"
+     * Scores 3 power cells then drives backwards off the initation line
      */
     public CenterGoal3Ball(double delay) {
         

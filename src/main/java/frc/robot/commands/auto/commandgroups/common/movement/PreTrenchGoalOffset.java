@@ -1,16 +1,11 @@
 package frc.robot.commands.auto.commandgroups.common.movement;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Agitator.*;
-import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
-import frc.robot.commands.Shooter.*;
 import frc.robot.commands.auto.*;
 
 /**
- * Drives from the initiation line to the Trench to gather power cells
+ * Drives from the initation line to the trench when offset from the goal
  * @author Madison J. 
  * @category AUTON 
  */
@@ -19,7 +14,7 @@ public class PreTrenchGoalOffset extends SequentialCommandGroup {
   public double intakeSpeed = 0.5;
 
   /**
-   * Drives from the initiation line to the generator command group
+   * Drives from the initation line to the trench when offset from the goal
    */
   public PreTrenchGoalOffset() {
 

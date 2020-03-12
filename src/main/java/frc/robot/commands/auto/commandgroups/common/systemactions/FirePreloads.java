@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
  * Nine ball auto
- * Runs the shooter for 1.5 seconds before intaking balls from our partners
+ * Scores our preloads
  * 
  * @author Bryce G.
  */
