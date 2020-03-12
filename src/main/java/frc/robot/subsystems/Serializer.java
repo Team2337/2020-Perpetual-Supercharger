@@ -76,7 +76,7 @@ public class Serializer extends SubsystemBase {
 
     // Set amperage limits
     serializerMotor.configStatorCurrentLimit(currentLimitConfigurationSerializerMotor, 0);
-
+    
      /*
       * This is where the Talon FX is configured
       * All of the PID values are configured here as well
