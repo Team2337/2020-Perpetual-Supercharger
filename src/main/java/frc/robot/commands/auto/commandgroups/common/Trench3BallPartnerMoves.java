@@ -2,10 +2,9 @@ package frc.robot.commands.auto.commandgroups.common;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.auto.*;
+import frc.robot.commands.auto.resetDriveEncoders;
 import frc.robot.commands.auto.commandgroups.common.movement.InTrench3Ball;
 import frc.robot.commands.auto.commandgroups.common.movement.PostTrench3Ball;
-import frc.robot.commands.auto.commandgroups.common.movement.PostTrench6Ball;
 import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchNoPartner;
 
 /**

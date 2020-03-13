@@ -2,7 +2,6 @@ package frc.robot.commands.auto.commandgroups.nineball;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.auto.commandgroups.common.ShootNineBall;
-import frc.robot.commands.auto.commandgroups.common.Trench3BallPartnerMoves;
 import frc.robot.commands.auto.commandgroups.common.Trench6BallPartnerMoves;
 import frc.robot.commands.auto.commandgroups.common.vision.Vision3ShootBall;
 

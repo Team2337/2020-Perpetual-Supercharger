@@ -1,12 +1,14 @@
 package frc.robot.commands.auto.commandgroups.common.movement;
 
-import edu.wpi.first.wpilibj2.command.*;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Agitator.*;
-import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
-import frc.robot.commands.auto.*;
+import frc.robot.commands.Agitator.runAgitator;
+import frc.robot.commands.Intake.runIntake;
+import frc.robot.commands.KickerWheel.runKicker;
+import frc.robot.commands.auto.AutoStrafeWithPixy;
+import frc.robot.commands.auto.autoStartShooter;
 
 /**
  * Drives from the initiation line to the Trench to gather power cells
