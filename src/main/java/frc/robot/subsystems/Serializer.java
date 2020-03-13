@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.Serializer.runSerializer;
 import frc.robot.commands.Serializer.serializerSensorControl;
 
  /** 
@@ -26,6 +27,7 @@ public class Serializer extends SubsystemBase {
    * @see #periodic()
    */
   public final boolean serializerDebug = false;
+  private boolean topSensorSet = false;
   // Sets up posistion stuff (referenced later)
   public double targetPosition;
   final double kP = 3;
@@ -131,11 +133,11 @@ public class Serializer extends SubsystemBase {
       SmartDashboard.putNumber("Serializer TargetPosition", targetPosition);
       SmartDashboard.putNumber("Serializer CurrentPosition", getSerializerPosition());
     }
-    SmartDashboard.putBoolean("Bottom sensor", bottomSerializerSensor.get());
-    SmartDashboard.putBoolean("Middle sensor", middleSerializerSensor.get());
-    SmartDashboard.putBoolean("Top sensor", topSerializerSensor.get());
-    SmartDashboard.putBoolean("Top top sensor", topTopSerializerSensor.get());
-    SmartDashboard.putBoolean("Bottom back sensor", bottomBackSerializerSensor.get());
+    SmartDashboard.putBoolean("Bottom sensor", getBottomSensor());
+    SmartDashboard.putBoolean("Middle sensor", getMiddleSensor());
+    SmartDashboard.putBoolean("Top sensor", getTopSensor());
+    SmartDashboard.putBoolean("Top top sensor", getTopTopSensor());
+    SmartDashboard.putBoolean("Bottom back sensor", getBottomBackSensor());
     SmartDashboard.putNumber("Serializer Motor Temperature", getSerializerTemperature());
   }
 
@@ -211,6 +213,36 @@ public class Serializer extends SubsystemBase {
       this.operatorIsControlling = operatorIsControlling;
   }
 
+  public boolean getTopTopSensor() {
+    return !topTopSerializerSensor.get();
+  }
+
+  public boolean getTopSensor() {
+    return topSerializerSensor.get();
+  }
+
+  public boolean getMiddleSensor() {
+    return middleSerializerSensor.get();
+  }
+
+  public boolean getBottomBackSensor() {
+    return !bottomBackSerializerSensor.get();
+  }
+
+  public boolean getBottomSensor() {
+    return bottomSerializerSensor.get();
+  }
+
+  public boolean noSensorsTripped() {
+    return (
+      !getTopTopSensor()     &&
+      !getTopSensor()        &&
+      !getMiddleSensor()     &&
+      !getBottomBackSensor() &&
+      !getBottomSensor()
+      );
+  }
+
   /**
    * Checks to see which sensor is tripped and based on that moves the serializer up unless the top sensor is tripped
    * @param digitalInputArray - An array for the digital inputs
@@ -218,12 +250,42 @@ public class Serializer extends SubsystemBase {
    */
   public int checkTopSensor(DigitalInput[] digitalInputArray) {
     for(int i = digitalInputArray.length - 1; i > 0; i--) {
-      if(digitalInputArray[i].get()) {
-        return i;
+      if(getTopTopSensor()) {
+        return 4;
+      } else if(getTopSensor()) {
+        return 3;
+      } else if(getMiddleSensor()) {
+        return 2;
+      } else if(getBottomBackSensor()) {
+        return 1;
+      } else if(getBottomSensor()) {
+        return 0;
       }
     }
     return 0;
   }
-    
+
+  public int checkTopSensor() {
+    return 
+      getTopTopSensor() ? 4 :
+      getTopSensor() ? 3 : 
+      getMiddleSensor() ? 2 : 
+      getBottomBackSensor() ? 1 : 0;
+  }
+
+  public boolean getHighestSensor(int topSensor) {
+    switch(topSensor) {
+      case 4:
+        return getTopTopSensor();
+      case 3:
+        return getTopSensor();
+      case 2:
+        return getMiddleSensor();
+      case 1:
+        return getBottomBackSensor();
+      default:
+        return getBottomSensor();
+    }
+  }
 }
     

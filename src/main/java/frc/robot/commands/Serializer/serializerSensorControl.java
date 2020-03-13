@@ -18,6 +18,8 @@ public class serializerSensorControl extends CommandBase {
     private int position = 0;
     private int highestTrippedSensor;
     private boolean serializerActive;
+    private boolean runMode = false;
+    private boolean backSensorState = false;
 
     /**
      * Sets the kicker's speed.
@@ -38,7 +40,7 @@ public class serializerSensorControl extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        SmartDashboard.putNumber("Check Top Sensor", serializer.checkTopSensor(serializer.sensorsArray));
+        SmartDashboard.putNumber("Check Top Sensor", serializer.checkTopSensor());
         SmartDashboard.putNumber("Highest tripped sensor", highestTrippedSensor);
         SmartDashboard.putNumber("*Serializer iterations", iteration);
         SmartDashboard.putBoolean("*Serializer active", serializerActive);
@@ -52,50 +54,43 @@ public class serializerSensorControl extends CommandBase {
             // If the driver isn't attempting to control it and the operator is
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
             Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
-            if(serializer.bottomSerializerSensor.get() /* && !serializer.topSerializerSensor.get() */) {
-                //If the iteration count is less than 5, turn off the serializer.
-                if(iteration < 5){
-                    System.out.println("Less than 5");
-                    serializerActive = false;
-                } //if the iteration count is equal to 5, check the highest trip sensor and activate serializer
-                else if(iteration == 5) {
-                    System.out.println("Equal to 5");
-                    highestTrippedSensor = serializer.checkTopSensor(serializer.sensorsArray);
-                    serializerActive = true;
+            if(serializer.getTopTopSensor()) {
+                runMode = false;
+                iteration = 0;
+                Robot.Agitator.stopAgitator();
+                serializer.stopSerializer();
+            } else {
+                if(serializer.getBottomSensor() && !runMode) {
+                    if(iteration > 1) {
+                        if(serializer.noSensorsTripped()) {
+                            highestTrippedSensor = 0;
+                        } else {
+                            backSensorState = serializer.getBottomBackSensor();
+                            runMode = true;
+                        }
+                    }
+                    iteration++;
                 }
-
-                iteration++;
-
-
-                //If the highest sensor or the one above it is tripped, stop the serializer
-                if(highestTrippedSensor == serializer.sensorsArray.length - 1) {
-                    System.out.println("TopTripped + 1");
-                    serializerActive = false;
-                    iteration = 0;
-                }
-                else if(serializer.sensorsArray[highestTrippedSensor + 1].get()) {
-                    System.out.println("HighestTripped + 1");
-
-                }
-
-                if(serializerActive) {
-                    System.out.println("Serializer is active or bottom serializer sensor");
+                if(runMode) {
                     serializer.setSerializerSpeed(Constants.SERIALIZEROPERATORFORWARDSPEED);
-                    Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
+                    if(serializer.getBottomBackSensor() != backSensorState) {
+                        runMode = false;
+                        iteration = 0;
+                        backSensorState = false;
+                    }
                 } else {
-                    System.out.println("Serializer stopped");
                     serializer.stopSerializer();
                     Robot.Agitator.stopAgitator();
                 }
-            }
+            }/* else if(!serializer.bottomSerializerSensor.get()) {
+                iteration = 0;
+            } */
                 
 
         } else {
             // If no-one is trying to control the kicker wheel, stop it
             serializer.stopSerializer();
             Robot.Agitator.stopAgitator();
-            //Also, the speed checking iterations would need to be reset
-            i = 0;
         }
     }
 
