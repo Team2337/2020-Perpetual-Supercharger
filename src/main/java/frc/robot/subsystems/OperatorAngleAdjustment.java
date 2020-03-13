@@ -107,7 +107,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       Robot.Vision.switchPipeLine(0);
       Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
-      case "climbing":
+    case "climbing":
       futureOffsetAngle = climbing;
       Robot.Vision.switchPipeLine(2);
       Robot.Vision.setRotateLimelight(false);
@@ -122,6 +122,14 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       Robot.Vision.switchPipeLine(1);
       Robot.Shooter.setFutureSpeed(Constants.SHOOTFRONTTRENCHSPEED);
       Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFRONTTRENCH); 
+    case "frontTrenchRunShot":
+      futureOffsetAngle = nearShot;
+      Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
+      Robot.Vision.setRotateLimelight(false);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDCLOSE);
+      Robot.Vision.switchPipeLine(1);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
+      break;
     case "0":
       futureOffsetAngle = field0;
       Robot.Vision.setRotateLimelight(false);

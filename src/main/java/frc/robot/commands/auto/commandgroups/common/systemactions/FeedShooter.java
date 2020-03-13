@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Agitator.*;
-import frc.robot.commands.Intake.*;
-import frc.robot.commands.Serializer.*;
-import frc.robot.commands.auto.*;
+import frc.robot.commands.Agitator.runAgitator;
+import frc.robot.commands.Intake.runIntake;
+import frc.robot.commands.Serializer.runSerializer;
+import frc.robot.commands.auto.autoBallCounter;
 
 /**
  * Runs the serializer, agitator, and the intake command group
@@ -22,8 +22,8 @@ public class FeedShooter extends ParallelCommandGroup {
  */
   public FeedShooter(int ballsShot) {
     parallel(
-    new ballCounter(Robot.OperatorAngleAdjustment, new DigitalInput(0), 10, ballsShot),
-    new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED),
+    new autoBallCounter(Robot.OperatorAngleAdjustment, new DigitalInput(0), 10, ballsShot),
+    new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED),
     new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
     new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED)
     );  

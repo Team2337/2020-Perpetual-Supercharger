@@ -31,7 +31,7 @@ public class OI {
         driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, true));
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
-        driverJoystick.bumperRight.whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
+        driverJoystick.bumperRight.whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED));
         driverJoystick.bumperRight.whenReleased(new stopSerializer(Robot.Serializer));
 
         // Run the shooter
@@ -99,11 +99,12 @@ public class OI {
         operatorJoystick.bumperLeft.whenReleased(new feedSystemStop());
 
          // Run the agitator leftwards
-        operatorJoystick.rightStickButton        .whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
-        operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator));
+         /* 
+        operatorJoystick.rightStickButton        .whileHeld(new runAgitatorManual(Robot.Agitator, Constants.AGITATORSPEED));
+        operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator)); */
 
         // Move the climber upwards
-        operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZERFORWARDSPEED));
+        operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZEROPERATORFORWARDSPEED));
         operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
         
 
@@ -117,7 +118,7 @@ public class OI {
         operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
         operatorJoystick.redB.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "nearShot"));
         operatorJoystick.blueX.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "frontTrenchShot"));
-        operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "resetZero"));
+        operatorJoystick.greenA.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "frontTrenchRunShot"));
         
         operatorJoystick.povUp.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "0"));
         operatorJoystick.povRight.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "90"));
@@ -142,8 +143,6 @@ public class OI {
 
         operatorControls.YellowSwitch.whenPressed(new deployHyperLoop(Robot.Servo66));
         operatorControls.YellowSwitch.whenReleased(new retractHyperLoop(Robot.Servo66));
-
-        //insert code here
         
     }
 

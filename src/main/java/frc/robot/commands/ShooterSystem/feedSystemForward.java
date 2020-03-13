@@ -17,6 +17,6 @@ public class feedSystemForward extends SequentialCommandGroup {
         addCommands(
             //new holdKickerPosition(Robot.KickerWheel), //TODO: FIX ME
             new runAgitator(Robot.Agitator, Constants.AGITATORSPEED),
-            new runSerializer(Robot.Serializer, Constants.SERIALIZERFORWARDSPEED));
+            new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED));
     }
 }

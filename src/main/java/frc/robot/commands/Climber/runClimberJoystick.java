@@ -15,7 +15,7 @@ public class runClimberJoystick extends CommandBase {
   private final Climber Climber;
 
   private double climberSpeed;
-  private double deadband = 0.1;
+  private double deadband = 0.2;
   private double maxSpeed = 1.0;
   private boolean positionNotSet = false;
 
