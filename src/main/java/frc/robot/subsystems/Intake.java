@@ -6,15 +6,15 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.nerdyfiles.subsystems.NerdySubsystem;
 
 /**
  * Simple subsystem for the intake
  * @author Michael Francis
  */
-public class Intake extends SubsystemBase {
+public class Intake extends NerdySubsystem {
   /**
    * Specifies whether or not the Intake will be in debug mode.
    * @see #periodic()
@@ -91,5 +91,35 @@ public class Intake extends SubsystemBase {
   public double getIntakeTemperature(){
     double temp = intakeMotor.getTemperature();
     return temp;
+  }
+
+  /***********************************/
+  /* ------------------------------- */
+  /* --- NERDY SUBSYSTEM METHODS --- */
+  /* ------------------------------- */
+  /***********************************/
+
+  @Override
+  public double totalMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public double averageMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public void stopAllMotors() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void debugPrints() {
+    SmartDashboard.putNumber("Intake : TEST", 0);
+
   }
 }

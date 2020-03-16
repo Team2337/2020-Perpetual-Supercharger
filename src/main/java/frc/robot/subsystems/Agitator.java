@@ -6,15 +6,15 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.nerdyfiles.subsystems.NerdySubsystem;
 
 /**
  * Simple subsystem for the agitator
  * @author Michael Francis
  */
-public class Agitator extends SubsystemBase {
+public class Agitator extends NerdySubsystem {
   /**
    * Specifies whether or not the agitator will be in debug mode.
    * @see #periodic()
@@ -91,5 +91,35 @@ public class Agitator extends SubsystemBase {
   public double getAgitatorTemperature(){
     double temp = agitatorMotor.getTemperature();
     return temp;
+  }
+
+  /***********************************/
+  /* ------------------------------- */
+  /* --- NERDY SUBSYSTEM METHODS --- */
+  /* ------------------------------- */
+  /***********************************/
+
+  @Override
+  public double totalMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public double averageMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public void stopAllMotors() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void debugPrints() {
+    SmartDashboard.putNumber("Agitator : TEST", 0);
+
   }
 }

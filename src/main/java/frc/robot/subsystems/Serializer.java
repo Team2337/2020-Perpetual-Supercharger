@@ -7,8 +7,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.nerdyfiles.subsystems.NerdySubsystem;
 
  /** 
  * Subsystem for the Serializer 
@@ -16,7 +16,7 @@ import frc.robot.Constants;
  * For more information, see the wiki 
  * @author Nicholas Stokes
  */
-public class Serializer extends SubsystemBase {
+public class Serializer extends NerdySubsystem {
   /**
    * Specifies whether or not the Serializer will be in debug mode.
    * @see #periodic()
@@ -127,7 +127,6 @@ public class Serializer extends SubsystemBase {
     serializerMotor.set(ControlMode.PercentOutput, 0);
   }
 
-
   /**
    * @return temp
    * Returns the temperature of the serializer motor 
@@ -135,6 +134,7 @@ public class Serializer extends SubsystemBase {
   public double getSerializerTemperature() { 
     return serializerMotor.getTemperature();
   }
+
   /**
    * @param position
    * This is the amount to shift by
@@ -142,11 +142,41 @@ public class Serializer extends SubsystemBase {
    * This is found by subtracting the position of the motor by the amount to shift by,
    * creating the target position
    */
-    public void setPosition(double position ) {
-      targetPosition = position;
-      serializerMotor.set(ControlMode.Position, targetPosition);
+  public void setPosition(double position ) {
+    targetPosition = position;
+    serializerMotor.set(ControlMode.Position, targetPosition);
 
-    }
+  }
+  
+  /***********************************/
+  /* ------------------------------- */
+  /* --- NERDY SUBSYSTEM METHODS --- */
+  /* ------------------------------- */
+  /***********************************/
+
+  @Override
+  public double totalMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public double averageMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public void stopAllMotors() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void debugPrints() {
+    SmartDashboard.putNumber("Agitator : TEST", 0);
+
+  }
     
 }
     

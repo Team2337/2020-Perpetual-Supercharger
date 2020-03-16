@@ -8,14 +8,14 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.nerdyfiles.subsystems.NerdySubsystem;
 
 /**
  * Shoots the power cells (balls) at a certain speed.
  * @author Michael F, Sean L
  */
-public class Shooter extends SubsystemBase {
+public class Shooter extends NerdySubsystem {
 
   /**
    * Specifies whether or not the Shooter will be in debug mode.
@@ -223,5 +223,35 @@ public class Shooter extends SubsystemBase {
     // Convert rps into revolutions per minute
     int rpm = rps * 60;
     return rpm;
+  }
+
+  /***********************************/
+  /* ------------------------------- */
+  /* --- NERDY SUBSYSTEM METHODS --- */
+  /* ------------------------------- */
+  /***********************************/
+
+  @Override
+  public double totalMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public double averageMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public void stopAllMotors() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void debugPrints() {
+    SmartDashboard.putNumber("Shooter : TEST", 0);
+
   }
 }

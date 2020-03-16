@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.nerdyfiles.current.*;
+import frc.robot.nerdyfiles.subsystems.NerdySubsystem;
 import frc.robot.subsystems.*;
 
 /**
@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
   public static PowerDistributionPanel PDP;
   public static OI OI;
 
-  public static ArrayList<SubsystemBase> subsystems;
+  public static ArrayList<NerdySubsystem> subsystems;
 
   public static SubsystemShutdown SubsystemShutdown;
 
@@ -79,6 +79,8 @@ public class Robot extends TimedRobot {
     subsystems.add(Climber);
     subsystems.add(Serializer);
     subsystems.add(Intake);
+    subsystems.add(KickerWheel);
+    subsystems.add(Agitator);
 
     SubsystemShutdown = new SubsystemShutdown(subsystems);
 
@@ -102,9 +104,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic.
+    for(int i = 0; i < subsystems.size(); i++) {
+      if(subsystems.get(i).getDebug()) {
+        subsystems.get(i).debugPrints();
+      }
+    }
+
     CommandScheduler.getInstance().run();
   }
 

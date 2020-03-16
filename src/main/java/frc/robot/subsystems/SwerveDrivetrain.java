@@ -5,10 +5,10 @@ import java.util.function.BooleanSupplier;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.commands.swerve.*;
+import frc.robot.nerdyfiles.subsystems.NerdySubsystem;
 import frc.robot.nerdyfiles.swerve.*;
 
 /**
@@ -19,7 +19,7 @@ import frc.robot.nerdyfiles.swerve.*;
  * @author Bryce G.
  * @category SWERVE
  */
-public class SwerveDrivetrain extends SubsystemBase {
+public class SwerveDrivetrain extends NerdySubsystem {
 
   // Sets the distances from module to module 
   public static final double WHEELBASE = 22.5;  
@@ -288,6 +288,36 @@ public class SwerveDrivetrain extends SubsystemBase {
    */
   public boolean getFieldOriented() {
       return this.isFieldOriented;
+  }
+
+  /***********************************/
+  /* ------------------------------- */
+  /* --- NERDY SUBSYSTEM METHODS --- */
+  /* ------------------------------- */
+  /***********************************/
+
+  @Override
+  public double totalMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public double averageMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public void stopAllMotors() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void debugPrints() {
+    SmartDashboard.putNumber("SwerveDrivetrain : TEST", 0);
+
   }
 
   @Override

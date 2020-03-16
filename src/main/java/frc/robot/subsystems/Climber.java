@@ -6,15 +6,15 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.nerdyfiles.subsystems.NerdySubsystem;
 
 /**
  * Simple subsystem for the climber
  * @author Michael Francis
  */
-public class Climber extends SubsystemBase {
+public class Climber extends NerdySubsystem {
   /**
    * Specifies whether or not the climber will be in debug mode.
    * @see #periodic()
@@ -87,5 +87,35 @@ public class Climber extends SubsystemBase {
   public double getClimberTemperature(){
     double temp = climberMotor.getTemperature();
     return temp;
+  }
+
+  /***********************************/
+  /* ------------------------------- */
+  /* --- NERDY SUBSYSTEM METHODS --- */
+  /* ------------------------------- */
+  /***********************************/
+
+  @Override
+  public double totalMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public double averageMotorCurrent() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public void stopAllMotors() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void debugPrints() {
+    SmartDashboard.putNumber("Climebr : TEST", 0);
+
   }
 }
