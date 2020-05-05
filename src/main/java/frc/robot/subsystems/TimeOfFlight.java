@@ -40,6 +40,7 @@ public class TimeOfFlight extends SubsystemBase {
   public static double loadSensorSerial;
   public static double loadSensorPart;
   public static double loadSensorFirmware;
+  // Variables that store data until called
   public static byte[] tofdata = new byte[8];
   public static int[] temp;
 
@@ -89,7 +90,7 @@ public class TimeOfFlight extends SubsystemBase {
    * @param id The ID of the sensor
    * @return Returns the bytes in an array (8).
    * <ul>
-   * <li>   0 = Is reversed?             </li>
+   * <li>   0 = Is it reversed?          </li>
    * <li> 1-3 = Hardware serial number   </li>
    * <li> 4-5 = Manufacturer part number </li>
    * <li> 6-7 = Firmware version         </li>

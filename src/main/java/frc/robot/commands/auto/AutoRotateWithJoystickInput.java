@@ -1,9 +1,7 @@
 package frc.robot.commands.auto;
 
-import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveDrivetrain;
-import edu.wpi.first.hal.sim.ConstBufferCallback;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -50,7 +48,7 @@ public class AutoRotateWithJoystickInput extends CommandBase {
     rotation = rotation > maxRotationSpeed ? maxRotationSpeed : rotation;
    
    // Pass on joystick values to be calculated into angles and speeds
-   Robot.SwerveDrivetrain.calculateJoystickInput(0, 0, rotation);
+   this.SwerveDrivetrain.calculateJoystickInput(0, 0, rotation);
   }
 
   @Override

@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * Runs the serializer forever in a single command
- * 
  * @author Nicholas S
  */
 public class runSerializerComplex extends CommandBase {
@@ -17,8 +16,7 @@ public class runSerializerComplex extends CommandBase {
   public boolean topSensorValue;
 
   /**
-   * Runs the serializer forever in a single command
-   * 
+   * Runs the serializer forever in a single command 
    * @author Nicholas Stokes
    * @param serializer The subsystem used by this command. (Serializer)
    * @param speed      A double number that sets what speed the motors move at

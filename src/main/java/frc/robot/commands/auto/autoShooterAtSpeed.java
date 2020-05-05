@@ -5,21 +5,17 @@ import frc.robot.subsystems.OperatorAngleAdjustment;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Shoots the ball
+ * Checks to see if the shooter is up to speed based on the speed setting
  * @author Michael Francis
+ * @category AUTON
  */
 public class autoShooterAtSpeed extends CommandBase {
-  
-  private final OperatorAngleAdjustment subsystem;
-
+ 
   /**
-   * Shoots the ball at a specified speed.
-   * @param m_subsystem
-   * The subsystem that the command uses (Shooter)
+   * Checks to see if the shooter is up to speed based on the speed setting
+   * @param m_subsystem - Operator Angle Adjustment Subsystem 
    */
   public autoShooterAtSpeed(OperatorAngleAdjustment m_subsystem) {
-    //Puts the parameters in the command's variables to be used around as a shortcut.
-    subsystem = m_subsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_subsystem);

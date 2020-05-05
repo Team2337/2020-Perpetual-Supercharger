@@ -3,7 +3,6 @@ package frc.robot.commands.Serializer;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Serializer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -11,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class serializerBallControl extends CommandBase {
     private Serializer serializer;
-    private int i = 0;
     private int iteration = 0;
     private int position = 0;
 
@@ -37,17 +35,8 @@ public class serializerBallControl extends CommandBase {
         // The driver takes priority
         if (Robot.OI.driverJoystick.triggerRight.get()) {
             if (Robot.Shooter.shooterAtVelocity) { 
-                /* if (i < 10) {
-                    if(Robot.KickerWheel.getKickerSpeed() < 3500){
-                        Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERREVERSESPEED);
-                    }
-                } else if (i == 10){
-                    Robot.Serializer.stopSerializer();
-                } else if (i > 50 * 0.5) { */
                     Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERDRIVERFORWARDSPEED);
                     Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSHOOTSPEED);
-                /* }
-                i++; */
             }
             // If the driver isn't attempting to control it and the operator is
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
@@ -75,8 +64,6 @@ public class serializerBallControl extends CommandBase {
             // If no-one is trying to control the kicker wheel, stop it
             serializer.stopSerializer();
             Robot.Agitator.stopAgitator();
-            //Also, the speed checking iterations would need to be reset
-            i = 0;
         }
     }
 

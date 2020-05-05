@@ -5,22 +5,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.TimeOfFlight;
 
 /**
-   * Finds the sensor and returns the ID
-   */
+ * Finds the sensor and returns the ID
+ */
 public class findSensor extends CommandBase {
   private int foundId;
   private int currentId;
   private int highestId = 32;
   private int[] temp;
-  private TimeOfFlight subsystem;
 
   /**
    * Finds the sensor and returns the ID. It then proceeds to put this on the SmartDashboard.
    * Possibly useful if we have more than one sensor, but otherwise can be ignored.
    */
-  public findSensor(TimeOfFlight m_subsystem) {
-    subsystem = m_subsystem;
-    addRequirements(m_subsystem);
+  public findSensor() {
   }
 
   // Called just before this Command runs the first time
@@ -37,7 +34,7 @@ public class findSensor extends CommandBase {
     if(foundId != 999) {
       //If the sensor was found
       temp = TimeOfFlight.getSensorInfo(TimeOfFlight.hwdata);
-      if(subsystem.tofDebug){
+      if(TimeOfFlight.tofDebug){
         SmartDashboard.putNumber("FoundSerial", temp[0]);
         SmartDashboard.putNumber("SensorFound", currentId);
       }

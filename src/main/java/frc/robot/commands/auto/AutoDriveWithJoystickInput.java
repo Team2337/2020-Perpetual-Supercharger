@@ -3,7 +3,6 @@ package frc.robot.commands.auto;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveDrivetrain;
-import edu.wpi.first.hal.sim.ConstBufferCallback;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -19,8 +18,6 @@ public class AutoDriveWithJoystickInput extends CommandBase {
   private double forward;
   private double strafe;
   private double rotation;
-
-  private double forwardDist;
 
   private double endAngleDegree;
   private double currentGyro;
@@ -39,7 +36,6 @@ public class AutoDriveWithJoystickInput extends CommandBase {
   public AutoDriveWithJoystickInput(SwerveDrivetrain SwerveDrivetrain, double encoderDist, double forwardDist, double horizontalDist, double endAngleDegree) {
     this.SwerveDrivetrain = SwerveDrivetrain;
     this.encoderDist = encoderDist;
-    this.forwardDist = forwardDist;
     this.strafe = horizontalDist * Constants.Auton.INCHESTOJOYSTICKVALUE;
     this.forward = forwardDist * Constants.Auton.INCHESTOJOYSTICKVALUE;
     this.endAngleDegree = endAngleDegree;

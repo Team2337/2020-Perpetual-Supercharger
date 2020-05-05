@@ -10,13 +10,11 @@ import frc.robot.Constants;
 
 /**
  * Simple subsystem for the intake
- * 
- * @author Michael Francis
+ * @author Michael F
  */
 public class Intake extends SubsystemBase {
   /**
    * Specifies whether or not the Intake will be in debug mode.
-   * 
    * @see #periodic()
    */
   private boolean intakeDebug = true;
@@ -61,9 +59,9 @@ public class Intake extends SubsystemBase {
     intakeMotor.configClosedloopRamp(0.5);
   }
 
+  // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
 
     // If we want to use anti-jam code in the first place
     if (Constants.DETECTINTAKEJAMS) {
@@ -122,7 +120,6 @@ public class Intake extends SubsystemBase {
 
   /**
    * A method that sets the speed of the intake motor
-   * 
    * @param speed Sets the speed as a value -1 through 1
    */
   public void setIntakeSpeed(double speed) {
@@ -140,7 +137,6 @@ public class Intake extends SubsystemBase {
 
   /**
    * Gets the speed of the intake motor.
-   * 
    * @return The intake speed.
    */
   public double getIntakeSpeed() {
@@ -158,7 +154,6 @@ public class Intake extends SubsystemBase {
 
   /**
    * Method that returns the intake motor temperature
-   * 
    * @return A double of the temperature (in Celsius) of the intake motor.
    */
   public double getIntakeTemperature() {

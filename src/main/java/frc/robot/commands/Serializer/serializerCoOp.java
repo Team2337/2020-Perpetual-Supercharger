@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class serializerCoOp extends CommandBase {
     private Serializer serializer;
-    private int i = 0;
 
     /**
      * Sets the kicker's speed.
@@ -34,17 +33,8 @@ public class serializerCoOp extends CommandBase {
         // The driver takes priority
         if (Robot.OI.driverJoystick.triggerRight.get()) {
             if (Robot.Shooter.shooterAtVelocity) { 
-                /* if (i < 10) {
-                    if(Robot.KickerWheel.getKickerSpeed() < 3500){
-                        Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERREVERSESPEED);
-                    }
-                } else if (i == 10){
-                    Robot.Serializer.stopSerializer();
-                } else if (i > 50 * 0.5) { */
                     Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERDRIVERFORWARDSPEED);
                     Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSHOOTSPEED);
-                /* }
-                i++; */
             }
             // If the driver isn't attempting to control it and the operator is
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
@@ -54,21 +44,18 @@ public class serializerCoOp extends CommandBase {
                 Robot.Agitator.stopAgitator();
             }
             // Set the kicker to hold it's position (done in the kicker subsystem)
-            if (serializer.topSerializerSensor.get()/*  && serializer.middleSerializerSensor.get() */) {
+            if (serializer.topSerializerSensor.get()) {
                 serializer.stopSerializer();
                 Robot.Agitator.stopAgitator();
             } else if (serializer.bottomSerializerSensor.get()) {
                 serializer.setSerializerSpeed(Constants.SERIALIZEROPERATORFORWARDSPEED);
             } else {
                 serializer.stopSerializer();
-                // Robot.Agitator.stopAgitator();
             }
         } else {
             // If no-one is trying to control the kicker wheel, stop it
             serializer.stopSerializer();
             Robot.Agitator.stopAgitator();
-            //Also, the speed checking iterations would need to be reset
-            i = 0;
         }
     }
 

@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
- * Nine ball auto
- * Runs the shooter for 1.5 seconds before intaking balls from our partners
+ * Intake power cells from our partners to then fire the power cells
  * 
  * @author Bryce G.
+ * @category AUTON
  */
 public class IntakeAndFireFromPartners extends SequentialCommandGroup {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })

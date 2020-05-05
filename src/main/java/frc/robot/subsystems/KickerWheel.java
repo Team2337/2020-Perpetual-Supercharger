@@ -13,7 +13,6 @@ import frc.robot.Constants;
 /**
  * This subsystem makes the Kicker wheel in the robot. The kicker wheel is the motor that speeds up
  * the ball when it enters the shooter mechanism.
- * 
  * <p>Methods include go faster, stop, or decrease in speed
  * @author Hunter B, John R
  */

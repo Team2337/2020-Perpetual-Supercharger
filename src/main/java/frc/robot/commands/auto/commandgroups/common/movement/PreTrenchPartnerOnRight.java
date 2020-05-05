@@ -1,12 +1,7 @@
 package frc.robot.commands.auto.commandgroups.common.movement;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Agitator.*;
-import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
-import frc.robot.commands.Shooter.*;
 import frc.robot.commands.Vision.limelightPipeline;
 import frc.robot.commands.auto.*;
 
@@ -24,12 +19,18 @@ public class PreTrenchPartnerOnRight extends SequentialCommandGroup {
    */
   public PreTrenchPartnerOnRight() {
 
+    /**
+     * Constants for the first drive
+     */
     final class FirstDrive {
       public static final double robotAngle = 0, driveDist = 36, forward = -0.4 /*-0.35*/, strafe = 0, driveTimeout = 5;
     }
 
+    /**
+     * Constants for the second drive
+     */
     final class SecondDrive {
-      public static final double robotAngle = 90, driveDist = 64, forward =  -0.075/* -0.2 */, strafe = 0.4/* 0.4 */, driveTimeout = 5;
+      public static final double robotAngle = 90, driveDist = 64, forward =  -0.075/* -0.2 */, strafe = 0.4/* 0.4 */;
     }
 
     addCommands(

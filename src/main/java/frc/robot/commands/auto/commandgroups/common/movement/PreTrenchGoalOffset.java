@@ -1,12 +1,7 @@
 package frc.robot.commands.auto.commandgroups.common.movement;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Agitator.*;
-import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
-import frc.robot.commands.Shooter.*;
 import frc.robot.commands.auto.*;
 
 /**
@@ -27,9 +22,6 @@ public class PreTrenchGoalOffset extends SequentialCommandGroup {
       public static final double robotAngle = 90, driveDist = 77, forward = 0.45, strafe = -0.85, driveTimeout = 5;
     }
 
-    if(Robot.isComp) {
-
-    }
     addCommands(
       new resetDriveEncoders(Robot.SwerveDrivetrain),
       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FirstDrive.driveDist, FirstDrive.forward, FirstDrive.strafe, FirstDrive.robotAngle).withTimeout(FirstDrive.driveTimeout)

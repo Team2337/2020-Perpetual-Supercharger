@@ -1,11 +1,7 @@
 package frc.robot.commands.auto;
 
 import frc.robot.Robot;
-import frc.robot.Constants.Swerve;
 import frc.robot.subsystems.Serializer;
-import frc.robot.subsystems.SwerveDrivetrain;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -15,14 +11,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class checkShooterVelocity extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-    private final Serializer m_subsystem;
     private double shooterVelocity;
     private double kickerVelocity;
     private boolean finished;
     private boolean isAtVelocity;
 
   public checkShooterVelocity(Serializer subsystem, double shooterVelocity, double kickerVelocity) {
-    m_subsystem = subsystem;
     addRequirements(subsystem);
     this.shooterVelocity = shooterVelocity;
     this.kickerVelocity = kickerVelocity;

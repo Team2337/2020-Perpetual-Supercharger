@@ -3,7 +3,6 @@ package frc.robot.commands.auto;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveDrivetrain;
-import edu.wpi.first.hal.sim.ConstBufferCallback;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -17,9 +16,6 @@ public class AutoRotateWithVision extends CommandBase {
   private final SwerveDrivetrain SwerveDrivetrain;
 
   private double rotation;
-  private double endAngleDegree;
-
-  private int pipeline;
 
   /**
    * Sets the forwards value to a set a mock joystick value
@@ -29,7 +25,6 @@ public class AutoRotateWithVision extends CommandBase {
    */
   public AutoRotateWithVision(SwerveDrivetrain SwerveDrivetrain, int pipeline) {
     this.SwerveDrivetrain = SwerveDrivetrain;
-    this.pipeline = pipeline;
     addRequirements(SwerveDrivetrain);
   }
   
@@ -65,7 +60,7 @@ public class AutoRotateWithVision extends CommandBase {
     }
     
     // Pass on joystick values to be calculated into angles and speeds
-    Robot.SwerveDrivetrain.calculateJoystickInput(0, 0, rotation);
+    this.SwerveDrivetrain.calculateJoystickInput(0, 0, rotation);
   }
   
   @Override

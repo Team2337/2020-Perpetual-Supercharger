@@ -16,7 +16,6 @@ public class runKicker extends InstantCommand {
 
   /**
    * Sets the kicker's speed.
-   * 
    * @param subsystem The subsystem used by this command. (Kicker)
    */
   public runKicker(KickerWheel kickerWheel) {

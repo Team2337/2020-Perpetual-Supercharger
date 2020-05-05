@@ -1,6 +1,5 @@
 package frc.robot.commands.auto.commandgroups.nineball;
 
-import frc.robot.commands.auto.AutoDriveWithJoystickInput;
 import frc.robot.commands.auto.zeroDriveEncoders;
 import frc.robot.Robot;
 import frc.robot.commands.Serializer.stopSerializer;
@@ -22,13 +21,7 @@ public class CenterGoal9BallTrench extends SequentialCommandGroup {
    * and we intake 3 balls
    */
   public CenterGoal9BallTrench(double delay) {
-        
-    final class FirstDrive {
-        public static final double moduleAngle = 90, driveDist = 50, forward = -0.35, strafe = 0, driveTimeout = 5;
-      }
-
-
-      
+          
     addCommands(
       new WaitCommand(delay).withTimeout(delay),
       new FirePartnerBalls(2),
@@ -38,6 +31,4 @@ public class CenterGoal9BallTrench extends SequentialCommandGroup {
     );
   
   }
-
- 
 }

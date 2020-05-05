@@ -13,12 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.Serializer.serializerBallControl;
-import frc.robot.commands.Serializer.serializerCoOp;
 
  /** 
  * Subsystem for the Serializer 
  * The Serializer is a mechanism to feed balls up to the shooter
- * For more information, see the wiki 
  * @author Nicholas Stokes
  */
 public class Serializer extends SubsystemBase {
@@ -93,9 +91,9 @@ public class Serializer extends SubsystemBase {
      serializerMotor.setNeutralMode(NeutralMode.Brake);
      serializerMotor.configAllSettings(FXConfig);
 
-     bottomSerializerSensor = new DigitalInput(0); //TODO: FIX ME
-     middleSerializerSensor = new DigitalInput(1); //TODO: FIX ME
-     topSerializerSensor = new DigitalInput(2);    //TODO: FIX ME
+     bottomSerializerSensor = new DigitalInput(0); 
+     middleSerializerSensor = new DigitalInput(1); 
+     topSerializerSensor = new DigitalInput(2);    
      counter = new Counter(3);
      // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
      // up of the pulse
@@ -110,12 +108,15 @@ public class Serializer extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // Put values on the SmartDashboard
     if (serializerDebug) {
+      // Debug values
       SmartDashboard.putNumber("Serializer Error", getSerializerPosition() - targetPosition);
       SmartDashboard.putNumber("Serializer Motor Speed", getSerializerSpeed());
       SmartDashboard.putNumber("Serializer TargetPosition", targetPosition);
       SmartDashboard.putNumber("Serializer CurrentPosition", getSerializerPosition());
     }
+    // Normal values
     SmartDashboard.putBoolean("Bottom sensor", bottomSerializerSensor.get());
     SmartDashboard.putBoolean("Middle sensor", middleSerializerSensor.get());
     SmartDashboard.putBoolean("Top sensor", topSerializerSensor.get());
@@ -135,8 +136,8 @@ public class Serializer extends SubsystemBase {
   }
 
   /**
-   * @return speed
    * Returns the speed of the serializer motor 
+   * @return the speed of the serializer motor
    */
   public double getSerializerSpeed() {
     double speed = serializerMotor.getMotorOutputPercent();
@@ -153,7 +154,8 @@ public class Serializer extends SubsystemBase {
   }
 
   /**
-   * @return position This returns the current position of the serializer motor
+   * This returns the current position of the serializer motor
+   * @return the current position of the serializer motor
    */
   public int getSerializerPosition() {
     int position = serializerMotor.getSelectedSensorPosition();
@@ -168,8 +170,8 @@ public class Serializer extends SubsystemBase {
   }
 
   /**
-   * @return temp
    * Returns the temperature of the serializer motor 
+   * @return The temperature (in Celsius) of the serializer
    */
   public double getSerializerTemperature() { 
     return serializerMotor.getTemperature();
@@ -190,8 +192,8 @@ public class Serializer extends SubsystemBase {
   }
 
   public void setCoOp(boolean driverIsControlling, boolean operatorIsControlling){
-      this.driverIsControlling = driverIsControlling;
-      this.operatorIsControlling = operatorIsControlling;
+    this.driverIsControlling = driverIsControlling;
+    this.operatorIsControlling = operatorIsControlling;
   }
 
     

@@ -33,8 +33,7 @@ public class Shooter extends SubsystemBase {
         
     @Override
     public boolean getAsBoolean() {
-        // TODO Auto-generated method stub
-        return shooterAtVelocity;
+      return shooterAtVelocity;
     }
 };
 
@@ -129,16 +128,16 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
+    //Detects if the shooter is at the target velocity
     if(getAvgRPM() > (getTargetRPM() * 0.9)) {
       shooterAtVelocity = true;
     } else {
       shooterAtVelocity = false;
     }
+
     shooterAtVelocityBooleanSupplier = new BooleanSupplier(){
-      
       @Override
       public boolean getAsBoolean() {
-        // TODO Auto-generated method stub
         return shooterAtVelocity;
       }
     };
@@ -168,17 +167,18 @@ public class Shooter extends SubsystemBase {
       // RPM VALUES
       SmartDashboard.putNumber("Left Motor RPM", getLeftRPM());
       SmartDashboard.putNumber("Right Motor RPM", getRightRPM());
+
+      // SPEED VALUES
+      SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
+      SmartDashboard.putNumber("Target speed", targetSpeed);
       
       /* --- BOOLEAN VALUES --- */
       /** Sets the value to true if either motor's temperature is over 70 degrees Celsius */
       shooterOver70 = leftShootMotor.getTemperature() > 70 || rightShootMotor.getTemperature() > 70;
       SmartDashboard.putBoolean("Is Either Motor Above 70C", shooterOver70);
       
-      
-      // Report the max speed variable to SmartDashboard
-      SmartDashboard.putNumber("Shooter Max Speed", shooterMaxSpeed);
-      SmartDashboard.putNumber("Target speed", targetSpeed);
     }
+    // SPEED VALUES
     SmartDashboard.putBoolean("At target speed", Robot.Utilities.withinTolerance(targetSpeed, getAvgRPM(), 500));
     // TEMPERATURE VALUES
     SmartDashboard.putNumber("Left Shooter Temperature", leftShootMotor.getTemperature());
@@ -243,8 +243,6 @@ public class Shooter extends SubsystemBase {
     return rpm;
   }
 
-  
-
   /**
    * Calculates the revolutions per minute of the right motor using its speed
    * 
@@ -282,7 +280,13 @@ public class Shooter extends SubsystemBase {
     return (Math.abs(getRightRPM()) + Math.abs(getLeftRPM())) / 2;
   }
 
-   /**
+  ////////////////////////////////////
+  /* ------------------------------ */
+  /* --- CALCULATE SPEED VALUES --- */
+  /* ------------------------------ */
+  ////////////////////////////////////
+
+  /**
    * Gets the target speed of the shooter
    * @return - The target speed of the shooter
    */

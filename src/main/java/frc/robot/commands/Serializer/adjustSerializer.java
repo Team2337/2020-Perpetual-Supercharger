@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * Move balls back to ready the kicker wheel so that the kicker wheel can get up
  * to speed
- * 
  * @author Nicholas Stokes
  */
 public class adjustSerializer extends CommandBase {

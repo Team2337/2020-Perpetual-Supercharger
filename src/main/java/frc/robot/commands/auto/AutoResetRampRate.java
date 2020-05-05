@@ -7,10 +7,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 /**
  * Resets the ramp rate on the shooter to be zero
  * @author Bryce G.
+ * @category AUTON
  */
 public class AutoResetRampRate extends InstantCommand {
-
-  private final OperatorAngleAdjustment subsystem;
 
   /**
    * Resets the ramp rate on the shooter to be zero
@@ -19,7 +18,6 @@ public class AutoResetRampRate extends InstantCommand {
    */
   public AutoResetRampRate(OperatorAngleAdjustment m_subsystem) {
     //Puts the parameters in the command's variables to be used around as a shortcut.
-    subsystem = m_subsystem;
 
     addRequirements(m_subsystem);
   }

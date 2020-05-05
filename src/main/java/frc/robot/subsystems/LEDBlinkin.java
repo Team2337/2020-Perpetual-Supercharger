@@ -3,12 +3,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
-import frc.robot.commands.LED.LEDRuntime;
 
 /**
  * Where all the LEDs are controlled
- * 
  * @author Zayd A.
  */
 
@@ -39,7 +36,6 @@ public class LEDBlinkin extends SubsystemBase {
 
 	/**
 	 * Controls the LEDs on the Robot using a Blinkin
-	 * 
 	 * @param pwm The PWM port that the blinkin is plugged into
 	 */
 	public LEDBlinkin() {
@@ -48,8 +44,7 @@ public class LEDBlinkin extends SubsystemBase {
 	}
 
 	/**
-	 * Sets the color of the LEDs
-	 * 
+	 * Sets the color of the LEDs 
 	 * @param color A decimal value from -1 to 1 representing a preset color
 	 */
 	public void setColor(double color) {

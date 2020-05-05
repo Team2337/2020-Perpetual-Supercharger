@@ -34,7 +34,7 @@ public class startShooter extends CommandBase {
     subsystem.leftShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     subsystem.rightShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     //Sets the ramp rate. We set them here because in the execute of this command,
-    // they are set to another value after a set speed.
+    //They are set to another value after a set speed.
     //Sets the speed.
     subsystem.setShooterSpeed(Robot.Shooter.getFutureSpeed());
   }
@@ -64,7 +64,6 @@ public class startShooter extends CommandBase {
     subsystem.leftShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     subsystem.rightShootMotor.configStatorCurrentLimit(subsystem.currentLimitConfigurationMotor, 0);
     // //Stop the shooter.
-    // subsystem.stopShooter();
   }
 
   // Returns true when the command should end.

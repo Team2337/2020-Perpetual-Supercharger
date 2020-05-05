@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 /**
  * Stop the shooter system
- * 
  * @author Sean Lynch
  */
 public class shooterSystemOff extends ParallelCommandGroup {

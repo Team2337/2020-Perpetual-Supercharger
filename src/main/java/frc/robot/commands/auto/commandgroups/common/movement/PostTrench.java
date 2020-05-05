@@ -3,16 +3,13 @@ package frc.robot.commands.auto.commandgroups.common.movement;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.Serializer.runSerializer;
-import frc.robot.commands.Shooter.*;
 import frc.robot.commands.auto.*;
-import frc.robot.commands.auto.commandgroups.common.movement.PreTrenchPartnerOnRight;
 
 /**
- * Drives from the initiation line to the Trench to gather power cells
+ * Drives from the end of the trench, to fire the collected power cells 
+ * into the inner/outer port, using vision
  * @author Madison J. 
  * @category AUTON 
  */
@@ -21,32 +18,46 @@ public class PostTrench extends SequentialCommandGroup {
   public double intakeSpeed = 0.5;
 
   /**
-   * Drives from the initiation line to the generator command group
+   * Drives from the end of the trench, to fire the collected power cells 
+   * into the inner/outer port, using vision
    */
   public PostTrench() {
 
     /* --- Drives --- */
+
+    /**
+     * Constants for the fourth drive
+     */
     final class FourthDrive {
       public static final double robotAngle = 90, driveDist = 20, forward = 0.15, strafe = -0.15, driveTimeout = 5;
     }
 
+    /**
+     * Constants for the fifth drive
+     */
     final class FifthDrive {
       public static final double robotAngle = 90, driveDist = 80, forward = 0.1, strafe = -0.35, driveTimeout = 5;
     }
 
+    /**
+     * Constants for the sixth drive
+     */
     final class SixthDrive {
       public static final double robotAngle = 105, driveDist = 20, forward = 0.05, strafe = -0.175, driveTimeout = 5;
     }
 
+    /**
+     * Constants for the seventh drive
+     */
     final class SeventhDrive {
       public static final double robotAngle = 105, driveDist = 20, forward = 0.35, strafe = -0.1, driveTimeout = 5;
     }
 
-    final class EightDrive {
-      public static final double robotAngle = 105, driveDist = 30, forward = -0.1, strafe = -0.35, driveTimeout = 5;
-    }
-
     /* --- Rotate --- */
+
+    /**
+     * Constants for the first rotate
+     */
     final class FirstRotate {
       public static final double robotAngle = 12;
     }

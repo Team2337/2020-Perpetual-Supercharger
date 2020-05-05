@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 /**
  * Moves balls downwards, away from the shooter
- * 
  * @author Sean Lynch
  */
 public class feedSystemReverse extends ParallelCommandGroup {

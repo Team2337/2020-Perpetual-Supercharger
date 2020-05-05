@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 /**
  * Stops the movement of balls in the robot
- * 
  * @author Nicholas Stokes
  */
 public class feedSystemStop extends ParallelCommandGroup {

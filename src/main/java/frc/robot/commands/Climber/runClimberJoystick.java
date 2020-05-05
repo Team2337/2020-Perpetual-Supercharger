@@ -1,14 +1,11 @@
 package frc.robot.commands.Climber;
 
-import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the climber speed
@@ -45,6 +42,7 @@ public class runClimberJoystick extends CommandBase {
 
   @Override
   public void execute() {
+    //The climber will move based on the operator's right joystick's movement 
     if(Climber.getClimberActivated()) {
       climberSpeed = Robot.OI.operatorJoystick.getRightStickY();
       climberSpeed = Robot.Utilities.deadband(climberSpeed, deadband);
@@ -53,7 +51,6 @@ public class runClimberJoystick extends CommandBase {
         positionNotSet = true;
       } else {
         if(positionNotSet) {
-          // Climber.setSetpoint(Climber.getCurrentPosition());
           Climber.climberMotor.set(ControlMode.PercentOutput, 0);
           positionNotSet = false;
         }

@@ -13,11 +13,10 @@ public class SendModulesToZero extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
  /**
- * Sets the angle encoders to zero command group
- */
+  * Sets the angle encoders to zero command group
+  */
   public SendModulesToZero() {
     addCommands(
-    // new zeroWithAnalog(Robot.SwerveDrivetrain),
     new zeroAngleEncoders(Robot.SwerveDrivetrain)
     );
   

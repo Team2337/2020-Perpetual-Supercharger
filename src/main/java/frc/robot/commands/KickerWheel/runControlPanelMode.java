@@ -12,7 +12,6 @@ public class runControlPanelMode extends CommandBase {
 
   /**
    * Sets the kicker's speed to the control panel speed
-   * 
    * @param subsystem The subsystem used by this command. (Kicker)
    */
   public runControlPanelMode(KickerWheel KickerWheel) {

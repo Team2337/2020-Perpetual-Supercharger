@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.commands.LED.LEDRuntime;
 
 /**
@@ -20,7 +19,6 @@ public class LEDs extends SubsystemBase {
   public LEDs() {
     LEDs = new Solenoid(Constants.PCM0, Constants.PCMLEDSTRIP);
     setDefaultCommand(new LEDRuntime(this));
-    
   }
 
   /**

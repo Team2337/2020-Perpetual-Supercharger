@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class ChangeGyroAngleOffset extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final OperatorAngleAdjustment OperatorAngleAdjustment;
   private boolean isRotating;
 
   /**
@@ -28,7 +27,6 @@ public class ChangeGyroAngleOffset extends InstantCommand {
    * @param isRotating - determines if the robot will be rotating when the button is pressed
    */
   public ChangeGyroAngleOffset(OperatorAngleAdjustment operatorAngleAdjustment, boolean isRotating) {
-    this.OperatorAngleAdjustment = operatorAngleAdjustment;
     this.isRotating = isRotating;
     addRequirements(operatorAngleAdjustment);
   }

@@ -19,15 +19,12 @@ public class AutoDriveWithAccelorometer extends CommandBase {
   private double strafe;
   private double rotation;
 
-  private double forwardDist;
-
   private double endAngleDegree;
   private double currentGyro;
   private double rotationError;
 
   private double rotationP = 0.009;
   private double maxRotationSpeed = 0.15;
-  private double encoderDist = 0;
 
   /**
    * Sets the forwards value to a set a mock joystick value
@@ -38,8 +35,6 @@ public class AutoDriveWithAccelorometer extends CommandBase {
   public AutoDriveWithAccelorometer(SwerveDrivetrain SwerveDrivetrain, double encoderDist, double forwardDist,
       double horizontalDist, double endAngleDegree) {
     this.SwerveDrivetrain = SwerveDrivetrain;
-    this.encoderDist = encoderDist;
-    this.forwardDist = forwardDist;
     this.strafe = horizontalDist * Constants.Auton.INCHESTOJOYSTICKVALUE;
     this.forward = forwardDist * Constants.Auton.INCHESTOJOYSTICKVALUE;
     this.endAngleDegree = endAngleDegree;

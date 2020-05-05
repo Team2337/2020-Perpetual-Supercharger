@@ -11,35 +11,35 @@ import frc.robot.subsystems.LEDs;
  * @author Bryce G.
  */
 public class LEDRuntime extends CommandBase {
-	private final LEDs led;
+	private final LEDs LEDs;
 	private int iterations = 0;
 	private int lastState = 0;
 
 	public LEDRuntime(LEDs led) {
-		this.led = led;
+		this.LEDs = led;
 		addRequirements(led);
 	}
 
 	public void initialize() {
-		Robot.LEDs.turnOffLEDs();
+		LEDs.turnOffLEDs();
 	}
 
 	public void execute() {
 		if(Robot.Shooter.shooterAtVelocity) {
-			Robot.LEDs.turnOnLEDs();
+			LEDs.turnOnLEDs();
 		} else if(Robot.Intake.getIntakeSpeed() > 0) {
 			if(iterations % 10 == 0) {
 				if(lastState == 0) {
-					Robot.LEDs.turnOnLEDs();
+					LEDs.turnOnLEDs();
 					lastState = 1;
 				} else {
-					Robot.LEDs.turnOffLEDs();
+					LEDs.turnOffLEDs();
 					lastState = 0;
 				}
 			}
 			iterations++;
 		} else {
-			Robot.LEDs.turnOffLEDs();
+			LEDs.turnOffLEDs();
 		}
 	}
 

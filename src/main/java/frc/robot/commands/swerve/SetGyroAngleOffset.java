@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class SetGyroAngleOffset extends InstantCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final OperatorAngleAdjustment m_subsystem;
   private String mode;
   
   /**
@@ -21,7 +20,6 @@ public class SetGyroAngleOffset extends InstantCommand {
    * @param mode - String value signifying the rotation mode the robot is in 
    */
   public SetGyroAngleOffset(OperatorAngleAdjustment subsystem, String mode) {
-    m_subsystem = subsystem;
     this.mode = mode;
     addRequirements(subsystem);
   }

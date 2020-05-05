@@ -22,25 +22,34 @@ public class RightTrench3Ball extends SequentialCommandGroup {
    */
   public RightTrench3Ball() {
 
+    /**
+     * Constants for the first drive
+     */
     final class FirstDrive {
       public static final double moduleAngle = 90, driveDist = 57, forward = -0.35, strafe = 0.35, driveTimeout = 5;
     }
 
+    /**
+     * Constants for the second drive
+     */
     final class SecondDrive {
       public static final double moduleAngle = 90, driveDist = 125, forward = -0.4, strafe = 0, driveTimeout = 5;
     }
 
+    /**
+     * Constants for the third drive
+     */
     final class ThirdDrive {
       public static final double moduleAngle = 45, driveDist = 20, forward = 0.3, strafe = -0.3, driveTimeout = 5;
     }
 
+    /**
+     * Constants for the first rotate
+     */
     final class FirstRotate {
       public static final double moduleAngle = 12;
     }
 
-    if(Robot.isComp) {
-
-    }
     addCommands(
       new resetDriveEncoders(Robot.SwerveDrivetrain),
       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, FirstDrive.driveDist, FirstDrive.forward, FirstDrive.strafe, FirstDrive.moduleAngle).withTimeout(FirstDrive.driveTimeout),

@@ -7,13 +7,6 @@ package frc.robot;
 public class Utilities {
 
     /**
-     * Utilities class to house basic methods that can be used across subsystems 
-     */
-    public Utilities() {
-
-    }
-
-    /**
      * Checks to see if the absolute value of the input is less than the deadband
      * @param input - Value in which the deadband will be applied (0 < input < 1)
      * @param deadband - Deadband to set on the input (double)

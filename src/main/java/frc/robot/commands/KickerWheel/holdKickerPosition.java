@@ -4,14 +4,13 @@ import frc.robot.subsystems.KickerWheel;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * A command that sets the kicker position using the Kicker subsystem.
+ * Sets the kicker position using the Kicker subsystem.
  */
 public class holdKickerPosition extends InstantCommand {
   private KickerWheel subsystem;
 
   /**
    * Sets the kicker's position to what it currently is set to.
-   * 
    * @param subsystem The subsystem used by this command. (Kicker)
    */
   public holdKickerPosition(KickerWheel kickerWheel) {

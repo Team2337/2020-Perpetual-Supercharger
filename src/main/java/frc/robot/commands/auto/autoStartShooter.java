@@ -4,8 +4,9 @@ import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * Shoots the ball
+ * Starts the shooter
  * @author Michael Francis
+ * @category AUTON
  */
 public class autoStartShooter extends InstantCommand {
   
@@ -13,7 +14,7 @@ public class autoStartShooter extends InstantCommand {
   private double velocity;
 
   /**
-   * Shoots the ball at a specified speed.
+   * Starts the shooter
    * @param m_subsystem
    * The subsystem that the command uses (Shooter)
    * @param m_velocity

@@ -14,15 +14,12 @@ public class StartShooter extends ParallelCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
  /**
- * Runs the kicker and starts the shooter command group
- */
+  * Runs the kicker and starts the shooter command group
+  */
   public StartShooter() {
     addCommands(
       new runKicker(Robot.KickerWheel),
       new startShooter(Robot.Shooter)
     );
-  
-  }
-
- 
+  } 
 }

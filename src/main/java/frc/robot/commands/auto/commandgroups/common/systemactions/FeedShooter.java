@@ -18,8 +18,8 @@ public class FeedShooter extends ParallelCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
  /**
- * Runs the serializer, agitator, and the intake command group
- */
+  * Runs the serializer, agitator, and the intake command group
+  */
   public FeedShooter(int ballsShot) {
     parallel(
     new autoBallCounter(Robot.OperatorAngleAdjustment, new DigitalInput(0), 10, ballsShot),
@@ -28,6 +28,4 @@ public class FeedShooter extends ParallelCommandGroup {
     new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED)
     );  
   }
-
- 
 }

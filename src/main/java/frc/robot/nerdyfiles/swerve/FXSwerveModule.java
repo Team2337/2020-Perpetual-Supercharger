@@ -19,11 +19,6 @@ import frc.robot.Robot;
  */
 public class FXSwerveModule {
 
-    /* --- Ints --- */
-
-    /** The current module's ID number (0 -> 3)*/
-    private int moduleNumber;
-
     /* --- Doubles --- */
 
     /** The angle offset from the zero position on the angle motor in RADIANS */
@@ -137,7 +132,6 @@ public class FXSwerveModule {
      * @param analogAngleSensor - AnalogInput sensor Object with the Analog Port of the current module
      */
     public FXSwerveModule(int moduleNumber, TalonFX driveMotor, TalonFX angleMotor, double angleMotorOffset, AnalogInput analogAngleSensor) {
-        this.moduleNumber = moduleNumber;
         this.driveMotor = driveMotor;
         this.angleMotor = angleMotor;
         this.angleMotorOffset = angleMotorOffset;

@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
    * @category VISION
    */
 public class limeLightLEDOff extends InstantCommand {
-  private Vision subsystem;
 
   /**
    * Limelight LED will turn off

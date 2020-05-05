@@ -25,11 +25,17 @@ import frc.robot.subsystems.*;
  * project.  
  */
 public class Robot extends TimedRobot {
-// Variables for finding the Mac Address of the robot
-public static boolean isComp = false;  
-public String mac;
-  public String gameData;
+  // Variables for finding the Mac Address of the robot
   private Command autonomousCommand;
+
+  public static boolean isComp = false;  
+
+  public String gameData;
+  public String mac;
+
+  public SendableChooser<String> autonChooser;
+  public SendableChooser<String> delayChooser;
+
   public static Constants Constants;
   public static Utilities Utilities;
 
@@ -47,11 +53,10 @@ public String mac;
   public static Shooter Shooter;
   public static SwerveDrivetrain SwerveDrivetrain;
   public static TimeOfFlight TimeOfFlight;
-  public static Vision Vision;
+  public static Vision Vision; 
+
   public static PowerDistributionPanel PDP;
   public static OI OI;
-  public SendableChooser<String> autonChooser;
-  public SendableChooser<String> delayChooser;
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -90,6 +95,7 @@ public String mac;
       isComp = true;
     }
     
+    /* --- Utility Files --- */
     // Must go before subsystems
     Constants = new Constants();
     Utilities = new Utilities();

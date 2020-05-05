@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * Sets the serializer speed
  * @author Nicholas Stokes
+ * @catergory SERIALIZER
  */
 public class runSerializerUpToTop extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })

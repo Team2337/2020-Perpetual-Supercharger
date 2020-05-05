@@ -49,7 +49,7 @@ public class SwerveDrivetrain extends SubsystemBase {
    * 2 is Back Left, 
    * 3 is Back Right
    */
-  public double angleOffsets[]; //TODO: change to private 
+  private double angleOffsets[];
   
   /* --- Private Boolean Values --- */
   private boolean isFieldOriented = true;
@@ -60,7 +60,6 @@ public class SwerveDrivetrain extends SubsystemBase {
   
     @Override
     public boolean getAsBoolean() {
-      // TODO Auto-generated method stub
       return fineRotateOn;
     }
   };

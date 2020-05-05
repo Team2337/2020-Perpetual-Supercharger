@@ -9,7 +9,8 @@ import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.auto.*;
 
 /**
- * Drives from the initiation line to the Trench to gather power cells
+ * Drives from the front of the trench to the back, 
+ * while intaking power cells 
  * @author Madison J. 
  * @category AUTON 
  */
@@ -19,13 +20,18 @@ public class InTrench3Ball extends ParallelCommandGroup {
   public double speed;
 
   /**
-   * Drives from the initiation line to the generator command group
+   * Drives from the front of the trench to the back, 
+   * while intaking power cells 
    */
   public InTrench3Ball(double driveDistance, double speed) {
     this.speed = speed;
 
+    /**
+     * Constants for the third drive
+     * (Must be sequentially added after any second drive autons)
+     */
     final class ThirdDrive {
-      public static final double robotAngle = 90, forward = -0.4, strafe = 0, driveTimeout = 5;
+      public static final double robotAngle = 90;
     }
 
     addCommands(
