@@ -1,12 +1,7 @@
 package frc.robot.commands.auto.commandgroups.common.movement;
 
-import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.Agitator.*;
-import frc.robot.commands.Intake.*;
-import frc.robot.commands.KickerWheel.*;
-import frc.robot.commands.Shooter.*;
 import frc.robot.commands.auto.*;
 
 /**

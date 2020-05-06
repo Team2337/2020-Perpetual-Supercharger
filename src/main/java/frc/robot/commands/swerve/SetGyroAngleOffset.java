@@ -1,8 +1,8 @@
 package frc.robot.commands.swerve;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.subsystems.OperatorAngleAdjustment;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * Sets the robot's future angle offset. This should be on the <b>OPERATOR</b> joystick

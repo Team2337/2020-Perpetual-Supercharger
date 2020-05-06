@@ -1,10 +1,9 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveDrivetrain;
-import edu.wpi.first.hal.sim.ConstBufferCallback;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * Sets the forwards value to a set a mock joystick value

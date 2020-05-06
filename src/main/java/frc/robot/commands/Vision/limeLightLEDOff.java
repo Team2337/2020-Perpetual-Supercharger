@@ -1,8 +1,8 @@
 package frc.robot.commands.Vision;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.subsystems.Vision;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
   /**
    * Limelight LED will turn off

@@ -2,10 +2,11 @@ package frc.robot.nerdyfiles.swerve;
 
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.*;
-import com.ctre.phoenix.sensors.*;
-
-import edu.wpi.first.wpilibj.*;
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.RobotController;
 import frc.robot.Robot;
+import frc.robot.commands.swerve.SwerveDriveCommand;
 
 /**
  * Swerve Module Object used to run the calculations for the swerve drive
