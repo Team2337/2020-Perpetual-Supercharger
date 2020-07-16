@@ -16,7 +16,7 @@ public class ClimberBrake extends SubsystemBase {
    * Controls engaging and disengaging the climber brake
    */
   public ClimberBrake() {
-    ClimberBrake = new Solenoid(Constants.PCM0, Constants.PCM0PORT0);
+    ClimberBrake = new Solenoid(Constants.PCM0, 3);
   }
 
   public void initDefaultCommand() {

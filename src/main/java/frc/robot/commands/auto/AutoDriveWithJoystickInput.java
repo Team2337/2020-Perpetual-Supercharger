@@ -73,6 +73,6 @@ public class AutoDriveWithJoystickInput extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return Math.abs(SwerveDrivetrain.getModule(3).getDriveEncoderValue()) > encoderDist * Constants.Swerve.TICKSPERINCH;
+    return (Math.abs(SwerveDrivetrain.getModule(3).getDriveEncoderValue()) > encoderDist * Constants.Swerve.TICKSPERINCH);
   }
 }

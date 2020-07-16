@@ -97,10 +97,14 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     if(Robot.isComp) {
       angleOffsets = new double[] {
-        -0.407217 + Math.PI,   // Module 0
+        /* -0.407217 + Math.PI,   // Module 0
         2.2618739 + Math.PI,   // Module 1
         -1.193802 + Math.PI,   // Module 2 
-        -0.746431 + Math.PI    // Module 3 
+        -0.746431 - Math.PI / 2   // Module 3  */
+        4.6603704,//4.6599803,//4.6524127,
+        4.034184285652252 + Math.PI, // 3.8954300 //3.8795141 //4.02862
+        2.0822764483757705 + Math.PI, // 2.0473980 //2.0331746
+        5.89055019742 //6.211150//0.3951469//0.3950974
       };
     } else {
       angleOffsets = new double[] {
@@ -210,6 +214,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         || Math.abs(rotation) > deadband 
         || Robot.OperatorAngleAdjustment.getSlowRotateMode() 
         || Robot.OperatorAngleAdjustment.getLimelightRotationMode()
+        || Robot.OperatorAngleAdjustment.getBallTrackingEnabled()
       ) {
         if(Math.abs((lastAngle[i] - angles[i])) < (Math.PI / 2)) {
           lastAngle[i] = angles[i];
@@ -296,7 +301,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       iteration++;
     } 
     average = total / iteration;
-    // System.out.println("Average" + average);
+   System.out.println("Average" + average);
     return average;
   }
 
@@ -328,15 +333,16 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
+
     if (swerveDebug) {
       for(int i = 0; i < 4; i++) {
       SmartDashboard.putNumber("ModuleAngle/" + i, 
       ((getModule(i).getNormalizedAnalogVoltageRadians() - angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
-      SmartDashboard.putNumber("Actual Module Angle/" + i, getModule(i).getNormalizedAnalogVoltageRadians());
-      }
     }
-    for(int i = 0; i < 4; i++) {
-      // SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
+  }
+  for(int i = 0; i < 4; i++) {
+    SmartDashboard.putNumber("Actual Module Angle/" + i, getModule(i).getNormalizedAnalogVoltageRadians());
+      SmartDashboard.putNumber("Angle Motor Temperature/" + i, getModule(i).getAngleMotorTemperature());
       SmartDashboard.putNumber("Drive Motor Temperature/" + i, getModule(i).getDriveMotorTemperature());
     }
   }

@@ -20,7 +20,7 @@ public class CenterGoalBack9BallTrench3BallShoot extends SequentialCommandGroup 
   public CenterGoalBack9BallTrench3BallShoot() {
     addCommands(
       new ShootNineBall(), 
-      new Trench3Ball(),
+      new Trench6BallPartnerMoves(),
       new Vision3ShootBall()
     );
   

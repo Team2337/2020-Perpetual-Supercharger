@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.Serializer.serializerBallControl;
 import frc.robot.commands.Serializer.serializerCoOp;
 
  /** 
@@ -92,9 +93,9 @@ public class Serializer extends SubsystemBase {
      serializerMotor.setNeutralMode(NeutralMode.Brake);
      serializerMotor.configAllSettings(FXConfig);
 
-     bottomSerializerSensor = new DigitalInput(0);
-     middleSerializerSensor = new DigitalInput(1);
-     topSerializerSensor = new DigitalInput(2);
+     bottomSerializerSensor = new DigitalInput(0); //TODO: FIX ME
+     middleSerializerSensor = new DigitalInput(1); //TODO: FIX ME
+     topSerializerSensor = new DigitalInput(2);    //TODO: FIX ME
      counter = new Counter(3);
      // These lines set the counter mode(Up-Down of a pulse), sets it to count on the
      // up of the pulse
@@ -102,16 +103,18 @@ public class Serializer extends SubsystemBase {
      counter.setUpSource(topSerializerSensor);
      counter.setMaxPeriod(2); 
      
-     setDefaultCommand(new serializerCoOp(this));
+      setDefaultCommand(new serializerBallControl(this));
+    //  setDefaultCommand(new serializerCoOp(this));
+
   }
 
   @Override
   public void periodic() {
     if (serializerDebug) {
-      SmartDashboard.putNumber("Serializer CurrentPosition", getSerializerPosition());
-      SmartDashboard.putNumber("Serializer TargetPosition", targetPosition);
       SmartDashboard.putNumber("Serializer Error", getSerializerPosition() - targetPosition);
       SmartDashboard.putNumber("Serializer Motor Speed", getSerializerSpeed());
+      SmartDashboard.putNumber("Serializer TargetPosition", targetPosition);
+      SmartDashboard.putNumber("Serializer CurrentPosition", getSerializerPosition());
     }
     SmartDashboard.putBoolean("Bottom sensor", bottomSerializerSensor.get());
     SmartDashboard.putBoolean("Middle sensor", middleSerializerSensor.get());
@@ -190,6 +193,7 @@ public class Serializer extends SubsystemBase {
       this.driverIsControlling = driverIsControlling;
       this.operatorIsControlling = operatorIsControlling;
   }
+
     
 }
     

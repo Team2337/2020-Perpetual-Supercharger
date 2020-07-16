@@ -24,10 +24,11 @@ public final class Constants {
 
     public static final class Auton {
         public static final double INCHESTOJOYSTICKVALUE = 1;
+        public static final double AUTOSTRAFEP = 1.25;
     }
 
     public final class KickerWheel {
-        public final static double SHORTVELOCITYP = 0.0000525; //0000035
+        public final static double SHORTVELOCITYP = 0.0000525; 
     }
     
     /*******************/
@@ -74,7 +75,7 @@ public final class Constants {
     public static int PCM0PORT2 = 2;
     public static int PCM0PORT3 = 3;
     public static int PCM0PORT4 = 4;
-    public static int PCM0PORT5 = 5;
+    public static int PCMLEDSTRIP = 5;
     public static int PCM0PORT6 = 6;
     public static int PCM0PORT7 = 7;
 
@@ -127,12 +128,12 @@ public final class Constants {
     public static int PWMPORT1 = 1;
     public static int PWMPORT2 = 2;
     public static int PWMPORT3 = 3;
-    public static int PWMPORT4 = 4;
+    public static int PWMBLINKIN = 4;
     public static int PWMPORT5 = 5;
     public static int PWMPORT6 = 6;
     public static int PWMPORT7 = 7;
     public static int PWMPORT8 = 8;
-    public static int PWMPORT9 = 9;
+    public static int SERVOPORT = 9;
 
     /* --- TIME OF FLIGHT Variables --- */
 
@@ -147,7 +148,9 @@ public final class Constants {
     /********************/
 
     /** Percent speed of the agitator */
-    public static double AGITATORSPEED = 0.2;
+    public static double AGITATORSPEED = 0.4;
+
+    public static double AGITATORSHOOTSPEED = 0.5;
 
     /** Percent speed of the agitator */
     public static double AGITATORREVERSESPEED = -0.2;
@@ -166,7 +169,7 @@ public final class Constants {
    public static boolean DETECTINTAKEJAMS = true;
 
    //The current to trigger motor reversal at
-   public static int INTAKECURRENTTOLERENCE = 30;
+   public static int INTAKECURRENTTOLERENCE = 40;
 
    //The amount of time (in seconds) to reverse the Serializer when a jam is detected
    public static double INTAKEREVERSALDURATION = 0.4;
@@ -195,12 +198,13 @@ public final class Constants {
     public static int SHOOTERRAMPSWITCHVALUE = 5000;
     
     /** Speed to shoot at from ~16 feet away */
-    public static int SHOOTSPEEDCLOSE = 12500; 
-
+    public static int SHOOTSPEEDCLOSE = 13025; 
     /** Speed to shoot at from ~34 feet away */
-    public static int SHOOTSPEEDFAR = 15000;
+    public static int SHOOTSPEEDFAR = 15400; 
 
-    public static int SHOOTFRONTTRENCHSPEED = 15000;
+    public static int SHOOTFRONTTRENCHSPEED = 13750;
+
+    public static int SHOOTFRONTTRENCHAUTO = 13300;
 
     /**********************/
     /* ------------------ */
@@ -209,14 +213,15 @@ public final class Constants {
     /**********************/
 
     /** Maximum speed of the serializer */
-    public static double SERIALIZERPEAKSPEED = 0.3;
+    public static double SERIALIZERPEAKSPEED = 0.4;
 
     /** Percent speed on the serializer when moving to positions */
     public static double SERIALIZERPOSITIONSPEED = 0.2;
 
     /** Percent forward speed when serializing or shooting */
-    public static double SERIALIZERFORWARDSPEED = 0.3;
-
+    public static double SERIALIZERDRIVERFORWARDSPEED = 0.25;
+    
+    public static double SERIALIZEROPERATORFORWARDSPEED = 0.3;
     /** Percent reverse speed when serializing or shooting */
     public static double SERIALIZERREVERSESPEED = -0.3;
     
@@ -240,6 +245,7 @@ public final class Constants {
 
     public static int KICKERSPEEDFRONTTRENCH;
 
+    public static double KICKERCONTROLPANELSPEED = 12000;
 
     /******************/
     /* -------------- */
@@ -248,7 +254,12 @@ public final class Constants {
     /******************/
 
     /** P value for vision rotation */
-    public static double VISIONROTATIONP = 0.65; // 0.85
+    public static double VISIONCLOSEROTATIONP = 2.5; 
+    public static double VISIONMIDDLEROTATIONP = 0.9; 
+    public static double VISIONOFFROTATIONP = 0.65; 
+    public static double VISIONFARROTATIONP = 0.85; 
+
+    public static double BALLTRACKINGP = 0.65;
 
 
     /**
@@ -278,18 +289,10 @@ public final class Constants {
             MODULE2DRIVEMOTORID = 14;
             MODULE3DRIVEMOTORID = 15;
 
-            /* --- Shooter --- */
-            SHOOTSPEEDCLOSE = 13000; //11500
-            SHOOTSPEEDFAR = 15100; //14800
-            SHOOTFRONTTRENCHSPEED = 15000;
-
             /* --- Kicker --- */
-            KICKERSPEEDCLOSE = 3000 * (7 / 3); //500 //750
-            KICKERSPEEDFAR = 4500 * (7 / 3);
-            KICKERSPEEDFRONTTRENCH = 4500 * (7/3);
-
-            /* --- Vision --- */
-            VISIONROTATIONP = 0.65;
+            KICKERSPEEDCLOSE = 7000; 
+            KICKERSPEEDFAR = 5000; 
+            KICKERSPEEDFRONTTRENCH = 4000;
 
         } else {
             CANID0 = 0;
@@ -312,15 +315,13 @@ public final class Constants {
             /* --- Shooter --- */
             SHOOTSPEEDCLOSE = 12500;
             SHOOTSPEEDFAR = 14800;
-            SHOOTFRONTTRENCHSPEED = 15000;
+            SHOOTFRONTTRENCHSPEED = 13700;
+            SHOOTFRONTTRENCHAUTO = 13300;
             
             /* --- Kicker --- */
             KICKERSPEEDCLOSE = 3000 * (7 / 3);
             KICKERSPEEDFAR = 4500 * (7/3);
             KICKERSPEEDFRONTTRENCH = 4500 * (7/3);
-
-            /* --- Vision --- */
-            VISIONROTATIONP = 0.85;
 
         }
     }

@@ -36,7 +36,6 @@ public class runClimber extends CommandBase {
   @Override
   public void initialize() {
     if(Climber.getClimberActivated()) {
-      Robot.ClimberBrake.disengageBrake();
       if(isInstantCommand) {
         setpoint = Climber.getCurrentPosition();
       }

@@ -37,10 +37,10 @@ public class ChangeVisionAngleOffset extends InstantCommand {
   @Override
   public void initialize() {
     if (isRotating) {
-      Robot.Vision.setLEDMode(3);
+      // Robot.Vision.setLEDMode(3);
       Robot.OperatorAngleAdjustment.setLimelightRotationMode(true);
     } else {
-      Robot.Vision.setLEDMode(1);
+      // Robot.Vision.setLEDMode(1);
       Robot.OperatorAngleAdjustment.setLimelightRotationMode(false);
       Robot.OperatorAngleAdjustment.setOffsetAngle(-Robot.Utilities.getPigeonYawMod());
     }

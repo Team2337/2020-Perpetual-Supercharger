@@ -33,31 +33,35 @@ public class serializerCoOp extends CommandBase {
     public void execute() {
         // The driver takes priority
         if (Robot.OI.driverJoystick.triggerRight.get()) {
-            if (Robot.Shooter.getAvgRPM() > Robot.Shooter.getTargetSpeed() * 0.9) {
-                if (i < 10) {
+            if (Robot.Shooter.shooterAtVelocity) { 
+                /* if (i < 10) {
                     if(Robot.KickerWheel.getKickerSpeed() < 3500){
                         Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERREVERSESPEED);
                     }
                 } else if (i == 10){
                     Robot.Serializer.stopSerializer();
-                } else if (i > 50 * 0.5) {
-                    Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
-                    Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
-                }
-                i++;
+                } else if (i > 50 * 0.5) { */
+                    Robot.Serializer.setSerializerSpeed(Constants.SERIALIZERDRIVERFORWARDSPEED);
+                    Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSHOOTSPEED);
+                /* }
+                i++; */
             }
             // If the driver isn't attempting to control it and the operator is
         } else if (Robot.OI.operatorJoystick.triggerLeft.get()) {
+            Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
+
+            if(Robot.Serializer.topSerializerSensor.get() && Robot.Serializer.bottomSerializerSensor.get()) {
+                Robot.Agitator.stopAgitator();
+            }
             // Set the kicker to hold it's position (done in the kicker subsystem)
-            if (serializer.topSerializerSensor.get() && serializer.middleSerializerSensor.get()) {
+            if (serializer.topSerializerSensor.get()/*  && serializer.middleSerializerSensor.get() */) {
                 serializer.stopSerializer();
                 Robot.Agitator.stopAgitator();
             } else if (serializer.bottomSerializerSensor.get()) {
-                serializer.setSerializerSpeed(Constants.SERIALIZERFORWARDSPEED);
-                Robot.Agitator.setAgitatorSpeed(Constants.AGITATORSPEED);
+                serializer.setSerializerSpeed(Constants.SERIALIZEROPERATORFORWARDSPEED);
             } else {
                 serializer.stopSerializer();
-                Robot.Agitator.stopAgitator();
+                // Robot.Agitator.stopAgitator();
             }
         } else {
             // If no-one is trying to control the kicker wheel, stop it

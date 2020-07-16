@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 //Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
@@ -27,7 +28,7 @@ public class Climber extends SubsystemBase {
   private boolean isActivated = false;
 
   //Motor
-  private TalonFX climberMotor;
+  public TalonFX climberMotor;
 
   private TalonFXConfiguration TalonFXConfigurationClimber;
 
@@ -46,8 +47,9 @@ public class Climber extends SubsystemBase {
     climberMotor.configFactoryDefault();
 
     climberMotor.setInverted(false);
+    climberMotor.setNeutralMode(NeutralMode.Brake);
   
-    TalonFXConfigurationClimber.slot0.kP = 0.01;
+    TalonFXConfigurationClimber.slot0.kP = 0.03375;
     TalonFXConfigurationClimber.slot0.kI = 0;
     TalonFXConfigurationClimber.slot0.kD = 0;
     TalonFXConfigurationClimber.slot0.kF = 0;
@@ -56,21 +58,21 @@ public class Climber extends SubsystemBase {
     TalonFXConfigurationClimber.peakOutputReverse = -0.9;
     TalonFXConfigurationClimber.reverseSoftLimitEnable = true;
     TalonFXConfigurationClimber.forwardSoftLimitEnable = true;
-    TalonFXConfigurationClimber.reverseSoftLimitThreshold = 0;
-    TalonFXConfigurationClimber.forwardSoftLimitThreshold = 100000;
+    TalonFXConfigurationClimber.reverseSoftLimitThreshold = 10000;    
+    TalonFXConfigurationClimber.forwardSoftLimitThreshold = 240000; //Top position: ~248,000
     TalonFXConfigurationClimber.initializationStrategy = SensorInitializationStrategy.BootToZero;
 
     climberMotor.configAllSettings(TalonFXConfigurationClimber);
 
     //Sets up current limits on variables
-    currentLimitConfigclimber .currentLimit = 50;
+    currentLimitConfigclimber .currentLimit = 80;
     currentLimitConfigclimber .enable = true;
     currentLimitConfigclimber .triggerThresholdCurrent = 40;
     currentLimitConfigclimber .triggerThresholdTime = 3;
     //Pushes current limits to motors
-    climberMotor.configStatorCurrentLimit(currentLimitConfigclimber, 0);
+    climberMotor.configStatorCurrentLimit(currentLimitConfigclimber, 0); 
     //Set up ramp rate
-    climberMotor.configClosedloopRamp(0.5);
+    climberMotor.configClosedloopRamp(0.1);
   }
 
   @Override
@@ -80,7 +82,10 @@ public class Climber extends SubsystemBase {
       //If in debug mode, put the climber speed and temperature on SmartDashboard/Shuffleboard
       SmartDashboard.putNumber("Climber Motor Speed", getClimberSpeed());
       SmartDashboard.putNumber("Climber Motor Temperature", getClimberTemperature());
+      SmartDashboard.putNumber("Climber Encoder Value", climberMotor.getSelectedSensorPosition());
+      SmartDashboard.putNumber("Climber Current", climberMotor.getStatorCurrent());
     }
+    SmartDashboard.putBoolean("Climber Activated", getClimberActivated());
   }
 
   /**

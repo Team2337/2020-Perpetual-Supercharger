@@ -37,6 +37,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
 
   /* --- Private Boolean Values --- */
   private boolean slowRotateMode = false;
+  private boolean ballTrackingEnabled = false;
 
   /**
    * Class to change the robot's angle based on an offset. These offsets will be
@@ -46,10 +47,10 @@ public class OperatorAngleAdjustment extends SubsystemBase {
   public OperatorAngleAdjustment() {
     // Sets all the gyro offsets
     gyroOffset = 0;
-    farShot = 25;
+    farShot = 9; //25
     nearShot = 0;
     climbing = 28;
-    frontTrenchShot = 33;
+    frontTrenchShot = 13;  //???
     field0 = 0;
     field90 = 90;
     field180 = 180;
@@ -108,6 +109,7 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       break;
     case "climbing":
       futureOffsetAngle = climbing;
+      Robot.Vision.switchPipeLine(2);
       Robot.Vision.setRotateLimelight(false);
       Robot.SwerveDrivetrain.setFieldOriented(false);
       break;
@@ -117,8 +119,17 @@ public class OperatorAngleAdjustment extends SubsystemBase {
       break;
     case "frontTrenchShot":
       futureOffsetAngle = frontTrenchShot;
+      Robot.Vision.switchPipeLine(1);
       Robot.Shooter.setFutureSpeed(Constants.SHOOTFRONTTRENCHSPEED);
       Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFRONTTRENCH); 
+    case "frontTrenchRunShot":
+      futureOffsetAngle = nearShot;
+      Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
+      Robot.Vision.setRotateLimelight(false);
+      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDCLOSE);
+      Robot.Vision.switchPipeLine(1);
+      Robot.SwerveDrivetrain.setFieldOriented(true);
+      break;
     case "0":
       futureOffsetAngle = field0;
       Robot.Vision.setRotateLimelight(false);
@@ -222,6 +233,18 @@ public class OperatorAngleAdjustment extends SubsystemBase {
    */
   public boolean getLimelightRotationMode() {
     return limelightRotationMode;
+  }
+
+  public void setBallTrackingEnabled(boolean enabled){
+    ballTrackingEnabled = enabled;
+  }
+
+  /**
+   * Lets us know if we are in the ball tracking mode, we are rotating using the pixycam
+   * @return whether or not we are tracking balls
+   */
+  public boolean getBallTrackingEnabled() {
+    return ballTrackingEnabled;
   }
 
   /**

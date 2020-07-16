@@ -53,7 +53,7 @@ public class RightTrench3Ball extends SequentialCommandGroup {
       new AutoDriveWithJoystickInput(Robot.SwerveDrivetrain, ThirdDrive.driveDist, ThirdDrive.forward, ThirdDrive.strafe, ThirdDrive.moduleAngle).withTimeout(ThirdDrive.driveTimeout),
       new AutoRotateWithJoystickInput(Robot.SwerveDrivetrain, FirstRotate.moduleAngle), 
       new stopIntake(Robot.Intake),
-      new AutoRotateWithVision(Robot.SwerveDrivetrain),
+      new AutoRotateWithVision(Robot.SwerveDrivetrain, 1),
       new stopShooter(Robot.Shooter)
     );
   }

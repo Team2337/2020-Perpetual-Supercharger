@@ -2,14 +2,12 @@ package frc.robot.subsystems;
 
 //Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
-
 /**
  * Simple subsystem for the agitator
  * @author Michael Francis
@@ -22,31 +20,16 @@ public class Agitator extends SubsystemBase {
   private final boolean agitatorDebug = false;
 
   //Motor
-  TalonFX agitatorMotor;
-
-  //Sets up current limit config variable
-  private StatorCurrentLimitConfiguration currentLimitConfigIntake = new StatorCurrentLimitConfiguration();
+  public VictorSPX agitatorMotor;
 
   /**
    * Creates a new Agitator subsystem and sets up the motor.
    */
   public Agitator() {
-    agitatorMotor = new TalonFX(Constants.AGITATOR);
-
+    agitatorMotor = new VictorSPX(Constants.AGITATOR);
+    
     //Reset the motor to its factory settings each boot
     agitatorMotor.configFactoryDefault();
-
-    agitatorMotor.setInverted(true);
-
-    //Sets up current limits on variables
-    currentLimitConfigIntake .currentLimit = 50;
-    currentLimitConfigIntake .enable = true;
-    currentLimitConfigIntake .triggerThresholdCurrent = 40;
-    currentLimitConfigIntake .triggerThresholdTime = 3;
-    //Pushes current limits to motors
-    agitatorMotor.configStatorCurrentLimit(currentLimitConfigIntake, 0);
-    //Set up ramp rate
-    agitatorMotor.configClosedloopRamp(0.1);
   }
 
   @Override
@@ -54,9 +37,7 @@ public class Agitator extends SubsystemBase {
     // This method will be called once per scheduler run
     if(agitatorDebug){
       //If in debug mode, put the agitator speed and temperature on SmartDashboard/Shuffleboard
-      SmartDashboard.putNumber("Agitator Motor Speed", getAgitatorSpeed());
     }
-      SmartDashboard.putNumber("Agitator Motor Temperature", getAgitatorTemperature());
   }
 
   /**
@@ -72,9 +53,8 @@ public class Agitator extends SubsystemBase {
    * Gets the speed of the agitator motor.
    * @return The intake speed of both the agitator motor in an array.
    */
-  public double getAgitatorSpeed(){
-    double spd = agitatorMotor.getMotorOutputPercent();
-    return spd;
+  public double getAgitatorSpeed() {
+    return agitatorMotor.getMotorOutputPercent();
   }
 
   /**
@@ -82,14 +62,5 @@ public class Agitator extends SubsystemBase {
    */
   public void stopAgitator(){
     agitatorMotor.set(ControlMode.PercentOutput, 0);
-  }
-
-  /**
-   * Method that returns the agitator motor temperature
-   * @return A double of the temperature (in Celsius) of the agitator motor.
-   */
-  public double getAgitatorTemperature(){
-    double temp = agitatorMotor.getTemperature();
-    return temp;
   }
 }

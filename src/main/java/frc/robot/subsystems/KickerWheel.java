@@ -76,6 +76,8 @@ public class KickerWheel extends SubsystemBase {
     kickerPIDController.setD(velocityD);
     kickerPIDController.setFF(velocityFF);
     kickerPIDController.setOutputRange(kMinOutput, kMaxOutput);
+
+    kickerWheelMotor.setSmartCurrentLimit(50);
     
     kickerWheelMotor.setClosedLoopRampRate(0.0);
     
@@ -90,8 +92,8 @@ public class KickerWheel extends SubsystemBase {
       SmartDashboard.putNumber("Kicker wheel target", targetSpeed);
       SmartDashboard.putNumber("Kicker wheel percent output", kickerWheelMotor.getOutputCurrent());
       SmartDashboard.putNumber("Kicker Temperature", getKickerTemperature());
-      SmartDashboard.putNumber("Kicker wheel velocity", getKickerSpeed());
     }
+    SmartDashboard.putNumber("Kicker wheel velocity", getKickerSpeed());
   }
 
   /**

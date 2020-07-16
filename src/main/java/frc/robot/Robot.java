@@ -5,15 +5,17 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.auto.commandgroups.nineball.CenterGoalBack9BallGenerator3Ball;
-import frc.robot.commands.auto.commandgroups.sixball.CenterGoalFront6BallFeedLeftTrench3BallShoot;
-import frc.robot.commands.auto.commandgroups.threeball.CenterGoal3Ball;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.auto.commandgroups.nineball.*;
+import frc.robot.commands.auto.commandgroups.sixball.*;
+import frc.robot.commands.auto.commandgroups.threeball.*;
 import frc.robot.subsystems.*;
 
 /**
@@ -26,6 +28,7 @@ public class Robot extends TimedRobot {
 // Variables for finding the Mac Address of the robot
 public static boolean isComp = false;  
 public String mac;
+  public String gameData;
   private Command autonomousCommand;
   public static Constants Constants;
   public static Utilities Utilities;
@@ -35,10 +38,12 @@ public String mac;
   public static ClimberBrake ClimberBrake;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
-  public static LED LED;
+  public static LEDs LEDs;
+  public static LEDBlinkin LEDBlinkin;
   public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
+  public static Servo66 Servo66;
   public static Shooter Shooter;
   public static SwerveDrivetrain SwerveDrivetrain;
   public static TimeOfFlight TimeOfFlight;
@@ -46,6 +51,7 @@ public String mac;
   public static PowerDistributionPanel PDP;
   public static OI OI;
   public SendableChooser<String> autonChooser;
+  public SendableChooser<String> delayChooser;
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -91,12 +97,13 @@ public String mac;
     /* --- Subsystems --- */
     Agitator = new Agitator();
     Climber = new Climber();
-    ClimberBrake = new ClimberBrake();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
-    LED = new LED();
+    LEDBlinkin = new LEDBlinkin();
+    LEDs = new LEDs();
     Pigeon = new Pigeon();
     OperatorAngleAdjustment = new OperatorAngleAdjustment();
+    Servo66 = new Servo66();
     Serializer = new Serializer();
     Shooter = new Shooter();
     SwerveDrivetrain = new SwerveDrivetrain();
@@ -105,19 +112,39 @@ public String mac;
     
     OI = new OI();
 
+    
     // Resets the pigeon to 0    
     Pigeon.resetPidgey();
     Vision.switchPipeLine(0);
     Vision.setLEDMode(1);
-
+    Climber.climberMotor.setSelectedSensorPosition(0);
+    Serializer.resetSerializerPosition();
+    
     autonChooser = new SendableChooser<String>();
-
-    autonChooser.setDefaultOption("default", "default");
-    autonChooser.addOption("CenterGoalBack9BallGenerator3Ball", "CenterGoalBack9BallGenerator3Ball");
-    autonChooser.addOption("CenterGoalFront6BallFeedLeftTrench3BallShoot", "CenterGoalFront6BallFeedLeftTrench3BallShoot");
-    autonChooser.addOption("Shoot 3 And Back Up", "CenterGoal3Ball");
+    delayChooser = new SendableChooser<String>();
+    
+    autonChooser.setDefaultOption("Do Nothing", "default");
+    autonChooser.addOption("9 Ball - Back Up Straight", "9 Ball - Back Up Straight");
+    autonChooser.addOption("9 Ball - Back Up - Turn 90", "9 Ball - Back Up - Turn 90");
+    autonChooser.addOption("9 Ball - Drive to Trench", "9 Ball - Drive to Trench");
+    autonChooser.addOption("6 Ball - Back Up Straight", "6 Ball - Back Up Straight");
+    autonChooser.addOption("6 Ball - Partner Left - 3 Trench", "6 Ball - Partner Left - 3 Trench");
+    autonChooser.addOption("6 Ball - Partner Right - 3 Trench", "6 Ball - Partner Right - 3 Trench");
+    autonChooser.addOption("3 Ball - Trench", "3 Ball - Trench");
+    
+    delayChooser.setDefaultOption("0", "0");
+    delayChooser.addOption("0.5", "0.5");
+    delayChooser.addOption("1", "1");
+    delayChooser.addOption("1.5", "1.5");
+    delayChooser.addOption("2", "2");
+    delayChooser.addOption("2.5", "2.5");
+    delayChooser.addOption("3", "3");
+    delayChooser.addOption("3.5", "3.5");
+    delayChooser.addOption("4", "4");
+    delayChooser.addOption("4.5", "4.5");
+    delayChooser.addOption("5", "5");
   }
-
+  
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
@@ -127,13 +154,17 @@ public String mac;
    */
   @Override
   public void robotPeriodic() {
+    // SwerveDrivetrain.getAverageAnalogValueInRadians(3);
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic.
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
     CommandScheduler.getInstance().run();
-    SmartDashboard.putData("AutonSelector", autonChooser);
+    SmartDashboard.putData("Auton Selector", autonChooser);
+    SmartDashboard.putData("Delay Selector", delayChooser);
+    SmartDashboard.putString("Game Data", gameData);
   }
-
+  
   /**
    * This function is called once each time the robot enters Disabled mode.
    */
@@ -151,15 +182,81 @@ public String mac;
    */
   @Override
   public void autonomousInit() {
+    double delay = 0;
+    switch (delayChooser.getSelected()) {
+      case "0.5":
+      delay = 0.5;
+      break;
+      case "1":
+      delay = 1;
+      break;
+      case "1.5":
+      delay = 1.5;
+      break;
+      case "2":
+      delay = 2;
+      break;
+      case "2.5":
+      delay = 2.5;
+      break;
+      case "3":
+      delay = 3;
+      break;
+      case "3.5":
+      delay = 3.5;
+      break;
+      case "4":
+      delay = 4;
+      break;
+      case "4.5":
+      delay = 4.5;
+      break;
+      case "5":
+      delay = 5;
+      break;
+      default:
+      delay = 0;
+      break;
+    }
     switch (autonChooser.getSelected()) {
-      case "CenterGoalBack9BallGenerator3Ball":
-        autonomousCommand = new CenterGoalBack9BallGenerator3Ball();
+      case "9 Ball - Back Up Straight":
+        autonomousCommand = new CenterGoal9Ball(delay);
         break;
-      case "CenterGoalFront6BallFeedLeftTrench3BallShoot":
-        autonomousCommand = new CenterGoalFront6BallFeedLeftTrench3BallShoot();
+      case "9 Ball - Back Up - Turn 90":
+        autonomousCommand = new CenterGoal9BallTurn(delay);
         break;
-        case "CenterGoal3Ball":
-        autonomousCommand = new CenterGoal3Ball();
+      case "9 Ball - Drive to Trench":
+        autonomousCommand = new CenterGoal9BallTrench(delay);
+        break;
+      case "9 Ball - 3 Generator":
+        autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
+        break;
+      case "6 Ball - Back Up Straight":
+        autonomousCommand = new CenterGoal6Ball(delay);
+        break;
+      case "6 Ball - 3 Generator":
+        autonomousCommand = new CenterGoalBack9BallGenerator3Ball(delay);
+        break;
+      case "6 Ball - Partner Left - 3 Trench":
+        autonomousCommand = new CenterFeedLeftTRGrab3Score3(delay);
+        break;
+      case "6 Ball - Partner Right - 3 Trench":
+        autonomousCommand = new CenterFeedRightTRGrab3Score3(delay);
+        break;
+      case "6 Ball - Partner Left - 3 Trench - 2 Generator":
+        autonomousCommand = new CenterFeedLeftTRGrab3GenRGrab2Score5(delay);
+        break;
+      case "6 Ball - Partner Right - 3 Trench - 2 Generator":
+        autonomousCommand = new CenterFeedRightTRGrab3GenRGrab2Score5(delay);
+        break;        
+      case "3 Ball - Trench":
+        autonomousCommand = new CenterTRGrab3Score3(delay);
+        break;
+      case "3 Ball - Back Up":
+        autonomousCommand = new CenterGoal3Ball(delay);
+        break;
+      default:
+        autonomousCommand = new WaitCommand(15).withTimeout(15);
         break;
       
     }
@@ -178,7 +275,6 @@ public String mac;
 
   @Override
   public void teleopInit() {
-    Shooter.stopShooter();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -187,7 +283,7 @@ public String mac;
       autonomousCommand.cancel();
     }
     
-    Pigeon.resetPidgey();
+    Vision.setLEDMode(1);
   }
 
   /**

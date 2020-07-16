@@ -1,5 +1,6 @@
 package frc.robot.commands.Vision;
 
+import frc.robot.Robot;
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
@@ -22,7 +23,7 @@ public class limeLightLEDOff extends InstantCommand {
 
   @Override
   public void initialize() {
-    subsystem.setLEDMode(1);
+    Robot.Vision.setLEDMode(1);
   }
 
 }
