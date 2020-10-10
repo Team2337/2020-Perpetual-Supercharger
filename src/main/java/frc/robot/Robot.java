@@ -40,6 +40,7 @@ public String mac;
   public static KickerWheel KickerWheel;
   public static LEDs LEDs;
   public static LEDBlinkin LEDBlinkin;
+  public static Lightsaber Lightsaber;
   public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
   public static Serializer Serializer;
@@ -101,6 +102,7 @@ public String mac;
     KickerWheel = new KickerWheel();
     LEDBlinkin = new LEDBlinkin();
     LEDs = new LEDs();
+    Lightsaber = new Lightsaber();
     Pigeon = new Pigeon();
     OperatorAngleAdjustment = new OperatorAngleAdjustment();
     Servo66 = new Servo66();
@@ -163,6 +165,7 @@ public String mac;
     SmartDashboard.putData("Auton Selector", autonChooser);
     SmartDashboard.putData("Delay Selector", delayChooser);
     SmartDashboard.putString("Game Data", gameData);
+
   }
   
   /**
