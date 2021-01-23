@@ -15,7 +15,7 @@ public class runClimber extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climber Climber;
 
-  private int setpoint;
+  private double setpoint;
   private boolean isInstantCommand;
 
   /**
@@ -23,7 +23,7 @@ public class runClimber extends CommandBase {
    * @param m_subsystem The subsystem used by this command. (climber)
    * @param m_speed A double number that sets the speed of the climber motor
    */
-  public runClimber(Climber climber, int setpoint, boolean isInstantCommand) {
+  public runClimber(Climber climber, double setpoint, boolean isInstantCommand) {
     Climber = climber;
     this.setpoint = setpoint;
     this.isInstantCommand = isInstantCommand;

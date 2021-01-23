@@ -13,7 +13,7 @@ public class serializerBallControl extends CommandBase {
     private Serializer serializer;
     private int i = 0;
     private int iteration = 0;
-    private int position = 0;
+    private double position = 0;
 
     /**
      * Sets the kicker's speed.

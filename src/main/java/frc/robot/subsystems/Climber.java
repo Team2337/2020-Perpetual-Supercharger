@@ -142,7 +142,7 @@ public class Climber extends SubsystemBase {
    * Sets the climber setpoint
    * @param setpoint - The setpoint for the climber
    */
-  public void setSetpoint(int setpoint) {
+  public void setSetpoint(double setpoint) {
     climberMotor.set(ControlMode.Position, setpoint);
   }
 
@@ -150,7 +150,7 @@ public class Climber extends SubsystemBase {
    * Gets the current position of the climber
    * @return - The current position of the climber
    */
-  public int getCurrentPosition() {
+  public double getCurrentPosition() {
     return climberMotor.getSelectedSensorPosition();
   }
 }

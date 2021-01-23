@@ -155,8 +155,8 @@ public class Serializer extends SubsystemBase {
   /**
    * @return position This returns the current position of the serializer motor
    */
-  public int getSerializerPosition() {
-    int position = serializerMotor.getSelectedSensorPosition();
+  public double getSerializerPosition() {
+    double position = serializerMotor.getSelectedSensorPosition();
     return position;
   }
 

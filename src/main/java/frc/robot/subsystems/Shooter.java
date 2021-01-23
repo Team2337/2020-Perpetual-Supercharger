@@ -231,15 +231,15 @@ public class Shooter extends SubsystemBase {
    * 
    * @return The revolutions per minute of the left motor
    */
-  public int getLeftRPM() {
+  public double getLeftRPM() {
     // Encoder ticks per 100 ms
-    int speed = leftShootMotor.getSelectedSensorVelocity();
+    double speed = leftShootMotor.getSelectedSensorVelocity();
     // Encoder ticks per second
-    int tps = speed * 10;
+    double tps = speed * 10;
     // Encoder revolutions per second
-    int rps = tps / 2048;
+    double rps = tps / 2048;
     // Convert rps into revolutions per minute
-    int rpm = rps * 60;
+    double rpm = rps * 60;
     return rpm;
   }
 
@@ -250,15 +250,15 @@ public class Shooter extends SubsystemBase {
    * 
    * @return The revolutions per minute of the right motor
    */
-  public int getRightRPM() {
+  public double getRightRPM() {
     // Encoder ticks per 100 ms
-    int speed = rightShootMotor.getSelectedSensorVelocity();
+    double speed = rightShootMotor.getSelectedSensorVelocity();
     // Encoder ticks per second
-    int tps = speed * 10;
+    double tps = speed * 10;
     // Encoder revolutions per second
-    int rps = tps / 2048;
+    double rps = tps / 2048;
     // Convert rps into revolutions per minute
-    int rpm = rps * 60;
+    double rpm = rps * 60;
     return rpm;
   }
 

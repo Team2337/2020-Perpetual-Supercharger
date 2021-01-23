@@ -358,7 +358,7 @@ public class FXSwerveModule {
      * Gets the drive encoder position in ticks
      * @return - The selected sensor position
      */
-    public int getDriveEncoderValue() {
+    public double getDriveEncoderValue() {
         return driveMotor.getSelectedSensorPosition(0);
     }
 
@@ -381,7 +381,7 @@ public class FXSwerveModule {
      * Gets the angle encoder position in ticks
      * @return - The selected sensor position
      */    
-    public int getAngleEncoderValue() {
+    public double getAngleEncoderValue() {
         return angleMotor.getSelectedSensorPosition(0);
     }
 
