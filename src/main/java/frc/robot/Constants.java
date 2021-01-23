@@ -20,6 +20,7 @@ public final class Constants {
         public static final double TICKSPERDEGREE = 102;
         public final static double SLOWROTATESPEED = 0.05;
         public final static boolean SWERVEDEBUG = false;
+        public final static boolean ANALOGENCODER = false;
     }
 
     public static final class Auton {
