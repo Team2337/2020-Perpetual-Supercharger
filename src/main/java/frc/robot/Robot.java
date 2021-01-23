@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.auto.commandgroups.nineball.*;
-import frc.robot.commands.auto.commandgroups.sixball.*;
-import frc.robot.commands.auto.commandgroups.threeball.*;
+//import frc.robot.commands.auto.commandgroups.nineball.*;
+//import frc.robot.commands.auto.commandgroups.sixball.*;
+//import frc.robot.commands.auto.commandgroups.threeball.*;
 import frc.robot.subsystems.*;
 
 /**
@@ -33,20 +33,20 @@ public String mac;
   public static Constants Constants;
   public static Utilities Utilities;
 
-  public static Agitator Agitator;
+  /**public static Agitator Agitator;
   public static Climber Climber;
   public static ClimberBrake ClimberBrake;
   public static Intake Intake;
   public static KickerWheel KickerWheel;
   public static LEDs LEDs;
-  public static LEDBlinkin LEDBlinkin;
+  public static LEDBlinkin LEDBlinkin;  */
   public static OperatorAngleAdjustment OperatorAngleAdjustment;
   public static Pigeon Pigeon;
-  public static Serializer Serializer;
+  /**public static Serializer Serializer;
   public static Servo66 Servo66;
-  public static Shooter Shooter;
+  public static Shooter Shooter; */
   public static SwerveDrivetrain SwerveDrivetrain;
-  public static TimeOfFlight TimeOfFlight;
+ // public static TimeOfFlight TimeOfFlight;
   public static Vision Vision;
   public static PowerDistributionPanel PDP;
   public static OI OI;
@@ -95,19 +95,19 @@ public String mac;
     Utilities = new Utilities();
 
     /* --- Subsystems --- */
-    Agitator = new Agitator();
+    /**Agitator = new Agitator();
     Climber = new Climber();
     Intake = new Intake();
     KickerWheel = new KickerWheel();
     LEDBlinkin = new LEDBlinkin();
-    LEDs = new LEDs();
+    LEDs = new LEDs(); */
     Pigeon = new Pigeon();
     OperatorAngleAdjustment = new OperatorAngleAdjustment();
-    Servo66 = new Servo66();
+    /**Servo66 = new Servo66();
     Serializer = new Serializer();
-    Shooter = new Shooter();
+    Shooter = new Shooter(); */
     SwerveDrivetrain = new SwerveDrivetrain();
-    TimeOfFlight = new TimeOfFlight();
+   // TimeOfFlight = new TimeOfFlight();
     Vision = new Vision();
     
     OI = new OI();
@@ -117,8 +117,8 @@ public String mac;
     Pigeon.resetPidgey();
     Vision.switchPipeLine(0);
     Vision.setLEDMode(1);
-    Climber.climberMotor.setSelectedSensorPosition(0);
-    Serializer.resetSerializerPosition();
+    //Climber.climberMotor.setSelectedSensorPosition(0);
+    //Serializer.resetSerializerPosition();
     
     autonChooser = new SendableChooser<String>();
     delayChooser = new SendableChooser<String>();
@@ -219,7 +219,7 @@ public String mac;
       break;
     }
     switch (autonChooser.getSelected()) {
-      case "9 Ball - Back Up Straight":
+      /** case "9 Ball - Back Up Straight":
         autonomousCommand = new CenterGoal9Ball(delay);
         break;
       case "9 Ball - Back Up - Turn 90":
@@ -255,6 +255,7 @@ public String mac;
       case "3 Ball - Back Up":
         autonomousCommand = new CenterGoal3Ball(delay);
         break;
+         */
       default:
         autonomousCommand = new WaitCommand(15).withTimeout(15);
         break;

@@ -93,17 +93,17 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     switch(mode) {
     case "farShot":
       futureOffsetAngle = farShot;
-      Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDFAR);
+     // Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDFAR);
       Robot.Vision.setRotateLimelight(false);
-      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFAR);
+     // Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFAR);
       Robot.Vision.switchPipeLine(1);
       Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
     case "nearShot":
       futureOffsetAngle = nearShot;
-      Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
+    // Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
       Robot.Vision.setRotateLimelight(false);
-      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDCLOSE);
+    // Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDCLOSE);
       Robot.Vision.switchPipeLine(0);
       Robot.SwerveDrivetrain.setFieldOriented(true);
       break;
@@ -120,13 +120,13 @@ public class OperatorAngleAdjustment extends SubsystemBase {
     case "frontTrenchShot":
       futureOffsetAngle = frontTrenchShot;
       Robot.Vision.switchPipeLine(1);
-      Robot.Shooter.setFutureSpeed(Constants.SHOOTFRONTTRENCHSPEED);
-      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFRONTTRENCH); 
+     // Robot.Shooter.setFutureSpeed(Constants.SHOOTFRONTTRENCHSPEED);
+     // Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDFRONTTRENCH); 
     case "frontTrenchRunShot":
       futureOffsetAngle = nearShot;
-      Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
+     // Robot.Shooter.setFutureSpeed(Constants.SHOOTSPEEDCLOSE);
       Robot.Vision.setRotateLimelight(false);
-      Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDCLOSE);
+     // Robot.KickerWheel.setFutureSpeed(Constants.KICKERSPEEDCLOSE);
       Robot.Vision.switchPipeLine(1);
       Robot.SwerveDrivetrain.setFieldOriented(true);
       break;

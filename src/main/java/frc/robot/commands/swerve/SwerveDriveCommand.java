@@ -108,7 +108,7 @@ public class SwerveDriveCommand extends CommandBase {
     // Checks the limelight mode to rotate towards the target
     if(Robot.OperatorAngleAdjustment.getLimelightRotationMode()) {
       double tx = 0;
-      if(Robot.Vision.getPipeline() == 0 && Robot.Shooter.getAvgRPM() > 250) {
+      if(Robot.Vision.getPipeline() == 0 /**&& Robot.Shooter.getAvgRPM() > 250*/) {
         tx = -(Math.toRadians(Robot.Vision.getDoubleValue("tx") - 2));
       } else if (Robot.Vision.getPipeline() == 1) {
         tx = -(Math.toRadians(Robot.Vision.getDoubleValue("tx")));

@@ -1,20 +1,20 @@
 package frc.robot;
 
 import frc.robot.commands.swerve.*;
-import frc.robot.commands.Agitator.*;
+/**import frc.robot.commands.Agitator.*;
 import frc.robot.commands.Climber.*;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.KickerWheel.*;
 import frc.robot.commands.LED.LEDRuntime;
 import frc.robot.commands.Serializer.*;
 import frc.robot.commands.Servo.deployHyperLoop;
-import frc.robot.commands.Servo.retractHyperLoop;
+import frc.robot.commands.Servo.retractHyperLoop;*/
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.Robot;
 import frc.robot.nerdyfiles.controller.*;
-import frc.robot.commands.Shooter.*;
-import frc.robot.commands.ShooterSystem.*;
+//import frc.robot.commands.Shooter.*;
+//import frc.robot.commands.ShooterSystem.*;
 import frc.robot.commands.Vision.limeLightLEDOff;
 import frc.robot.commands.Vision.limeLightLEDOn;
 import frc.robot.commands.Vision.setBallTracking;
@@ -35,8 +35,8 @@ public class OI {
         driverJoystick.bumperLeft.whenPressed(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, true));
         driverJoystick.bumperLeft.whenReleased(new ChangeGyroAngleOffset(Robot.OperatorAngleAdjustment, false));
 
-        driverJoystick.bumperRight.whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED));
-        driverJoystick.bumperRight.whenReleased(new stopSerializer(Robot.Serializer));
+        //driverJoystick.bumperRight.whenPressed(new runSerializer(Robot.Serializer, Constants.SERIALIZERDRIVERFORWARDSPEED));
+        //driverJoystick.bumperRight.whenReleased(new stopSerializer(Robot.Serializer));
 
         // Run the shooter
         // If the shooter is not running then feed system forward cannot run. If the shooter is running then feed system forward can run
@@ -73,30 +73,30 @@ public class OI {
                         Robot.Shooter.shooterAtVelocityBooleanSupplier)); */
 
         //Run the intake while shooting balls
-        driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED), 
+       /** driverJoystick.triggerRight.whenPressed(new ConditionalCommand(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED), 
         new CommandBase(){}, Robot.Shooter.shooterAtVelocityBooleanSupplier));
         driverJoystick.triggerRight.whenReleased(new ConditionalCommand(new stopIntake(Robot.Intake),
-        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier));
+        new CommandBase(){} , Robot.Shooter.shooterAtVelocityBooleanSupplier));  */
 
         //DRIVER JOYSTICK RIGHT TRIGGER IS USED IN THE CO-OP COMMANDS IN SERIALIZER AND KICKERWHEEL
 
         /* --- OPERATOR JOYSTICK --- */
         
         //Sets the intake motors to intake balls
-        operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
-        operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake));
+       /** operatorJoystick.triggerRight   .whenPressed(new runIntake(Robot.Intake, Constants.INTAKEFORWARDSPEED));
+        operatorJoystick.triggerRight   .whenReleased(new stopIntake(Robot.Intake)); 
 
         operatorJoystick.triggerRight.whenPressed(new runAgitator(Robot.Agitator, Constants.AGITATORSPEED));
         operatorJoystick.triggerRight.whenReleased(new stopAgitator(Robot.Agitator));
 
         //Sets the intake motors to outtake balls (reverse mode)
         operatorJoystick.bumperRight    .whenPressed(new runIntake(Robot.Intake, -Constants.INTAKEFORWARDSPEED));
-        operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake));
+        operatorJoystick.bumperRight    .whenReleased(new stopIntake(Robot.Intake)); */
 /* 
          operatorJoystick.triggerLeft.whenPressed(new ConditionalCommand(new CommandBase() {
         }, new feedSystemForward(), Robot.Shooter.shooterAtVelocityBooleanSupplier));
         operatorJoystick.triggerLeft.whenReleased(new ConditionalCommand(new CommandBase() {
-        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier));  */
+        }, new feedSystemStop(), Robot.Shooter.shooterAtVelocityBooleanSupplier));  
         //TRIGGER LEFT IN SERIALIZER COMMAND
 
         operatorJoystick.bumperLeft.whenPressed(new feedSystemReverse());
@@ -108,7 +108,7 @@ public class OI {
         operatorJoystick.rightStickButton        .whenReleased(new stopAgitator(Robot.Agitator)); */
 
         // Move the climber upwards
-        operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZEROPERATORFORWARDSPEED));
+        /** operatorJoystick.leftStickButton          .whenPressed(new runSerializer(Robot.Serializer, -Constants.SERIALIZEROPERATORFORWARDSPEED));
         operatorJoystick.leftStickButton.whenReleased(new stopSerializer(Robot.Serializer));
         
 
@@ -116,7 +116,7 @@ public class OI {
         operatorJoystick.start          .whenPressed(new adjustSerializer(Robot.Serializer, Constants.SERIALIZERREGRESSIONDISTANCE).withTimeout(0.5));
         operatorJoystick.start          .whenReleased(new limeLightLEDOn(Robot.Vision).andThen(new shooterSystemOn()));
 
-        operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)).andThen(new limeLightLEDOff(Robot.Vision)));
+        operatorJoystick.back. whenPressed(new shooterSystemOff().andThen(new stopShooter(Robot.Shooter)).andThen(new limeLightLEDOff(Robot.Vision))); */
 
         // Buttons to queue the robot's angle offset 
         operatorJoystick.yellowY.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "farShot"));
@@ -130,9 +130,10 @@ public class OI {
         operatorJoystick.povLeft.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "270"));
 
         /* --- DRIVER STATION CONTROLS --- */
-        operatorControls.BlackSwitch.whenPressed(new activateClimber(Robot.Climber, true));
+        
+        //operatorControls.BlackSwitch.whenPressed(new activateClimber(Robot.Climber, true));
         operatorControls.BlackSwitch.whenPressed(new SetGyroAngleOffset(Robot.OperatorAngleAdjustment, "climbing"));
-        operatorControls.BlackSwitch.whenReleased(new activateClimber(Robot.Climber, false));
+        /**operatorControls.BlackSwitch.whenReleased(new activateClimber(Robot.Climber, false));
 
         operatorControls.BlackButton.whenPressed(new runClimber(Robot.Climber, 177500, false));
         operatorControls.BlackButton.whenReleased(new runClimber(Robot.Climber, 177500, true));
@@ -141,12 +142,12 @@ public class OI {
         operatorControls.BlueButton.whenReleased(new runClimber(Robot.Climber, 50000, true));
 
         operatorControls.YellowButton.whenPressed(new runControlPanelMode(Robot.KickerWheel));
-        operatorControls.YellowButton.whenReleased(new stopKicker(Robot.KickerWheel));
+        operatorControls.YellowButton.whenReleased(new stopKicker(Robot.KickerWheel));  */
 
         operatorControls.BlueSwitch.whenPressed(new ChangeVisionAngleOffset(Robot.OperatorAngleAdjustment, false));
 
-        operatorControls.YellowSwitch.whenPressed(new deployHyperLoop(Robot.Servo66));
-        operatorControls.YellowSwitch.whenReleased(new retractHyperLoop(Robot.Servo66));
+        //operatorControls.YellowSwitch.whenPressed(new deployHyperLoop(Robot.Servo66));
+        //operatorControls.YellowSwitch.whenReleased(new retractHyperLoop(Robot.Servo66));
         
     }
 
