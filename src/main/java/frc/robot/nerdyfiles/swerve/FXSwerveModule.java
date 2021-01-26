@@ -373,8 +373,13 @@ public class FXSwerveModule {
      * the robot to normalize the sensor value in terms of (0 -> 1)
      * @return - double sensor positional value from (0 -> 1)
      */
+    
     public double getNormalizedAnalogVoltage() {
-        return analogAngleSensor.getVoltage() / RobotController.getVoltage5V();
+        double voltage = 0;
+        if(Constants.Swerve.ANALOGENCODER) {
+             voltage = analogAngleSensor.getVoltage() / RobotController.getVoltage5V();
+        } 
+        return voltage;
     }
 
     /**
