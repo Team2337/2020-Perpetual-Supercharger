@@ -124,6 +124,9 @@ public class FXSwerveModule {
     private TalonFXConfiguration TalonFXConfigurationAngle;
     private TalonFXConfiguration TalonFXConfigurationDrive;
 
+    /* --- CAN Coder Configurations --- */
+    private CANCoderConfiguration CANCoderConfigurationAngle;
+
 
     /**
      * Swerve Module Object used to run the calculations for the swerve drive
@@ -146,6 +149,7 @@ public class FXSwerveModule {
         this.analogAngleSensor = analogAngleSensor;
         TalonFXConfigurationDrive = new TalonFXConfiguration();
         TalonFXConfigurationAngle = new TalonFXConfiguration();
+        CANCoderConfigurationAngle = new CANCoderConfiguration();
 
         /* --- Set Factory Default --- */
 
@@ -258,14 +262,17 @@ public class FXSwerveModule {
         // Resets the drive motor to its factory default
         driveMotor.configFactoryDefault();
         
-        /*****************************/
-        /* ------------------------- */
-        /* --- Angle Motor Setup --- */
-        /* ------------------------- */
-        /*****************************/
+        /****************************************/
+        /* ------------------------------------ */
+        /* --- Angle Motor And Sensor Setup --- */
+        /* ------------------------------------ */
+        /****************************************/
 
         angleMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
         angleMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+
+        CANCoderConfigurationAngle.sensorDirection = false;
+        CANAngleSensor.configAllSettings(CANCoderConfigurationAngle);
                 
         angleMotor.setNeutralMode(NeutralMode.Coast);
         angleMotor.configOpenloopRamp(0.1); 
