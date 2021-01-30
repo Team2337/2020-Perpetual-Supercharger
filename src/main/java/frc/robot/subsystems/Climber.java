@@ -151,6 +151,6 @@ public class Climber extends SubsystemBase {
    * @return - The current position of the climber
    */
   public int getCurrentPosition() {
-    return climberMotor.getSelectedSensorPosition();
+    return (int)(climberMotor.getSelectedSensorPosition());
   }
 }

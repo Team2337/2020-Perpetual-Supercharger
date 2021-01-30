@@ -233,7 +233,7 @@ public class Shooter extends SubsystemBase {
    */
   public int getLeftRPM() {
     // Encoder ticks per 100 ms
-    int speed = leftShootMotor.getSelectedSensorVelocity();
+    int speed = (int)(leftShootMotor.getSelectedSensorVelocity());
     // Encoder ticks per second
     int tps = speed * 10;
     // Encoder revolutions per second
@@ -252,7 +252,7 @@ public class Shooter extends SubsystemBase {
    */
   public int getRightRPM() {
     // Encoder ticks per 100 ms
-    int speed = rightShootMotor.getSelectedSensorVelocity();
+    int speed = (int)(rightShootMotor.getSelectedSensorVelocity());
     // Encoder ticks per second
     int tps = speed * 10;
     // Encoder revolutions per second
