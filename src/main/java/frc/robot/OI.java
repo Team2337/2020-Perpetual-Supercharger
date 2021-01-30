@@ -18,6 +18,8 @@ import frc.robot.nerdyfiles.controller.*;
 import frc.robot.commands.Vision.limeLightLEDOff;
 import frc.robot.commands.Vision.limeLightLEDOn;
 import frc.robot.commands.Vision.setBallTracking;
+import frc.robot.commands.auto.*;
+import frc.robot.commands.auto.commandgroups.nineball.CenterGoal9Ball;
 
 /**
  * OI Class where all controllers and button presses are placed 
@@ -55,6 +57,9 @@ public class OI {
         // Slow rotates to the left
         driverJoystick.blueX         .whenPressed(new setSlowRotateMode(Robot.OperatorAngleAdjustment, true, Constants.Swerve.SLOWROTATESPEED));
         driverJoystick.blueX         .whenReleased(new setSlowRotateMode(Robot.OperatorAngleAdjustment, false, 0));
+
+        driverJoystick.yellowY.whenPressed(new CenterGoal9Ball(0));
+
 
         driverJoystick.povUp.whenPressed(new ResetGyro(Robot.Pigeon));
 

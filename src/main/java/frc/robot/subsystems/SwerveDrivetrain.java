@@ -365,6 +365,10 @@ public class SwerveDrivetrain extends SubsystemBase {
       SmartDashboard.putNumber("ModuleAngle/" + i, 
       ((getModule(i).getRadians() - angleOffsets[i]) %(2 * Math.PI)) * 180 / Math.PI);
     }
+    for(int i = 0; i < 4; i++) {
+      SmartDashboard.putNumber("Radians/" + i, 
+      (getModule(i).getRadians()));
+    }
   if (swerveDebug) {
 
   }
