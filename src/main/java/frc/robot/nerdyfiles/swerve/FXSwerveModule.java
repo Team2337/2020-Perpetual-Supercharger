@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.*;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
@@ -370,9 +371,10 @@ public class FXSwerveModule {
     }
 
     public double getCANCoderRadians() {
+        SmartDashboard.putNumber("Absolute Position 2" + moduleNumber, CANAngleSensor.getAbsolutePosition()* (Math.PI/180));
         return CANAngleSensor.getAbsolutePosition() * (Math.PI/180);
-
     }
+
     /**
      * Gets the raw analog input, and divides it by the current 5V reading from 
      * the robot to normalize the sensor value in terms of (0 -> 1)
@@ -402,6 +404,7 @@ public class FXSwerveModule {
         } else {
             radians = getCANCoderRadians();
         }
+        SmartDashboard.putNumber("Radians 2" + moduleNumber, radians);
         return radians;
     }
 
@@ -429,9 +432,11 @@ public class FXSwerveModule {
         /* --- Local Variables --- */
         double errorRad;
         double currentAngle = getRadians();
-
+        SmartDashboard.putNumber("Current Angle" + moduleNumber, currentAngle);
+        
         // Adds angle offset to target angle
         targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
+        SmartDashboard.putNumber("Target Angle" + moduleNumber, targetAngle);
 
         // Calculates error
         errorRad = (currentAngle - targetAngle + (2*Math.PI)) % (2*Math.PI);
