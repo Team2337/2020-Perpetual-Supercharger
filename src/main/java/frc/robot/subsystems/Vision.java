@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.Auton.Positions;
 
 
   /**
@@ -21,7 +22,7 @@ public class Vision extends SubsystemBase {
   private boolean rotateLimelight = false;
   private boolean visionDebug = true;
 
-  private char autonPath = 'C';
+  private Positions autonPath = Positions.C;
 
   public Vision() {
     pixyRightAnalog = new AnalogInput(4);
@@ -193,43 +194,45 @@ public class Vision extends SubsystemBase {
    * <li> 3 - Path B blue
    * </ul>
    */
-  public int detectAutonPath(char pos){
+  public int detectAutonPath(Positions pos){
     int auton = -1;
     boolean seesBall = getPixyRightTarget();
     double degrees = getPixyRightValue();
 
     //Detect if we see a ball. If we do, where is it?
     if(seesBall){
-      //If we are aligned with path B
-      if(pos == 'B'){
-        //Detect if ball is in a red spot
-        if(degrees > 8.5 && degrees < 9.5){
-          auton = 0;//Path A red
-        } else if(degrees >= -2.5 && degrees < 2.5){
-          auton = 1;//Path B red
-        } else {
-          //Detect if ball is in a blue spot
-          if(degrees > 7.5 && degrees < 8.5){
+      switch (pos){
+        //Aligned with path B
+        case B:
+          //Detect if ball is in a red spot
+          if(degrees > 8.5 && degrees < 9.5){
+            auton = 0;//Path A red
+          } else if(degrees >= -2.5 && degrees < 2.5){
+            auton = 1;//Path B red
+          } else if(degrees > 7.5 && degrees < 8.5){
             auton = 2;//Path A blue
           } else if(degrees > 10 && degrees < 15){
             auton = 3;//Path B blue
           }
           //else we have a strange circumstance
-        }
-      } else if(pos == 'C'){
-        //Detect if ball is in a red spot
-        if(degrees > -5.5 && degrees < -4){
-          auton = 0;//Path A red
-        } else if(degrees < -10){
-          auton = 1;//Path B red (might be out of view here)
-        } else {
-          //Detect if ball is in a blue spot
-          if(degrees > 5.5 && degrees < 7.5){
+          break;
+        //Aligned with path C
+        case C:
+          //Detect if ball is in a red spot
+          if(degrees > -5.5 && degrees < -4){
+            auton = 0;//Path A red
+          } else if(degrees < -10){
+            auton = 1;//Path B red (might be out of view here)
+          } else if(degrees > 5.5 && degrees < 7.5){
             auton = 2;//Path A blue
           } else if(degrees > -1 && degrees < 2){
             auton = 3;//Path B blue
           }
-        }
+          break;
+        //Anything else
+        default:
+          System.out.println("Auton detection: unavailable selection");
+          break;
       }
     }
     return auton;

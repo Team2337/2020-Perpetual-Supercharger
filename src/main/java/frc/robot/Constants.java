@@ -25,6 +25,9 @@ public final class Constants {
     public static final class Auton {
         public static final double INCHESTOJOYSTICKVALUE = 1;
         public static final double AUTOSTRAFEP = 1.25;
+        public static enum Positions {
+            A, B, C, D, E
+        }
     }
 
     public final class KickerWheel {
