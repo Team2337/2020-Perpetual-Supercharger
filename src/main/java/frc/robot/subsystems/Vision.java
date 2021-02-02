@@ -4,13 +4,12 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
   /**
    * The vision code for the limelight and camera
-   * @author Madison J. and Zayd A.
+   * @author Madison J., Zayd A., Nicholas S., and Michael F.
    * @category VISION
    */
 public class Vision extends SubsystemBase {
@@ -20,7 +19,9 @@ public class Vision extends SubsystemBase {
   public DigitalInput pixyRightDigital;
   
   private boolean rotateLimelight = false;
-  private boolean visionDebug = false;
+  private boolean visionDebug = true;
+
+  private char autonPath = 'C';
 
   public Vision() {
     pixyRightAnalog = new AnalogInput(4);
@@ -148,12 +149,89 @@ public class Vision extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if(visionDebug) {
+      //PixyCam values
       SmartDashboard.putNumber("Pixy Right Raw Analog Voltage", pixyRightAnalog.getVoltage());
       SmartDashboard.putNumber("Pixy Right Analog Degrees", getPixyRightValue());
       SmartDashboard.putNumber("Pixy Left Raw Analog Voltage", pixyLeftAnalog.getVoltage());
       SmartDashboard.putNumber("Pixy Left Analog Degrees", getPixyLeftValue());
-      SmartDashboard.putBoolean("Pixy Left sees target", pixyLeftDigital.get()); 
+      SmartDashboard.putBoolean("Pixy Left sees target", pixyLeftDigital.get());
+      SmartDashboard.putBoolean("Pixy Right sees target", pixyRightDigital.get());
+      //Auton
+      SmartDashboard.putNumber("Pixy-Detected Auton Value", detectAutonPath(autonPath));
+      String testAutonPath;
+      switch(detectAutonPath(autonPath)){
+        default:
+        case -1:
+          testAutonPath = "Auton Error";
+          break;
+        case 0:
+          testAutonPath = "Path A red";
+          break;
+        case 1:
+          testAutonPath = "Path B red";
+          break;
+        case 2:
+          testAutonPath = "Path A blue";
+          break;
+        case 3:
+          testAutonPath = "Path B blue";
+          break;
+      }
+      SmartDashboard.putString("Pixy Auton String Test", testAutonPath);
     }
-    SmartDashboard.putBoolean("Pixy Right sees target", pixyRightDigital.get());
-   }
+  }
+
+  /**
+   * Uses the right PixyCam to detect which auton to use.
+   * @param pos A letter B or C, indicating the starting position the left side of the robot is aligned with.
+   * @return A number determining which auton to use.
+   * <ul>
+   * <li>-1 - <b>Cannot determine path.</b> Default value
+   * <li> 0 - Path A red
+   * <li> 1 - Path B red
+   * <li> 2 - Path A blue
+   * <li> 3 - Path B blue
+   * </ul>
+   */
+  public int detectAutonPath(char pos){
+    int auton = -1;
+    boolean seesBall = getPixyRightTarget();
+    double degrees = getPixyRightValue();
+
+    //Detect if we see a ball. If we do, where is it?
+    if(seesBall){
+      //If we are aligned with path B
+      if(pos == 'B'){
+        //Detect if ball is in a red spot
+        if(degrees > 8.5 && degrees < 9.5){
+          auton = 0;//Path A red
+        } else if(degrees >= -2.5 && degrees < 2.5){
+          auton = 1;//Path B red
+        } else {
+          //Detect if ball is in a blue spot
+          if(degrees > 7.5 && degrees < 8.5){
+            auton = 2;//Path A blue
+          } else if(degrees > 10 && degrees < 15){
+            auton = 3;//Path B blue
+          }
+          //else we have a strange circumstance
+        }
+      } else if(pos == 'C'){
+        //Detect if ball is in a red spot
+        if(degrees > -5.5 && degrees < -4){
+          auton = 0;//Path A red
+        } else if(degrees < -10){
+          auton = 1;//Path B red (might be out of view here)
+        } else {
+          //Detect if ball is in a blue spot
+          if(degrees > 5.5 && degrees < 7.5){
+            auton = 2;//Path A blue
+          } else if(degrees > -1 && degrees < 2){
+            auton = 3;//Path B blue
+          }
+        }
+      }
+    }
+    return auton;
+  }
 }
