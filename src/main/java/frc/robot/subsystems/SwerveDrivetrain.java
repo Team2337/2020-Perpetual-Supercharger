@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.*;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -198,10 +199,10 @@ public class SwerveDrivetrain extends SubsystemBase {
      * as given in the previous step
      */
     double[] angles = new double[]{
-      Math.atan2(b, c),
-      Math.atan2(b, d),
-      Math.atan2(a, d),
-      Math.atan2(a, c)
+      Units.radiansToDegrees(Math.atan2(b, c)),
+      Units.radiansToDegrees(Math.atan2(b, d)),
+      Units.radiansToDegrees(Math.atan2(a, d)),
+      Units.radiansToDegrees(Math.atan2(a, c))
     };
 
     /*
@@ -242,7 +243,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         || Robot.OperatorAngleAdjustment.getLimelightRotationMode()
         || Robot.OperatorAngleAdjustment.getBallTrackingEnabled()
       ) {
-        if(Math.abs((lastAngle[i] - angles[i])) < (Math.PI / 2)) {
+        if(Math.abs((lastAngle[i] - angles[i])) < 90) {
           lastAngle[i] = angles[i];
         }
         getModule(i).setModuleAngle(angles[i]);

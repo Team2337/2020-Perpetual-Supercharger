@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.*;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -93,7 +94,6 @@ public class FXSwerveModule {
     private double talonAngleI = 0;
     private double talonAngleD = 0;
     private double talonAngleF = 0;
-    private int angleEncoderOffset;
 
     /* --- Booleans --- */
 
@@ -177,7 +177,6 @@ public class FXSwerveModule {
         TalonFXConfigurationAngle.slot0.allowableClosedloopError = angleAllowableClosedloopError;
         TalonFXConfigurationAngle.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
         TalonFXConfigurationAngle.feedbackNotContinuous = true;
-        TalonFXConfigurationAngle.integratedSensorOffsetDegrees = angleEncoderOffset / 5.6888;
         TalonFXConfigurationAngle.openloopRamp = 0.15;
 
         angleMotor.configAllSettings(TalonFXConfigurationAngle); 
@@ -266,29 +265,26 @@ public class FXSwerveModule {
         /* ------------------------------------ */
         /****************************************/
 
-        angleMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
-        angleMotor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
-
-        //CANCoderConfigurationAngle.sensorDirection = false;
-        CANAngleSensor.configSensorDirection(false);
-        //CANAngleSensor.configAllSettings(CANCoderConfigurationAngle);
+        CANCoderConfiguration CANCoderConfigurationAngle = new CANCoderConfiguration();
+        CANAngleSensor.configAllSettings(CANCoderConfigurationAngle);
                 
-        angleMotor.setNeutralMode(NeutralMode.Coast);
-        angleMotor.configOpenloopRamp(0.1); 
-        angleMotor.setSensorPhase(false);
-        angleMotor.setInverted(false);
-
+        
         TalonFXConfigurationAngle.slot0.kP = talonAngleP;
         TalonFXConfigurationAngle.slot0.kI = talonAngleI;
         TalonFXConfigurationAngle.slot0.kD = talonAngleD;
         TalonFXConfigurationAngle.slot0.kF = talonAngleF;
         TalonFXConfigurationAngle.slot0.allowableClosedloopError = angleAllowableClosedloopError;
-        TalonFXConfigurationAngle.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
         TalonFXConfigurationAngle.feedbackNotContinuous = true;
-        TalonFXConfigurationAngle.integratedSensorOffsetDegrees = angleEncoderOffset / 5.6888;
         TalonFXConfigurationAngle.openloopRamp = 0.15;
-
+        
+        TalonFXConfigurationAngle.remoteFilter0.remoteSensorDeviceID = CANAngleSensor.getDeviceID();
+        TalonFXConfigurationAngle.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
+        TalonFXConfigurationAngle.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
+        
         angleMotor.configAllSettings(TalonFXConfigurationAngle); 
+
+        angleMotor.setNeutralMode(NeutralMode.Coast);
+
         /*****************************/
         /* ------------------------- */
         /* --- Drive Motor Setup --- */
@@ -426,47 +422,22 @@ public class FXSwerveModule {
      * Takes the desired angle, and the current angle and computes the delta (current - target)
      * to set the speed to the angle motors to move the module to the 
      * desired angle, without overshooting. 
-     * @param targetAngle - double value in radians
+     * @param targetAngle - double value in degrees
      */
     public void setModuleAngle(double targetAngle) {
-        /* --- Local Variables --- */
-        double errorRad;
-        double currentAngle = getRadians();
-        SmartDashboard.putNumber("Current Angle" + moduleNumber, currentAngle);
-        
-        // Adds angle offset to target angle
-        targetAngle = (targetAngle + this.angleMotorOffset) % (2 * Math.PI);
-        SmartDashboard.putNumber("Target Angle" + moduleNumber, targetAngle);
-
-        // Calculates error
-        errorRad = (currentAngle - targetAngle + (2*Math.PI)) % (2*Math.PI);
-        // Sets error to error deadband
-        errorRad = Math.abs(errorRad) < Math.toRadians(allowableErrorDegree) ? 0 : errorRad;
-
-        // Puts error behind current position if greater than PI
-        if (errorRad > Math.PI) {
-            errorRad -= (Math.PI*2);
-        } 
-        
-        // Makes decsion on whether or not to invert drive motors
-        if (errorRad > Math.PI/2 || errorRad < -Math.PI/2) {
+        double delta = targetAngle - getCANCoderDegrees();
+        double angle;
+        if (Math.abs(delta) > 90.0) {
             driveMotor.setInverted(true);
+            Rotation2d rotated = Rotation2d.fromDegrees(targetAngle).rotateBy(Rotation2d.fromDegrees(180.0));
+            angle = rotated.getDegrees();
         } else {
             driveMotor.setInverted(false);
+            angle = targetAngle;
         }
-
-        // Converts the error to be in terms of quadrents and removes edge cases
-        if(errorRad > Math.PI/2 && errorRad < Math.PI) {
-            errorRad -= Math.PI;
-        } else if(errorRad < -Math.PI/2 && errorRad > -Math.PI) {
-            errorRad += Math.PI;
-        }
-
-        // Calculates the speed of the angle motor using a derivative
-        double d = Robot.Utilities.calculateDerivative(errorRad, lastError, 0.02);
-        lastError = errorRad;
-        double speed = (errorRad * angleP) + (d * angleD);
-        setAngleMotorSpeed(speed);
+        
+        angleMotor.set(TalonFXControlMode.Position,  (angle/360) * 4096);
+        
     }
 
     /**
