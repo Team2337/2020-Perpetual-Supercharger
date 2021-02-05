@@ -6,6 +6,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.Auton.Positions;
+import frc.robot.nerdyfiles.pixy.*;
+import frc.robot.nerdyfiles.pixy.Pixy2CCC.Block;
+import frc.robot.nerdyfiles.pixy.links.*;
+import java.util.ArrayList;
 
 
   /**
@@ -18,20 +22,30 @@ public class Vision extends SubsystemBase {
   public AnalogInput pixyRightAnalog;
   public DigitalInput pixyLeftDigital;
   public DigitalInput pixyRightDigital;
+
+  public Pixy2 pixytest;
   
   private boolean rotateLimelight = false;
   private boolean visionDebug = true;
 
-  private Positions autonPath = Positions.C;
+  private Positions autonPath = Positions.C; //Used in PixyCam analog/digital auton selection
 
   public Vision() {
     pixyRightAnalog = new AnalogInput(4);
     pixyRightDigital = new DigitalInput(5);
     pixyLeftAnalog = new AnalogInput(5);
     pixyLeftDigital = new DigitalInput(6);
+    pixytest = Pixy2.createInstance(new SPILink());
+    pixytest.init();
   }
 
- /**
+  ///////////////////////////////
+  /* ------------------------- */
+  /* --- LIMELIGHT METHODS --- */
+  /* ------------------------- */
+  ///////////////////////////////
+
+  /**
    * Sets the LED mode to on, off, or blink
    * @param mode - the mode of the LEDs
    * Example: 
@@ -40,63 +54,62 @@ public class Vision extends SubsystemBase {
    * 2: Blink mode on LEDs
    * 3: Turns on the LEDs
    */
-   public void setLEDMode(int mode) {
-     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
-   }
+  public void setLEDMode(int mode) {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
+  }
 
-    /**
+  /**
     * Gets the Limelight mode number from the NetworkTable
     * @return - returns the mode number from the NetworkTable 
     */
-   public int getLEDMode() {
-     return (int)NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getValue().getDouble();
-   }
+  public int getLEDMode() {
+    return (int)NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getValue().getDouble();
+  }
 
-    /**
-    * Sets the pipeline of the limelight
-    * @param pipeline - sets the desired pipeline number between 0-9
-    * 0 - CloseVision (0-15 ft away from the tower)
-    * 1 - MediumVision (between 15-21 ft)
-    * 2 - FarVision (21-26 ft)
-    * 9 - Drivecam
-    */
-   public void switchPipeLine(int pipeline) {
+  /**
+   * Sets the pipeline of the limelight
+   * @param pipeline - sets the desired pipeline number between 0-9
+   * 0 - CloseVision (0-15 ft away from the tower)
+   * 1 - MediumVision (between 15-21 ft)
+   * 2 - FarVision (21-26 ft)
+   * 9 - Drivecam
+   */
+  public void switchPipeLine(int pipeline) {
     double currentPipeline = NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").getDouble(0);
     if(currentPipeline != pipeline){
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
     }
-   }
-
-   /**
-    * Gets the current pipeline on the limelight
-    * @return - Double value limelight pipeline (0 -> 9)
-    */
-   public double getPipeline() {
-     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").getDouble(0);
-   }
-
-    /**
-     * This will get the value from tx, ta, etc. by using a string
-     * @param output - string double value
-     * @return - returns the double value from the string for example from ta, tx, etc.
-     */
-    public double getDoubleValue(String output) {
-      return NetworkTableInstance.getDefault().getTable("limelight").getEntry(output).getDouble(0);
   }
-    /**
-     * This will get the X coordinte from Opensight
-     * @return - returns the x-coordinate value, which will show how far we need to rotate
-     */
-    public double getOpenSightXCoordinateValue() {
-      return NetworkTableInstance.getDefault().getTable("PutCoordinate").getEntry("coord-x").getDouble(0);
 
+  /**
+   * Gets the current pipeline on the limelight
+   * @return - Double value limelight pipeline (0 -> 9)
+   */
+  public double getPipeline() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").getDouble(0);
   }
-    /**
-     * This will get the Y coordinate from Opensight
-     * @return - returns the y-coordinate value, which will show how far the robot needs to drive
-     */
-    public double getOpenSightYCoordinateValue() {
-      return NetworkTableInstance.getDefault().getTable("PutCoordinate").getEntry("coord-y").getDouble(0);
+
+  /**
+   * This will get the value from tx, ta, etc. by using a string
+   * @param output - string double value
+   * @return - returns the double value from the string for example from ta, tx, etc.
+   */
+  public double getDoubleValue(String output) {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry(output).getDouble(0);
+  }
+  /**
+   * This will get the X coordinte from Opensight
+   * @return - returns the x-coordinate value, which will show how far we need to rotate
+   */
+  public double getOpenSightXCoordinateValue() {
+    return NetworkTableInstance.getDefault().getTable("PutCoordinate").getEntry("coord-x").getDouble(0);
+  }
+  /**
+   * This will get the Y coordinate from Opensight
+   * @return - returns the y-coordinate value, which will show how far the robot needs to drive
+   */
+  public double getOpenSightYCoordinateValue() {
+    return NetworkTableInstance.getDefault().getTable("PutCoordinate").getEntry("coord-y").getDouble(0);
   }
   /**
    * Receives the NetworkTable values from Opensight
@@ -122,6 +135,12 @@ public class Vision extends SubsystemBase {
     return rotateLimelight;
   }
   
+  ////////////////////////////////////////////
+  /* -------------------------------------- */
+  /* --- PIXYCAM ANALOG/DIGITAL METHODS --- */
+  /* -------------------------------------- */
+  ////////////////////////////////////////////
+
   /**
    * Gets the voltage of the right Pixy camera
    * @return The voltage of the Pixy camera
@@ -146,11 +165,126 @@ public class Vision extends SubsystemBase {
     return pixyLeftDigital.get();
   }
 
+  /////////////////////////////////
+  /* --------------------------- */
+  /* --- PIXYCAM SPI METHODS --- */
+  /* --------------------------- */
+  /////////////////////////////////
+
+  /**
+   * Gets the number of targets currently in the view of the PixyCam, up to 48 (the total number of balls)
+   * @return The number of targets currently in the view of the PixyCam.
+   */
+  public int getNumberOfTargets(){
+    int blockCount = pixytest.getCCC().getBlocks(false, Pixy2CCC.CCC_SIG1, 48);
+    return blockCount;
+  }
+  /**
+   * Returns the information for all targets in view of the PixyCam
+   * @return An ArrayList containing Block classes that contain the information for every target.
+   * Returns null if no targets were found.
+   * @see Block
+   */
+  public ArrayList<Block> getAllTargets(){
+    //Get the number of targets
+    int blockCount = getNumberOfTargets();
+    //If there are no targets, return nothing
+    if(blockCount <= 0){
+      return null;
+    }
+    ArrayList<Block> blocks = pixytest.getCCC().getBlockCache();
+    return blocks;
+  }
+  /**
+   * Finds the biggest target in view of the PixyCam
+   * @return A Block class of the biggest target in view of the PixyCam.
+   * Returns null if no targets were found.
+   * @see Block
+   */
+  public Block getBiggestTarget(){
+    int blockCount = getNumberOfTargets();
+    //If there are no targets, stop trying to look for them.
+		if(blockCount <= 0){
+			return null;
+    }
+    //Get all the targets
+		ArrayList<Block> blocks = getAllTargets();
+    Block largestBlock = null;
+    //Loops through all targets and finds the widest one
+		for(Block block : blocks){
+			if (largestBlock == null){
+        //If this is the first iteration, set largestBlock to the current block.
+				largestBlock = block;
+			} else if(block.getWidth() > largestBlock.getWidth()){
+        //If we find a wider block, set largestBlock to the current block.
+				largestBlock = block;
+			}
+		}
+		return largestBlock;
+  }
+  /**
+   * Gets the width of the largest target
+   * @return The width of the largest target. Returns -1 if there is no target.
+   */
+  public int getBiggestTargetWidth(){
+    Block block = getBiggestTarget();
+    if(block == null) return -1;
+    return block.getWidth();
+  }
+  /**
+   * Gets the height of the largest target
+   * @return The height of the largest target. Returns -1 if there is no target.
+   */
+  public int getBiggestTargetHeight(){
+    Block block = getBiggestTarget();
+    if(block == null) return -1;
+    return block.getHeight();
+  }
+  /**
+   * Gets the x-position of the largest target
+   * @return The x-position of the largest target from 0 to 316.
+   * Returns the center x-coordinate if there is no target as a failsafe.
+   */
+  public int getBiggestTargetXPos(){
+    Block block = getBiggestTarget();
+    if(block == null) return 316 / 2;
+    return block.getX();
+  }
+  /**
+   * Gets the y-position of the largest target
+   * @return The y-position of the largest target from 0 to 208.
+   * Returns the center y-coordinate if there is no target as a failsafe.
+   */
+  public int getBiggestTargetYPos(){
+    Block block = getBiggestTarget();
+    if(block == null) return 208 / 2;
+    return block.getY();
+  }
+  /**
+   * Uses the target x-position to find the angle to turn to reach the target.
+   * @return An angle in degrees from -15 to 15 that the robot should turn.
+   * As a failsafe, this will return 0 if there is no target detected.
+   */
+  public double getBiggestTargetAngle(){
+    return ((double)(getBiggestTargetXPos()) * (60 / 316) - 30) / 2;
+  }
+
+  ///////////////////////////
+  /* --------------------- */
+  /* --- OTHER METHODS --- */
+  /* --------------------- */
+  ///////////////////////////
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     if(visionDebug) {
       //PixyCam values
+      SmartDashboard.putNumber("PixyCam Number of Targets", getNumberOfTargets());
+      SmartDashboard.putNumber("PixyCam Biggest Target X", getBiggestTargetXPos());
+      SmartDashboard.putNumber("PixyCam Biggest Target Y", getBiggestTargetYPos());
+      SmartDashboard.putNumber("PixyCam Biggest Target Angle", getBiggestTargetAngle());
+      /*
       SmartDashboard.putNumber("Pixy Right Raw Analog Voltage", pixyRightAnalog.getVoltage());
       SmartDashboard.putNumber("Pixy Right Analog Degrees", getPixyRightValue());
       SmartDashboard.putNumber("Pixy Left Raw Analog Voltage", pixyLeftAnalog.getVoltage());
@@ -179,12 +313,14 @@ public class Vision extends SubsystemBase {
           break;
       }
       SmartDashboard.putString("Pixy Auton String Test", testAutonPath);
+      */
     }
   }
 
   /**
-   * Uses the right PixyCam to detect which auton to use.
+   * Uses the right PixyCam digital/analog to detect which auton to use.
    * @param pos A letter B or C, indicating the starting position the left side of the robot is aligned with.
+   * (Yes there are other options in the Constants file, but only B and C are programmed)
    * @return A number determining which auton to use.
    * <ul>
    * <li>-1 - <b>Cannot determine path.</b> Default value
