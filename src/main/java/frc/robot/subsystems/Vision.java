@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.Auton.Positions;
-import frc.robot.nerdyfiles.pixy.*;
-import frc.robot.nerdyfiles.pixy.Pixy2CCC.Block;
-import frc.robot.nerdyfiles.pixy.links.*;
 import java.util.ArrayList;
+import io.github.pseudoresonance.pixy2api.*;
+import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
+import io.github.pseudoresonance.pixy2api.links.*;
 
 
   /**
@@ -23,20 +23,21 @@ public class Vision extends SubsystemBase {
   public DigitalInput pixyLeftDigital;
   public DigitalInput pixyRightDigital;
 
-  public Pixy2 pixytest;
+  public Pixy2 pixySPI;
   
   private boolean rotateLimelight = false;
   private boolean visionDebug = true;
 
-  private Positions autonPath = Positions.C; //Used in PixyCam analog/digital auton selection
+  // private Positions autonPath = Positions.C; //Used in PixyCam analog/digital auton selection
 
   public Vision() {
     pixyRightAnalog = new AnalogInput(4);
     pixyRightDigital = new DigitalInput(5);
     pixyLeftAnalog = new AnalogInput(5);
     pixyLeftDigital = new DigitalInput(6);
-    pixytest = Pixy2.createInstance(new SPILink());
-    pixytest.init();
+    //SPI testing
+    pixySPI = Pixy2.createInstance(new SPILink());
+    pixySPI.init();
   }
 
   ///////////////////////////////
@@ -176,7 +177,8 @@ public class Vision extends SubsystemBase {
    * @return The number of targets currently in the view of the PixyCam.
    */
   public int getNumberOfTargets(){
-    int blockCount = pixytest.getCCC().getBlocks(false, Pixy2CCC.CCC_SIG1, 48);
+    int blockCount = pixySPI.getCCC().getBlocks(false, Pixy2CCC.CCC_SIG1, 48);
+    System.out.println("Pixy: " + pixySPI.getCCC().getBlocks(true));
     return blockCount;
   }
   /**
@@ -192,7 +194,7 @@ public class Vision extends SubsystemBase {
     if(blockCount <= 0){
       return null;
     }
-    ArrayList<Block> blocks = pixytest.getCCC().getBlockCache();
+    ArrayList<Block> blocks = pixySPI.getCCC().getBlockCache();
     return blocks;
   }
   /**
@@ -243,21 +245,21 @@ public class Vision extends SubsystemBase {
   /**
    * Gets the x-position of the largest target
    * @return The x-position of the largest target from 0 to 316.
-   * Returns the center x-coordinate if there is no target as a failsafe.
+   * Returns -1 if no target was found.
    */
   public int getBiggestTargetXPos(){
     Block block = getBiggestTarget();
-    if(block == null) return 316 / 2;
+    if(block == null) return -1;
     return block.getX();
   }
   /**
    * Gets the y-position of the largest target
    * @return The y-position of the largest target from 0 to 208.
-   * Returns the center y-coordinate if there is no target as a failsafe.
+   * Returns -1 if no target was found.
    */
   public int getBiggestTargetYPos(){
     Block block = getBiggestTarget();
-    if(block == null) return 208 / 2;
+    if(block == null) return -1;
     return block.getY();
   }
   /**
@@ -265,8 +267,10 @@ public class Vision extends SubsystemBase {
    * @return An angle in degrees from -15 to 15 that the robot should turn.
    * As a failsafe, this will return 0 if there is no target detected.
    */
-  public double getBiggestTargetAngle(){
-    return ((double)(getBiggestTargetXPos()) * (60 / 316) - 30) / 2;
+  public int getBiggestTargetAngle(){
+    Block block = getBiggestTarget();
+    if(block == null) return -1;
+    return block.getAngle();
   }
 
   ///////////////////////////
