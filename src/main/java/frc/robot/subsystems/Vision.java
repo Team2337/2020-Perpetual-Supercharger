@@ -9,7 +9,6 @@ import frc.robot.Constants.Auton.Positions;
 import java.util.ArrayList;
 import io.github.pseudoresonance.pixy2api.*;
 import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
-import io.github.pseudoresonance.pixy2api.links.*;
 
 
   /**
@@ -24,6 +23,7 @@ public class Vision extends SubsystemBase {
   public DigitalInput pixyRightDigital;
 
   public Pixy2 pixySPI;
+  private int pixyState = -1;
   
   private boolean rotateLimelight = false;
   private boolean visionDebug = true;
@@ -36,8 +36,8 @@ public class Vision extends SubsystemBase {
     pixyLeftAnalog = new AnalogInput(5);
     pixyLeftDigital = new DigitalInput(6);
     //SPI testing
-    pixySPI = Pixy2.createInstance(new SPILink());
-    pixySPI.init();
+    pixySPI = Pixy2.createInstance(Pixy2.LinkType.SPI);
+    pixyState = pixySPI.init(0);//Change the 0 to reflect the SPI port we are plugged into
   }
 
   ///////////////////////////////
