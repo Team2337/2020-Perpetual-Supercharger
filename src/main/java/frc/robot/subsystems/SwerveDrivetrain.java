@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import java.util.function.BooleanSupplier;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.sensors.CANCoder;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -74,6 +76,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 	 */
   private AnalogInput analogAngleSensors[];
 
+  private CANCoder CANAngleSensors[];
+
   /**
    * Array for swerve module objects, sorted by ID
 	 * 0 is Front Right,
@@ -122,12 +126,19 @@ public class SwerveDrivetrain extends SubsystemBase {
       new AnalogInput(3)  // Module 3
     };
 
+    CANAngleSensors = new CANCoder[] {
+      new CANCoder(1),
+      new CANCoder(2),
+      new CANCoder(3),
+      new CANCoder(4)
+    };
+
     /* --- Array for modules --- */
     swerveModules = new FXSwerveModule[] {
-      new FXSwerveModule(0, new TalonFX(Constants.MODULE0DRIVEMOTORID), new TalonFX(Constants.MODULE0ANGLEMOTORID), angleOffsets[0], analogAngleSensors[0]), // Module 0
-      new FXSwerveModule(1, new TalonFX(Constants.MODULE1DRIVEMOTORID), new TalonFX(Constants.MODULE1ANGLEMOTORID), angleOffsets[1], analogAngleSensors[1]), // Module 1
-      new FXSwerveModule(2, new TalonFX(Constants.MODULE2DRIVEMOTORID), new TalonFX(Constants.MODULE2ANGLEMOTORID), angleOffsets[2], analogAngleSensors[2]), // Module 2
-      new FXSwerveModule(3, new TalonFX(Constants.MODULE3DRIVEMOTORID), new TalonFX(Constants.MODULE3ANGLEMOTORID), angleOffsets[3], analogAngleSensors[3])  // Module 3
+      new FXSwerveModule(0, new TalonFX(Constants.MODULE0DRIVEMOTORID), new TalonFX(Constants.MODULE0ANGLEMOTORID), angleOffsets[0], CANAngleSensors[0]), // Module 0
+      new FXSwerveModule(1, new TalonFX(Constants.MODULE1DRIVEMOTORID), new TalonFX(Constants.MODULE1ANGLEMOTORID), angleOffsets[1], CANAngleSensors[1]), // Module 1
+      new FXSwerveModule(2, new TalonFX(Constants.MODULE2DRIVEMOTORID), new TalonFX(Constants.MODULE2ANGLEMOTORID), angleOffsets[2], CANAngleSensors[2]), // Module 2
+      new FXSwerveModule(3, new TalonFX(Constants.MODULE3DRIVEMOTORID), new TalonFX(Constants.MODULE3ANGLEMOTORID), angleOffsets[3], CANAngleSensors[3])  // Module 3
     };
 
     // Setup for drive motor inversion (They may not need to be inverted)
