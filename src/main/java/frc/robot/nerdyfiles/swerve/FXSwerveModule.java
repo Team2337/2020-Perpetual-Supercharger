@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.*;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Utilities;
 
@@ -375,7 +376,10 @@ public class FXSwerveModule {
     */
 
     public double getNormalizedAnalogVoltage() {
+        SmartDashboard.putNumber("Absolute Position", CANAngleSensor.getAbsolutePosition());
+        SmartDashboard.putNumber("Mod of Absolute Position", CANAngleSensor.getAbsolutePosition()%360);
         return Utilities.scaleToRange(CANAngleSensor.getAbsolutePosition(), -180, 180, 0, 1); 
+        
     }
 
 
